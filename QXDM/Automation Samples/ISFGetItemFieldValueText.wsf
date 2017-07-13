@@ -1,0 +1,114 @@
+<job id="ISF GetItemFieldValueText Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript ISFGetItemFieldValueText.wsf
+
+// This script demostrates usage of the IColorItem automation
+// interface method GetItemFieldValueText()
+
+// Global variables
+var IISF;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create the item store file interface
+   IISF = new ActiveXObject( "DMCoreAutomation.ItemStoreFiles" );
+   if (IISF == null)
+   {
+      WScript.StdOut.WriteLine( "Unable to obtain ISF interface" );
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Get file name from script folder path
+function GetFileName()
+{
+   var FileName = "";
+   var FolderPath = GetPathFromScript();
+
+   // Item store file name
+   FileName = FolderPath + "GPSExample.isf";
+   return FileName;
+}
+
+// Dump the GPS item
+function DumpGPSItem()
+{
+   var Txt = "";
+
+   // Generate item store file name
+   var FileName = GetFileName();
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Load the item store file
+   var Handle = IISF.LoadItemStore( FileName );
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to load ISF:\n" + FileName;
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   // Retrieve item from example ISF
+   var Item = IISF.GetItem( Handle, 0 );
+   if (Item == null)
+   {
+      Txt = "Unable to retrieve item";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Lat    = Item.GetItemFieldValueText( FIELD_TYPE_FLOAT64, 64, 0, true, false );
+   var Long   = Item.GetItemFieldValueText( FIELD_TYPE_FLOAT64, 64, 64, true, false );
+   var Alt    = Item.GetItemFieldValueText( FIELD_TYPE_FLOAT64, 64, 128, true, false );
+   var Course = Item.GetItemFieldValueText( FIELD_TYPE_FLOAT64, 64, 192, true, false );
+   var Speed  = Item.GetItemFieldValueText( FIELD_TYPE_FLOAT64, 64, 256, true, false );
+   var Time   = Item.GetItemFieldValueText( FIELD_TYPE_FLOAT64, 64, 320, true, false );
+   var Sats   = Item.GetItemFieldValueText( FIELD_TYPE_INT32, 32, 384, true, false );
+   var Qual   = Item.GetItemFieldValueText( FIELD_TYPE_INT32, 32, 416, true, false );
+
+   Txt = "Latitude   = " + Lat  + "\n"
+       + "Longitude  = " + Long + "\n"
+       + "Altitude   = " + Alt + "\n"
+       + "Course     = " + Course + "\n"
+       + "Speed      = " + Speed + "\n"
+       + "Time       = " + Time + "\n"
+       + "Satellites = " + Sats + "\n"
+       + "Quality    = " + Qual;
+
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Dump the GPS item
+   DumpGPSItem();
+}
+
+Execute();
+
+</script>
+</job>

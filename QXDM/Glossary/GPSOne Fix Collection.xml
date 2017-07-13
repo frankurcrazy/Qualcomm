@@ -1,0 +1,184 @@
+<!-- This file represents the description data of GPS One Fix Collection GUI fields. -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<TERMS>
+
+   <TERM>App Tracking</TERM>
+   <DESCRIPTION><![CDATA[
+   Collect a series of Position Reports using one single iteration of device setup and tear down (see Single Shot).  <br />
+   In other words: [Initialize] + [Register] + [Activate] + [Fix 1] + [Fix 2] + ... + [Fix N] + [De-Activate] + [Unregister] + [Release].
+   ]]>
+   </DESCRIPTION>
+
+   <TERM>Number of Fixes </TERM>
+   <DESCRIPTION> 
+   Number of App Tracking Fixes to trigger and collect
+   </DESCRIPTION>
+
+   <TERM>Secs Between Fixes</TERM>
+   <DESCRIPTION>
+   Time interval in seconds to wait before starting a new app tracking position request
+   </DESCRIPTION>
+
+   <TERM>Wait For Events Completion</TERM>
+   <DESCRIPTION>
+   Indicates if QXDM should wait for session completion events as readiness for the next position request<br />
+   If checked, user should also specify how long to wait.
+   This option is designed to help achieve the 1 fix per second requirement in a test collect.
+   </DESCRIPTION>
+
+   <TERM>Single Shot</TERM>
+   <DESCRIPTION><![CDATA[
+   Collect a series of Position Reports where each session is wrapped with device setup and tear down (see App Tracking).  <br />
+   In other words: <br />
+   [Initialize] + [Register] + [Activate] + [Fix 1] + [De-Activate] + [Unregister] + [Release] <br />
+   [Initialize] + [Register] + [Activate] + [Fix 2] + [De-Activate] + [Unregister] + [Release] <br />
+   : <br />
+   [Initialize] + [Register] + [Activate] + [Fix N] + [De-Activate] + [Unregister] + [Release] <br />
+   ]]>
+   </DESCRIPTION>
+
+   <TERM>Number of Sessions</TERM>
+   <DESCRIPTION> 
+   Number of Single Shot Fixes to trigger and collect
+   </DESCRIPTION>
+
+   <TERM>Secs Between Sessions</TERM>
+   <DESCRIPTION> 
+   Time interval in seconds to wait before starting a new single shot position request
+   </DESCRIPTION>
+
+   <TERM>E911 (Control Plane)</TERM>
+   <DESCRIPTION> 
+   Indicates if the single shot collect should be done as a series of Emergency 911 dialed calls that results in control plane position requests
+   </DESCRIPTION>
+   
+   <TERM>Call String</TERM>
+   <DESCRIPTION> 
+   The numerical digits to dial on the handset for triggering an E911 position request
+   </DESCRIPTION>
+  
+   <TERM>Call Duration</TERM>
+   <DESCRIPTION> 
+   The interval in seconds of the E911 call for each control plane position session
+   </DESCRIPTION>
+
+   <TERM>Call Type</TERM>
+   <DESCRIPTION> 
+   Pull down menu allowing user to specify to make GSM or WCDMA E911 calls
+   </DESCRIPTION>
+
+   <TERM>Full Phone Setup</TERM>
+   <DESCRIPTION><![CDATA[
+   Indicates whether each E911 call session should be wrapped by device setup and tear down. <br />
+   In other words: <br />
+   [Initialize] + [Register] + [Activate] + [Call 1] + [De-Activate] + [Unregister] + [Release] <br />
+   [Initialize] + [Register] + [Activate] + [Call 2] + [De-Activate] + [Unregister] + [Release] <br />
+   : <br />
+   [Initialize] + [Register] + [Activate] + [Call N] + [De-Activate] + [Unregister] + [Release] <br />
+   If unchecked, the test becomes: <br />
+   [Initialize] + [Register] + [Activate] + [Call 1] + [Call 2] + ... + [Call N] + [De-Activate] + [Unregister] + [Release].   
+   ]]>
+   </DESCRIPTION>
+
+   <TERM>Error Handling</TERM>
+   <DESCRIPTION> 
+   Indicates whether QXDM should continue with the collect run or terminate immeditely, upon encountering an error condition.
+   If user chooses to keep going with the collect run, then when error is encountered, QXDM will make a best-effort to recover and continue.
+   This best effort "recovery" may require a device re-registration cycle.
+   </DESCRIPTION>
+
+   <TERM>Quality of Service Accuracy</TERM>
+   <DESCRIPTION> 
+   Species the accuracy threshold (in meters) for MS-based position session in the session start diagnostic command
+   </DESCRIPTION>
+
+   <TERM>Fix Mode</TERM>
+   <DESCRIPTION> <![CDATA[
+   Pull-down menu to specify collect type to trigger va the session start diagnostic command:  <br />
+	  Standalone,<br />
+	  MS-Based,<br />
+	  MS-Assisted,<br />
+	  Optimal Speed,<br />
+	  Optimal Accuracy,<br />
+	  Optimal Data
+	  ]]>
+   </DESCRIPTION>
+
+   <TERM>Handset Start State</TERM>
+   <DESCRIPTION><![CDATA[
+   Radio buttons to define the initial state of the handset, with respect to GPS assistance data. <br />
+   Custom : allow user to select the assistance data set to clean before starting GPS sessions <br />
+   Reset : mimics a phone reset, where all assistance data will be deleted <br />
+   Cold : mimics a cold start, where all assistance data besides almanac will be deleted <br />
+   Warm : mimics a warm start, where only ephemeris will be deleted <br />
+   Hot : mimics a hot start, where nothing will be deleted <br />
+   XTRA-cold : mimics a cold start with XTRA feature enabled, where a selected set of assistance data will be deleted
+   ]]>
+   </DESCRIPTION>
+
+   <TERM>Client Type</TERM>
+   <DESCRIPTION><![CDATA[ 
+Specifies the client type to be used during the initialization step of the handset setup. <br />
+Values allowed include: <br />
+0 PDSM_CLIENT_TYPE_BROWSER<br />
+1 PDSM_CLIENT_TYPE_UI<br />
+2 PDSM_CLIENT_TYPE_PDA<br />
+3 PDSM_CLIENT_TYPE_DM<br />
+4 PDSM_CLIENT_TYPE_NI<br />
+5 PDSM_CLIENT_TYPE_BREW<br />
+6 PDSM_CLIENT_TYPE_JAVA<br />
+7 PDSM_CLIENT_TYPE_TEST<br />
+8 PDSM_CLIENT_TYPE_TEST2<br />
+9 PDSM_CLIENT_TYPE_OEM
+   ]]>
+   </DESCRIPTION>
+
+   <TERM>Server Configuration Parameter Source</TERM>
+   <DESCRIPTION><![CDATA[ 
+   Pull down menu to specify how QXDM will find the location of Positition Determination server, if needed<br />
+   Use NV Default - QXDM will read the location from NV Items on the handset
+   Use Custom Local Options - User will specify on the GUI
+   ]]>   
+   </DESCRIPTION>
+
+   <TERM>Server Configuration Custom IP</TERM>
+   <DESCRIPTION>
+   IP Address of the Position Determination server for users who chooses customer options
+   </DESCRIPTION>
+
+   <TERM>Server Configuration Custom Port</TERM>
+   <DESCRIPTION>
+   IP Port of the Position Determination server for users who chooses customer options
+   </DESCRIPTION>
+
+   <TERM>Reference Position</TERM>
+   <DESCRIPTION>
+   Allows user to specify static reference (truth) position (latitude, longitude, and altitude, in degrees, degrees, and meters, respectively) that will be used during the summary CSV generation (if enabled).
+   </DESCRIPTION>
+
+   <TERM>Start GPS</TERM>
+   <DESCRIPTION>
+   After all the configurations have been set up, click this button to kick off the GPS collection run
+   </DESCRIPTION>
+
+   <TERM>Stop GPS</TERM>
+   <DESCRIPTION>
+   While a GPS collection run is in progress, click this button to stop it before completion.
+   User will likely need to reset the handset before the next run.
+   </DESCRIPTION>
+
+   <TERM>Reset</TERM>
+   <DESCRIPTION>
+   Click this button to restore the GUI configurations back to default values
+   </DESCRIPTION>
+
+   <TERM>Write To File</TERM>
+   <DESCRIPTION>
+   Check this box to enable generation of a summary CSV containing the position reports observed during the collection run.
+   Note that this option is not recommended for App Tracking run where events wait is disabled.
+   </DESCRIPTION>
+
+</TERMS>
+

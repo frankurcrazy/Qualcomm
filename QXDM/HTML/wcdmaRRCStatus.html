@@ -1,0 +1,334 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA RRC Status" />
+   <meta name="DMViewWidth" content="680" />
+   <meta name="DMViewHeight" content="320" />
+   <title>WCDMA RRC Status</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">Status</div>
+<table width="100%" id="StatusTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>RRC State</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+<div class="label">Network</div>
+<table width="100%" id="NetworkTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>UTRA UL ARFCN</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>UTRA DL ARFCN</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Cell Identity</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>URA ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Cell Barred</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Cell Reserved</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Cell SoLSA Reserved</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Camped On Cell</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Allowed Access</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+<div class="label">Errors</div>
+<table width="100%" id="ErrorTable">
+   <colgroup span="5">
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Timestamp</th>
+      <th>State</th>
+      <th>Procedure</th>
+      <th>Failure</th>
+      <th>Error</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 1000;
+var MAX_ERRORS     = 6;
+
+var PrevIndex      = -1;
+
+var Log4125 = "[0x4125]";
+var Log4126 = "[0x4126]";
+var Log4127 = "[0x4127]";
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   clientObject.AddLog( 0x4125 );
+   clientObject.AddLog( 0x4126 );
+   clientObject.AddLog( 0x4127 );
+
+   clientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetItemFields();
+         if (Fields != null)
+         {
+            var ItemKey = Item.GetItemKeyText();
+            switch (ItemKey)
+            {
+               case Log4125:
+                  UpdateStatus( Fields );
+                  break;
+
+               case Log4126:
+                  var ItemTime = Item.GetItemSpecificTimestampText( 1, 1 );
+                  UpdateErrors( Fields, ItemTime );
+                  break;
+
+               case Log4127:
+                  UpdateNetwork( Fields );
+                  break;
+            }
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function UpdateStatus( Fields )
+{        
+   if (Fields.GetFieldCount() > 0)
+   {
+      StatusTable.rows[0].cells[1].innerText = Fields.GetFieldValueText( 0 );
+   }
+   else
+   {
+      StatusTable.rows[0].cells[1].innerText = "-";
+   }
+}
+
+function UpdateNetwork( Fields )
+{
+   var Rows = NetworkTable.rows.length;
+   for (var r = 0; r < Rows; r++)
+   {
+      NetworkTable.rows[0].cells[1].innerText = "-";
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 51)
+   {
+      return;
+   }
+
+   var FieldVal;
+
+   // UL ARFCN
+   FieldVal = Fields.GetFieldValueText( 0 );
+   NetworkTable.rows[0].cells[1].innerText = FieldVal;
+
+   // DL ARFCN
+   FieldVal = Fields.GetFieldValueText( 1 );
+   NetworkTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Cell Identity
+   FieldVal = "";
+   for (var f = 29; f > 1; f--)
+   {
+      FieldVal += Fields.GetFieldValueText( f );
+   }
+   NetworkTable.rows[2].cells[1].innerText = FieldVal;
+
+   // URA ID
+   FieldVal = "";
+   for (f = 30; f < 46; f++)
+   {
+      FieldVal += Fields.GetFieldValueText( f );
+   }
+   NetworkTable.rows[3].cells[1].innerText = FieldVal;
+
+   // Cell restrictions - barred
+   FieldVal = Fields.GetFieldValueText( 46 );
+   NetworkTable.rows[4].cells[1].innerText = FieldVal;
+
+   // Cell restrictions - reserved
+   FieldVal = Fields.GetFieldValueText( 47 );
+   NetworkTable.rows[5].cells[1].innerText = FieldVal;
+
+   // Cell restrictions - SoLSA reserved
+   FieldVal = Fields.GetFieldValueText( 48 );
+   NetworkTable.rows[6].cells[1].innerText = FieldVal;
+
+   // Cell restrictions - UE camped
+   FieldVal = Fields.GetFieldValueText( 49 );
+   NetworkTable.rows[7].cells[1].innerText = FieldVal;
+
+   // Cell restrictions - call access
+   FieldVal = Fields.GetFieldValueText( 50 );
+   NetworkTable.rows[8].cells[1].innerText = FieldVal;
+}
+
+function UpdateErrors( Fields, ItemTime )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 4)
+   {
+      return;
+   }
+
+   var FieldVal;
+   var TableRow;
+   var TableCell;
+
+   // All full up on rows?
+   var Rows = ErrorTable.rows.length;
+   if (Rows > MAX_ERRORS)
+   {
+      // Yes, delete the first error
+      ErrorTable.deleteRow( 1 );
+   }
+
+   if (ErrorTable.rows[1].cells[0].innerText == "-")
+   {
+      // Resue placeholder for new (first) error
+      TableRow = ErrorTable.rows[1];
+   }
+   else
+   {
+      // Add in a new row for the new error
+      TableRow = ErrorTable.insertRow();
+
+      TableRow.insertCell();
+      TableRow.insertCell();
+      TableRow.insertCell();
+      TableRow.insertCell();
+      TableRow.insertCell();
+   }
+
+   // Timestamp is the first value
+   TableRow.cells[0].innerText = ItemTime;
+
+   // The rest come from the log
+   for (var c = 0; c < 4; c++)
+   {
+      FieldVal = Fields.GetFieldValueText( c );
+      TableRow.cells[c + 1].innerText = FieldVal;
+   }
+}
+
+</script>
+</body>
+</html>

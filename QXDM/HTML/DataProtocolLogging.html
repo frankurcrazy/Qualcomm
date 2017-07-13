@@ -1,0 +1,972 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <title>Data Protocol Logging</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" >
+   <meta name="DMViewName" content="Data Protocol Logging" >
+   <meta name="DMViewWidth" content="750" >
+   <meta name="DMViewHeight" content="280" >
+   <link rel="stylesheet" href="QXDMStyle.css" >
+</head>
+   
+<body onload='Initialize()' onunload='Unregister()'>
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <th>Configuration</th>
+      <th>Network Layer Logging</th>
+      <th>Link Layer Logging</th>
+      <th>Flow Logging</th>
+   </tr>
+   <tr>
+      <td width="25%" valign="top" class="noborder" style="text-align: left">
+         Query target for settings
+         <br />
+         <input type="button" onclick="UpdatePage()" name="RefreshButton" value="Refresh" />
+         <br />
+         <br />
+         <input type="checkbox" id="ResendConfig" name="ResendConfig"/>Resend Config on Reconnect<br />
+         <br />
+         Clear settings for <br />
+         all interfaces
+         <br />
+         <input type="button" onclick="ResetLogging()" name="ResetButton" value="Reset Interfaces" />
+         <br />
+         <br />
+         Send settings for<br /> 
+         selected interface
+         <br />
+         <input type="button" onclick="SetInterface()" name="SetButton" value="Set Interface" />
+      </td>
+      <td width="25%" valign="top" class="noborder" style="text-align: left"> 
+         Protocols:<br />
+         <select id="SelectProtocolID" size="3" multiple style="width: 150px">
+         </select>
+         <br />
+         <br />
+         Bytes logged per packet:<br />
+         <input onchange="ValidateUINT32(this)" size="29" type="text" id="ProtocolSnapLength" value="80" style="width: 147px" />
+         <br />
+         <br />
+         Direction:<br >
+         <select id="ProtocolDirection" style="width: 150px">
+            <option value='0' selected>Receive</option>
+            <option value='1'>Transmit</option>
+            <option value='-1'>Both Directions</option>
+         </select>
+      </td>
+      <td width="25%" valign="top" class="noborder" style="text-align: left"> 
+         Links:<br />
+         <select id="SelectLinkID" size="3" multiple style="width: 150px">
+         </select>
+         <br />
+         <br />
+         Bytes logged per packet:<br />
+         <input onchange="ValidateUINT32(this)" size="29" type="text" id="LinkSnapLength" value="80" style="width: 147px" />
+         <br />
+         <br />
+         Direction:<br >
+         <select id="LinkDirection" style="width: 150px">
+            <option value='0' selected>Receive</option>
+            <option value='1'>Transmit</option>
+            <option value='-1'>Both Directions</option>
+         </select>
+      </td>
+      <td width="25%" valign="top" class="noborder" style="text-align: left"> 
+         Flows:<br >
+         <select id="SelectFlowID" size="3" multiple style="width: 150px">
+            <option value='255'>All Secondary Flows</option>
+         </select>
+         <br />
+         <br />
+         Bytes logged per packet:<br />
+         <input onchange="ValidateUINT32(this)" size="29" type="text" id="FlowSnapLength" value="80" style="width: 147px" />
+         <br />
+         <br />
+         <br />
+         Direction: Transmit<br /> 
+      </td>
+   </tr>
+   <tr>
+      <td class="noborder" style="text-align: left">
+         <br />
+         <div id="Response" />
+      </td>
+      <td colspan="3" class="noborder" style="text-align: left">
+         Interface:
+         <select onchange="OnInterfaceNameChanged()" id="SelectNameID" style="width: 410px" >
+         </select>
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+// Server states
+var SVR_STATE_DISCONNECTED  = 0;
+var SVR_STATE_PRECONNECT    = 1;      
+var SVR_STATE_CONNECTED     = 2;   
+var SVR_STATE_PREDISCONNECT = 3;
+var SVR_STATE_PLAYBACK      = 4;
+
+var TIMEOUT_MS = 500;
+
+// Request  names (from database)
+var DPL_RESET_LOGGING_REQ        = 'Data/DPL Reset Request';
+var DPL_GET_PROTOCOL_IDS_REQ     = 'Data/DPL Get Supported Protocol IDs Request';
+var DPL_GET_IFACE_NAME_IDS_REQ   = 'Data/DPL Get Supported Interface Name IDs Request';
+var DPL_GET_IFACE_NAME_DESC_REQ  = 'Data/DPL Get Interface Name Descriptions Request';
+var DPL_SET_IFACE_LOGGING_REQ    = 'Data/DPL Set Interface Logging Request';
+
+// Response keys (from database)
+var DPL_RESET_LOGGING_RSP        = '[0042/0001]';
+var DPL_GET_IFACE_NAME_IDS_RSP   = '[0042/0002]';
+var DPL_GET_IFACE_NAME_DESC_RSP  = '[0042/0003]';
+var DPL_SET_IFACE_LOGGING_RSP    = '[0042/0004]';
+var DPL_GET_PROTOCOL_IDS_RSP     = '[0042/0005]';
+
+var BOTH_DIRECTIONS = -1;
+var IP_PROTOCOL_INDEX = 0;
+var LINK_LOGGING = 0;
+var IP           = 1;
+
+var IQXDM2;
+var Handle = 0xFFFFFFFF;
+var gResponse = new Array();
+var gItemIndex = -1;
+var gWaitCount = 0;
+var gInterfaceNames = new Array();
+var gFlowNames = new Array();
+var gTransparent;
+var gDisabled = "#EEEEEE";
+var gFields = " ";
+var SetInterfaces = new Array();
+var gDisconnected = false;
+
+// The response timer
+var ProcessResponseTimer = "";
+
+// The combo refresh and connection timers
+var comboTimer = "";
+var connectionTimer = "";
+
+// Initialize scripting interfaces (called before loading the page).
+function Initialize()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+      return;
+   }
+
+   // Register the client logger.
+   LogFileHandle = IQXDM2.RegisterClient( "Data Protocol Logging", 1 );
+   if (LogFileHandle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register LogFile client" );
+      return;
+   }
+
+   // Get a configuration object
+   gClientObject = IQXDM2.ConfigureClientByKeys( LogFileHandle );
+   
+   // Configure logs and configuration commands.
+   if (gClientObject == null)
+   {
+      window.document.write( "<br />Unable to configure client" );
+      return;   
+   }
+   
+   // Request Protocol Services Data/QOS log
+   gClientObject.AddLog( 0x11EB );
+   gClientObject.AddLog( 0x132B );
+   gClientObject.AddLog( 0x132C );
+   gClientObject.AddLog( 0x132D );
+
+   gClientObject.AddSubsysRequest( 42, 1 );
+   gClientObject.AddSubsysRequest( 42, 2 );
+   gClientObject.AddSubsysRequest( 42, 3 );
+   gClientObject.AddSubsysRequest( 42, 4 );
+   gClientObject.AddSubsysRequest( 42, 5 );
+   gClientObject.AddSubsysResponse( 42, 1 );
+   gClientObject.AddSubsysResponse( 42, 2 );
+   gClientObject.AddSubsysResponse( 42, 3 );
+   gClientObject.AddSubsysResponse( 42, 4 );
+   gClientObject.AddSubsysResponse( 42, 5 );
+   gClientObject.CommitConfig();
+
+   // Initialize combo boxes.
+   UpdatePage();
+}
+
+// Clean up on unloading the page.
+function Unregister()
+{
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+      Handle = 0xFFFFFFFF;
+   }
+
+   if (LogFileHandle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( LogFileHandle );
+      LogFileHandle = 0xFFFFFFFF;
+   }
+}
+
+// Calls Refresh() to populate interfaces, links, and protocols once the page
+// is ready.
+function UpdatePage()
+{
+   // Disable buttons until ready
+   RefreshButton.disabled = true;
+   ResetButton.disabled = true;
+   SetButton.disabled = true;
+   
+   if (document.readyState != 'complete')
+   {
+      if (comboTimer == "")
+      {
+         // Set a timer to populate combo boxes.
+         comboTimer = window.setInterval( "UpdatePage()", 500 );
+      }
+      
+      return;
+   }
+   
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      if (comboTimer == "")
+      {
+         // Set a timer to populate combo boxes.
+         comboTimer = window.setInterval( "UpdatePage()", 500 );
+      }
+      
+      return;      
+   }
+
+   window.clearInterval( comboTimer );
+   comboTimer = "";
+   
+   // Clear out everything.
+   SelectNameID.options.length = 0;
+   SelectLinkID.options.length = 0;
+   SelectFlowID.options.length = 1;
+   
+   // Deselect the the secondary flows indicator
+   if (SelectFlowID.options[0].selected)
+   {
+      SelectFlowID.options[0].selected = false;
+   }
+   SelectProtocolID.options.length = 0;
+  
+   Refresh();
+   MonitorPhoneState();
+}
+
+// Monitor connection and view state
+function MonitorPhoneState()
+{   
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED)
+   {
+      var ClientItemCount = IQXDM2.GetClientItemCount( Handle );
+
+      // Has item store has been cleared?
+      if (gItemIndex > ClientItemCount)
+      {
+         // Reset to search from the end of the client view and requery for
+         // client items
+         gResponse = new Array();
+         gWaitCount = 0;
+         gItemIndex = ClientItemCount - 1;
+         UpdatePage();
+
+         Txt = "Item store has been cleared";
+         Response.innerHTML = Txt;
+      }
+
+      // Has the connection been lost?
+      if (gDisconnected == true)
+      {
+         // Resend configuration if 'Resend Config' is checked
+         if (ResendConfig.checked == true)
+         {
+            for (var i = 0; i < SetInterfaces.length; i++)
+            {
+               var Fields = SetInterfaces[i];
+               RequestItem( DPL_SET_IFACE_LOGGING_REQ, 
+                            DPL_SET_IFACE_LOGGING_RSP, 
+                            Fields );
+            }
+         }
+
+         gDisconnected = false;
+      }
+      
+      if (connectionTimer == "")
+      {
+         // Set up the phone monitor timer
+         connectionTimer = window.setInterval( "MonitorPhoneState()", 250 );
+      }
+
+      if (gResponse.length == 0)
+      {
+         // Good to go, not waiting for any responses
+         RefreshButton.disabled = false;
+         ResetButton.disabled = false;
+         SetButton.disabled = false;
+      }
+   }
+   else
+   {
+      // Disallow requests unless connected
+      RefreshButton.disabled = true;
+      ResetButton.disabled = true;
+      SetButton.disabled = true;
+
+      gDisconnected = true;
+   }
+}
+
+// (Re)Query interfaces from the phone.
+function Refresh()
+{
+
+   if (comboTimer == "")
+   {
+      // Set a timer to populate combo boxes.
+      comboTimer = window.setInterval( "Refresh()", 500 );
+      
+      // Get interface name IDs.
+      GetNameIDs();
+   }
+   
+   if (SelectNameID.options.length == 0)
+   {
+      // Can't do anything without interface name IDs.
+      return;
+   }
+   
+   if (comboTimer != "")
+   {
+      // Clear the timer, now that we have interface name IDs.
+      window.clearInterval( comboTimer );
+      comboTimer = "";
+   }
+
+   // Get interface name ID and link ID descriptions.
+   GetInterfaceDescriptions();
+   
+   // Get protocol IDs.
+   GetProtocolIDs();
+}
+
+// Clears all interface registrations (DPL_RESET_LOGGING_REQ).
+function ResetLogging()
+{
+   // Also reset the SetInterfaces array
+   SetInterfaces = new Array();
+   
+   // Request reset logging
+   RequestItem( DPL_RESET_LOGGING_REQ, DPL_RESET_LOGGING_RSP, "" );
+}
+
+// Get the interface name IDs (DPL_GET_IFACE_NAME_IDS_REQ) from the target.
+function GetNameIDs()
+{
+   // Done if we already have Name IDs.
+   if (SelectNameID.options.length > 0)
+   {
+      return;
+   }
+      
+   // Request the Name IDs
+   RequestItem( DPL_GET_IFACE_NAME_IDS_REQ, DPL_GET_IFACE_NAME_IDS_RSP, "" );
+}
+
+// Get the protocol IDs (DPL_GET_PROTOCOL_IDS_REQ) from the phone.
+function GetProtocolIDs()
+{   
+   // Request the Protocol IDs
+   RequestItem( DPL_GET_PROTOCOL_IDS_REQ, DPL_GET_PROTOCOL_IDS_RSP, "" );
+}
+
+// Get the interface name description, link ID and name descripitions 
+// (DPL_GET_IFACE_NAME_DESC_REQ) from the phone.
+function GetInterfaceDescriptions()
+{
+   if (SelectNameID.options.length < 1)
+   {
+      var Txt = "No Name IDs found.";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+   for (var i = 0; i < SelectNameID.length; i++)
+   {
+      // Get descriptions and Link IDs for each interface name ID
+      RequestItem( DPL_GET_IFACE_NAME_DESC_REQ, 
+                   DPL_GET_IFACE_NAME_DESC_RSP,
+                   SelectNameID.options[i].value );
+   }
+}
+
+// Validate that the field value is a UINT32 integer
+function ValidateUINT32( self )
+{
+   var number = parseInt( self.value );
+   if (isNaN( number ))
+   {
+      var Txt = self.value + " is not a valid number";
+      Response.innerHTML = Txt;
+      self.value = 80;
+   }
+   else
+   {
+      if (number < 0 || number > 0xFFFFFFFF)
+      {
+         var Txt = self.value + " is not a valid size";
+         Response.innerHTML = Txt;
+         self.value = 80;
+      }
+   }
+}
+
+// Onclick handler that updates link and flow descriptions when the interface
+// name is changed.
+function OnInterfaceNameChanged()
+{
+   UpdateLinkDescriptions();
+   UpdateFlowDescriptions();
+}
+
+// Onclick handler that updates the link descriptions when interface name
+// is changed.
+function UpdateLinkDescriptions()
+{
+   if (SelectNameID.length == 0)
+   {
+      return;
+   }
+   
+   var nameID = SelectNameID.value;
+   
+   SelectLinkID.length = 0;
+
+   var i = 0;
+   while (null != gInterfaceNames[[nameID, i]])
+   {
+      var el = document.createElement("option");
+      el.value = i;
+      el.text = gInterfaceNames[[nameID, i]];
+      SelectLinkID.options.add(el);
+      i++;
+   }
+}
+
+// Onclick handler that updates the flow descriptions when interface name
+// is changed.
+function UpdateFlowDescriptions()
+{
+   // Deselect the the secondary flows indicator
+   if (SelectFlowID.options[0].selected)
+   {
+      SelectFlowID.options[0].selected = false;
+   }
+   
+   if (SelectNameID.length == 0)
+   {
+      return;
+   }
+   
+   var nameID = SelectNameID.value;
+   
+   // Preserve the 'Secondary Flows' indicator
+   SelectFlowID.length = 1;
+
+   var i = 0;
+   while (null != gFlowNames[[nameID, i]])
+   {
+      var el = document.createElement("option");
+      el.value = i;
+      el.text = gFlowNames[[nameID, i]];
+      SelectFlowID.options.add(el);
+      i++;
+   }
+}
+
+// Sends the interface IIDs (DPL_SET_IFACE_LOGGING_REQ) configuration for the
+// selected interface as configured by Link, Flow, or Protocol user selections.
+function SetInterface()
+{
+   gFields = " ";
+   var nameID = SelectNameID.value;
+   var fieldsHeader = nameID + " ";
+
+   var Direction = LinkDirection.value;
+   var NumberIIDs = SetInterfaceLinks( nameID, Direction );
+   NumberIIDs += SetInterfaceFlows( nameID );
+   Direction = ProtocolDirection.value;
+   NumberIIDs += SetInterfaceProtocols( nameID, Direction );
+
+   if (NumberIIDs > 0)
+   {
+      gFields = fieldsHeader + NumberIIDs + gFields;
+
+      RequestItem( DPL_SET_IFACE_LOGGING_REQ, 
+                   DPL_SET_IFACE_LOGGING_RSP, 
+                   gFields );
+      
+      // Save set request for sending on reconnections
+      SetInterfaces[SetInterfaces.length] = gFields;
+   }
+   else
+   {
+      Response.innerHTML = "No layers selected.";
+   }
+}
+
+// Build the IIDs, adding them to gFields and return the number of link IIDs 
+// built
+function SetInterfaceLinks( nameID, Direction )
+{
+   // Create the request field values
+   var linkIDs = new Array();
+
+   // Collect selected Link IDs.
+   var j = 0;
+   for (var i = 0; i < SelectLinkID.options.length; i++)
+   {
+      if (SelectLinkID.options[i].selected)
+      {
+         linkIDs[j++] = SelectLinkID.options[i].value;
+      }
+   }
+
+   var reservedField = 0;
+   var NumberIIDs = 0;
+   var IID = 0x00000000;
+   var numberDirections = 1;
+
+   if (LinkDirection.value == BOTH_DIRECTIONS)
+   {
+      numberDirections = 2;
+   }
+   
+   // Build all IIDs for this Interface name.
+   for (var d = 0; d < numberDirections; d++)
+   {
+      if (numberDirections == 2)
+      {
+         Direction = d;
+      }
+   
+      if (linkIDs.length > 0)
+      {
+         for (var iLink = 0; iLink < linkIDs.length; iLink++)
+         {
+            var LinkID = linkIDs[iLink];
+            
+            // Force Protocol to Link Logging and FBit to 0 when link logging.
+            var protocol = LINK_LOGGING;
+
+            IID = LinkID + " " + 
+                  protocol + " " + 
+                  nameID + " " + 
+                  reservedField + " 0 " + 
+                  Direction + " 1";
+            gFields +=  IID + " " + LinkSnapLength.value + " ";
+            NumberIIDs++;
+         }
+      }
+   }
+
+   return NumberIIDs;
+}
+
+// Build the IIDs, adding them to gFields and return the number of flow IIDs 
+// built
+function SetInterfaceFlows( nameID )
+{
+   // Create the request field values
+   var flowIDs = new Array();
+
+   // Collect selected Flow IDs.
+   var j = 0;
+   for (var i = 0; i < SelectFlowID.options.length; i++)
+   {
+      if (SelectFlowID.options[i].selected)
+      {
+         flowIDs[j++] = SelectFlowID.options[i].value;
+      }
+   }
+
+   var reservedField = 0;
+   var NumberIIDs = 0;
+   var IID = 0x00000000;
+
+   // Build all IIDs for this Interface name.
+   if (flowIDs.length > 0)
+   {
+      // Flow logging only valid for IP protocol
+      for (var iFlow = 0; iFlow < flowIDs.length; iFlow++)
+      {
+         var FlowID = flowIDs[iFlow];
+
+         // FBit is set, so LBit must be 0, direction is always 1 (TX)
+         IID = FlowID + " " + 
+               IP + " " + 
+               nameID + " " + 
+               reservedField + 
+               " 1 1 0";
+         gFields +=  IID + " " + FlowSnapLength.value + " ";
+         NumberIIDs++;
+      }
+   }
+
+   return NumberIIDs;
+}
+
+// Build the IIDs, adding them to gFields and return the number of protocol 
+// IIDs built
+function SetInterfaceProtocols( nameID, Direction )
+{
+   // Create the request field values
+   var protocolIDs = new Array();
+
+   // Collect selected protocol IDs.
+   var j = 0;
+   for (var i = 0; i < SelectProtocolID.options.length; i++)
+   {
+      if (SelectProtocolID.options[i].selected)
+      {
+         protocolIDs[j++] = SelectProtocolID.options[i].value;
+      }
+   }
+
+   var reservedField = 0;
+   var NumberIIDs = 0;
+   var IID = 0x00000000;
+   var numberDirections = 1;
+
+   if (Direction == BOTH_DIRECTIONS)
+   {
+      numberDirections = 2;
+   }
+   
+   // Build all IIDs for this Interface name.
+   for (var d = 0; d < numberDirections; d++)
+   {
+      if (numberDirections == 2)
+      {
+         Direction = d;
+      }
+   
+      for (var p = 0; p < protocolIDs.length; p++)
+      {
+         var ProtocolID = protocolIDs[p];
+
+         // No link ID, FBit and LBit are 0, 0 for network logging
+         IID = "0 " + 
+               ProtocolID + 
+               " " + 
+               nameID + 
+               " " + 
+               reservedField + 
+               " 0 " + 
+               Direction + 
+               " 0";
+         gFields +=  IID + " " + ProtocolSnapLength.value + " ";
+         NumberIIDs++;
+      }
+   }
+
+   return NumberIIDs;
+}
+
+// Requests an item from the phone.
+// PARAMETERS:
+//   requestItem    The database-defined item name to request
+//   responseItem   The database-defined item name for the response
+//   fields         The string of fields needed for the request
+function RequestItem( requestItem, responseItem, fields )
+{
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // We require a registration
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Error registering";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+   // Request Set Interface ID
+   var ReqID = IQXDM2.ClientRequestItem( Handle, 
+                                         requestItem,
+                                         fields,
+                                         1,
+                                         TIMEOUT_MS,
+                                         1,
+                                         1 );
+
+   if (ReqID == 0)
+   {
+      Txt = "Error scheduling request: \"" + requestItem + "\" " + fields;
+      Response.innerHTML = Txt;
+   }
+   else
+   {
+      gResponse.push( responseItem );
+      if (ProcessResponseTimer == "")
+      {
+         // Set a timer to process the response
+         ProcessResponseTimer = window.setInterval( "ProcessResponse()", 300 );
+      }
+   }
+}
+
+// Interval timer function that processes responses received from the phone
+// and updates fields to the appropriate data objects.
+function ProcessResponse()
+{
+   var Txt = "";
+   
+   gWaitCount++;
+
+   // Has item store has been cleared?
+   var ClientItemCount = IQXDM2.GetClientItemCount( Handle );
+   if (gItemIndex > ClientItemCount)
+   {
+      window.clearInterval( ProcessResponseTimer );
+      ProcessResponseTimer = "";
+
+      return;
+   }
+
+   // Stop processing responses if nothing has been received in 5 seconds
+   if (ClientItemCount - 1 < gItemIndex + 2)
+   {
+      if (gWaitCount > 5)
+      {
+         // Stop the timer
+         window.clearInterval( ProcessResponseTimer );
+         ProcessResponseTimer = "";
+
+         // Reset the response stack.
+         gResponse = new Array();
+
+         // Reset to search from the end of the client view
+         gItemIndex = ClientItemCount - 1;
+         gWaitCount = 0;
+         UpdatePage();
+
+         Txt = "Timeout - no new items";
+         Response.innerHTML = Txt;
+      }
+
+      return;
+   } 
+
+   // Get the next response (we process in pairs so skip the 
+   // preceding request)
+   gItemIndex += 2;
+
+   // Reset wait count since we received a request/response pair
+   gWaitCount = 0;
+
+   // Grab the expected response key
+   var ResponseKey = gResponse.shift();
+
+   // Clear timer if nothing is left in the queue
+   if (ProcessResponseTimer != "" && gResponse.length == 0)
+   {
+      window.clearInterval( ProcessResponseTimer );
+      ProcessResponseTimer = "";
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, gItemIndex );
+   if (Item == null)
+   {
+      Txt = "Unable to access response";
+      Response.innerHTML = Txt;
+
+      return;
+   }   
+
+   // We only want to look at subsystem responses...
+   if (Item.GetItemTypeText() != "SUBSYS RX")
+   {
+      // Out of sync, so reset to search from the end of the client view
+      gItemIndex = ClientItemCount - 1;
+      gWaitCount = 0;
+
+      Txt = "Not a DPL response (" + Item.GetItemName() + ")";
+      Response.innerHTML = Txt;
+
+      return;
+   }
+
+   // Grab and validate name
+   var ItemKey = Item.GetItemKeyText();
+   if (ItemKey != ResponseKey)
+   {
+      // Out of sync, so reset to search from the end of the client view
+      gItemIndex = ClientItemCount - 1;
+      gWaitCount = 0;
+
+      Txt = ItemKey + " not found (" + Item.GetItemName() + ")";
+      Response.innerHTML = Txt;
+
+      return;
+   }
+
+   if (ResponseKey == DPL_RESET_LOGGING_RSP)
+   {
+      // Response has nothing to parse so we're done here.
+      return;
+   }
+   
+   // Get a fields interface
+   var fields = Item.GetItemFields();
+   if (fields == null)
+   {
+      Txt = "Unable to parse response (" + Item.GetItemName() + ")";
+      Response.innerHTML = Txt;
+
+      return;
+   }
+
+   // Access each field
+   var FieldCount = fields.GetFieldCount();
+   if (FieldCount <= 0)
+   {
+      Txt = "Empty Response (" + Item.GetItemName() + ")";
+      Response.innerHTML = Txt;
+
+      return;
+   }
+   
+   // Update name IDs in Name IDs combo box.  Skip the number of
+   // IDs field.
+   if (ResponseKey == DPL_GET_IFACE_NAME_IDS_RSP)
+   {
+      for (var f = 0; f < FieldCount; f++)
+      {
+         if (f > 0)
+         {
+            var el = document.createElement("option");
+            el.text = fields.GetFieldValue( f );
+            el.value = el.text;
+            SelectNameID.options.add(el);
+         }
+      }
+   }
+
+   // Update links and flows
+   var LinkCount = 0;
+   var FlowCount = 0;
+   var FlowCountOffset = -1;
+   
+   if (ResponseKey == DPL_GET_IFACE_NAME_DESC_RSP)
+   {
+      var InterfaceID = fields.GetFieldValue( 0 );
+      if (FieldCount > 2)
+      {
+         LinkCount = fields.GetFieldValue( 2 );
+         
+         if (FieldCount > (LinkCount + 2))
+         {
+            FlowCount = fields.GetFieldValue( LinkCount + 3 );
+            FlowCountOffset = LinkCount + 3;
+         }
+      }
+
+      for (var f = 0; f < FieldCount; f++)
+      {
+         if (f == 1)
+         {
+            // Get Interface name description
+            var NumIDs = SelectNameID.length;
+            for (var i = 0; i < NumIDs; i++)
+            {
+               if (SelectNameID.options[i].value == InterfaceID)
+               {
+                  var InterfaceName = fields.GetFieldValue( f );
+                  SelectNameID.options[i].text = "(" + InterfaceID + ") " + 
+                                                 InterfaceName;
+                  break;
+               }
+            }
+         }
+         
+         if (f > 2 && f < (LinkCount + 3))
+         {
+            // Get Link name descriptions and IDs (ID is determined by 
+            // position)          
+            var LinkIndex = f - 3;
+            var LinkName = fields.GetFieldValue( f );
+
+            var LinkDisplayName = "(" + LinkIndex + ") " + LinkName;
+            gInterfaceNames[[InterfaceID, LinkIndex]] = LinkDisplayName;
+                                 
+            UpdateLinkDescriptions();
+         }
+         else if (f > FlowCountOffset && FlowCountOffset > 3)
+         {
+            // Get Flow name descriptions and IDs (ID is determined by 
+            // position)
+            var FlowIndex = f - (FlowCountOffset + 1);
+            var FlowName = fields.GetFieldValue( f );
+            
+            var FlowDisplayName = "(" + FlowIndex + ") " + FlowName;
+            gFlowNames[[InterfaceID, FlowIndex]] = FlowDisplayName;
+                                 
+            UpdateFlowDescriptions();
+         }
+      }
+   }
+      
+   // Update Protocols in Protocol IDs combo box.
+   if (ResponseKey == DPL_GET_PROTOCOL_IDS_RSP)
+   {
+      // Empty the combo
+      SelectProtocolID.options.length = 0;
+
+      for (var f = 1; f < FieldCount; f++)
+      {
+         var el = document.createElement("option");
+         el.value = fields.GetFieldValue( f );
+         el.text = fields.GetFieldValueText( f );
+         SelectProtocolID.options.add(el);
+      }
+   }
+}
+
+</script>
+</body>
+</html>

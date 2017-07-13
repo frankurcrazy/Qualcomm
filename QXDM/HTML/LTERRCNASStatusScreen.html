@@ -1,0 +1,852 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="LTE RRC/NAS Status Screen" />
+   <meta name="DMViewWidth" content="800" />
+   <meta name="DMViewHeight" content="600" />
+   <title>LTE RRC/NAS Status Screen</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+<body onunload="Unregister()" onload="Register()">
+   <table border="0" width="100%" cellpadding="2">
+      <tr>
+         <td valign="top" class="noborder" style="width: 50%">
+            <div class="label">
+               RRC Status</div>
+            <table width="100%" id="RRCState">
+               <colgroup span="2">
+                  <col width="60%" />
+                  <col width="40%" />
+               </colgroup>
+               <tr>
+                  <th>
+                     Parameter</th>
+                  <th>
+                     Value</th>
+               </tr>
+               <tr>
+                  <td>
+                     RRC State</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     RRC Ciphering</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     RRC Integrity</td>
+                  <td>
+                     -</td>
+               </tr>
+            </table>
+            <br />
+            <div class="label">
+               EMM Status</div>
+            <table width="100%" id="EMMState">
+               <colgroup span="2">
+                  <col width="60%" />
+                  <col width="40%" />
+               </colgroup>
+               <tr>
+                  <th>
+                     Parameter</th>
+                  <th>
+                     Value</th>
+               </tr>
+               <tr>
+                  <td>
+                     NAS EMM State</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     NAS EMM Substate</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     Data Suspended</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     NAS Ciphering</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     NAS Integrity</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     ISR</td>
+                  <td>
+                     off</td>
+               </tr>
+               <tr>
+                  <td>
+                     TIN</td>
+                  <td>
+                     GUTI</td>
+               </tr>
+               <tr>
+                  <td>
+                     GUTI - [MCC/MNC]</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     GUTI - GUMMEI</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     GUTI - MIMSI</td>
+                  <td>
+                     -</td>
+               </tr>
+            </table>
+            <br />
+         </td>
+         <td valign="top" class="noborder" style="width: 50%">
+            <div class="label">
+               Network Information</div>
+            <table width="100%" id="NetworkInfo">
+               <colgroup span="2">
+                  <col width="60%" />
+                  <col width="40%" />
+               </colgroup>
+               <tr>
+                  <th>
+                     Parameter</th>
+                  <th>
+                     Value</th>
+               </tr>
+               <tr>
+                  <td>
+                     Physical Cell ID</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     DL EARFCN</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     UL EARFCN</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     UL Bandwidth</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     DL Bandwidth
+                  </td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     Cell ID</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     Frequency Band</td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     PLMN
+                  </td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     TAC
+                  </td>
+                  <td>
+                     -</td>
+               </tr>
+               <tr>
+                  <td>
+                     Allowed Access</td>
+                  <td>
+                     -</td>
+               </tr>
+            </table>
+            <br />
+         </td>
+      </tr>
+   </table>
+   <table border="0" width="100%" cellpadding="2">
+      <td valign="top" class="noborder" style="width: 100%">
+         <div class="label">
+            ESM Status</div>
+         <table width="100%" id="ESMStatus">
+            <tr>
+               <th>
+                  Parameter</th>
+               <th>
+                  Value1</th>
+               <th>
+                  Value2</th>
+               <th>
+                  Value3</th>
+               <th>
+                  Value4</th>
+               <th>
+                  Value5</th>
+               <th>
+                  Value6</th>
+               <th>
+                  Value7</th>
+               <th>
+                  Value8</th>
+            </tr>
+            <tr>
+               <td>
+                  Bearer ID</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  Radio Bearer ID</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  State</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  Bearer Type</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  Linked Bearer ID</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  QCI</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  GBR UL</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  GBR DL</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  MBR UL</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+            <tr>
+               <td>
+                  MBR DL</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+               <td>
+                  -</td>
+            </tr>
+         </table>
+         <br />
+      </td>
+   </table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle             = 0xFFFFFFFF;
+var UPDATE_MS          = 1000;
+var gMainTickID        = 0;
+var PrevIndex          = -1;
+
+var NUM_ESMBEAR_MAX = 8;
+var ESMBearID = new Array(8);
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.      
+   clientObject.AddLog( 0xB0C2 );
+   clientObject.AddLog( 0xB0A0 );
+   clientObject.AddLog( 0xB0EE );
+   clientObject.AddLog( 0xB0F2 );   
+   clientObject.AddLog( 0xB0E5 );
+   clientObject.AddEvent( 1606 );   
+   
+   clientObject.CommitConfig();     
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+   
+   // initialize ESMBearID1
+   var i = 0;
+   for ( i = 0; i < NUM_ESMBEAR_MAX; ++i )
+   {
+      ESMBearID[i] = -1;
+   }
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+ 
+function ProcessLogs()
+{
+   var LogCodeC2 = "[0xB0C2]";
+   var LogCodeA0 = "[0xB0A0]";
+   var LogCodeEE = "[0xB0EE]";
+   var LogCodeF2 = "[0xB0F2]";
+   var LogCodeE5 = "[0xB0E5]";
+   var EventCode = "[01606]";
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+   
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }     
+      
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case LogCodeC2:
+         {
+            PopulateC2( Fields );       
+         }
+         break;              
+         case LogCodeA0:
+         {
+            PopulateA0( Fields );
+         }
+         break;
+         
+         case LogCodeEE:
+         {
+            PopulateEE( Fields );
+         }
+         break;
+         
+         case LogCodeF2:
+         {
+            PopulateF2( Fields );
+         }
+         break;
+         
+         case LogCodeE5:
+         {
+            PopulateE5( Fields );
+         }
+         break;
+         
+         case EventCode:
+         {
+            PopulateEvent( Fields );
+         }
+         break;       
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateC2( Fields )
+{     
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+            
+   var version = Fields.GetFieldValueText( 0 );   
+   if ( version != 1 || FieldCount < 12 )
+   {
+      return;
+   }
+   
+   var FI = 1;
+   
+   
+   var FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[1].cells[1].innerText = FT;  
+   
+   FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[2].cells[1].innerText = FT;  
+   
+   FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[3].cells[1].innerText = FT;  
+   
+   FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[4].cells[1].innerText = FT;  
+   
+   FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[5].cells[1].innerText = FT;  
+   
+   FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[6].cells[1].innerText = FT;  
+   
+   var tac = Fields.GetFieldValueText( FI++ );
+   NetworkInfo.rows[9].cells[1].innerText = tac
+   
+   var fb = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[7].cells[1].innerText = fb;  
+   
+   var mcc = Fields.GetFieldValueText( FI++ ); 
+   var mnc = Fields.GetFieldValueText( FI++ ); 
+   
+   var mccs,mncs;
+   var d1,d2,d3,d4;
+   
+   d1 = (mcc & 0x0F00)>> 8;
+   d2 = (mcc & 0xF000)>> 12;
+   d3 = (mcc & 0xF0)>> 4;
+   d4 = (mcc & 0x0F);
+   
+   mccs = d2 + " " + d3 + " " + d4;
+   
+   d1 = (mnc & 0x0F00)>> 8;
+   d2 = (mnc & 0xF000)>> 12;
+   d3 = (mnc & 0xF0)>> 4;
+   d4 = (mnc & 0x0F);
+   
+   if ( d2 != 15 )
+   {
+      mncs = d2 + " " + d3 + " " + d4;
+   }
+   else 
+   {
+      mncs = d3 + " " + d4;
+   }
+   
+   
+   NetworkInfo.rows[8].cells[1].innerText = mccs + "/" + mncs;
+         
+   FT = Fields.GetFieldValueText( FI++ ); 
+   NetworkInfo.rows[10].cells[1].innerText = FT;                                
+}
+
+function PopulateA0( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+            
+   var version = Fields.GetFieldValueText( 0 );   
+   if ( version != 1 || FieldCount < 10 )
+   {
+      return;
+   }
+   
+   var cipher = Fields.GetFieldValueText( 7 ); 
+   RRCState.rows[2].cells[1].innerText = cipher;  
+   
+   var integrity = Fields.GetFieldValueText( 9 ); 
+   RRCState.rows[3].cells[1].innerText = integrity;  
+}
+
+function PopulateEE( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+            
+   var version = Fields.GetFieldValueText( 0 );   
+   if ( version != 1 || FieldCount < 3 )
+   {
+      return;
+   }
+   
+   var st = Fields.GetFieldValueText( 1 ); 
+   EMMState.rows[1].cells[1].innerText = st;  
+   
+   var subst = Fields.GetFieldValueText( 2 );    
+   EMMState.rows[2].cells[1].innerText = subst;  
+   
+   var plmn =  Fields.GetFieldValue( 3 );  
+   var mcc, mnc;
+   var d1, d2, d3;
+   
+   d1 = (plmn & 0x0F);
+   d2 = (plmn & 0xF0) >> 4;
+   d3 = (plmn & 0x0F00) >> 8;
+   
+   mcc = d1 + " " + d2 + " "  + d3;
+   
+   d1 = (plmn & 0x0F0000) >> 16;
+   d2 = (plmn & 0xF00000) >> 20;
+   d3 = (plmn & 0xF000) >> 12;
+   
+   if ( d3 == 15 )
+   {
+      mnc = d1 + " " + d2;
+   }
+   else
+   {
+      mnc = d1 + " " + d2 + " " + d3;
+   }
+   
+   var pstr = mcc + "/" + mnc;
+   
+   EMMState.rows[8].cells[1].innerText = pstr; 
+   
+   var code = Fields.GetFieldValueText( 8 ); 
+   EMMState.rows[9].cells[1].innerText = code; 
+   
+   var code = Fields.GetFieldValueText( 9 ); 
+   EMMState.rows[10].cells[1].innerText = code; 
+   
+}
+
+function PopulateF2( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+            
+   var version = Fields.GetFieldValueText( 0 );   
+   if ( version != 1 || FieldCount < 9 )
+   {
+      return;
+   }
+   
+   var cipher = Fields.GetFieldValue( 6 ); 
+   var text = PassNASCipher ( cipher );
+   EMMState.rows[4].cells[1].innerText = text;  
+   
+   var inte = Fields.GetFieldValue( 5 );    
+   var text = PassNASCipher ( inte );
+   EMMState.rows[5].cells[1].innerText = text;  
+   
+}
+
+function PopulateE5( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+            
+   var version = Fields.GetFieldValueText( 0 );   
+   if ( version != 1 || FieldCount < 19 )
+   {
+      return;
+   }
+   
+   var bearID = Fields.GetFieldValue( 2 ); 
+   var column = -1;
+   
+   // Find out which column this BID belongs
+   var i = 0;
+   for ( i = 0; i < NUM_ESMBEAR_MAX; ++i )
+   {
+      if ( ESMBearID[i] == -1 || ESMBearID[i] == bearID )
+      {
+         ESMBearID[i] = bearID;
+         column = i+1;           
+         ESMStatus.rows[1].cells[column].innerText = bearID;
+         break;
+      }
+   }
+   
+   if ( column == -1 )
+   {
+      return;
+   }
+      
+   var rbid = Fields.GetFieldValueText( 8 );    
+   ESMStatus.rows[2].cells[column].innerText = rbid;  
+   
+   var state = Fields.GetFieldValueText( 3 );    
+   ESMStatus.rows[3].cells[column].innerText = state;  
+   
+   var type = Fields.GetFieldValueText( 1 );    
+   ESMStatus.rows[4].cells[column].innerText = type;  
+   
+   var lbi = Fields.GetFieldValueText( 7 );    
+   ESMStatus.rows[5].cells[column].innerText = lbi;  
+   
+   var qci = Fields.GetFieldValueText( 10 );    
+   ESMStatus.rows[6].cells[column].innerText = qci;  
+   
+   var gu = Fields.GetFieldValueText( 13 );    
+   ESMStatus.rows[7].cells[column].innerText = gu;  
+   
+   var gd = Fields.GetFieldValueText( 14 );    
+   ESMStatus.rows[8].cells[column].innerText = gd;  
+   
+   var mu = Fields.GetFieldValueText( 15 );    
+   ESMStatus.rows[9].cells[column].innerText = mu;  
+   
+   var md = Fields.GetFieldValueText( 16 );    
+   ESMStatus.rows[10].cells[column].innerText = md;  
+
+}
+function PopulateEvent( Fields )
+{
+   var state = Fields.GetFieldValueText( 0 ); 
+   RRCState.rows[1].cells[1].innerText = state;     
+}
+
+function PassNASCipher ( cipher )
+{
+   switch ( cipher )
+   {
+      case 0:
+         return "None";
+      case 1:
+         return "Null";
+      case 2:
+         return "Snow3G";
+      case 3:
+         return "AES";
+   };
+   
+   return "Unknown";
+}
+
+</script>
+
+</body>
+</html>

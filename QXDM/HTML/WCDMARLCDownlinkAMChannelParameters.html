@@ -1,0 +1,293 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA RLC Downlink AM Channel Parameters" />
+   <meta name="DMViewWidth" content="500" />
+   <meta name="DMViewHeight" content="280" />
+   <title>WCDMA RLC Downlink AM Channel Parameters</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="DLAMTable">
+   <colgroup span="5">
+      <col width="40%" />
+      <col width="15%" />
+      <col width="15%" />
+      <col width="15%" />
+      <col width="15%" />
+   </colgroup>
+   <tr>
+      <th>Parameters</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+   </tr>
+   <tr>
+      <th>Channel Type</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Data ID</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Control ID</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Radio Bearer ID</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Indicator Size</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Receive Window Size</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Timer EPC</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Hyperframe Number</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Timer Status Period</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>In Sequence Delivery</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Timer Status Prohibit</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Missing PU Index</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>   
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+         
+   // Configure items
+   clientObject.AddLog( 0x4122 );
+   clientObject.AddLog( 0x4132 );
+
+   clientObject.CommitConfig();
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client - we only update based on the last item
+// since the user cannot discern anything faster than our update
+// interval
+function ProcessItems()
+{         
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {   
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetItemFields();
+         if (Fields != null)
+         {                        
+            PopulateRLCDLTable( Fields );
+         }
+      }   
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function ResetTable()
+{
+   var Rows = DLAMTable.rows.length;
+   for (var r = 1; r < Rows; r++)
+   {      
+      DLAMTable.rows[r].cells[1].innerText = "-";
+      DLAMTable.rows[r].cells[2].innerText = "-";
+      DLAMTable.rows[r].cells[3].innerText = "-";
+      DLAMTable.rows[r].cells[4].innerText = "-";
+   }
+}
+
+function PopulateRLCDLTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount == 0)
+   {
+      return;
+   }
+    
+   ResetTable();    
+   
+   var DataIndex = 1;    
+   
+   var NumChannels = Fields.GetFieldValue( 0 ); 
+   if (NumChannels > 4)
+   {
+      NumChannels = 4;
+   }
+     
+   for (var f = 1; f <= NumChannels; f++)
+   {   
+      // Data ID
+      var DataID = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[2].cells[f].innerText = DataID;    
+      
+      // Control ID
+      var ControlID = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[3].cells[f].innerText = ControlID;    
+      
+      // Radio Bearer ID
+      var RBID = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[4].cells[f].innerText = RBID;    
+      
+      // Logical Channel Type  
+      var ChannType = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[1].cells[f].innerText = ChannType;    
+      
+      // Indicator Size
+      var IndicatorSize = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[5].cells[f].innerText = IndicatorSize;
+      
+      // Receive Window Size
+      var RecvWindowSz = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[6].cells[f].innerText = RecvWindowSz;
+      
+      // Timer EPC
+      var TimerEPC = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[7].cells[f].innerText = TimerEPC;
+      
+      // Hyperframe Number
+      var HyperFrameNum = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[8].cells[f].innerText = HyperFrameNum;
+      
+      // Timer Status Period
+      var TimerStatPeriod = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[9].cells[f].innerText = TimerStatPeriod;
+      
+      // In Sequence Delivery
+      var InSeqDelivery = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[10].cells[f].innerText = InSeqDelivery;
+      
+      // Timer Status Prohibit
+      var TimerStatProhibit = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[11].cells[f].innerText = TimerStatProhibit;
+      
+      // Missing PU Index
+      var MissingPDUInd = Fields.GetFieldValueText( DataIndex++ );
+      DLAMTable.rows[12].cells[f].innerText = MissingPDUInd;
+   }
+}
+
+</script>
+</body>
+</html>

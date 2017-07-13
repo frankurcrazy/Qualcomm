@@ -1,0 +1,743 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA MAC Parameters" />
+   <meta name="DMViewWidth" content="800" />
+   <meta name="DMViewHeight" content="800" />
+
+   <title>WCDMA MAC Parameters</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%">
+   <tr>
+      <td class="noborder" valign="top" width="60%">
+         <table width="100%">
+            <tr>
+               <th colspan="9"> RACH Control Parameters </th>
+            </tr>
+            <tbody id="BodyControl">
+               <tr>
+                  <th width="28%">Access Service Class Identifier</th>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+                  <td width="9%">-</td>
+               </tr>
+               <tr>
+                  <th>Persistence</th>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <th>Max Preamble Cycles</th>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <th>Min Backoff Time</th>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <th>Max Backoff Time</th>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+      <td class="noborder" valign="top" width="40%">
+         <table width="100%">
+            <tr>
+               <th colspan="4"> MAC Ciphering Parameters </th>
+            </tr>
+            <tr>
+               <th width="25%"> &nbsp </th>
+               <th width="25%">Ciphering Enabled</th>
+               <th width="25%">Ciphering Key ID</th>
+               <th width="25%">Hyperframe Number</th>
+            </tr>
+            <tbody id="BodyCipher">
+               <tr>
+                  <th> Uplink </th>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <th> Downlink </th>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+   <tr>
+      <td class="noborder" valign="top">
+         <table width="100%">
+            <tr>
+               <th colspan="6">Logical Parameters - Uplink</th>
+            </tr>
+            <tr>
+               <th width="17%">Transport Channel/ID</th>
+               <th width="17%">Logical Channel/ID</th>
+               <th width="17%">RLC Mode</th>
+               <th width="17%">Radio Bearer ID</th>
+               <th width="16%">MAC ID</th>
+               <th width="16%">MAC Priority</th>
+            </tr>
+            <tbody id="BodyLogicalUplink">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+            <tr>
+               <th colspan="6">HSUPA</th>
+            </tr>          
+            <tbody id="BodyLogicalUplinkHSUPA">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>            
+         </table>
+      </td>
+      <td class="noborder" valign="top">
+         <table width="100%">
+            <tr>
+               <th colspan="4">Logical Parameters - Downlink</th>
+            </tr>
+            <tr>
+               <th width="25%">Transport Channel/ID</th>
+               <th width="25%">Logical Channel/ID</th>
+               <th width="25%">RLC Mode</th>
+               <th width="25%">Radio Bearer ID</th>
+            </tr>
+            <tbody id="BodyLogicalDownlink">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+            <tr>
+               <th colspan="4">HSDPA</th>
+            </tr>
+            <tbody id="BodyLogicalDownlinkHSDPA">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>            
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var UPDATE_MS         = 500;
+var PrevIndex         = -1;
+
+var log4117 = "[0x4117]";
+var log411D = "[0x411D]";
+var log4123 = "[0x4123]";
+var log4210 = "[0x4210]";
+var log4321 = "[0x4321]";
+
+var MAX_CLASSES = 8;
+
+// Register the client, configure the client, initialiaze display objects
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br /Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.      
+   clientObject.AddLog( 0x4117 );
+   clientObject.AddLog( 0x411D );
+   clientObject.AddLog( 0x4123 );
+   clientObject.AddLog( 0x4210 );
+   clientObject.AddLog( 0x4321 );
+   
+   clientObject.CommitConfig();   
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Periodic update of the display
+function ProcessLogs()
+{
+   // Keep track if populate attempt succeeds
+   var b4117 = false;   
+   var b411D = false;   
+   var b4123 = false;
+   var b4210 = false;
+   var b4321 = false;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case log4117:
+         {
+            if (b4117 == false)
+            {
+               PopulateBodyUplink( Fields );
+               b4117 = true;               
+            }
+         }
+         break;  
+         
+         case log411D:
+         {
+            if (b411D == false)
+            {
+               PopulateBodyDownlink( Fields );
+               b411D = true;
+            }
+         }
+         break;        
+
+         case log4123:
+         {
+            if (b4123 == false)
+            {
+               PopulateBodyControl( Fields );
+               b4123 = true;
+            }
+         }
+         break;        
+
+         case log4210:
+         {
+            if (b4210 == false)
+            {
+               PopulateBodyDownlinkHSDPA( Fields );
+               b4210 = true;
+            }
+         }
+         break;
+
+         case log4321:
+         {
+            if (b4321 == false)
+            {
+               PopulateBodyUplinkEUL( Fields );
+               b4321 = true;
+            }
+         }
+         break;        
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateBodyUplink( Fields )
+{
+   var TableRow;
+   var TableCell;
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 4)
+   {
+      return;
+   }
+      
+   // Get Ciphering Mode
+   var FieldVal = Fields.GetFieldValueText( 1 );
+   BodyCipher.rows[0].cells[1].innerText = FieldVal;
+
+   // Get Ciphering Key ID
+   FieldVal = Fields.GetFieldValueText( 2 );
+   BodyCipher.rows[0].cells[2].innerText = FieldVal;
+
+   // Get Hyperframe Number
+   FieldVal = Fields.GetFieldValueText( 3 );
+   BodyCipher.rows[0].cells[3].innerText = FieldVal;
+
+   // Get Uplink Transport Channels
+   var numTransportChannels = Fields.GetFieldValueText( 0 );
+
+   var fi = 4;
+   var numRows = 0;
+
+   for (var i = 0; i < numTransportChannels; i++)
+   {
+      if (FieldCount < fi + 3)
+      {
+         break;
+      }
+      
+      // Get Transport Channel ID
+      var transportID = Fields.GetFieldValueText( fi );
+
+      // Get UL Transport Channel
+      var transportCh = Fields.GetFieldValueText( fi+1 );
+
+      // Get Uplink Logical Channels
+      var numLogicalChannels = Fields.GetFieldValueText( fi+2 );
+
+      fi += 3;
+
+      for (var j = 0; j < numLogicalChannels; j++)
+      {
+         if (FieldCount < fi + 6)
+         {
+            break;
+         }
+
+         if (numRows >= BodyLogicalUplink.rows.length)
+         {
+            TableRow = BodyLogicalUplink.insertRow();
+            for (var k = 0; k < 6; k++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         BodyLogicalUplink.rows[numRows].cells[0].innerText = transportCh + " / " + transportID;
+
+         // Get RLC UL ID
+         var logicalID = Fields.GetFieldValueText( fi );
+
+         for (var k = 1; k < 6; k++)
+         {
+            var FieldVal = Fields.GetFieldValueText( fi + k);
+            if (k == 1)
+            {
+               // Combine Channel/ID
+               FieldVal += " / " + logicalID;
+            }
+            BodyLogicalUplink.rows[numRows].cells[k].innerText = FieldVal;
+         }
+
+         numRows++;
+         fi += 6;
+      }
+   }
+
+   // Delete excess rows
+   for (var r = BodyLogicalUplink.rows.length - 1; r >= numRows; r--)
+   {
+      if (r == 0)
+      {
+         for (var c = 0; c < 6; c++)
+         {
+            BodyLogicalUplink.rows[r].cells[c].innerText = "-";
+         }      
+      }
+      else
+      {
+         BodyLogicalUplink.deleteRow( r );
+      }      
+   }
+}
+
+function PopulateBodyUplinkEUL( Fields )
+{
+   var TableRow;
+   var TableCell;
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 16)
+   {
+      return;
+   }
+
+   var NumFlows = Fields.GetFieldValue( 3 );
+   if (NumFlows > 7)
+   {
+      NumFlows = 7;
+   }
+   
+   if (FieldCount < 16 + 22 * NumFlows)
+   {
+      return;
+   }
+
+   var fi = 16;
+   var numRows = 0;
+
+   for (var i = 0; i < NumFlows; i++)
+   {
+      // Flow ID
+      var FlowID = Fields.GetFieldValueText( fi );
+
+      var NumCh = Fields.GetFieldValue( fi + 12 );
+
+      // Advance to Logical Channels
+      fi += 22;
+
+      for (var j = 0; j < NumCh; j++)
+      {
+         if (FieldCount < fi + 7)
+         {
+            return;
+         }
+
+         if (numRows >= BodyLogicalUplinkHSUPA.rows.length)
+         {
+            TableRow = BodyLogicalUplinkHSUPA.insertRow();
+            for (var k = 0; k < 6; k++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+         
+         // Transport ID
+         BodyLogicalUplinkHSUPA.rows[numRows].cells[0].innerText = "E-DCH";
+
+         // Channel ID
+         var FieldVal = Fields.GetFieldValueText( fi + 1 );
+         BodyLogicalUplinkHSUPA.rows[numRows].cells[1].innerText = FieldVal;
+
+         // RLC Mode
+         FieldVal = Fields.GetFieldValueText( fi + 4 );
+         BodyLogicalUplinkHSUPA.rows[numRows].cells[2].innerText = FieldVal;
+         
+         // Radio Bearer ID
+         FieldVal = Fields.GetFieldValueText( fi );
+         BodyLogicalUplinkHSUPA.rows[numRows].cells[3].innerText = FieldVal;
+
+         // Flow ID
+         BodyLogicalUplinkHSUPA.rows[numRows].cells[4].innerText = FlowID;
+
+         // Priority
+         FieldVal = Fields.GetFieldValueText( fi + 2 );
+         BodyLogicalUplinkHSUPA.rows[numRows].cells[5].innerText = FieldVal;
+         
+         var PDUSizes = Fields.GetFieldValue( fi + 6 );
+         
+         numRows++;
+         fi += 7 + 2 * PDUSizes;
+      }
+   }
+
+   // Delete excess rows
+   for (var r = BodyLogicalUplinkHSUPA.rows.length - 1; r >= numRows; r--)
+   {
+      if (r == 0)
+      {
+         for (var c = 0; c < 6; c++)
+         {
+            BodyLogicalUplinkHSUPA.rows[r].cells[c].innerText = "-";
+         }      
+      }
+      else
+      {
+         BodyLogicalUplinkHSUPA.deleteRow( r );
+      }      
+   }
+}
+
+function PopulateBodyDownlink( Fields )
+{
+   var TableRow;
+   var TableCell;
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 4)
+   {
+      return;
+   }
+      
+   // Get Ciphering Mode
+   var FieldVal = Fields.GetFieldValueText( 1 );
+   BodyCipher.rows[1].cells[1].innerText = FieldVal;
+
+   // Get Ciphering Key ID
+   FieldVal = Fields.GetFieldValueText( 2 );
+   BodyCipher.rows[1].cells[2].innerText = FieldVal;
+
+   // Get Hyperframe Number
+   FieldVal = Fields.GetFieldValueText( 3 );
+   BodyCipher.rows[1].cells[3].innerText = FieldVal;
+
+   // Get Downlink Transport Channels
+   var numTransportChannels = Fields.GetFieldValueText( 0 );
+
+   var fi = 4;
+   var numRows = 0;
+   var curRows = BodyLogicalDownlink.rows.length;
+   
+   for (var i = 0; i < numTransportChannels; i++)
+   {
+      if (FieldCount < fi+3)
+      {
+         break;
+      }
+      
+      // Get Transport Channel ID
+      var transportID = Fields.GetFieldValueText( fi );
+
+      // Get Downlink Channel
+      var transportCh = Fields.GetFieldValueText( fi+1 );
+
+      // Get Downlink Logical Channels
+      var numLogicalChannels = Fields.GetFieldValueText( fi+2 );
+
+      fi += 3;
+      for (var j = 0; j < numLogicalChannels; j++)
+      {
+         if (FieldCount < fi+5)
+         {
+            break;
+         }
+
+         if (numRows >= curRows)
+         {
+            TableRow = BodyLogicalDownlink.insertRow();
+            for (var k = 0; k < 4; k++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         BodyLogicalDownlink.rows[numRows].cells[0].innerText = transportCh + " / " + transportID;
+
+         // Get RLC DL ID
+         var logicalID = Fields.GetFieldValueText( fi );
+
+         // Insert all fields except reserved field
+         for (var k = 1; k < 4; k++)
+         {
+            FieldVal = Fields.GetFieldValueText( fi + k );
+            if (k == 1)
+            {
+               // Combine Channel/ID
+               FieldVal += " / " + logicalID;
+            }
+            BodyLogicalDownlink.rows[numRows].cells[k].innerText = FieldVal;
+         }
+
+         numRows++;
+         fi += 5;
+      }
+   }
+   
+   // Delete excess rows
+   DeleteExcessRows( BodyLogicalDownlink, 0, curRows, numRows, true );
+}
+
+function PopulateBodyDownlinkHSDPA( Fields )
+{
+   var TableRow;
+   var TableCell;
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 3)
+   {
+      return;
+   }
+      
+   // Get MAC-D Flow Count
+   var numFlow = Fields.GetFieldValueText( 2 );
+
+   var fi = 3;
+   var numRows = 0;
+   var curRows = BodyLogicalDownlinkHSDPA.rows.length;
+   
+   for (var i = 0; i < numFlow; i++)
+   {
+      if (FieldCount < fi+4)
+      {
+         break;
+      }
+
+      // GetMAC-D Flow ID
+      var flowID = Fields.GetFieldValueText( fi+1 );
+
+      // Get Logical Channel Count
+      var numLogicalChannels = Fields.GetFieldValueText( fi+3 );
+      if (numLogicalChannels == 0)
+      {
+         continue;
+      }
+
+      // Get first RLC ID
+      var name = "MAC-D Flow[" + i + "].Logical Channel[0].RLC ID";
+      fi = Fields.GetFieldIndex( name, fi+4 );
+      if (fi == 0xFFFFFFFF)
+      {
+         continue;
+      }
+
+      for (var j = 0; j < numLogicalChannels; j++)
+      {
+         if (FieldCount < fi+3)
+         {
+            break;
+         }
+
+         if (numRows >= curRows)
+         {
+            TableRow = BodyLogicalDownlinkHSDPA.insertRow();
+            for (var k = 0; k < 4; k++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+         
+         BodyLogicalDownlinkHSDPA.rows[numRows].cells[0].innerText = "HS-DSCH / " + flowID;
+         
+         // Get RLC ID
+         var logicalID = Fields.GetFieldValueText( fi );
+
+         // Get Channel Type
+         var logicalCh = Fields.GetFieldValueText( fi+1 );
+
+         BodyLogicalDownlinkHSDPA.rows[numRows].cells[1].innerText = logicalCh + " / " + logicalID;
+
+         // Get Channel Mode
+         var mode = Fields.GetFieldValueText( fi+2 );
+         BodyLogicalDownlinkHSDPA.rows[numRows].cells[2].innerText = mode;
+
+         BodyLogicalDownlinkHSDPA.rows[numRows].cells[3].innerText = "-";
+
+         numRows++;
+         fi += 3;
+      }
+   }
+
+   // Delete excess rows
+   DeleteExcessRows( BodyLogicalDownlinkHSDPA, 0, curRows, numRows, true );
+}
+
+function PopulateBodyControl( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 4)
+   {
+      return;
+   }
+
+   // Get Maximum Preamble Cycles
+   var FieldVal = Fields.GetFieldValueText( 0 );
+   BodyControl.rows[2].cells[1].innerText = FieldVal;
+
+   // Get Minimum Backoff Time
+   FieldVal = Fields.GetFieldValueText( 1 );
+   BodyControl.rows[3].cells[1].innerText = FieldVal;
+
+   // Get Maximum Backoff Time
+   FieldVal = Fields.GetFieldValueText( 2 );
+   BodyControl.rows[4].cells[1].innerText = FieldVal;
+
+   // Get Access Service Classes
+   var numClasses = Fields.GetFieldValueText( 3 );
+   var fi = 4;
+   for (var i = 0; i < numClasses; i++)
+   {
+      if (FieldCount < fi + 2 || i >= MAX_CLASSES)
+      {
+         break;
+      }
+
+      // Get Access Service Class Identifier
+      FieldVal = Fields.GetFieldValueText( fi );   
+      BodyControl.rows[0].cells[i+1].innerText = FieldVal;
+
+      // Get Persistence (divide by 10 according to definition)
+      FieldVal = Fields.GetFieldValueText( fi + 1 );
+      BodyControl.rows[1].cells[i+1].innerText = FieldVal / 10.0;
+   }
+}
+
+</script>
+</body>
+</html>

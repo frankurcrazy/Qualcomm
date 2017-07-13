@@ -1,0 +1,121 @@
+<job id="QXDM ClearConfig Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMClearConfig.wsf
+
+// This script demostrates usage of the ClientConfig automation
+// interface method ClearConfig
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Manipulate client configuration
+function ManipulateClientConfig()
+{
+   var Txt = "";
+
+   // Get a QXDM client
+   var Handle = QXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to register a client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Client = QXDM2.ConfigureClientByKeys( Handle );
+   if (Client == null)
+   {
+      Txt = "Unable to configure client by keys";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+
+   // Configure client for log
+   var LogCode = 0x1019;
+   Client.AddLog( LogCode );
+   Client.CommitConfig();
+
+   Txt = "Client configured log code 0x" + LogCode.toString( 16 );
+   WScript.StdOut.WriteLine( Txt );
+
+   // Now empty out the client config and reconfigure
+   Client.ClearConfig();
+   Txt = "Client configuration successfully cleared";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Configure client for event
+   var EventID = 256;
+   Client.AddEvent( EventID );
+   Client.CommitConfig();
+
+   Txt = "Client configured for event ID " + EventID;
+   WScript.StdOut.WriteLine( Txt );
+
+   QXDM2.UnregisterClient( Handle );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Manipulate client configuration
+   ManipulateClientConfig();
+}
+
+Execute();
+
+</script>
+</job>

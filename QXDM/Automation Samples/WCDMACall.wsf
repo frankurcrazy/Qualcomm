@@ -1,0 +1,364 @@
+<job id="QXDM Automation Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript WCDMACall.wsf <Port Number> <Phone Number>
+
+// This example demonstrates monitoring multiple types
+// of events during the lifetime of a WCDMA call
+
+// Global variables
+var QXDM;
+var QXDM2;
+var ReqHandle;
+
+// COM port to be used for communication with the phone by QXDM
+var PortNumber = "";
+var PhoneNumber = "";
+
+// Process the arguments - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript WCDMACall.wsf <COM Port Number> <Phone Number>\n"
+            + "Eg:     CScript WCDMACall.wsf 5 0123456789\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 2)
+   {
+      WScript.StdOut.WriteLine( Help );
+
+      return RC;
+   }
+
+   // Grab port number
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Extract phone number (only digits)
+   var TmpNumber = WScript.Arguments( 1 );
+   for (var c = 0; c < TmpNumber.length; c++)
+   {
+      var Val = TmpNumber.charAt( c );
+      switch (Val)
+      {
+         case '0':
+         case '1':
+         case '2':
+         case '3':
+         case '4':
+         case '5':
+         case '6':
+         case '7':
+         case '8':
+         case '9':
+            PhoneNumber += Val;
+            break;
+      }
+   }
+
+   if (PhoneNumber.length < 1)
+   {
+      Txt = "Invalid phone number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Register the QXDM client
+function RegisterClient()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create a client
+   ReqHandle = QXDM2.RegisterQueueClient( 256 );
+   if (ReqHandle != 0xFFFFFFFF)
+   {
+      Txt = "Registered as QXDM client";
+      WScript.StdOut.WriteLine( Txt );
+
+      // Get a configuration object
+      var clientObject = QXDM2.ConfigureClientByKeys( ReqHandle );
+      if (clientObject != null)
+      {
+         // Register for events:
+         //    416  - EVENT_CM_CALL_STATE
+         //    629  - EVENT_CM_CALL_EVENT_ORIG
+         //    630  - EVENT_CM_CALL_EVENT_CONNECT
+         //    631  - EVENT_CM_CALL_EVENT_END
+         clientObject.AddEvent( 416 );
+         clientObject.AddEvent( 629 );
+         clientObject.AddEvent( 630 );
+         clientObject.AddEvent( 631 );
+         clientObject.CommitConfig();
+
+         Txt = "Registered for CM events";
+         WScript.StdOut.WriteLine( Txt );
+
+         // Success!
+         RC = true;
+      }
+      else
+      {
+         Txt = "Failed to get client interface";
+         WScript.StdOut.WriteLine( Txt );
+      }
+   }
+   else
+   {
+      Txt = "Unable to register as QXDM client";
+      WScript.StdOut.WriteLine( Txt );
+   }
+
+   return RC;
+}
+
+// Unregister the QXDM client
+function UnregisterClient()
+{
+   // Assume failure
+   var RC = false;
+
+   if (ReqHandle != 0xFFFFFFFF)
+   {
+      QXDM2.UnregisterClient( ReqHandle );
+      RC = true;
+   }
+
+   return RC;
+}
+
+// Originate a WCDMA call
+function OriginateWCDMACall()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   var Cmd = "WCDMA/Call Originate Request";
+   var Args = PhoneNumber.length.toString() + " " + PhoneNumber + " 7";
+
+   var Rsp = SendRequestAndReturnResponse( Cmd, Args, 18 );
+   if (Rsp != null)
+   {
+      RC = true;
+   }
+
+   return RC;
+}
+
+// Terminate a WCDMA call
+function TerminateWCDMACall()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   var Cmd = "WCDMA/Call End Request";
+   var Args = "";
+
+   var Rsp = SendRequestAndReturnResponse( Cmd, Args, 18 );
+   if (Rsp != null)
+   {
+      RC = true;
+   }
+
+   return RC; 
+}
+
+// Process client attempting to find an exit condition
+function ProcessClient()
+{
+   var bExit = false;
+   var bCall = false;
+
+   var CurrIndex = -1;
+   var PrevIndex = -1;
+   var Txt = "";
+
+   // We monitor the call status for up to sixty seconds but we
+   // only allow thirty seconds for call setup and after fifty
+   // seconds we automatically terminate the call
+   for (var secs = 0; secs < 60; secs++)
+   {
+      // Sleep for 1s
+      WScript.sleep( 1000 );
+
+      // Get index of last item in client
+      CurrIndex = QXDM2.GetClientItemCount( ReqHandle ) - 1;
+      if (PrevIndex > CurrIndex)
+      {
+         // Reset index if it is greater than item count
+         PrevIndex = -1;
+      }
+
+      // Make sure there is an item
+      if (CurrIndex < 0)
+      {
+         continue;
+      }
+
+      // Process all new items
+      for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+      {
+         var Item = QXDM2.GetClientItem( ReqHandle, i );
+         if (Item != null)
+         {
+            DumpItemDetails( Item, 18 );
+
+            var ItemKey = Item.GetItemKeyText();
+            switch (ItemKey)
+            {
+               // EVENT_CM_CALL_EVENT_CONNECT
+               case "[00630]":
+               {
+                  // A call is up
+                  bCall = true; 
+               }
+               break;
+
+               // EVENT_CM_CALL_EVENT_END
+               case "[00631]":
+               {
+                  // A call has been ended, time to exit
+                  bExit = true;
+               }
+               break;
+            }
+         }
+      }
+
+      // Get ready for next pass
+      PrevIndex = CurrIndex;
+
+      // Did we manage to make a call?
+      if (secs == 30 && bCall == false)
+      {
+         // It hasn't happened by now so exit
+         bExit = true;
+      }
+
+      if (secs == 50)
+      {
+         // After 50s terminate the call on our own
+         TerminateWCDMACall();
+      }
+
+      if (bExit == true)
+      {
+         break;
+      }
+   }
+}
+
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   RC = RegisterClient();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Connect to our desired port
+   RC = Connect( PortNumber );
+   if (RC == false)
+   {
+      UnregisterClient();
+      return;
+   }
+
+   // Start a WCDMA call
+   OriginateWCDMACall();
+
+   // Wait for the call to terminate
+   ProcessClient();
+
+   // Clean-up
+   Disconnect();
+   UnregisterClient();
+}
+
+Execute();
+
+</script>
+</job>

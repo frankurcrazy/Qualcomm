@@ -1,0 +1,1922 @@
+0^"CBSupportedType"^679^0
+1^"NetworkLostReasonType"^680^0
+2^"SMSCBL1CauseType"^681^0
+3^"SMSCBL1StateType"^682^0
+4^"USSDIndicationTypeType"^683^0
+5^"adspClockType"^684^0
+6^"CGPS PDSM Parameter Type"^-1^0
+7^"aich_stat_type"^686^0
+8^"armClientType"^687^0
+9^"armClockType"^688^0
+10^"audio_video_type"^689^0
+11^"Combining Type"^-1^0
+12^"Max EUL Spreading Factor"^-1^0
+13^"IQ Map"^-1^0
+14^"Grant Selection"^-1^0
+15^"Grant Type"^-1^0
+16^"cai_counter_id_type"^690^0
+17^"cai_timer_id_type"^691^0
+18^"call_cntrl_state_type"^692^0
+19^"call_proc_state_type"^692^0
+20^"call_statistic_type"^693^0
+21^"call_type_type"^694^0
+22^"cdmaExitType"^505^0
+23^"cell_selection_end_reason_type"^695^0
+24^"cell_selection_reason_type"^695^0
+25^"Absolute Grant Scope"^-1^0
+26^"cm_band_pref"^697^0
+27^"cm_call_end_e_type"^698^0
+28^"CM Call State"^699^0
+29^"cm_call_type_e_type"^698^0
+30^"cm_gw_acq_order_pref"^697^0
+31^"cm_hybr_pref_e_type"^698^0
+32^"cm_hybrid_pref"^697^0
+33^"cm_mode_pref"^697^0
+34^"cm_mode_pref_e_type"^698^0
+35^"cm_operational_mode"^699^0
+36^"cm_roam_pref"^697^0
+37^"cm_srv_domain_pref"^697^0
+38^"cm_srv_type_e_type"^698^0
+39^"cm_ss_e_type"^698^0
+40^"cm_sys_mode_e_type"^698^0
+41^"cm_system_mode"^699^0
+42^"cmcall_act_e_type"^698^0
+43^"codec_type"^700^0
+44^"coding_type"^-1^0
+45^"collisionCauseType"^701^0
+46^"confInfoType"^683^0
+47^"confTypeType"^683^0
+48^"data_dl_type_type"^702^0
+50^"end_reason_type"^703^0
+51^"end_status_type"^704^0
+52^"errorStatusType"^683^0
+53^"errorTypeType"^683^0
+54^"exception_type_type"^705^0
+55^"failure_reason_type"^706^0
+57^"gprs_channel_type"^708^0
+58^"gprs_dl_msg_type"^709^0
+59^"gprs_failure_reason_type"^710^0
+60^"gprs_link_failure_type"^711^0
+61^"gprs_pd_type"^712^0
+62^"gprs_request_cause_type"^713^0
+63^"gprs_success_type"^714^0
+64^"gprs_ul_msg_type"^715^0
+65^"gps_data_type_type"^716^0
+66^"gps_end_session_type"^717^0
+67^"gps_new_state_type"^718^0
+68^"gps_operation_mode_type"^702^0
+70^"gps_session_type_type"^719^0
+71^"gsm_l1_state_enum_type"^699^0
+72^"gsm_message_type"^720^0
+73^"gsm_timer_type"^721^0
+74^"gsm_to_wcdma_failure_reason_type"^722^0
+75^"handover_type"^699^0
+76^"hdrqxdm_bool_enum_type"^723^0
+77^"hdrqxdm_chan_enum_type"^723^0
+78^"hdrqxdm_cmd_enum_type"^723^0
+79^"hdrqxdm_ind_enum_type"^723^0
+80^"hdrqxdm_msg_enum_type"^723^0
+81^"hdrqxdm_name_enum_type"^723^0
+82^"hdrqxdm_state_enum_type"^723^0
+83^"hi_lvl_call_proc_state_type"^692^0
+84^"hsStatusType"^724^0
+85^"idleHandoffType"^725^0
+88^"listStateType"^726^0
+89^"list_category_type"^727^0
+94^"logical_chan_type"^728^0
+95^"matchType"^729^0
+96^"mdspClockType"^730^0
+97^"mem_type_e_type"^731^0
+98^"message_id_set_type"^732^0
+99^"message_set_type"^732^0
+100^"mip_type"^733^0
+101^"msg_type_type"^734^0
+102^"nw_cell_mode_pref_type"^735^0
+103^"operation_mode_type"^736^0
+104^"paging_cause_type"^737^0
+105^"passwordTypeType"^683^0
+106^"pause_reason_type"^683^0
+107^"plmn_forbidden_type"^727^0
+108^"power_scan_status_type"^695^0
+109^"ppp_state_type"^739^0
+110^"ppp_type"^739^0
+111^"privacy_type"^702^0
+112^"rat_type"^727^0
+114^"reason_for_access"^699^0
+115^"reason_type"^740^0
+116^"reject_reason_type"^743^0
+117^"reselect_type"^699^0
+118^"response_status_type"^744^0
+119^"rl_failure_cause_type"^745^0
+120^"rlp_info_type"^746^0
+121^"rlp_type"^746^0
+122^"roam_status_type"^747^0
+123^"rrc_mode_type"^396^0
+124^"rrc_state_type"^686^0
+125^"rx_channel_type"^748^0
+127^"search_mode_type"^695^0
+128^"seccryptCmdType"^750^0
+129^"seccryptType"^751^0
+130^"secsslType"^752^0
+131^"sectestType"^753^0
+132^"secvpnType"^443^0
+133^"service_status_type"^747^0
+134^"session_type_type"^702^0
+135^"sig_mess_type_enum"^754^0
+136^"signal_quality_type"^727^0
+137^"sim_state_type"^747^0
+138^"slot_mask_e_type"^755^0
+139^"slotted_mode_type"^692^0
+140^"sms_status_type"^699^0
+141^"srch_mode_type"^757^0
+142^"srv_capability_type"^683^0
+143^"srv_type_type"^758^0
+144^"ss_act_type"^749^0
+145^"ss_event_type"^749^0
+146^"ss_state_type"^749^0
+147^"start_source_type"^702^0
+148^"stateType"^759^0
+149^"status_type"^760^0
+150^"subStateType"^761^0
+151^"success_type"^706^0
+153^"tcp_state_type"^763^0
+154^"transport_type_type"^702^0
+155^"tx_channel_type"^764^0
+156^"ul_chan_type"^765^0
+157^"ul_coding_rate"^765^0
+158^"use_state_type"^-1^0
+161^"wcdma_crc_bits"^766^0
+163^"wcdma_handover_failure_reason_type"^686^0
+164^"wcdma_handover_failure_type"^686^0
+165^"wcdma_handover_success_type"^686^0
+166^"wcdma_handover_type"^686^0
+167^"wcdma_l1_state_enum_type"^686^0
+168^"wcdma_l1_substate_type"^768^0
+169^"wcdma_reselect_fail_reason_type"^686^0
+170^"wcdma_reselect_type"^686^0
+171^"wcdma_sf_min"^769^0
+172^"wcdma_succ_fail_type"^686^0
+173^"wcdma_tti_type"^769^0
+174^"wms_report_status_e_type"^770^0
+175^"addressMismatchType"^771^0
+176^"rlcInitiatorType"^772^0
+177^"rlcWindowStateType"^773^0
+178^"eventType"^774^0
+179^"cardEvents"^776^0
+180^"directionRotate"^741^0
+181^"callConnected"^775^0
+182^"activeRAT"^646^0
+183^"dataSuspended"^648^0
+184^"directionType"^741^0
+185^"qvp_app_api_release_reason_type"^665^0
+186^"cc_cause_present"^666^0
+187^"cc_cause"^667^0
+188^"rej_type"^669^0
+189^"rej_reason"^670^0
+191^"geographicScopeType"^674^0
+193^"qvpApplicationStateType"^813^0
+194^"PDSMEventDataType"^1159^0
+195^"MMUpdateStatusType"^1160^0
+196^"GMMStatusType"^1163^0
+197^"MMStateType"^1164^0
+198^"MMIdleSubstateType"^1166^0
+199^"GMMSubstateType"^1168^0
+200^"GMMStateType"^1169^0
+201^"GMMServiceStateType"^1170^0
+202^"RATPLMNServiceCapabilityType"^1173^0
+203^"RATType"^1175^0
+204^"mobileOperatingModeType"^1177^0
+205^"networkOperatingModeType"^1179^0
+206^"registeredDomainType"^1181^0
+208^"longCodeMaskType"^1185^0
+209^"publicLCMType"^1186^0
+210^"KF Filter Status"^-1^0
+211^"nvTrueFalse"^-1^0
+212^"nvEnableDisable"^-1^0
+214^"DS707EventType"^1190^0
+215^"DS707EventInfoType"^1191^0
+216^"Runtime FTM Command Type"^-1^0
+217^"Runtime HDR FTM Command Type"^-1^0
+218^"DPO Entry Check Status"^-1^0
+219^"DPO Exit Status"^-1^0
+240^"PDPStateEnum"^1214^0
+241^"RABStateEnum"^1215^0
+242^"WCDMA Logical Channel Mode (Uplink)"^-1^0
+243^"WCDMA Downlink Channel Type"^-1^0
+245^"WCDMA Logical Channel Mode (Downlink)"^-1^0
+246^"TTI Configuration Value"^-1^0
+247^"Transport Format Value"^-1^0
+248^"RX Software Mode Value"^-1^0
+249^"Markov Rate Value"^-1^0
+250^"Receive Task State Value"^-1^0
+251^"Transport Channel Types"^-1^0
+253^"Block Of Bytes Used Value"^-1^0
+254^"SI13 Position"^-1^0
+255^"SPGC CCCH Supported"^-1^0
+256^"Priority Access Ranges"^-1^0
+257^"Cell Selection Mode"^-1^0
+258^"SGSN Release"^-1^0
+259^"Network Operating Modes"^-1^0
+260^"T3168"^-1^0
+261^"NSAPI value"^-1^0
+262^"Radio Channel Requirements"^-1^0
+263^"Information Transfer Capability"^-1^0
+264^"Structure"^-1^0
+265^"Duplex Mode"^-1^0
+266^"Rate Adaptation"^-1^0
+267^"Signalling Access Protocol"^-1^0
+268^"Synchronous"^-1^0
+269^"Number of Data Bits"^-1^0
+270^"Number of Stop Bits"^-1^0
+271^"User Rate"^-1^0
+272^"Parity"^-1^0
+273^"Modem Type"^-1^0
+274^"Connection Element"^-1^0
+275^"User Information L2 Protocol"^-1^0
+276^"Coding Standard"^-1^0
+277^"Transfer Mode"^-1^0
+278^"Configuration"^-1^0
+279^"Negotiation of Intermediate Rate Requested"^-1^0
+280^"Establishment"^-1^0
+281^"User Information L1"^-1^0
+282^"Negotiation"^-1^0
+283^"Intermediate Rate"^-1^0
+284^"NIC on Transmit"^-1^0
+285^"NIC on Receive"^-1^0
+286^"Other Modem Type"^-1^0
+287^"Fixed Network User Rate"^-1^0
+288^"Acceptable Channel Coding"^-1^0
+289^"Maximum Number of Traffic Channels"^-1^0
+290^"User-Initiated Modification"^-1^0
+291^"NAS REG State"^-1^0
+292^"PLMN Selection Mode"^-1^0
+293^"UE Operation Mode"^-1^0
+294^"Delay Class"^-1^0
+295^"Reliability Class"^-1^0
+296^"Peak Throughput"^-1^0
+297^"Precedence Class"^-1^0
+298^"Mean Throughput"^-1^0
+299^"Traffic Class"^-1^0
+300^"Delivery Order"^-1^0
+301^"Delivery or Erroneous SDU"^-1^0
+302^"Maximum SDU Size"^-1^0
+303^"Maximum Bit Rate for UL"^-1^0
+304^"Maximum Bit Rate for DL"^-1^0
+305^"Residual BER"^-1^0
+306^"SDU Error Ratio"^-1^0
+307^"Transfer Delay"^-1^0
+308^"Traffic Handling Priority"^-1^0
+309^"Guarantee BER UL"^-1^0
+310^"Guarantee BER DL"^-1^0
+311^"MM State"^-1^0
+312^"MM Substate"^-1^0
+313^"MM Update"^-1^0
+314^"GMM State"^-1^0
+315^"GMM Substate"^-1^0
+316^"GMM Update"^-1^0
+317^"NAS Layer"^-1^0
+319^"Network Operation Mode"^-1^0
+320^"Service Type"^-1^0
+322^"CC State"^-1^0
+323^"Multiparty States"^-1^0
+324^"Hold States"^-1^0
+325^"Call Type"^-1^0
+326^"Call Origination Direction"^-1^0
+328^"DL Logical Channel Types"^-1^0
+329^"UL Channel Type"^-1^0
+332^"Segmentation"^-1^0
+333^"RLC States"^-1^0
+335^"SDU Discard"^-1^0
+336^"Last Transmit Poll"^-1^0
+337^"Last Retransmit Poll"^-1^0
+340^"RLC DL State"^-1^0
+341^"Phone Charger Status"^-1^0
+342^"In Sequence Delivery"^-1^0
+343^"Missing PU Index"^-1^0
+344^"SIB ID"^-1^0
+345^"RRC States"^-1^0
+346^"RRC Procedure"^-1^0
+347^"RRC Failure Cause"^-1^0
+348^"Protocol Error Cause"^-1^0
+349^"Call Access"^-1^0
+350^"TMC State"^-1^0
+351^"Wanted Air Interface Rate"^-1^0
+352^"TMSI PTMSI"^-1^0
+353^"TM DL Segmenation"^-1^0
+354^"T3192"^-1^0
+355^"DRX Timer Values"^-1^0
+356^"Access Burst Type"^-1^0
+357^"Packet Channel Ack Type"^-1^0
+358^"Packet Ack/Nack Max Values"^-1^0
+359^"CS Coordination"^-1^0
+360^"Alpha"^-1^0
+361^"DL Power Measurements Channel Type"^-1^0
+362^"Active States"^-1^0
+363^"GRR States"^-1^0
+364^"Serving Timer States"^-1^0
+365^"Serving Cell Reselection Status"^-1^0
+366^"Serving Cell Recent Reselection Status"^-1^0
+367^"Neighbor Timer States"^-1^0
+368^"Neighbor Cell Reselection Status"^-1^0
+369^"Serving RA Status"^-1^0
+370^"RLC UL States"^-1^0
+371^"UL XFER Substates"^-1^0
+372^"RLC DL States"^-1^0
+373^"LLME States"^-1^0
+374^"LLME Encryption Algorithm Number"^-1^0
+375^"GLLC LLE States"^-1^0
+376^"GLLC LLE Substates"^-1^0
+378^"Reliability Classes"^-1^0
+379^"Peak Throughput Classes"^-1^0
+380^"Radio Priority Classes"^-1^0
+381^"Data Comp Algorithm ID"^-1^0
+382^"Protocol Compression Algorithm ID"^-1^0
+383^"SAPI States"^-1^0
+384^"NSAPI DL States"^-1^0
+385^"NSAPI UL States"^-1^0
+386^"MAC Modes"^-1^0
+387^"MAC Null State Machine Substates"^-1^0
+388^"MAC Idle State Machine Substates"^-1^0
+389^"MAC Transfer State Machine Substates"^-1^0
+390^"Report Fields"^-1^0
+391^"Reject Reasons"^-1^0
+392^"Thresholds"^-1^0
+393^"QSearch Values"^-1^0
+394^"Qoffsets"^-1^0
+395^"Qmins"^-1^0
+396^"Reporting"^-1^0
+397^"Reporting Offsets"^-1^0
+398^"Reporting Thresholds"^-1^0
+399^"Report Types"^-1^0
+400^"Phone State"^-1^0
+401^"Frame Size Value"^-1^0
+402^"Legacy Service Config Traffic Channel Type"^-1^0
+405^"Supplemental Channel Coding Type"^-1^0
+406^"QPCH Paging Indicators Rates"^-1^0
+407^"Power Levels"^-1^0
+408^"Broadcast Indicators"^-1^0
+409^"Configuration Change Indicators"^-1^0
+410^"Indicator Demodulation Status"^-1^0
+411^"Indicator Types"^-1^0
+412^"Operating Mode"^-1^0
+413^"LOD Status"^-1^0
+414^"CDMA 1xEV Protocol Revisions"^-1^0
+415^"CDMA 1xEV AT States"^-1^0
+416^"CDMA 1xEV Session States"^-1^0
+417^"CDMA 1xEV ALMP States"^-1^0
+418^"CDMA 1xEV Initialization States"^-1^0
+419^"CDMA 1xEV Idle States"^-1^0
+420^"CDMA 1xEV Connected States"^-1^0
+421^"CDMA 1xEV Route Update States"^-1^0
+422^"CDMA 1xEV Overhead Message States"^-1^0
+423^"CDMA 1xEV Hybrid Modes"^-1^0
+424^"CDMA 1xEV DIP Switch Action"^-1^0
+425^"CDMA 1xEV MCS Flow Action"^-1^0
+426^"CDMA 1xEV MCS Debug Action"^-1^0
+428^"GPRS Log Action"^-1^0
+429^"Radio Configuration Value"^-1^0
+430^"Coding type"^-1^0
+431^"SCH Radio Configuration Value"^-1^0
+432^"Probe Sequence Result"^-1^0
+433^"Call Termination Reason"^-1^0
+434^"Result Interpretation"^-1^0
+435^"RF Modes"^-1^0
+436^"Primary/Secondary Pilot"^-1^0
+437^"Power Control Algorithm Type"^-1^0
+438^"Scrambling Code Types"^-1^0
+439^"Is Reference Cell"^-1^0
+440^"Cell Diversity Values"^-1^0
+441^"All Paging Blocks"^-1^0
+442^"Diversity Values"^-1^0
+443^"Paging Modes"^-1^0
+444^"Power Offset Valid"^-1^0
+445^"Additional Reselect Parameter Indicator"^-1^0
+446^"Reestablishment Allowed"^-1^0
+447^"Cell Bar Access"^-1^0
+448^"IMSI Attach-Detach"^-1^0
+449^"CCCH/SDCCH Channel Combination Flag"^-1^0
+450^"Power Control Indicator"^-1^0
+451^"Discontinuous Transmission"^-1^0
+452^"Cell Selection Priority"^-1^0
+453^"Ciphering Flag"^-1^0
+454^"Ciphering Algorithms"^-1^0
+455^"Channel Configuration Modes"^-1^0
+456^"Five Second Timer States"^-1^0
+457^"Connection Outcomes"^-1^0
+458^"Reception Status"^-1^0
+459^"AT States"^-1^0
+460^"QPCH Transfer Reasons"^-1^0
+461^"Convolutional/Turbo Coding Indicators"^-1^0
+462^"Channel States"^-1^0
+463^"DL Channel Types"^-1^0
+464^"Diversity Modes"^-1^0
+465^"Cell Barred"^-1^0
+466^"Cell Reserved"^-1^0
+467^"Cell Reserved - SoLSA"^-1^0
+468^"UE Camped"^-1^0
+469^"Flag Indicator"^-1^0
+470^"Penalty Time"^-1^0
+471^"Channel Types"^-1^0
+472^"Hopping Flag"^-1^0
+473^"cameraProfilingStates"^-1^0
+474^"Type"^-1^0
+475^"SI"^-1^0
+476^"CPS Type 1"^-1^0
+477^"CPS Type 2"^-1^0
+478^"CPS Type 3"^-1^0
+479^"ATT"^-1^0
+480^"dtx"^-1^0
+481^"BS CCCH/SDCCH Combination"^-1^0
+482^"CS"^-1^0
+484^"FCH Frames Rates"^-1^0
+485^"FCH Frame Types"^-1^0
+486^"SCH Frame Rate"^-1^0
+487^"MaxRates"^-1^0
+488^"Test Mode Commands"^-1^0
+489^"RF FTM Commands"^-1^0
+490^"Interrupt States"^-1^0
+491^"Suspend States"^-1^0
+492^"Slice Types"^-1^0
+493^"FTM Command Status"^-1^0
+494^"DS707EventTypes"^-1^0
+495^"Action Types"^-1^0
+496^"Task Profile Status"^-1^0
+497^"BCCH Band"^-1^0
+498^"Key"^-1^0
+499^"DPL Protocol Type"^2243^0
+500^"DPL Direction Type"^-1^0
+501^"timerIDs"^-1^0
+502^"requestTypes"^-1^0
+503^"rejectCauses"^-1^0
+504^"accessTypes"^-1^0
+505^"releaseTypes"^-1^0
+506^"cellChangeOrderTypes"^-1^0
+507^"failureCauses"^-1^0
+508^"AMRRATSCCHRequestTypes"^-1^0
+509^"AMRRATSCCHResponseTypes"^-1^0
+510^"Power Control Group Decision"^-1^0
+511^"dataTypes"^-1^0
+512^"endSatus"^-1^0
+513^"sysRAT"^-1^0
+514^"Channel Measurement Status"^-1^0
+515^"SV Time Flags"^-1^0
+516^"Current Link States"^-1^0
+517^"registrationTypes"^-1^0
+518^"LNA Range Values"^-1^0
+519^"PA On"^-1^0
+520^"Tx AGC Accum Frozen"^-1^0
+521^"formActions"^-1^0
+522^"Minimum Spreading Factors"^-1^0
+523^"Measurement Orders"^-1^0
+524^"BS PCC Release Values"^-1^0
+525^"PSI Status"^-1^0
+526^"SGSNR"^-1^0
+527^"MSCR"^-1^0
+528^"Max Retransmission Values"^-1^0
+529^"Non GPRS Cell Present"^-1^0
+530^"Exclusive Access"^-1^0
+531^"Cell Access Types"^-1^0
+532^"Random Access"^-1^0
+533^"failureTypes"^-1^0
+534^"L2CAP Channel States"^-1^0
+535^"L2CAP Configuration States"^-1^0
+536^"L2CAP Connection Status"^-1^0
+537^"Multiplexer Control Channel States"^-1^0
+538^"DLCI States"^-1^0
+539^"AG States"^-1^0
+540^"Driver States"^-1^0
+541^"HCI Modes"^-1^0
+542^"BT States"^-1^0
+543^"Buffer Overflow"^-1^0
+544^"Event Overflow"^-1^0
+545^"RF Chip Types"^-1^0
+546^"Enabled Packet Types"^-1^0
+547^"SCO Encoding Types"^-1^0
+548^"QDSP Modes"^-1^0
+549^"L2CAP Overflow"^-1^0
+550^"Flow Control"^-1^0
+551^"Encryption"^-1^0
+552^"ACL States"^-1^0
+553^"Devices Role"^-1^0
+554^"Link Modes"^-1^0
+555^"Auth States"^-1^0
+556^"Encrypt States"^-1^0
+557^"CDMA Frame Types"^-1^0
+558^"Gating Rates"^-1^0
+559^"flowStates"^-1^0
+560^"timerCAM"^-1^0
+561^"timerRDUD"^-1^0
+562^"fallback"^-1^0
+563^"callbackStatus"^-1^0
+564^"returnStatus"^-1^0
+565^"flowControlTimerValues"^-1^0
+566^"AMR Rates"^-1^0
+567^"Frame Types"^-1^0
+568^"Frame Rates"^-1^0
+569^"TAF"^-1^0
+570^"PLMN Capabilities"^-1^0
+571^"Signal Qualities"^-1^0
+572^"PLMN States"^-1^0
+573^"Radio Access Technologies"^-1^0
+574^"PLMN Categories"^-1^0
+575^"Substates"^-1^0
+576^"HS State"^-1^0
+577^"requestMessageID"^-1^0
+578^"rejectMessageID"^-1^0
+579^"FLO State Types"^-1^0
+580^"FLO System Types"^-1^0
+581^"Trans Modes"^-1^0
+582^"Outer Codes"^-1^0
+583^"Binding Types"^-1^0
+584^"sessionCloseReasons"^-1^0
+585^"Session Types"^-1^0
+586^"Operating Types"^-1^0
+587^"Privacy Modes"^-1^0
+588^"Server Modes"^-1^0
+589^"Delete"^-1^0
+590^"Delete Mask"^-1^0
+591^"Session End Types"^-1^0
+592^"Session Termination Status"^-1^0
+593^"Session Status"^-1^0
+594^"NV States"^-1^0
+595^"NV Parameters"^-1^0
+596^"GPS Session Lock Modes"^-1^0
+597^"Transport Modes"^-1^0
+598^"Privacy Levels"^-1^0
+599^"Network Access Types"^-1^0
+600^"NV Parameter Status"^-1^0
+601^"DHCP Enabled"^-1^0
+602^"Result"^-1^0
+603^"Preamble Types"^-1^0
+604^"Call Processing States"^-1^0
+605^"RF Low/High Linearity States"^-1^0
+606^"RF Forced/Auto Linearity States"^-1^0
+650^"systemModesBCMCS"^-1^0
+651^"flowStatus"^-1^0
+652^"cameraEvents"^-1^0
+653^"urlOpenStatus"^-1^0
+654^"callTypes"^-1^0
+655^"serviceTypes"^-1^0
+656^"clipEndTypes"^-1^0
+668^"Align Modes"^-1^0
+669^"Search Types"^-1^0
+670^"Peak Detector Modes"^-1^0
+671^"eventTypes"^-1^0
+672^"streamStates"^-1^0
+673^"action"^-1^0
+674^"newCCStates"^-1^0
+675^"sleepStates"^-1^0
+676^"actions"^-1^0
+677^"oisRequestTypes"^-1^0
+678^"New Transmission Indicator"^-1^0
+679^"Logging Technologies"^-1^0
+680^"AFC Modes"^-1^0
+681^"AFC Gain Modes"^-1^0
+682^"Slew Rate Limiting Indicators"^-1^0
+683^"Finger Cross Modes"^-1^0
+684^"Clock Domains"^-1^0
+686^"Clock Transaction Types"^-1^0
+687^"Clock Domain 0 Rev 1 Descriptions"^-1^0
+688^"Clock Domain 1 Rev 1 Descriptions"^-1^0
+689^"Clock Domain 2 Rev 1 Descriptions"^-1^0
+690^"Clock Domain 0 Rev 2 Descriptions"^-1^0
+691^"Clock Domain 1 Rev 2 Descriptions"^-1^0
+692^"Clock Domain 2 Rev 2 Descriptions"^-1^0
+693^"resetCauses"^-1^0
+694^"Voltage Regulator IDs"^-1^0
+695^"fileFormatTypes"^-1^0
+696^"videoFormatTypes"^-1^0
+697^"audioFormatTypes"^-1^0
+698^"transcodeFileFormatTypes"^-1^0
+699^"highPriorityStates"^-1^0
+700^"highPriorityCauses"^-1^0
+701^"Log Param Types"^-1^0
+702^"DMTT Parameter Types"^-1^0
+703^"casLayerStates"^-1^0
+704^"acquisitionStates"^-1^0
+705^"Dynamic Feature Supported"^-1^0
+706^"Status Codes"^-1^0
+707^"Pixel Orientation"^-1^0
+708^"channelStates"^-1^0
+709^"Controlling TCXO"^-1^0
+710^"TCXO Requested"^-1^0
+711^"AFC Configuration Modes"^-1^0
+712^"VAFC States"^-1^0
+713^"MF AFC Commands"^-1^0
+715^"AFC Testmode Responses"^-1^0
+716^"Service Key Actions"^-1^0
+717^"SW Watch Dog Reset Actions"^-1^0
+718^"Duration Is Below Low Mark"^-1^0
+719^"Duration Is Above High Mark"^-1^0
+720^"Frame Values"^-1^0
+721^"fallbackModeEvents"^-1^0
+722^"fallbackOptions"^-1^0
+723^"peapEventTypes"^-1^0
+724^"innerEAPMethods"^-1^0
+725^"ttlsEventTypes"^-1^0
+726^"phaseTwoMethods"^-1^0
+727^"tlsEventTypes"^-1^0
+728^"exceptionTypes"^-1^0
+729^"Message Types"^-1^0
+730^"Response Flag"^-1^0
+732^"PD Session Types"^-1^0
+733^"Session Operation Modes"^-1^0
+734^"Server Service Options"^-1^0
+735^"PD Privacy Levels"^-1^0
+736^"Parameter Types"^-1^0
+738^"PD Session End Types"^-1^0
+739^"Notify Status"^-1^0
+740^"Reporting Criterias"^-1^0
+741^"PD Event Types"^-1^0
+742^"PA Event Types"^-1^0
+743^"Notification Privacy Types"^-1^0
+744^"Data Coding Schemes"^-1^0
+745^"Location Types"^-1^0
+746^"ID Present"^-1^0
+747^"PD Command Types"^-1^0
+748^"PD Command Errors"^-1^0
+749^"PA Command Types"^-1^0
+750^"PA Command Errors"^-1^0
+751^"AGPS Modes"^-1^0
+752^"GPS Lock Types"^-1^0
+753^"PTLM Modes"^-1^0
+754^"Keepwarm"^-1^0
+755^"Link Types"^-1^0
+756^"Protocol Types"^-1^0
+757^"Event IDs"^-1^0
+758^"SMLC Communication States"^-1^0
+759^"MGP Receiver States"^-1^0
+760^"LSM Collect States"^-1^0
+761^"LSM Session States"^-1^0
+762^"Fix Types"^-1^0
+763^"GPS Positioning Methods"^-1^0
+764^"Position"^-1^0
+765^"Assistance Data Comminications"^-1^0
+766^"reselectionTypes"^-1^0
+767^"eulActions"^-1^0
+768^"edchAction"^-1^0
+769^"tti"^-1^0
+770^"macEReset"^-1^0
+771^"emRequestTypes"^-1^0
+772^"transactionTypes"^-1^0
+773^"messageTypes"^-1^0
+774^"extensionTypes"^-1^0
+775^"riContextStatus"^-1^0
+776^"errorTypes"^-1^0
+777^"validationTypes"^-1^0
+778^"outcome"^-1^0
+779^"sessionChangeReasons"^-1^0
+780^"roapResponseStatus"^-1^0
+781^"previousReportStatus"^-1^0
+783^"Converged GPS Position Sources"^-1^0
+784^"Converged GPS Response Types"^-1^0
+785^"Converged GPS Failure Codes WLS"^-1^0
+786^"Converged GPS Failure Codes KF"^-1^0
+787^"Converged GPS SV Observation States"^-1^0
+789^"Converged GPS RF IC IDs"^-1^0
+790^"cellSupportsHSDPAHSUPA"^-1^0
+791^"supportsDTM"^-1^0
+792^"Converged GPS Gain Of Amplitude"^-1^0
+793^"servingCellChangeType"^-1^0
+794^"servingCellChangeCause"^-1^0
+795^"drmRightsOperationTypes"^-1^0
+796^"drmRightsOperationStatus"^-1^0
+797^"pdsmEventTypes"^-1^0
+798^"pdsmCommandTypes"^-1^0
+799^"failureReasons"^-1^0
+800^"pdsmErrorCodes"^-1^0
+801^"pdsmPACommandTypes"^-1^0
+802^"lmEventTypes"^-1^0
+803^"lmErrorEventTypes"^-1^0
+804^"deviceTypes"^-1^0
+805^"eventFalseTrue"^-1^0
+806^"monitorMethods"^-1^0
+807^"mfnSubstates"^-1^0
+808^"operationalErrorTypes"^-1^0
+809^"mfnStates"^-1^0
+810^"pmicApplicationStates"^-1^0
+811^"gpsOperationModes"^-1^0
+812^"aidingDataTypes"^-1^0
+813^"Table IDs"^-1^0
+814^"Table Manager States"^-1^0
+816^"CE States"^-1^0
+817^"EAP Event Types"^-1^0
+818^"EPP Authentication Failure Reasons"^-1^0
+819^"Generated Event Types"^-1^0
+820^"Identity Types"^-1^0
+821^"WLAN CP Measurement Event Types"^-1^0
+822^"Scan Types"^-1^0
+823^"WLAN CP Handoff Event Types"^-1^0
+824^"WLAN CP 802.11d Event Types"^-1^0
+825^"WLAN MC Event Types"^-1^0
+826^"WLAN WPA Event Types"^-1^0
+827^"WPA Modes"^-1^0
+828^"PMKID Operation Types"^-1^0
+829^"SVG Event Status"^-1^0
+830^"Content Set Types"^-1^0
+831^"Play Modes"^-1^0
+832^"User Event Types"^-1^0
+833^"Focus Event Types"^-1^0
+834^"URI Types"^-1^0
+835^"URI Data Types"^-1^0
+836^"Transform Types"^-1^0
+837^"Scroll Modes"^-1^0
+838^"Content Handler Event Status"^-1^0
+839^"SVG Get Parameter Types"^-1^0
+840^"SVG Set Parameter Types"^-1^0
+841^"Mode Controller QoS Event Types"^-1^0
+842^"CP Adhoc Event Types"^-1^0
+843^"Key Codes"^-1^0
+844^"PSC Scanner States"^-1^0
+845^"DOS Route Types"^-1^0
+846^"CM DBM MO Status"^-1^0
+847^"Trigger Types"^-1^0
+848^"End Reasons"^-1^0
+849^"Display IDs"^-1^0
+850^"LCD Status"^-1^0
+851^"Backlight Control"^-1^0
+852^"Mobile Country Codes"^-1^0
+853^"Reason Codes"^-1^0
+854^"QTV Player Status"^-1^0
+855^"File Operations"^-1^0
+856^"ROHC Profile Types"^-1^0
+857^"ROHC Mode Types"^-1^0
+858^"Compressor States"^-1^0
+859^"Decompressor States"^-1^0
+860^"Connected HID"^-1^0
+861^"Stack Identity"^-1^0
+862^"Operational Error Type"^-1^0
+863^"Application Subtypes"^-1^0
+864^"Normal HDR"^-1^0
+865^"Connection Layer Formats"^-1^0
+866^"Previous Packet Status"^-1^0
+867^"AI Results"^-1^0
+868^"MRLP Event Types"^-1^0
+869^"WLAN TKIP Event Types"^-1^0
+870^"CDMA 1x-EV Best Equalizer C/I Index"^-1^0
+871^"Tone Formats"^-1^0
+872^"CGPS Command Codes"^-1^0
+873^"CGPS PDSM Client Types"^-1^0
+874^"Register Types"^-1^0
+875^"CGPS Session End Types"^-1^0
+876^"WLS And KF Final Fix"^-1^0
+877^"CGPS Update Type"^-1^0
+878^"Authentication Types"^-1^0
+879^"Encryption Types"^-1^0
+880^"WLAN Modules"^-1^0
+881^"Power Save Modes"^-1^0
+882^"QoS Modes"^-1^0
+883^"Pseudo Range Flags"^-1^0
+884^"Integration Modes"^-1^0
+885^"WLAN CP Event Types"^-1^0
+886^"CP System Manager States"^-1^0
+887^"Carrier Configurations"^-1^0
+888^"PA Headroom Run Decisions"^-1^0
+889^"CM Run Decisions"^-1^0
+890^"Carrier States"^-1^0
+891^"Data Transmission"^-1^0
+892^"Current SLP Carrier Has Data"^-1^0
+893^"Is SLP Carrier"^-1^0
+894^"Physical Layer Revisions"^-1^0
+895^"Physical Layer Revisions RL"^-1^0
+896^"UMTS CS Data Frame Sizes"^-1^0
+897^"UMTS CS Frame Check Sum Errors"^-1^0
+898^"UMTS CS RLP Versions"^-1^0
+899^"UMTS CS System Modes"^-1^0
+900^"WCDMA EUL EDCH TTI Lengths"^-1^0
+901^"WCDMA EUL ACK/NACK Status"^-1^0
+902^"WCDMA EUL UL TPC Decisions"^-1^0
+903^"MFN Acquisition States"^-1^0
+904^"MFN State Change Reasons"^-1^0
+905^"UMB2 Processing Types"^-1^0
+906^"PPC/SPC Processing"^-1^0
+907^"Types Of Flow Group Parameters"^-1^0
+908^"Dynamic Power Optimization Status"^-1^0
+909^"On Demand Mode Change Reasons"^-1^0
+910^"On Demand Mode Types"^-1^0
+911^"On Demand Done Reasons"^-1^0
+912^"RMAC Carrier States"^-1^0
+913^"SBAS Demodulator Status"^-1^0
+914^"Coding Types"^-1^0
+915^"Decode's Search Space"^-1^0
+916^"TX Antennas"^-1^0
+917^"BCast Security STKM Reason Codes"^-1^0
+918^"CP Types"^-1^0
+919^"Pilot Detect Outcomes"^-1^0
+920^"BCast Security Status"^-1^0
+921^"BCast Security SDP Reason Codes"^-1^0
+922^"Stream Types"^-1^0
+923^"Key Stream Types"^-1^0
+924^"Traffic Protection Protcol"^-1^0
+925^"GPS Operation Modes"^-1^0
+926^"GPS Extern Coarse Position Inject End Reasons"^-1^0
+927^"WLAN QoS PStream Event Types"^-1^0
+928^"WLAN CP VCC Event Types"^-1^0
+929^"HDR DTX Mode Command Actions"^-1^0
+930^"BCMCS States"^-1^0
+931^"Time Information Types"^-1^0
+932^"Altitude Definitions"^-1^0
+933^"Sources"^-1^0
+934^"Tracking States"^-1^0
+935^"FFT Modes"^-1^0
+936^"CP Modes"^-1^0
+937^"SI Mappings"^-1^0
+938^"PT Parameter Types"^-1^0
+939^"DMTT Modes"^-1^0
+940^"UBM2 FFT Modes"^-1^0
+941^"NAK Types"^-1^0
+942^"False Lock"^-1^0
+943^"Cyclic Prefix Type"^-1^0
+944^"Frame Boundary Positions"^-1^0
+945^"Cell Search Status"^-1^0
+946^"Demod Device Types"^-1^0
+947^"Decoded PHICH Results"^-1^0
+948^"WCDMA AMR Codec Types"^-1^0
+949^"CQI Types"^-1^0
+950^"UE Transmitted Values"^-1^0
+951^"GAN Disconnect/Message/Data Call Initiator Types"^-1^0
+952^"Type Of Network Doing Hand-In/Out"^-1^0
+953^"Decoded PCFICH Results"^-1^0
+954^"Types Of Network Doing Data Call Hand-In"^-1^0
+955^"TX RX Pairs"^-1^0
+956^"Frequency Estimate Algorithms"^-1^0
+957^"Modulation Orders"^-1^0
+958^"PUCCH Formats"^-1^0
+959^"SPC Symbol Numbers"^-1^0
+960^"Connection Release Causes"^-1^0
+961^"Connection Request Causes"^-1^0
+962^"RACH Contention Values"^-1^0
+963^"UMTS Vocoder AMR-WB Frame Rates"^-1^0
+964^"UMTS Vocoder AMR-WB RX Frame Types"^-1^0
+965^"ubm_l1_mode_type_isdbt"^-1^0
+966^"ubm_l1_guard_type_isdbt"^-1^0
+967^"ubm_l1_modulation_type"^-1^0
+968^"L1 State Machine States"^-1^0
+969^"Trigger For Sub-packet Logging"^-1^0
+970^"FW ISDBT States"^-1^0
+971^"L1 State  Machine Commands"^-1^0
+972^"RF Tune"^-1^0
+973^"ubm_l1_acq_status"^-1^0
+974^"ubm_l1_code_rate"^-1^0
+976^"Recovery Status"^-1^0
+977^"L3 Command Notify"^-1^0
+978^"Modem Failure Source"^-1^0
+979^"RDSP Halt Codes"^-1^0
+980^"Position Engine Types"^-1^0
+981^"SV Types"^-1^0
+982^"GPS Measurement Types"^-1^0
+983^"GNSS Measurement Type"^-1^0
+984^"RFIC Modes"^-1^0
+985^"RFIC Linearity States"^-1^0
+986^"RF PLL Lock Status"^-1^0
+987^"BP Sample Rates"^-1^0
+988^"GNSS HW Versions"^-1^0
+989^"GNSS Types"^-1^0
+990^"Wiping Mask Values"^-1^0
+991^"Position/Velocity FDIC Results"^-1^0
+992^"Selected KF Solutions"^-1^0
+993^"GNSS Failure Code KF"^-1^0
+994^"GNSS PDSM Fix Types"^-1^0
+995^"Filter Operation Modes"^-1^0
+996^"IQ Response Types"^-1^0
+997^"GNSS RF Modes"^-1^0
+998^"GNSS Search Strategies"^-1^0
+999^"CGPS SNDB Log Outputs"^-1^0
+1000^"Active Radio Air Interfaces"^-1^0
+1001^"Position Information Sources"^-1^0
+1002^"CGPS Ephemeris Test Decisions"^-1^0
+1003^"GNSS RFIC Modes"^-1^0
+1004^"RxD Flags"^-1^0
+1005^"GPS/GLONASS Search Modes"^-1^0
+1006^"GPS/GLONASS Dwell Status"^-1^0
+1007^"GPS Command Status"^-1^0
+1008^"SNS Location States"^-1^0
+1009^"Location Source"^-1^0
+1010^"Calibration Set States"^-1^0
+8000^"Debug Trace Message Type"^-1^0
+8001^"Debug Trace Message Timestamp Type"^-1^0
+8999^"Invalid Switch"^779^0
+9000^"RF Mode"^780^0
+9001^"CDMA RX State"^781^0
+9002^"Radio Operation Mode"^782^0
+9003^"Call Processing State"^783^0
+9004^"Pilot Type"^784^0
+9005^"Pregain"^785^0
+9006^"Searcher State"^786^0
+9007^"CDMA Entry Reason"^787^0
+9008^"Analog Entry Reason"^788^0
+9009^"MC Substate - INIT"^789^0
+9010^"MC Substate - IDLE"^790^0
+9011^"MC Substate - ACCESS"^791^0
+9012^"MC Substate - TRAFFIC"^792^0
+9013^"Band Class"^-1^0
+9014^"Pilot Record Type"^-1^0
+9015^"Supplemental Channel Rates"^-1^0
+9016^"IS-2000 RF Mode"^-1^0
+9017^"Gating Rate"^-1^0
+9018^"Month"^-1^0
+9019^"WCDMA L1 State"^-1^0
+9020^"Extensible Parameter Subcommand"^-1^0
+9021^"GPRS UL TBF Release Cause"^-1^0
+9022^"GPRS DL TBF Release Cause"^-1^0
+9023^"GPRS RLC Requested Access Type"^-1^0
+9024^"GPRS Network Granted Access Type"^-1^0
+9025^"GPRS Requested Data Transfer Radio Priority"^-1^0
+9026^"GPRS RLC Mode"^-1^0
+9027^"EGPRS Link Quality Measurement Mode"^-1^0
+9028^"CDMA 1X-EV RX Data Rate"^-1^0
+9029^"CDMA 1X-EV Power Amplifier State"^-1^0
+9030^"CDMA 1X-EV AT Unit Type"^-1^0
+9031^"CDMA 1X-EV Ratchet Mode"^-1^0
+9032^"CDMA 1X-EV Searcher State"^-1^0
+9033^"CDMA 1X-EV Reverse Rate"^-1^0
+9034^"Call Origination Service Options"^-1^0
+9035^"CM Mode Preference (Frilly)"^-1^0
+9036^"Special Parameter ID"^-1^0
+9037^"Service Config Link Traffic Type"^-1^0
+9038^"User Information Encryption Mode"^-1^0
+9039^"Logical Resource ID"^-1^0
+9040^"Physical Resource ID"^-1^0
+9041^"SCCH Demod Status"^-1^0
+9042^"DSCH Status"^-1^0
+9043^"HS Transmission Flag"^-1^0
+9044^"HSDPA Modulation Scheme"^-1^0
+9045^"Special UL HS DPCCH CQI"^-1^0
+9046^"UL HS DPCCH Tx Slot Type"^-1^0
+9047^"HSDPA Config Info Type"^-1^0
+9048^"HSDPA Confg Channel Action"^-1^0
+9049^"Logical Channel Type"^-1^0
+9050^"HSDPA Beta Gain Table Type"^-1^0
+9051^"MAC HSDPA Action"^-1^0
+9052^"Special MAC T1 Timer Status"^-1^0
+9053^"CDMA 1x-EV Pilot Set"^-1^0
+9054^"CDMA 1x-EV Antenna Diversity"^-1^0
+9055^"CDMA Antenna Diversity"^-1^0
+9056^"CDMA Diversity Combining Algorithm"^-1^0
+9057^"CDMA Searcher TNG Record Type"^-1^0
+9058^"CDMA Antenna Diversity TNG"^-1^0
+9059^"CDMA TD Mode TNG"^-1^0
+9060^"CDMA TD Power TNG"^-1^0
+9061^"CDMA Search Queue Requesting Technology"^-1^0
+9062^"CDMA Searcher 4 Queue Type"^-1^0
+9063^"CDMA Task Antenna Mode"^-1^0
+9064^"CDMA Coherent Accumulation Truncation"^-1^0
+9065^"CDMA Sleep Type TNG"^-1^0
+9066^"CDMA Reacquisition Data Type TNG"^-1^0
+9067^"CDMA QPCH Transfer Reason TNG"^-1^0
+9068^"CDMA QPCH Rate TNG"^-1^0
+9069^"CDMA AFC Frequency Tracking Mode TNG"^-1^0
+9070^"CDMA AFC Gain Mode TNG"^-1^0
+9071^"CDMA Forward Power Control Mode TNG"^-1^0
+9072^"CDMA Rate Determination TNG"^-1^0
+9073^"CDMA Acquisition Frequency Mode TNG"^-1^0
+9074^"CDMA Acquisition Mode TNG"^-1^0
+9075^"CDMA TC Call Algorithm"^-1^0
+9076^"CDMA State/Info Identifier TNG"^-1^0
+9077^"CDMA Reacquisition Type TNG"^-1^0
+9080^"CDMA Reverse Frame Decision"^-1^0
+9081^"CDMA Max Power Protection Flag"^-1^0
+9082^"CDMA Reverse Channel Type"^-1^0
+9083^"CDMA Old R-FCH Frames Rates"^-1^0
+9084^"CDMA 1x-EV ACK/NACK Transmitted"^-1^0
+9085^"CDMA 1x-EV DRC Lock Period"^-1^0
+9086^"CDMA 1x-EV Acquisition Results"^-1^0
+9087^"CDMA 1x-EV Acquisition Modes"^-1^0
+9088^"CDMA 1x-EV Acquisition Stages"^-1^0
+9089^"CDMA 1x-EV Recquisition Results"^-1^0
+9090^"CDMA 1x-EV Control Channel Status"^-1^0
+9091^"CDMA 1x-EV Off-Frequency Search Status"^-1^0
+9092^"QTV Release Reason"^-1^0
+9100^"BREW Application Names"^-1^0
+9101^"Field Application Names"^-1^0
+9102^"BREW Field Test Diagnostics"^-1^0
+9103^"BREW Application Command Status"^-1^0
+9104^"CDMA 1x-EV Demod Decision Mode"^-1^0
+9105^"WCDMA Windup Mode"^-1^0
+9106^"GPS Session Control"^-1^0
+9107^"GPS Position Determination Data Message Type"^-1^0
+9108^"GPS Position Determination Request Element Type (MS TX)"^-1^0
+9109^"GPS Position Determination Response Element Type (MS TX)"^-1^0
+9110^"GPS Position Determination Reject Reason"^-1^0
+9111^"GPS IS-95 Pilot Phase Capability"^-1^0
+9112^"GPS IS-95 Time Reference Source"^-1^0
+9113^"GPS Multipath Indicator"^-1^0
+9114^"GPS Standard Deviation For Position Uncertainty"^-1^0
+9115^"GPS Position Determination AFLT"^-1^0
+9116^"GPS Coordinate Type"^-1^0
+9117^"GPS Position Determination Request Element Type (MS RX)"^-1^0
+9118^"GPS Position Determination Response Element Type (MS RX)"^-1^0
+9119^"GPS Fix Type Type"^-1^0
+9120^"GPS Doppler Search Window Type"^-1^0
+9121^"GPS Code Phase Search Window Type"^-1^0
+9122^"GPRS Channel Coding Scheme"^-1^0
+9123^"Paging Message MER Statistics Action"^-1^0
+9124^"WCDMA List Search Intra 0 Cell Set"^-1^0
+9125^"WCDMA GF Calculation"^-1^0
+9126^"WCDMA AICH Status"^-1^0
+9127^"WCDMA AICH Timing"^-1^0
+9128^"CDMA Searcher TNG Attempt Type"^-1^0
+9129^"CDMA Searcher TNG Timestamp Multiplier"^-1^0
+9130^"WCDMA List Search Frequency Type"^-1^0
+9131^"WCDMA List Search Inter 1 Cell Set"^-1^0
+9132^"CDMA Forward/Reverse Vocoder Rate"^-1^0
+9133^"Analog SAT Color Code"^-1^0
+9134^"CDMA Expected MUX Values"^-1^0
+9135^"CDMA Actual MUX 8 Kbps Values"^-1^0
+9136^"CDMA Actual MUX 13 Kbps (Set A) Values"^-1^0
+9137^"CDMA Actual MUX 13 Kbps (Set B) Values"^-1^0
+9138^"Analog Handoff Type"^-1^0
+9139^"CDMA RLP Physical Channel Type"^-1^0
+9140^"CDMA RLP MUX PDU Type"^-1^0
+9141^"WCDMA Demodulation Mode"^-1^0
+9142^"CDMA 1x-EV Rev. A RL Packet Status"^-1^0
+9143^"CDMA 1x-EV Rev. A RL P-ARQ Received"^-1^0
+9144^"CDMA 1x-EV Rev. A RL H-ARQ Received"^-1^0
+9145^"CDMA 1x-EV Rev. A Packet Size"^-1^0
+9146^"CDMA 1x-EV Rev. A Transmission Mode"^-1^0
+9150^"TRM Subpacket Type"^-1^0
+9151^"TRM Client Identifier Type"^-1^0
+9152^"TRM Lock State Type"^-1^0
+9153^"TRM Resource Type"^-1^0
+9154^"TRM Reason Type"^-1^0
+9155^"TRM Chain Type"^-1^0
+9156^"TRM Granted Type"^-1^0
+9157^"TRM Unlock State Type"^-1^0
+9158^"CDMA 1x-EV Rev. A RPC Bit"^-1^0
+9159^"CDMA 1x-EV Rev. A FL Packet Types"^-1^0
+9160^"MC Dynamic Feature Verify Response Code"^-1^0
+9165^"CDMA SAM Event ID"^-1^0
+9166^"CDMA SAM Event Type"^-1^0
+9167^"CDMA SAM Lock Type"^-1^0
+9168^"CDMA SAM Module ID"^-1^0
+9169^"CDMA MUX1 Forward Frame Types"^-1^0
+9170^"CDMA MUX1 Reverse Frame Types"^-1^0
+9171^"QTV Video Types"^-1^0
+9172^"WCDMA AM PDU Type"^-1^0
+9173^"WCDMA AM Polling Type"^-1^0
+9174^"WCDMA AM Header Extension Type"^-1^0
+9175^"WCDMA AM LI Extension Type"^-1^0
+9176^"WCDMA AM Control PDU Type"^-1^0
+9177^"WCDMA AM Control SUFI Type"^-1^0
+9178^"GPS Search Mode"^-1^0
+9179^"GSM Quality Thresholds"^-1^0
+9180^"GSM 3G Search Priority"^-1^0
+9181^"FTM 1x Log IDs"^-1^0
+9182^"CDMA RDA FCH Data Rates"^-1^0
+9183^"CDMA RDA Other Data Rates"^-1^0
+9184^"CDMA RDA Coding Types"^-1^0
+9185^"CDMA BCCH Bit Rates"^-1^0
+9186^"CDMA BCCH/FCCCH Code Rates"^-1^0
+9187^"CDMA BCCH Frame Quality"^-1^0
+9188^"CDMA FCCCH Bit Rates"^-1^0
+9189^"CDMA FCCH Frame Quality"^-1^0
+9190^"CDMA IS-2000 Forward MUX Categories"^-1^0
+9191^"CDMA IS-2000 Reverse MUX Categories"^-1^0
+9192^"CDMA IS-2000 F-SCH Frame Categories"^-1^0
+9193^"CDMA IS-2000 R-SCH Frame Categories"^-1^0
+9194^"CDMA SCH Frame Length"^-1^0
+9195^"CDMA SCH Frame Rate"^-1^0
+9196^"CDMA 1x-EV FL Packet Types"^-1^0
+9197^"BREW Log Item Types"^-1^0
+9198^"RUIM Control Types"^-1^0
+9199^"Security Operation Types"^-1^0
+9200^"Security Session States"^-1^0
+9201^"CDMA EACH Rates"^-1^0
+9202^"CDMA Old Transmit Diversity Modes"^-1^0
+9203^"System Determination 2.0 Actions"^-1^0
+9204^"System Determination 2.0 Frequency Bands"^-1^0
+9205^"System Determination 2.0 CDMA PCS Frequency Blocks"^-1^0
+9206^"System Determination 2.0 Measurement Types"^-1^0
+9207^"System Determination 2.0 States"^-1^0
+9208^"System Determination 2.0 System Modes"^-1^0
+9209^"System Determination 2.0 Roaming Indicators"^-1^0
+9210^"gpsOne Log Types"^-1^0
+9211^"gpsOne Scheduling Types"^-1^0
+9212^"gpsOne Clock Sources"^-1^0
+9213^"REX Memory Debug Status Types"^-1^0
+9214^"HSDPA UE Category Types"^-1^0
+9215^"HSDPA Data Paths"^-1^0
+9216^"WCDMA TPC Decisions"^-1^0
+9217^"WMS Message Modes"^-1^0
+9218^"WMS Command Status"^-1^0
+9219^"WMS Message Tags"^-1^0
+9220^"WMS Storage Types"^-1^0
+9221^"WMS Teleservice Types (Standard)"^-1^0
+9222^"WMS Teleservice Types (Custom)"^-1^0
+9223^"WMS Address Digit Modes"^-1^0
+9224^"WMS Address Number Modes"^-1^0
+9225^"WMS Address Number Types"^-1^0
+9226^"WMS Address Number Plans"^-1^0
+9227^"WMS Subaddress Types"^-1^0
+9228^"WMS Data Formats"^-1^0
+9229^"WMS TPDU Types"^-1^0
+9230^"Standard Broadcast Messaging Service Categories"^-1^0
+9231^"CM Overall Call States"^-1^0
+9232^"CM Operational Modes"^-1^0
+9233^"CM System Modes"^-1^0
+9234^"CM Service Domain Preference"^-1^0
+9235^"CM GSM/WCDMA Acquistion Order"^-1^0
+9236^"CM 1xEV Hybrid Preference"^-1^0
+9237^"CM Network Select Preference"^-1^0
+9238^"CM UE Service Status"^-1^0
+9239^"WCDMA HS-PDSCH Diversity Modes"^-1^0
+9240^"MFLO Activation Event Types"^-1^0
+9241^"QTV Video Frame Types"^-1^0
+9242^"QTV Video Decode Layers"^-1^0
+9243^"CDMA 1X-EV TX Data Rate"^-1^0
+9244^"WCDMA RX Diversity States"^-1^0
+9245^"WCDMA RX Diversity Timers"^-1^0
+9246^"WCDMA Alignment Modes"^-1^0
+9247^"WCDMA Peak Detector Modes"^-1^0
+9248^"QoS Additional State Info"^-1^0
+9249^"CDMA 1x-EV Foward Link CRC Status"^-1^0
+9250^"CDMA 1x-EV Outer Code Parameters"^-1^0
+9251^"WCDMA CM UE States"^-1^0
+9252^"Bus Types"^-1^0
+9253^"Bus Setting Types"^-1^0
+9254^"Bus Monitor Types"^-1^0
+9255^"Bus Lock Types"^-1^0
+9256^"Bus Burst Sizes"^-1^0
+9257^"Bus Slave Types"^-1^0
+9258^"Bus Master IDs"^-1^0
+9259^"DMOV Channel IDs"^-1^0
+9260^"CDMA 1x-EV MRLP Sequence Length"^-1^0
+9261^"CDMA FDCH SCCH Rates"^-1^0
+9262^"RoHC Packet Types"^-1^0
+9263^"RoHC Feedback Types"^-1^0
+9264^"QoS User Priorities"^-1^0
+9265^"CDMA2000 Service Options"^-1^0
+9266^"GPS PPM Substates"^-1^0
+9267^"GPS PPM Energy Groups"^-1^0
+9268^"GPS PPM Event IDs"^-1^0
+9269^"GPS PPM States"^-1^0
+9270^"GPS PPM Event Actions"^-1^0
+9271^"GSM Neighbor Cell Acqusition Modes"^-1^0
+9272^"GSM AFC Adjust Types"^-1^0
+9273^"GSM Channels"^-1^0
+9274^"GSM MDSP Command Codes"^-1^0
+9275^"GSM GL1 HW Command Codes"^-1^0
+9276^"GSM L2 States"^-1^0
+9277^"GSM L2 Events"^-1^0
+9278^"GSM Frame Types"^-1^0
+9279^"GSM RR Layer States"^-1^0
+9280^"GSM Dedicated Modes"^-1^0
+9281^"GSM Ciphering Algorithms"^-1^0
+9282^"GSM EGPRS Suplementary/Polling Fields"^-1^0
+9283^"GSM UL TBF Release Causes"^-1^0
+9284^"GSM DL TBF Release Causes"^-1^0
+9285^"GSM L1 Channels"^-1^0
+9286^"GSM TX Burst Types"^-1^0
+9287^"GSM GPRS Coding Schemes"^-1^0
+9288^"GSM Transfer Allocation Types"^-1^0
+9289^"GSM USF Granularities"^-1^0
+9290^"GSM TX Message Types"^-1^0
+9291^"GSM System Band Types"^-1^0
+9292^"GSM GPRS Coding Schemes 2"^-1^0
+9293^"GSM GPRS Modulation Schemes"^-1^0
+9294^"GSM GPRS Filters"^-1^0
+9295^"Mobile IP Delay Types"^-1^0
+9296^"UMTS Vocoder Types"^-1^0
+9297^"UMTS Vocoder AMR TX Frame Types"^-1^0
+9298^"UMTS Vocoder AMR Frame Rates"^-1^0
+9299^"UMTS Vocoder EFR/FR TX Frame Types"^-1^0
+9300^"UMTS Vocoder HR TX Frame Types"^-1^0
+9301^"UMTS Vocoder AMR RX Frame Types"^-1^0
+9302^"UMTS Vocoder HR RX Frame Types"^-1^0
+9303^"UMTS Call Types"^-1^0
+9304^"UMTS Call States"^-1^0
+9305^"CDMA 1x-EV Sleep Modes"^-1^0
+9306^"CDMA 1x-EV Sleep Periods"^-1^0
+9307^"CDMA 1x-EV Stream Configurations"^-1^0
+9308^"CDMA 1x-EV Tune Away Reasons"^-1^0
+9309^"CDMA 1x-EV Call Release Reasons"^-1^0
+9310^"CDMA 1x-EV PCP Queue Types"^-1^0
+9311^"GSM Surround Cell Engine Modes"^-1^0
+9312^"GSM Protocol Errors"^-1^0
+9313^"GSM Message Types"^-1^0
+9314^"GSM Radio Link Failures"^-1^0
+9315^"GSM CS Data Bits"^-1^0
+9316^"GSM CS Parity Bits"^-1^0
+9317^"GSM CS Stop Bits"^-1^0
+9318^"GSM CS Transparent Mode"^-1^0
+9319^"GSM CS DTX Indicators"^-1^0
+9320^"GSM CS RLP Halves"^-1^0
+9321^"GSM CS Rates"^-1^0
+9322^"WCDMA TVMR Modes"^-1^0
+9323^"WCDMA TVMR Events"^-1^0
+9324^"WCDMA TVMR TRCH Types"^-1^0
+9325^"WCDMA CM Interfrequency Search Stages"^-1^0
+9326^"WCDMA HSDPA Pre/Postamble Status"^-1^0
+9327^"QoS Additional State Info V2"^-1^0
+9328^"EMPA RLP Packet Sequence Lengths"^-1^0
+9329^"EMPA RLP Route Numbers"^-1^0
+9330^"EMPA Flow Types"^-1^0
+9331^"EMPA Sequencing Types"^-1^0
+9332^"Call Manager Call Records"^-1^0
+9333^"GPS Result IDs"^-1^0
+9334^"GPS Predetection Modes"^-1^0
+9335^"MFLO UBM Device Class Mark"^-1^0
+9336^"WCDMA EUL Decision Quality Metrics"^-1^0
+9337^"WCDMA EUL TX Types"^-1^0
+9338^"QoS Additional State Info V3"^-1^0
+10000^"Equipment ID"^793^1
+10001^"Message Subsystem ID"^794^1
+10002^"Mobile Model ID"^795^1
+10003^"Subsystem Dispatch ID"^796^1
+10004^"DB DIAG"^797^1
+10005^"DB Fragment"^798^1
+10006^"DB Modifier"^799^1
+10007^"DIP Switch"^800^1
+10008^"Item Type"^801^1
+10009^"String Subtype"^802^1
+10010^"Content Type"^803^1
+10011^"DIAG Type State "^804^1
+10012^"Dynamic Parser Load Error"^805^1
+10013^"IS-95A Traffic Channel Params"^806^1
+10014^"IS-95A Paging Channel Params"^807^1
+10015^"IS-95A Access Channel Params"^808^1
+10016^"IS-95A Layer 2 Params"^809^1
+10017^"IS-95A MUX2 Traffic Channel Params"^810^1
+10018^"DB Standard Field Types"^812^1
+10019^"CDMA Protocol Revision"^-1^1
+10020^"DB Field Types"^-1^1
+10021^"DB Field Attributes"^-1^1
+10022^"NV Status"^-1^1
+10023^"MSM Revision (Old)"^-1^1
+10024^"MSM Revision (New)"^-1^1
+10025^"CDMA Retrievable Parameters"^-1^1
+10026^"Standard Parameters"^-1^1
+10027^"Extended Parameters"^-1^1
+10028^"CDMA Pilot Set Names"^-1^1
+10029^"CDMA Pilot Set Abbreviations"^-1^1
+10030^"WCDMA Protocol Revision"^-1^1
+10031^"Mode Preference"^-1^1
+10032^"HSDPA UE Device Categories"^-1^1
+20000^"String Table"^811^1
+20001^"Channel"^-1^0
+20002^"Indicator"^-1^0
+20003^"Silence Descriptor"^-1^0
+20004^"Voicing Mode"^-1^0
+20005^"Codec Mode"^-1^0
+20006^"Codec Mode Indication Phase"^-1^0
+20007^"Normalized C/I"^-1^0
+20008^"Channel Type"^-1^0
+20009^"Band"^-1^0
+20010^"Gain State"^-1^0
+20011^"Coding Scheme"^-1^0
+20012^"Indicator Bit"^-1^0
+20013^"Status"^-1^0
+20014^"Air Interface Band"^-1^0
+20015^"Tx Power Band 0"^-1^0
+20016^"Tx Power Band 1"^-1^0
+20017^"Tx Power Band 2"^-1^0
+20018^"Tx Power Band 3"^-1^0
+20021^"LNA Range"^-1^0
+20022^"PA"^-1^0
+20023^"Tx"^-1^0
+20024^"PA Range"^-1^0
+20025^"Log Info ID"^-1^0
+20026^"Cell Measure State"^-1^0
+20027^"DL Channel Type"^-1^0
+20028^"Code Rate"^-1^0
+20029^"Number of CRC Bits"^-1^0
+20030^"TTI Format"^-1^0
+20031^"Finger Assigned State"^-1^0
+20032^"Finger State"^-1^0
+20033^"Diversity Indicator"^-1^0
+20055^"Test Dip Switch Bits"^-1^0
+20056^"Default Dip Switch Bits"^-1^0
+20081^"Code Block Types"^3186^0
+20082^"Interrupt Types"^-1^0
+20084^"H-RNTI Change Flag"^-1^0
+20085^"Repoint Type"^-1^0
+20087^"Test Code"^-1^0
+20088^"Sequence Number"^-1^0
+20089^"More"^-1^0
+20090^"Preferred Roaming List Status"^-1^0
+20091^"NV Status WPRL"^-1^0
+20092^"Backlight"^-1^0
+20093^"Lock"^-1^0
+20094^"Password Result"^-1^0
+20095^"PCM Loopback"^-1^0
+20096^"SPC Result"^-1^0
+20097^"Mode Change Result"^-1^0
+20098^"Packet Loopback"^-1^0
+20099^"QoS Traffic Class"^3232^0
+20100^"Residual Bit Error Rate"^3235^0
+20101^"QoS Traffic Handling Priority"^3231^0
+20102^"QoS State"^3233^0
+20103^"Opcode"^3234^0
+20104^"IP Version"^-1^0
+20105^"Next HDR Protocol"^-1^0
+20106^"Data Rate Type"^-1^0
+20107^"UMTS CM Call State"^-1^0
+20108^"CM Operational Mode"^-1^0
+20109^"CM System Mode"^-1^0
+20110^"Call Manager AMR Rates"^-1^0
+20111^"Call Manager Response Status"^-1^0
+20112^"Call Mode Type"^-1^0
+20113^"CDMA End Reason Included"^-1^0
+20114^"GW Teardown Indicator Valid"^-1^0
+20115^"GW Teardown Indicator TI Flag"^-1^0
+20116^"Call Manager Service Options"^-1^0
+20117^"CM Call Type"^-1^0
+20118^"CM Service Type"^-1^0
+20119^"GPS Fix Type"^-1^0
+20120^"cpEventTypes"^-1^0
+20121^"cpStates"^-1^0
+20122^"cpStatus"^-1^0
+20123^"arpEventTypes"^-1^0
+20124^"arpStatus"^-1^0
+20125^"dhcpClientEventTypes"^-1^0
+20126^"dhcpClietStates"^-1^0
+20127^"eapTypes"^-1^0
+20128^"eapStatus"^-1^0
+20129^"eapEventTypes"^-1^0
+20130^"eapStates"^-1^0
+20131^"PLP Action"^-1^0
+20132^"OIS Action"^-1^0
+20133^"WIC LIC Action"^-1^0
+20134^"Control Channel Action"^-1^0
+20135^"Control Channel Status"^-1^0
+20136^"system_types"^-1^0
+20139^"OrdinalType"^-1^0
+20140^"aDeviceTypes"^-1^0
+20141^"MFN Parameters Types"^-1^0
+20142^"MFN Handoff Modes"^-1^0
+20143^"MFN Monitor Scenarios"^-1^0
+20144^"IC Modes"^-1^0
+20145^"Modes"^-1^0
+20146^"Command Status"^-1^0
+20147^"Positive Flag Values"^-1^0
+20148^"Test Modes"^-1^0
+20149^"Persistence"^-1^0
+20150^"IC Mode Status"^-1^0
+20152^"Estimation Modes"^-1^0
+20154^"OIS Mask Values"^-1^0
+20155^"SNR Estimates"^-1^0
+20156^"Continuous Modes"^-1^0
+20157^"TTI"^-1^0
+20158^"Action Type"^-1^0
+20159^"AGCH Action"^-1^0
+20160^"Serving Grant Selector"^-1^0
+20161^"ValidationType2"^-1^0
+20162^"Combined HICH"^-1^0
+20163^"Comined RGCH"^-1^0
+20164^"Non-Serving RGCH"^-1^0
+20165^"HICH Cell"^-1^0
+20166^"RGCH Cell"^-1^0
+20167^"Payload Reason"^-1^0
+20168^"Scheduling Information"^-1^0
+20169^"Number of E-DCH Cells"^-1^0
+20170^"Number of EUL Cells"^-1^0
+20171^"RLS Index"^-1^0
+20172^"Serving Grant Index"^-1^0
+20174^"EUL Logical Channel Type"^-1^0
+20175^"RLC Mode"^-1^0
+20176^"Minimum ETFCI"^-1^0
+20177^"SI Period"^-1^0
+20178^"ValidationType"^-1^0
+20179^"DRM Outcome"^-1^0
+20180^"Reason Code"^-1^0
+20181^"Reason Code 2"^-1^0
+20182^"FLUTE Status"^-1^0
+20183^"Reason Code 3"^-1^0
+20184^"File Ind"^-1^0
+20185^"Get Ind"^-1^0
+20186^"EMPA RLP Flow Protocol"^-1^0
+20187^"EMPA RLP Route Protocol"^-1^0
+20188^"DRMB Storage Direction"^-1^0
+20189^"Transport Channel Reference Type"^-1^0
+20190^"Coding Rate Type"^-1^0
+20191^"Number Of CRC Bits"^-1^0
+20193^"Add Request Type"^4071^0
+20194^"DRX State Bitmask"^-1^0
+20195^"Serving CCTrCH Combining Status"^-1^0
+20196^"Add Operation Type"^-1^0
+20197^"Serving CCTrCH or Not"^-1^0
+20198^"Enable Bit"^-1^0
+20199^"DRMB Direction"^-1^0
+20200^"CM Information Status"^-1^0
+20201^"CM Information Call Type"^-1^0
+20202^"CM Information Call State"^-1^0
+20203^"CM Information PS Call Dormant"^-1^0
+20204^"MBMS Set Type"^-1^0
+20205^"CGPS Session Report Event ID"^-1^0
+20206^"CGPS PDSM Session Type"^-1^0
+20207^"CGPS PDSM Operation Mode"^-1^0
+20208^"CGPS PDSM Server Option"^-1^0
+20209^"CGPS PDSM Server Address Type"^-1^0
+20210^"GSP PDSM Session Type"^-1^0
+20211^"CGPS Notify Type"^-1^0
+20212^"CGPS Notify Status"^-1^0
+20213^"CGPS GPS Positioning Method"^-1^0
+20214^"CGPS PDSM Event Type"^-1^0
+20215^"CGPS Notification Privacy Type"^-1^0
+20216^"CGPS Position Mode"^-1^0
+20217^"CGPS Location Type"^-1^0
+20218^"CGPS Link Type"^-1^0
+20219^"CGPS Protocol Type"^-1^0
+20220^"CGSP Supplementary Services Type"^-1^0
+20221^"CGPS MO-LR Type"^-1^0
+20222^"CGPS Location Method"^-1^0
+20223^"CGPS Response Time Tag"^-1^0
+20224^"CGPS Error Code"^-1^0
+20225^"CGPS Network Resource"^-1^0
+20226^"CGPS Position Method Failure Diagnostic"^-1^0
+20227^"CGPS Notification Type"^-1^0
+20228^"CGPS SS Location Type"^-1^0
+20229^"CGPS LN Error Code"^-1^0
+20230^"CGPS Parameter Type"^-1^0
+20231^"CGPS GPS Lock"^-1^0
+20232^"CGPS PA MO Method"^-1^0
+20233^"CGPS Datum"^-1^0
+20234^"CGPS Unit"^-1^0
+20235^"Command Type"^-1^0
+20236^"PD Command Error"^-1^0
+20237^"PA Command Type"^-1^0
+20238^"PA Command Error"^-1^0
+20239^"CGPS Status"^-1^0
+20240^"EFS2 Error Codes"^-1^0
+20242^"Packet Type"^-1^0
+20243^"Subpacket Id"^-1^0
+20244^"Data Unit"^-1^0
+20245^"MAC Debug Log Record Type"^-1^0
+20246^"Rx AGC"^-1^0
+20247^"Demfront Selector"^-1^0
+20248^"HS-SCCH Type"^-1^0
+20249^"UE Category V3"^-1^0
+20250^"SCCH Transport Blocks"^-1^0
+20251^"Maximum HARQ Processes Configured"^-1^0
+20252^"MAC-ehs Type"^-1^0
+20253^"Active MAC"^-1^0
+20254^"PDU Size"^-1^0
+20255^"DTX Status"^-1^0
+20256^"Stop Increment"^-1^0
+20257^"Tx Status"^-1^0
+20258^"TX Diversity Information"^-1^0
+20259^"EQ Index"^-1^0
+20261^"TCP State"^-1^0
+20262^"UDP State"^-1^0
+20263^"IFace States"^-1^0
+20264^"BCast Capable"^-1^0
+20265^"IPv6 Address Types"^-1^0
+20266^"IPv6 Address States"^-1^0
+20267^"Flow Capability"^-1^0
+20268^"Header Compression Types"^-1^0
+20269^"PPP Handle Types"^-1^0
+20270^"PPP Authentication Modes"^-1^0
+20271^"ARP/LLC Handle Types"^-1^0
+20272^"demod_type"^-1^0
+20273^"RSVP Families"^-1^0
+20274^"Protocol Statistic Types"^-1^0
+20275^"Protocol Statistics All Instance Types"^-1^0
+20276^"Protocol Statistics Instance Types"^-1^0
+20277^"meas_type"^-1^0
+20278^"Freq_track_mode"^-1^0
+20279^"isOdd"^-1^0
+20280^"get_set_ind"^-1^0
+20281^"l1_cfg_items"^-1^0
+20282^"L1 diag commands"^-1^0
+20283^"rdsp_log_items"^-1^0
+20284^"rdsp_write_item"^-1^0
+20285^"DTV L3 command IDs"^-1^0
+20288^"ubm_l1_const_type"^-1^0
+20289^"ubm_l1_code_rate_type"^-1^0
+20290^"ubm_l1_mode_type"^-1^0
+20291^"ubm_l1_bw_type"^-1^0
+20292^"ubm_l1_guard_type"^-1^0
+20293^"ubm_l1_int_type"^-1^0
+20294^"ubm_l1_hier_type"^-1^0
+20295^"ubm_l1_hier_prio_type"^-1^0
+20296^"ubm_l1_time_slicing_enabled_type"^-1^0
+20297^"ubm_l1_mpe_fec_enabled_type"^-1^0
+20298^"Modulation Scheme"^-1^0
+20299^"DTV L1 subpacket Technology"^-1^0
+20300^"Supplementary Service Type"^-1^0
+20301^"HDRAMP Clear SLP Holdoff"^-1^0
+20302^"Result Of HDROVHD Cache Search"^-1^0
+20303^"ID For RRC Timer"^-1^0
+20304^"RAT"^-1^0
+20305^"Stop Reason For UOOS Timer"^-1^0
+20306^"Scan Type For RRCCSP"^-1^0
+20307^"Fail Reason For Cell Selection"^-1^0
+20308^"Mode For Network Select"^-1^0
+20309^"Reason For BPLMN End"^-1^0
+20310^"Scan Type of BPLMN"^-1^0
+20311^"Scan End Reason of BPLMN"^-1^0
+20312^"Mask For Authentication Protocol"^-1^0
+20313^"EAP Status"^-1^0
+20314^"Timer State"^-1^0
+20315^"XTRA-T Session Type"^-1^0
+20316^"Timer Name"^-1^0
+20317^"RRC State"^-1^0
+20318^"Message Type"^-1^0
+20319^"Cause"^-1^0
+20320^"Failure Cause"^-1^0
+20327^"QTV DIAG Defragment Descriptor"^-1^0
+20328^"QTV Framework API Cmd IDs"^-1^0
+20329^"QTV Diag Command Errors"^-1^0
+20330^"QTV Return Type"^-1^0
+20331^"EFS Errors"^-1^0
+20332^"AP Qualifier"^-1^0
+20333^"File Operation"^-1^0
+20334^"SV No Exist Action"^-1^0
+20335^"SV No Exist Status"^-1^0
+20336^"Mod Order"^-1^0
+20337^"Demfront Mode"^-1^0
+20338^"Modulation Scheme Single"^-1^0
+20339^"Modulation Scheme MIMO"^-1^0
+20340^"Transmission Indicator Single"^-1^0
+20341^"Transmission Indicator MIMO"^-1^0
+20342^"MIMO SIC Decoding Order"^-1^0
+20343^"Antenna RXD Mode"^-1^0
+20344^"Peak Detect Mode"^-1^0
+20345^"Int Source"^-1^0
+20346^"CQI Reporting Mode"^-1^0
+20347^"RF Measurement T"^-1^0
+20348^"Course Over Ground Validity"^-1^0
+20349^"Zero Motion Detector"^-1^0
+20350^"Zero Velocity Detector"^-1^0
+20351^"MEAS Mode"^-1^0
+20352^"System Mode"^-1^0
+20353^"HDR Band Class"^-1^0
+20361^"TTL Step Size"^-1^0
+20370^"Generated Fix Report"^-1^0
+20371^"Misc SF 16 Overrides"^-1^0
+20372^"Is Serving Cell"^-1^0
+20373^"RFChipType"^-1^0
+20374^"BasebandChipType"^-1^0
+20375^"GamlaType"^-1^0
+20376^"MAC HS/EHS"^-1^0
+20377^"MIMO Action"^-1^0
+20378^"MIMO Pilot Configuration"^-1^0
+20379^"Direction And RLC Type"^-1^0
+20380^"UL Message Type"^-1^0
+20381^"EQ Config"^-1^0
+20382^"Receiver And SCHIC Info"^-1^0
+20383^"ResponseStatus"^-1^0
+20384^"TunerLockStatus"^-1^0
+20385^"GuardInterval"^-1^0
+20386^"Latch Status"^-1^0
+20387^"TX Sub Mode"^-1^0
+20388^"Event DL Channel Types"^-1^0
+20389^"UL Channel Types"^-1^0
+20390^"UE Category Information"^-1^0
+20392^"Mod Scheme"^-1^0
+20393^"Reset Reason"^-1^0
+20394^"IFace Name"^-1^0
+20395^"SM Event"^-1^0
+20396^"Old State"^-1^0
+20397^"Kind"^-1^0
+20398^"Doppler Region"^-1^0
+20399^"Event ID 1653"^-1^0
+20400^"Auth Mode"^-1^0
+20401^"Encryption Mode"^-1^0
+20402^"Status 1653"^-1^0
+20403^"PMK ID Match"^-1^0
+20404^"Event ID 1654"^-1^0
+20405^"BSS Type"^-1^0
+20406^"Reason 1654"^-1^0
+20407^"Event ID 1655"^-1^0
+20408^"Event ID 1656"^-1^0
+20409^"Link Quality"^-1^0
+20410^"Event ID 1657"^-1^0
+20411^"Reason Code 1657"^-1^0
+20412^"Event Type"^-1^0
+20413^"SME State"^-1^0
+20414^"MLM State"^-1^0
+20415^"F Initiator"^-1^0
+20416^"Event Type 1663"^-1^0
+20418^"Prot Type 1663"^-1^0
+20419^"WLAN Status"^-1^0
+20420^"Event Sub Type"^-1^0
+20421^"Full Power Req Reason"^-1^0
+20422^"PMC Current State"^-1^0
+20423^"Powersave Mode"^-1^0
+20424^"Winmob D Power State"^-1^0
+20425^"Event Sub Type 1666"^-1^0
+20426^"WOW Type"^-1^0
+20427^"WOW Wakeup Cause"^-1^0
+20428^"Event Type 1667"^-1^0
+20429^"State 1667"^-1^0
+20430^"Request Type"^-1^0
+20431^"Config Method"^-1^0
+20432^"Device Password"^-1^0
+20433^"Device Category"^-1^0
+20434^"Message Type 1677"^-1^0
+20435^"Status 1679"^-1^0
+20436^"Event ID"^-1^0
+20437^"Conn Status"^-1^0
+20438^"Link Type"^-1^0
+20439^"Mode"^-1^0
+20440^"Conn Handle"^-1^0
+20441^"Subpacket ID LTE RLC"^-1^0
+20442^"Subpacket ID RLC"^-1^0
+20443^"Serving RSRP"^-1^0
+20444^"Neighbor Type"^-1^0
+20445^"Band Indicator"^-1^0
+20446^"RSSI"^-1^0
+20447^"P-CCPCH RSCP"^-1^0
+20449^"CPICH EcN0"^-1^0
+20450^"Serving RSRQ"^-1^0
+20451^"Measured RSSI"^-1^0
+20452^"Qrxlevmin"^-1^0
+20453^"P Max"^-1^0
+20454^"Srxlev"^-1^0
+20455^"Measurement Rules"^-1^0
+20456^"S Non Intra Search"^-1^0
+20457^"Event ID 1496"^-1^0
+20458^"BBS Mode"^-1^0
+20459^"Status 1496"^-1^0
+20460^"Event ID 1497"^-1^0
+20461^"Channel Setting"^-1^0
+20462^"Status 1497"^-1^0
+20463^"Event ID 1498"^-1^0
+20464^"Support Multiple Domain"^-1^0
+20465^"Device Password 149e"^-1^0
+20467^"Authentication Type"^-1^0
+20468^"Stat Mask"^-1^0
+20469^"State Change"^-1^0
+20470^"PPP Event Auth"^-1^0
+20471^"PDN Type"^-1^0
+20472^"PPP Event State"^-1^0
+20473^"Message ID"^-1^0
+20474^"Timer ID"^-1^0
+20475^"Watermark Tech ID"^-1^0
+20476^"Watermark Direction"^-1^0
+20477^"Cause1613"^-1^0
+20478^"Event Type1714"^-1^0
+20479^"SME State1714"^-1^0
+20480^"MLM State1714"^-1^0
+20481^"ACK/NACK"^-1^0
+20482^"Response Type"^-1^0
+20483^"l1_cfg_items2"^-1^0
+20484^"L1 diag commands2"^-1^0
+20485^"DL Bandwidth"^-1^0
+20486^"SRB Cipher Algo"^-1^0
+20487^"SRB Integrity Algo"^-1^0
+20488^"Allowed Access"^-1^0
+20489^"EMM State"^-1^0
+20490^"EMM Substate-1"^-1^0
+20491^"EMM Substate-3"^-1^0
+20492^"EMM Substate-2"^-1^0
+20493^"Bearer State"^-1^0
+20494^"Context Type"^-1^0
+20495^"Cause1718"^-1^0
+20497^"Timer Type"^-1^0
+20498^"Action1720"^-1^0
+20500^"Type sensor"^-1^0
+20502^"Control Flag Bit0 Values"^-1^0
+20503^"Control Flag Bit1 Values"^-1^0
+20504^"RPush Client"^-1^0
+20505^"Client State"^-1^0
+20506^"HDET Status"^-1^0
+20507^"Channel Type 5b2f"^-1^0
+20508^"MParty State"^-1^0
+20509^"Hold State"^-1^0
+20510^"Stationary Position Indicator Enum"^-1^0
+20511^"Test Call"^-1^0
+20512^"Canned Msg"^-1^0
+20513^"Type Of Call"^-1^0
+20514^"Config Reason"^-1^0
+20515^"Config Bitmask"^-1^0
+20516^"Config Reason B081"^-1^0
+20517^"SRB Cipher Algo B0B0"^-1^0
+20518^"RNTI Type"^-1^0
+20519^"RNTI Type b064"^-1^0
+20520^"BSR Event"^-1^0
+20521^"TYPE OF BSR TRIGGERED"^-1^0
+20522^"RB Type"^-1^0
+20523^"SPI Output"^-1^0
+20524^"CMMBTableTypes"^-1^0
+20525^"Sync State"^-1^0
+20526^"cmmbRSCodeRateEnum"^-1^0
+20527^"cmmbInterleavingMode"^-1^0
+20528^"LdpcCodeRateEnum"^-1^0
+20529^"ModulationModeEnum"^-1^0
+20530^"CASDataTypeEnum"^-1^0
+20531^"Redirection ETRAN RAT Enum"^-1^0
+20532^"Inter-RAT Redirection Enum"^-1^0
+20533^"Inter-RAT Redirection End Cause Enum"^-1^0
+20534^"IsTestCallEnum"^-1^0
+20535^"MSNEnum"^-1^0
+20536^"ECallTypeEnum"^-1^0
+20537^"ECallStopReason"^-1^0
+20538^"ECall Failure Reason Enum"^-1^0
+20539^"ECall Modulation Type Enum"^-1^0
+20540^"IFace Name Enum"^-1^0
+20541^"IFACE State Enum"^-1^0
+20542^"Rach Cause Enum"^-1^0
+20543^"Rach Result Enum"^-1^0
+20544^"USSD Type Enum"^-1^0
+20545^"ALS CONF ID Enum"^-1^0
+20546^"Op Mode Enum"^-1^0
+20547^"Resolution Width Enum"^-1^0
+20548^"Range Value Enum"^-1^0
+20549^"DIST CONF Enum"^-1^0
+20550^"Sensing Scheme Enum"^-1^0
+20551^"Mod Freq Enum"^-1^0
+20552^"Proximity Value Enum"^-1^0
+20553^"UE Category V6"^-1^0
+20554^"CQI Type"^-1^0
+20555^"ACK/NACK Slot Content Enum"^-1^0
+20556^"M CQI Ratio"^-1^0
+20557^"TFRI Table Aligned Enum"^-1^0
+20558^"P Enum"^-1^0
+20559^"State Enum"^-1^0
+20560^"TD State Enum"^-1^0
+20561^"Dual Carrier Enum"^-1^0
+20562^"SS Freeze Info Enum"^-1^0
+20563^"SS Use Freeze Info Enum"^-1^0
+20564^"RNTI Type LTE"^-1^0
+20565^"GSM L1 State"^-1^0
+20566^"Direction 1832"^-1^0
+20567^"Old State 1831"^-1^0
+20568^"AMR RAT SCCH Request Type"^-1^0
+20569^"AMR RAT SCCH Response Type"^-1^0
+20570^"GPRS DL MSG"^-1^0
+20571^"GPRS PD"^-1^0
+20572^"GPRS UL MSG"^-1^0
+20573^"GPRS Channel"^-1^0
+20574^"Failure Cause1846"^-1^0
+20575^"Request Type1847"^-1^0
+20576^"Release Type"^-1^0
+20577^"Timer ID1851"^-1^0
+20578^"Access Type"^-1^0
+20579^"Access Reason"^-1^0
+20580^"HO Type"^-1^0
+20581^"Failure Reason"^-1^0
+20582^"Reselect Type"^-1^0
+20583^"GSM TO WCDMA Failure Reason"^-1^0
+20584^"Result1859"^-1^0
+20585^"Cell Selection Reason"^-1^0
+20586^"Any Cell Selection Mode"^-1^0
+20587^"Cell Selection End Reason"^-1^0
+20588^"Power Scan Status"^-1^0
+20589^"Search Mode"^-1^0
+20590^"Failure Reason1873"^-1^0
+20591^"Failure Reason1876"^-1^0
+20592^"Reason1878"^-1^0
+20593^"GNSS Type"^-1^0
+20594^"Job Type"^-1^0
+20595^"Out Command Enum"^-1^0
+20596^"New Enum"^-1^0
+20597^"DSM Client ID Enum"^-1^0
+20598^"Channel Type B16D"^-1^0
+20599^"Slot Byte"^-1^0
+20600^"ApplicationTypeEnum"^-1^0
+20601^"Parameter Type"^-1^0
+20602^"Datum"^-1^0
+20603^"Unit"^-1^0
+20605^"NMEA Sentence type148F"^-1^0
+20606^"Event Type 0x1490"^-1^0
+20607^"Status Cause"^-1^0
+20608^"Test Type"^-1^0
+20609^"Priority Type"^-1^0
+20610^"HW Interrupt Source"^-1^0
+20611^"Failure Code"^-1^0
+20612^"CPC DTX Config"^-1^0
+20613^"FDPCH Config Action"^-1^0
+20614^"Rest State Enum"^-1^0
+20615^"Orientation State Enum"^-1^0
+20616^"Facing State Enum"^-1^0
+20617^"Basic State Enum"^-1^0
+20618^"HinBye State Enum"^-1^0
+20619^"State Detected"^-1^0
+20620^"Event Registration"^-1^0
+20621^"Event Registration Status"^-1^0
+20622^"JD State"^-1^0
+20623^"Status of Wide Band Jammer Detector"^-1^0
+20624^"Flag Bit"^-1^0
+20625^"Poll/Final"^-1^0
+20626^"Banked Register"^-1^0
+20627^"Change State"^-1^0
+20628^"RegistryOperationEnum"^-1^0
+20629^"UsageTypeEnum"^-1^0
+20630^"WatermarkRout"^-1^0
+20631^"FPC Mode"^-1^0
+20632^"SCH Rate"^-1^0
+20633^"Duty Cycle"^-1^0
+20634^"Duty Cycle 1917"^-1^0
+20635^"Duty Cycle 14ED"^-1^0
+20636^"Current PC Step Size"^-1^0
+20637^"Current PC Mode"^-1^0
+20638^"FFPC Setpoint Freeze Flag"^-1^0
+20639^"RL Frame Rate"^-1^0
+20640^"N2M Value For Forward Link RC11"^-1^0
+20641^"F-SCH"^-1^0
+20642^"Tx Enabled"^-1^0
+20643^"ResultB176"^-1^0
+20644^"RACH Reason"^-1^0
+20645^"Number Of Rx Antennas"^-1^0
+20646^"RSRP"^-1^0
+20647^"RSRQ"^-1^0
+20648^"Inst RSRP"^-1^0
+20649^"Inst RSRQ"^-1^0
+20650^"CER Size (P)"^-1^0
+20651^"PS Arbitration Event"^-1^0
+20654^"Avoid Type"^-1^0
+20656^"Mode1923"^-1^0
+20657^"Reg Status"^-1^0
+20658^"Num Of Antennas"^-1^0
+20659^"PHICH Duration"^-1^0
+20660^"PHICH Resource"^-1^0
+20661^"64QAM Status"^-1^0
+20662^"TBS Table"^-1^0
+20663^"P-CPICH TD Status"^-1^0
+20664^"DC Action"^-1^0
+20665^"DC-HSDPA"^-1^0
+20666^"DTX1925"^-1^0
+20667^"DRX1925"^-1^0
+20668^"DC Action1924"^-1^0
+20669^"DSM pool threshold low"^-1^0
+20670^"GPS Lock"^-1^0
+20671^"Measurement Report Reason"^-1^0
+20672^"Source of Time (GPS)"^-1^0
+20673^"Source of Time (GLO)"^-1^0
+20674^"New Enum 6"^-1^0
+20675^"SV Observation State"^-1^0
+20676^"SV State"^-1^0
+20677^"NMEA Sentence Type"^-1^0
+20678^"Server Address Type"^-1^0
+20679^"NMEA Port Type"^-1^0
+20680^"New Enum 3"^-1^0
+20681^"SBAS User Preference"^-1^0
+20682^"Dynamic Power Optimization Control"^-1^0
+20683^"On Demand Low Power Mode"^-1^0
+20684^"On Demand Ready Mode"^-1^0
+310732^"Position_Mode"^-1^0
+310733^"PDSM PA EXTERNAL SPI"^-1^0
+310734^"PDSM PD COMMS BEGIN"^-1^0
+310735^"PDSM PD COMMS FAILURE"^-1^0
+310736^"Position Mode"^-1^0
+310737^"MT LR Support"^-1^0
+310738^"MO Method"^-1^0
+310739^"Mo Method148F"^-1^0
+310740^"C/NO2"^-1^0
+310748^"New Enum 11"^-1^0
+310749^"2G Call Flow Selection2"^-1^0
+310750^"3G Call Flow Selection2"^-1^0
+310751^"MFLOType"^-1^0
+310752^"Radio Bearer Mode"^-1^0
+310753^"RB Mode"^-1^0
+310754^"New Enum 2"^-1^0
+310755^"SN Length"^-1^0
+310756^"Status PDU"^-1^0
+310757^"Avoid Report"^-1^0
+310758^"SS Type"^-1^0
+310759^"ubm_l1_mode_type_isdbt1"^-1^0
+310760^"ubm_l1_guard_type_isdbt1"^-1^0
+310761^"ubm_l1_modulation_type1"^-1^0
+310762^"L1 State Machine States1"^-1^0
+310763^"Trigger For Sub-packet Logging1"^-1^0
+310764^"FW ISDBT States1"^-1^0
+310765^"meas_type1"^-1^0
+310766^"Freq_track_mode1"^-1^0
+310767^"isOdd1"^-1^0
+310768^"ubm_l1_const_type1"^-1^0
+310769^"ubm_l1_code_rate_type1"^-1^0
+310770^"ubm_l1_mode_type1"^-1^0
+310771^"ubm_l1_bw_type1"^-1^0
+310772^"ubm_l1_guard_type1"^-1^0
+310773^"ubm_l1_int_type1"^-1^0
+310774^"ubm_l1_hier_type1"^-1^0
+310775^"ubm_l1_hier_prio_type1"^-1^0
+310776^"ubm_l1_time_slicing_enabled_type1"^-1^0
+310777^"ubm_l1_mpe_fec_enabled_type1"^-1^0
+310778^"DTV L1 subpacket Technology1"^-1^0
+310779^"RFChipType1"^-1^0
+310780^"BasebandChipType1"^-1^0
+310781^"GamlaType1"^-1^0
+310782^"Response Type1"^-1^0
+310783^"ubm_l1_mode_type_isdbt2"^-1^0
+310784^"ubm_l1_guard_type_isdbt2"^-1^0
+310785^"ubm_l1_modulation_type2"^-1^0
+310786^"L1 State Machine States2"^-1^0
+310787^"Trigger For Sub-packet Logging2"^-1^0
+310788^"FW ISDBT States2"^-1^0
+310789^"meas_type2"^-1^0
+310790^"Freq_track_mode2"^-1^0
+310791^"isOdd2"^-1^0
+310792^"ubm_l1_const_type2"^-1^0
+310793^"ubm_l1_code_rate_type2"^-1^0
+310794^"ubm_l1_mode_type2"^-1^0
+310795^"ubm_l1_bw_type2"^-1^0
+310796^"ubm_l1_guard_type2"^-1^0
+310797^"ubm_l1_int_type2"^-1^0
+310798^"ubm_l1_hier_type2"^-1^0
+310799^"ubm_l1_hier_prio_type2"^-1^0
+310800^"ubm_l1_time_slicing_enabled_type2"^-1^0
+310801^"ubm_l1_mpe_fec_enabled_type2"^-1^0
+310802^"DTV L1 subpacket Technology2"^-1^0
+310803^"RFChipType2"^-1^0
+310804^"BasebandChipType2"^-1^0
+310805^"GamlaType2"^-1^0
+310806^"Response Type2"^-1^0
+310807^"Action 5/172"^-1^0
+310808^"H-RNTIEnum2"^-1^0
+310809^"Branch Selection Rx"^-1^0
+310810^"Cell Time Tracking"^-1^0
+310811^"TxD Mask For Cell"^-1^0
+310812^"UL Control MUX Bitmask (ACK/CQI/RI)"^-1^0

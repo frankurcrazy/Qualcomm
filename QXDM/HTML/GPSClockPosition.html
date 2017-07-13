@@ -1,0 +1,1808 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPS Clock/Position" />
+   <meta name="DMViewWidth" content="1300" />
+   <meta name="DMViewHeight" content="380" />
+
+   <title>GPS Clock/Position</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+<table border="0" width="100%" cellpadding="2" id="AAGPSTable" style="display : none">
+   <tr>
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">Clock</div>
+         <table width="100%" id="AAGPSClockTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS Week Number</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS Millisecond</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Time Bias (ms)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Time Uncertainty (ns)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Frequency Bias (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Frequency Uncertainty (m/s)</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">Calibration</div>
+         <table width="100%" id="AAGPSCalibrationTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>TCXO PDM</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP Filtered Frequency Bias</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Frequency Uncertainty</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+      </td>
+
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">Position</div>
+         <table width="100%" id="AAGPSPositionTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Latitude</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Longitude</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Height</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>East Uncertainty</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>North Uncertainty</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Vertical Uncertainty</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Speed</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Direction</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Vertical Velocity</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>HDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>VDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Confidence</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Angle</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Along Axis Uncertainty</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Perpendicular Axis Uncertainty</th>
+               <td>-</td>
+            </tr>
+         </table>
+      </td>
+
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">RF Status</div>
+         <table width="100%" id="AAGPSRFStatusTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PLL Locked</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PLL Channel</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP Sigma Delta Offset I</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP Sigma Delta Offset Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP Sigma Delta Gain I</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP Sigma Delta Gain Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS RF Chip ID</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS RF IC DC Offset I</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS RF IC DC Offset Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP ADC ID</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP ADC Gain</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Baseband Board ID</th>
+               <td>-</td>
+            </tr>
+         </table>
+      </td>
+
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">Fixes</div>
+         <table width="100%" id="AAGPSFixesTable">
+            <colgroup span="4">
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+            </colgroup>
+            <tr>
+               <th>Sv</th>
+               <th>IODE</th>
+               <th>Residual</th>
+               <th>Weight</th>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+      </td>
+
+   </tr>
+</table>
+
+<table border="0" width="100%" id="GPSTable" cellpadding="2">
+
+   <tr>
+      <td width="25%" valign="top" class="noborder">
+         <div class="label">Navigation Information</div>
+         <table width="100%" id="NavigationTypeTable">
+            <colgroup span="1">
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th>Current Navigation Type</th>
+               <td>-</td>
+            </tr>
+         </table>
+         <table width="100%" id="NavigationTable">
+            <colgroup span="4">
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+               <col width="40%" />
+            </colgroup>
+            <tr>
+               <th>DR + GPS</th>
+               <th>Plain DR</th>
+               <th>Plain GPS</th>
+               <th>No Location Estimate</th>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">Clock</div>
+         <table width="100%" id="GPSClockTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS Week Number</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS Millisecond</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>RTC Time (ms)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Time Bias (ms)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Time Uncertainty (ns)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Frequency Bias (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Frequency Uncertainty (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Reset Counter</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+      </td>
+
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">Position</div>
+         <table width="100%" id="GPSPositionTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Latitude</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Longitude</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Height</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Vertical Uncertainty</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Speed</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Direction</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Vertical Velocity</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>HDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>VDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Confidence</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Angle</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Along Axis Uncertainty</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Perpendicular Axis Uncertainty</th>
+               <td>-</td>
+            </tr>
+         </table>
+      </td>
+
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">RF Status</div>
+         <table width="100%" id="GPSRFStatusTable">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PLL Locked</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PLL Channel</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>BP Mean I/Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>BP Amplitude I/Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MND Counter</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS RF Chip</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPS RF IC DC Offset I/Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MGP ADC Gain</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>BP Rotator Frequency</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>BP Rotator Frequency Delta</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPF: Gain Setting</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GPF: Micro DC Offset I/Q</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Notch Filter 1 Coefficient</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Notch Filter 2 Coefficient</th>
+               <td>-</td>
+            </tr>
+         </table>
+      </td>
+
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">Fixes</div>
+         <table width="100%" id="GPSFixesTable">
+            <colgroup span="5">
+               <col width="10%" />
+               <col width="10%" />
+               <col width="30%" />
+               <col width="20%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Sv</th>
+               <th>IODE</th>
+               <th>Range Residual</th>
+               <th>Velocity Residual</th>
+               <th>Weight</th>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+      </td>
+
+   </tr>
+</table>
+<br />
+<input type="checkbox" id="enableKMLChkBox" onclick="GenerateKML();" />Enable  
+KML<br> 
+<input type="button" id="genKMLButton" value="Generate KML File" 
+onclick="if(AppendKMLFile()) { WriteKMLHeaderSection(); } " disabled/>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle        = 0xFFFFFFFF;
+var UPDATE_MS     = 1000;
+var PrevIndex     = -1;
+
+var gMainTickID     = 0;
+var gAAGPSDisplay   = false;
+var gCurrNavigation = "";
+
+// Constants for navigation types
+var gDRAndGPS        = 0;
+var gDROnly          = 0;
+var gPlainGPS        = 0;
+var gNoLocation      = 0;
+
+// Global variables for KML
+var gKMLFolder = "C:\\Temp\\";
+var gKMLFileName = "QXDM_CGPSFixes";
+var gAbsFileNm = "";
+var gTempAbsFileNm = "";
+var gTempKMLStr = "";
+var gMainKMLStr = "";
+var gFileNmSuffix = 1;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure AAGPS items
+   ClientObject.AddLog( 0x7002 );
+   ClientObject.AddLog( 0x7003 );
+   ClientObject.AddLog( 0x7008 );
+   ClientObject.AddLog( 0x7009 );
+   ClientObject.AddLog( 0x701E );
+
+   // Configure Aries GPS items
+   ClientObject.AddLog( 0x136F );
+   ClientObject.AddLog( 0x1370 );
+   ClientObject.AddLog( 0x1372 );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+ 
+   // Create static temp file name
+   gTempAbsFileNm = gKMLFolder + gKMLFileName + "_temp.kml";
+   WriteKMLHeaderSection();
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+   
+   AppendKMLFile();
+}
+
+   // Initialize array of AAGPS log keys
+   var AAGPSLogs = new Array();
+   AAGPSLogs["[0x7002]"] = 1;
+   AAGPSLogs["[0x7003]"] = 1;
+   AAGPSLogs["[0x7008]"] = 1;
+   AAGPSLogs["[0x7009]"] = 1;
+   AAGPSLogs["[0x701E]"] = 1;
+
+// Process our client
+function ProcessItems()
+{
+   var log7002 = false;
+   var log7003 = false;
+   var log7008 = false;
+   var log7009 = false;
+   var log701E = false;
+
+   var log136F = false;
+   var log1372 = false;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // Process items newest to oldest exiting when we have processed
+   // one of each type
+   var typesProcessed = 0;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      if ((ItemKey in AAGPSLogs) == true)
+      {
+         if (gAAGPSDisplay == false)
+         {
+            // Hide the GPS table
+            GPSTable.style.display = "none";
+
+            // Show the AAGPS table
+            gAAGPSDisplay = true;
+            AAGPSTable.style.display = "";
+         }
+
+         switch (ItemKey)
+         {
+            case "[0x7002]":
+            {
+               if (log7002 == false)
+               {
+                  PopulateAAGPSClockTable( Fields );
+                  typesProcessed++;
+               }
+
+               log7002 = true;
+            }
+            break;
+
+            case "[0x7003]":
+            {
+               if (log7003 == false)
+               {
+                  PopulateAAGPSPositionTable( Fields, ItemKey );
+                  typesProcessed++;
+               }
+
+               log7003 = true;
+            }
+            break;
+
+            case "[0x701E]":
+            {
+               if (log701E == false)
+               {
+                  PopulateAAGPSPositionTable( Fields, ItemKey );
+                  typesProcessed++;
+               }
+
+               log701E = true;
+            }
+            break;
+
+            case "[0x7008]":
+            {
+               if (log7008 == false)
+               {
+                  PopulateAAGPSRFStatusTable( Fields );
+                  typesProcessed++;
+               }
+
+               log7008 = true;
+            }
+            break;
+
+            case "[0x7009]":
+            {
+               if (log7009 == false)
+               {
+                  PopulateFreqCalTable( Fields );
+                  typesProcessed++;
+               }
+
+               log7009 = true;
+            }
+            break;
+         }
+
+         // Processed one of each type (4 not 5 due to versioning)?
+         if (typesProcessed >= 4)
+         {
+            break;
+         }
+      }
+      else
+      {
+         if (gAAGPSDisplay == true)
+         {
+            // Hide the AAGPS table
+            gAAGPSDisplay = false;
+            AAGPSTable.style.display = "none";
+
+            // Show the GPS table
+            GPSTable.style.display = "";
+         }
+
+         switch (ItemKey)
+         {
+            case "[0x136F]":
+            {
+               if (log136F == false)
+               {
+                  PopulateGPSClockTable( Fields );
+               }
+
+               log136F = true;
+            }
+            break;
+
+            case "[0x1370]":
+            {
+               PopulateGPSPositionTable( Fields );
+            }
+            break;
+
+            case "[0x1372]":
+            {
+               if (log1372 == false)
+               {
+                  PopulateGPSRFStatusTable( Fields );
+               }
+
+               log1372 = true;
+            }
+            break;
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function PopulateAAGPSClockTable( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var DataIndex = 0; 
+   var GPS_WEEK_UNKNOWN = 0xFFFF;
+   var C_TUNC_MS_SEC    = 1000.0;
+   var C_TUNC_MS_MIN    = 60.0 * 1000.0;
+   var C_TUNC_MS_HOUR   = 60.0 * 60.0 * 1000.0;
+   var C_TUNC_MS_DAY    = 24.0 * 60.0 * 60.0 * 1000.0;
+   var C_TUNC_MS_WEEK   = 7.0 * 24.0 * 60.0 * 60.0 * 1000.0;
+
+   var RowIndex = 0;
+
+   // FCount
+   var Fcount = Fields.GetFieldValueText( DataIndex++ );
+   AAGPSClockTable.rows[RowIndex++].cells[1].innerText = Fcount;
+
+   // Sometimes the GPS week will not be known. This might occur following
+   // a "cold start" when the real time clock has not been set. The receiver
+   // indicates an unknown week by reporting 0xFFFF for the week number
+   var GPSWeek = Fields.GetFieldValue( DataIndex++ );
+
+   if (GPSWeek == GPS_WEEK_UNKNOWN)
+   {
+      GPSWeek = "None";
+   }
+
+   AAGPSClockTable.rows[RowIndex++].cells[1].innerText = GPSWeek;
+
+   // GPS Millisecond 
+   var GPSMs = Fields.GetFieldValue( DataIndex++ );
+   AAGPSClockTable.rows[RowIndex++].cells[1].innerText = GPSMs;
+
+   // Clock Time Bias
+   var ClockBias = Fields.GetFieldValue( DataIndex++ );
+   ClockBias = ClockBias * ( 1.0 / 16777216.0 );
+   AAGPSClockTable.rows[RowIndex++].cells[1].innerText = ClockBias.toFixed( 6 );
+
+   DataIndex++;
+
+   // Time Uncertainty
+   var TimeUncExponent = Fields.GetFieldValue( DataIndex++ );
+   var TimeUncMantissa = Fields.GetFieldValue( DataIndex++ );
+
+   if (TimeUncMantissa >= 0x7FF && TimeUncExponent >= 0x1F)
+   {
+      AAGPSClockTable.rows[RowIndex++].cells[1].innerText = "Unknown";
+   }
+   else
+   {
+      // Convert to milliseconds
+      var TimeUnc = TimeUncMantissa;
+      TimeUnc *= Math.pow( 2.0, TimeUncExponent );
+      TimeUnc /= Math.pow( 10, 6 );
+
+      // Clip the maximum time UNC at 1 week
+      if (TimeUnc > C_TUNC_MS_WEEK)
+      {
+         TimeUnc = C_TUNC_MS_WEEK; 
+      }
+
+      // Apply appropriate print units
+      if (TimeUnc >= C_TUNC_MS_DAY)
+      {
+         TimeUnc = TimeUnc * ( 1.0 / C_TUNC_MS_DAY );
+         AAGPSClockTable.rows[RowIndex++].cells[1].innerText = TimeUnc + " days";
+      }
+      else if (TimeUnc >= C_TUNC_MS_HOUR)
+      {
+         TimeUnc = TimeUnc * ( 1.0 / C_TUNC_MS_HOUR );
+         AAGPSClockTable.rows[RowIndex++].cells[1].innerText = TimeUnc + " hours";
+      }
+      else if (TimeUnc >= C_TUNC_MS_MIN)
+      {
+         TimeUnc = TimeUnc * ( 1.0 / C_TUNC_MS_MIN );
+         AAGPSClockTable.rows[RowIndex++].cells[1].innerText = TimeUnc + " mins";
+      }
+      else if (TimeUnc >= C_TUNC_MS_SEC)
+      {
+         TimeUnc = TimeUnc * ( 1.0 / C_TUNC_MS_SEC );
+         AAGPSClockTable.rows[RowIndex++].cells[1].innerText = TimeUnc + " secs";
+      }
+      else
+      {
+         AAGPSClockTable.rows[RowIndex++].cells[1].innerText = TimeUnc + " ms";
+      }
+   }
+
+   DataIndex++;
+
+   // Frequeny Bias
+   var FreqBias = Fields.GetFieldValue( DataIndex++ );
+   FreqBias = ( FreqBias / 10 );
+   AAGPSClockTable.rows[RowIndex++].cells[1].innerText = FreqBias;
+
+   // Frequeny Uncertainty
+   var FreqUnc = Fields.GetFieldValue( DataIndex++ );
+   FreqUnc = ( FreqUnc / 10 );
+   AAGPSClockTable.rows[RowIndex].cells[1].innerText = FreqUnc;
+
+   RowIndex = 0;
+   DataIndex = 0;
+}
+
+function PopulateAAGPSPositionTable( Fields, ItemKey )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FI = 0;
+   var Row = 0;
+
+   // FCount
+   var Fcount = Fields.GetFieldValue( FI );
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = Fcount;
+
+   if (ItemKey == "[0x7003]")
+   {
+      FI += 11;
+   }
+   else
+   {
+      FI += 14;
+   }
+
+   // Latitude
+   var Latitude = Fields.GetFieldValue( FI++ );
+   Latitude = Latitude * (180 / (65536 * 65536));
+   if (Latitude <= -180.0)
+   {
+      Latitude = -180.0;
+   }
+   else if(Latitude >= 180.0)
+   {
+      Latitude = 180.0;
+   }
+
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = Latitude.toFixed( 6 );
+
+   // Longitude
+   var Longitude = Fields.GetFieldValue( FI++ );
+   Longitude = Longitude * (360 / (65536 * 65536));
+   if (Longitude <= -180.0)
+   {
+      Longitude = -180.0;
+   }
+   else if(Longitude >= 180.0)
+   {
+      Longitude = 180.0;
+   }
+
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = Longitude.toFixed( 6 );
+
+   // Height
+   var Height = Fields.GetFieldValue( FI++ );
+   Height = (Height / 2);
+   if (Height >= 10000.0)
+   {
+      Height = 10000.0;
+   }
+   else if (Height <= 0.0)
+   {
+      Height = 0.0;
+   }
+
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = Height;
+
+   // East Uncertainty
+   var EastUnc = Fields.GetFieldValue( FI++ );
+   EastUnc = (EastUnc / 10);
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = EastUnc;
+
+   // North Uncertainty
+   var NorthUnc = Fields.GetFieldValue( FI++ );
+   NorthUnc = (NorthUnc / 10);
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = NorthUnc;
+
+   // Vertical Uncertainty
+   var VerticalUnc = Fields.GetFieldValue( FI++ );
+   VerticalUnc = (VerticalUnc / 10);
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = VerticalUnc;
+
+   // Speed
+   var EastVel = Fields.GetFieldValue( FI++ );
+   var NorthVel = Fields.GetFieldValue( FI++ );
+   var UpVel = Fields.GetFieldValue( FI++ );
+
+   var Speed = Math.sqrt( (EastVel * EastVel) + (NorthVel * NorthVel) );
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = Speed.toFixed( 4 );
+
+   // Direction
+   var Azimuth;
+   if (Speed > 0.1)
+   {
+      Azimuth = (Math.atan2( EastVel, NorthVel )) * (180 / 3.14159265);
+      if (Azimuth < 0.0)
+      {
+         Azimuth += 360;
+      }
+
+      AAGPSPositionTable.rows[Row++].cells[1].innerText = Azimuth.toFixed( 4 );
+   }
+   else
+   {
+      AAGPSPositionTable.rows[Row++].cells[1].innerText = "-";
+   }
+
+   // Vertical Velocity
+   UpVel = ( UpVel * (1000 / 65536) );
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = UpVel;
+
+   // PDOP
+   var PDOP = Fields.GetFieldValue( FI++ );
+   PDOP = (PDOP / 10);
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = PDOP;
+
+   // HDOP
+   var HDOP = Fields.GetFieldValue( FI++ );
+   HDOP = (HDOP / 10);
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = HDOP;
+
+   // VDOP
+   var VDOP = Fields.GetFieldValue( FI++ );
+   VDOP = (VDOP / 10);
+   AAGPSPositionTable.rows[Row++].cells[1].innerText = VDOP;
+
+   if (ItemKey == "[0x701E]")
+   {
+      // Ellipse Confidence
+      var EllipseConfidence = Fields.GetFieldValue( FI++ );
+      AAGPSPositionTable.rows[Row++].cells[1].innerText = EllipseConfidence;
+
+      // Ellipse Angle
+      var EllipseAngle = Fields.GetFieldValue( FI++ );
+      AAGPSPositionTable.rows[Row++].cells[1].innerText = EllipseAngle;
+
+      // Ellipse Along Axis Uncertainty
+      var EllipseAxisUnc = Fields.GetFieldValue( FI++ );
+      AAGPSPositionTable.rows[Row++].cells[1].innerText = EllipseAxisUnc;
+
+      // Ellipse Perpendicular Axis Uncertainty
+      var EllipsePerUnc = Fields.GetFieldValue( FI++ );
+      AAGPSPositionTable.rows[Row++].cells[1].innerText = EllipsePerUnc;
+   }
+
+   // Grab number of rows in existing table
+   var CurRows = AAGPSFixesTable.rows.length - 1;
+   var NumSVs;
+
+   if (ItemKey == "[0x7003]")
+   {
+      NumSVs = 13;
+   }
+   else if (ItemKey == "[0x701E]")
+   {
+      FI++;
+      NumSVs = Fields.GetFieldValue( FI++ );
+   }
+
+   var TableRow;
+   var TableCell;
+   var Col = 0;
+   Row = 0;
+
+   // Need to do the fixes table here
+   for (var r = 0; r < NumSVs; r++)
+   {
+      // SV ID
+      var SVID = Fields.GetFieldValue( FI );
+      FI += 2;
+
+      if (SVID == 0)
+      {
+         FI += 3;
+      }
+      else
+      {
+         if (Row >= CurRows)
+         {
+            TableRow = AAGPSFixesTable.insertRow();
+            for (var c = 0; c < 4; c++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         // SV ID Value
+         AAGPSFixesTable.rows[Row + 1].cells[Col++].innerText = SVID;
+
+         var IODE = Fields.GetFieldValueText( FI++ );
+         AAGPSFixesTable.rows[Row + 1].cells[Col++].innerText = IODE;
+
+         var Residual = Fields.GetFieldValue( FI++ );
+         Residual /= 10;
+         AAGPSFixesTable.rows[Row + 1].cells[Col++].innerText = Residual.toFixed( 1 );
+
+         var Weight = Fields.GetFieldValue( FI++ );
+         Weight /= 100;
+         AAGPSFixesTable.rows[Row + 1].cells[Col].innerText = Weight.toFixed( 1 );
+
+         Row++;
+         Col = 0;
+      }
+   }
+
+   // Delete excess rows
+   DeleteExcessRows( AAGPSFixesTable, 1, CurRows + 1, Row, true );
+}
+
+function PopulateFreqCalTable( Fields )
+{
+   if (Fields.GetFieldCount() < 4)
+   {
+      return;
+   }
+
+   // FCount
+   Fcount = Fields.GetFieldValue( 0 );
+   AAGPSCalibrationTable.rows[0].cells[1].innerText = Fcount;
+
+   var FieldVal;
+   for (var c = 1; c < 4; c++)
+   {
+      FieldVal = Fields.GetFieldValue( c );
+      FieldVal = FieldVal / 10;
+      AAGPSCalibrationTable.rows[c].cells[1].innerText = FieldVal.toFixed( 1 );
+   }
+}
+
+function PopulateAAGPSRFStatusTable( Fields )
+{
+   if (Fields.GetFieldCount() < 13)
+   {
+      return;
+   }
+
+   var FieldVal;
+   for (var r = 0; r < 13; r++)
+   {
+      FieldVal = Fields.GetFieldValueText( r );
+      AAGPSRFStatusTable.rows[r].cells[1].innerText = FieldVal;
+   }
+}
+
+function PopulateGPSClockTable( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var RowIndex = 0;
+   var DataIndex = 1;
+
+   // FCount
+   var Valid = Fields.GetFieldValue( DataIndex++ );
+   if (Valid)
+   {
+      var Fcount = Fields.GetFieldValue( DataIndex + 3 );
+      GPSClockTable.rows[RowIndex++].cells[1].innerText = Fcount;
+   }
+   else
+   {
+      GPSClockTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // GPS Millisecond
+   Valid = Fields.GetFieldValue( DataIndex++ );
+   if (Valid)
+   {
+      var GPSMs = Fields.GetFieldValue( DataIndex + 4 );
+      GPSClockTable.rows[RowIndex + 1].cells[1].innerText = GPSMs;
+   }
+   else
+   {
+      GPSClockTable.rows[RowIndex + 1].cells[1].innerText = "-";
+   }
+
+   // GPS Week
+   Valid = Fields.GetFieldValue( DataIndex++ );
+   if (Valid)
+   {
+      var GPSWeek = Fields.GetFieldValue( DataIndex + 2 );
+      GPSClockTable.rows[RowIndex++].cells[1].innerText = GPSWeek;
+   }
+   else
+   {
+      GPSClockTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // RTC Time
+   Valid = Fields.GetFieldValue( DataIndex++ );
+   if (Valid)
+   {
+      var RTCTime = Fields.GetFieldValue( DataIndex + 7 );
+      GPSClockTable.rows[RowIndex + 1].cells[1].innerText = RTCTime;
+   }
+   else
+   {
+      GPSClockTable.rows[RowIndex + 1].cells[1].innerText = "-";
+   }
+
+   DataIndex += 3;
+
+   // Time Bias
+   var ClockBias = Fields.GetFieldValue( DataIndex++ );
+   GPSClockTable.rows[RowIndex + 2].cells[1].innerText = ClockBias.toFixed( 6 );
+
+   // Clock Time Uncertainty
+   var TimeUnc = Fields.GetFieldValue( DataIndex++ );
+   GPSClockTable.rows[RowIndex + 3].cells[1].innerText = TimeUnc.toFixed( 6 );
+
+   // Clock Frequeny Bias
+   var FreqBias = Fields.GetFieldValue( DataIndex++ );
+   GPSClockTable.rows[RowIndex + 4].cells[1].innerText = FreqBias.toFixed( 6 );
+
+   // Clock Frequeny Uncertainty
+   var FreqUnc = Fields.GetFieldValue( DataIndex++ );
+   GPSClockTable.rows[RowIndex + 5].cells[1].innerText = FreqUnc.toFixed( 6 );
+
+   DataIndex++;
+
+   // Clock Resets
+   var ClockResets = Fields.GetFieldValue( DataIndex );
+   GPSClockTable.rows[RowIndex + 6].cells[1].innerText = ClockResets;
+}
+
+function PopulateGPSPositionTable( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   // Data is valid when Position Source is "Weighted Least Squares" or "Kalman Filter"
+   var PositionSource = Fields.GetFieldValue( 2 );
+   var PositionSourceString = Fields.GetFieldValueText( 2 );
+   if (PositionSource == 0)
+   {
+      gCurrNavigation = "No Fix";
+      NavigationTypeTable.rows[0].cells[1].innerText = gCurrNavigation;
+
+      gNoLocation++;
+      return;
+   }
+   else if (PositionSource != 1 && PositionSource != 2)
+   {
+      return;
+   }
+
+   var FI = 1;
+   var Row = 0;
+
+   // FCount
+   var Fcount = Fields.GetFieldValueText( FI );
+   GPSPositionTable.rows[Row++].cells[1].innerText = Fcount;
+
+   // Index of Latitude field
+   FI = Fields.GetFieldIndexFromByID( 305094, FI, false );;
+   if (FI == 0xFFFFFFFF)
+   {
+      return;
+   }
+
+   var FinalFix;
+   var PosSrcName;
+   
+   // Weighted Least Squares
+   if (PositionSource == 1)
+   {
+      PosSrcName = "WLS";
+      FinalFix = Fields.GetFieldValue( 11 );
+      if (FinalFix)
+      {
+         gCurrNavigation = "Plain GPS";
+         gPlainGPS++;
+      }
+   }
+
+   // Kalman Filter
+   if (PositionSource == 2)
+   {
+      PosSrcName = "KF";
+      FinalFix = Fields.GetFieldValue( 8 );
+      if (FinalFix)
+      {
+         var DRAndGPS = Fields.GetFieldValue( 11 );
+         if (DRAndGPS)
+         {
+            gCurrNavigation = "Combined - DR + GPS";
+            gDRAndGPS++;
+         }
+
+         var DR = Fields.GetFieldValue( 12 );
+         if (DR)
+         {
+            gCurrNavigation = "DR";
+            gDROnly++;
+         }
+
+         if (DRAndGPS == 0 && DR == 0)
+         {
+            gCurrNavigation = "Plain GPS";
+            gPlainGPS++;
+         }
+      }
+   }
+
+   // Update the Navigation table
+   NavigationTypeTable.rows[0].cells[1].innerText = gCurrNavigation;
+   NavigationTable.rows[1].cells[0].innerText = gDRAndGPS;
+   NavigationTable.rows[1].cells[1].innerText = gDROnly;
+   NavigationTable.rows[1].cells[2].innerText = gPlainGPS;
+   NavigationTable.rows[1].cells[3].innerText = gNoLocation;
+
+   // Latitude
+   var Latitude = Fields.GetFieldValue( FI++ );
+   Latitude = Latitude * (180 / Math.PI);
+   if (Latitude <= -180.0)
+   {
+      Latitude = -180.0;
+   }
+   else if(Latitude >= 180.0)
+   {
+      Latitude = 180.0;
+   }
+
+   GPSPositionTable.rows[Row++].cells[1].innerText = Latitude.toFixed( 6 );
+
+   // Longitude
+   var Longitude = Fields.GetFieldValue( FI++ );
+   Longitude = Longitude * (180 / Math.PI);
+   if (Longitude <= -180.0)
+   {
+      Longitude = -180.0;
+   }
+   else if(Longitude >= 180.0)
+   {
+      Longitude = 180.0;
+   }
+
+   GPSPositionTable.rows[Row++].cells[1].innerText = Longitude.toFixed( 6 );
+
+   // Height
+   var Height = Fields.GetFieldValueText( FI++ );
+   if (Height >= 10000.0)
+   {
+      Height = 10000.0;
+   }
+   else if (Height <= 0.0)
+   {
+      Height = 0.0;
+   }
+
+   GPSPositionTable.rows[Row++].cells[1].innerText = Height;
+
+   // Vertical Uncertainty
+   var VerticalUnc = Fields.GetFieldValueText( FI + 3 );
+   GPSPositionTable.rows[Row++].cells[1].innerText = VerticalUnc;
+
+   // Speed
+   var EastVel = Fields.GetFieldValue( FI++ );
+   var NorthVel = Fields.GetFieldValue( FI++ );
+   var UpVel = Fields.GetFieldValue( FI++ );
+
+   var Speed = Math.sqrt( (EastVel * EastVel) + (NorthVel * NorthVel) );
+   GPSPositionTable.rows[Row++].cells[1].innerText = Speed.toFixed( 6 );
+
+   // Direction
+   var Azimuth;
+   if (Speed > 0.1)
+   {
+      Azimuth = (Math.atan2( EastVel, NorthVel )) * (180 / 3.14159265);
+      if (Azimuth < 0.0)
+      {
+         Azimuth += 360;
+      }
+
+      GPSPositionTable.rows[Row++].cells[1].innerText = Azimuth.toFixed( 6 );
+   }
+   else
+   {
+      GPSPositionTable.rows[Row++].cells[1].innerText = "-";
+   }
+
+   // Vertical Velocity
+   GPSPositionTable.rows[Row++].cells[1].innerText = UpVel.toFixed( 6 );
+
+   FI += 10;
+
+   // Position Dilution Of Precision
+   var PDOP = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = PDOP;
+
+   // Horizontal Dilution Of Precision
+   var HDOP = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = HDOP;
+
+   // Vertical Dilution Of Precision
+   var VDOP = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = VDOP;
+
+   // Ellipse Confidence
+   var EllipseConfidence = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = EllipseConfidence;
+
+   // Ellipse Angle
+   var EllipseAngle = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = EllipseAngle;
+
+   // Ellipse Along Axis Uncertainty
+   var EllipseAxisUnc = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = EllipseAxisUnc;
+
+   // Ellipse Perpendicular Axis Uncertainty
+   var EllipsePerUnc = Fields.GetFieldValueText( FI++ );
+   GPSPositionTable.rows[Row++].cells[1].innerText = EllipsePerUnc;
+
+   // Grab number of rows in existing table
+   var CurRows = GPSFixesTable.rows.length - 1;
+
+   FI++;
+
+   var NumSVs = Fields.GetFieldValue( FI++ );
+
+   var TableRow;
+   var TableCell;
+   var Col = 0;
+   Row = 0;
+
+   // Need to do the fixes table here
+   for (var r = 0; r < NumSVs; r++)
+   {
+      // SV ID
+      var SVID = Fields.GetFieldValue( FI );
+      if (SVID == 0)
+      {
+         FI += 6;
+      }
+      else
+      {
+         if (Row >= CurRows)
+         {
+            TableRow = GPSFixesTable.insertRow();
+            for (var c = 0; c < 5; c++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         // SV ID
+         GPSFixesTable.rows[Row + 1].cells[Col++].innerText = SVID;
+
+         FI++;
+
+         // SV Used For Fix
+         var SVUsedForFix = Fields.GetFieldValue( FI++ );
+         if (SVUsedForFix == 0)
+         {
+            for (var c = 0; c < 4; c++)
+            {
+               GPSFixesTable.rows[Row + 1].cells[Col++].innerText = "-";
+            }
+
+            FI += 4;
+            Row++;
+            Col = 0;
+
+            continue;
+         }
+
+         // IODE
+         var IODE = Fields.GetFieldValue( FI++ );
+         GPSFixesTable.rows[Row + 1].cells[Col++].innerText = IODE;
+
+         // Range Residual
+         var RangeResidual = Fields.GetFieldValue( FI++ );
+         GPSFixesTable.rows[Row + 1].cells[Col++].innerText = RangeResidual.toFixed( 1 );
+
+         // Velocity Residual
+         var VelResidual = Fields.GetFieldValue( FI++ );
+         GPSFixesTable.rows[Row + 1].cells[Col++].innerText = VelResidual.toFixed( 1 );
+
+         // Weight
+         var Weight = Fields.GetFieldValue( FI++ );
+         GPSFixesTable.rows[Row + 1].cells[Col].innerText = Weight.toFixed( 1 );
+
+         Row++;
+         Col = 0;
+      }
+   }
+
+   // Delete excess rows
+   DeleteExcessRows( GPSFixesTable, 1, CurRows + 1, Row, true );
+   
+   	// Write to KML file if open (check only if temp file is open)
+    if ((document.getElementById("enableKMLChkBox").checked == true) && FinalFix)
+	{
+		try
+		{
+			// -- Main KML file. Segment 2 -- //	
+			// Draw lines		
+			gMainKMLStr += Longitude.toFixed( 6 ) + "," + Latitude.toFixed( 6 ) + "," + Height + "\n";
+			
+			// -- Temp KML file. Segment 2 -- //
+			// Plot the positions
+			gTempKMLStr += "\n<Placemark>\n";
+			gTempKMLStr += "<styleUrl>#DUTDefaultIconStyle</styleUrl>\n";
+			gTempKMLStr += "<description>\n";
+			gTempKMLStr += "<![CDATA[\n";
+			gTempKMLStr += "<dl>\n";
+			
+			gTempKMLStr += "<dt>GPS Week: " + GPSClockTable.rows[1].cells[1].innerText + ", Time: " + GPSClockTable.rows[2].cells[1].innerText +"(ms)</dt>\n";
+			
+			gTempKMLStr += "<dt><big>Position:-</big></dt>\n";
+			gTempKMLStr += "<dd>Lat: " + Latitude.toFixed( 6 ) + "(degrees)</dd><dd>Long: " + Longitude.toFixed( 6 ) + "(degrees)</dd>\n";
+			gTempKMLStr += "<dd>Height: " + Height + " (m)</dd>\n";
+			gTempKMLStr += "<dd>Vertical Uncertainty: " + VerticalUnc + " (m)</dd>\n";
+			gTempKMLStr += "<dd>Fcount: " + Fcount + " (ms)</dd>\n";
+			
+			gTempKMLStr += "<dt><big>Speed:-</big></dt>\n";
+			gTempKMLStr += "<dd>Speed: " + Speed.toFixed( 6 ) + " (m/s)</dd>\n";
+			gTempKMLStr += "<dd>Direction: " + GPSPositionTable.rows[6].cells[1].innerText + " (m/s)</dd>\n";
+			gTempKMLStr += "<dd>Vertical velocity: " + UpVel.toFixed( 6 ) + " (m/s)</dd>\n";
+			
+			gTempKMLStr += "<dt><big>Dilution of Position:-</big></dt>\n";
+			gTempKMLStr += "<dd>PDOP: " + PDOP + "</dd>\n";
+			gTempKMLStr += "<dd>HDOP: " + HDOP + "</dd>\n";
+			gTempKMLStr += "<dd>VDOP: " + VDOP + "</dd>\n";
+			gTempKMLStr += "<dt>Position Source: " + PosSrcName + "</dt>\n";
+			
+			gTempKMLStr += "</dl>\n";
+			gTempKMLStr += "<hr>\n";
+			gTempKMLStr += "]]>\n";
+			gTempKMLStr += "</description>\n";
+			
+			gTempKMLStr += "<Point>\n";
+			gTempKMLStr += "<coordinates>\n";
+			gTempKMLStr += Longitude.toFixed( 6 ) + "," + Latitude.toFixed( 6 ) + "," + Height + "\n";
+			gTempKMLStr += "</coordinates>\n";
+			gTempKMLStr += "</Point>\n";
+			
+			gTempKMLStr += "</Placemark>\n";
+            
+            // write to file
+            IQXDM2.TextFileSave(gAbsFileNm, gMainKMLStr, false);
+			IQXDM2.TextFileSave(gTempAbsFileNm, gTempKMLStr, false);
+            gMainKMLStr = gTempKMLStr = "";
+        }
+		catch(e)
+		{ 
+			alert(e.message + ' (error code: ' + (e.number & 0xFFFF) + ').');
+		}
+	}
+}
+
+function PopulateGPSRFStatusTable( Fields )
+{
+   if (Fields.GetFieldCount() < 36)
+   {
+      return;
+   }
+
+   var FI = 1;
+   var RowIndex = 0;
+
+   // FCount
+   var FCount = Fields.GetFieldValueText( FI++ );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = FCount;
+
+   // PLL Locked
+   var PLLLocked = Fields.GetFieldValueText( FI++ );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = PLLLocked;
+
+   // PLL Channel
+   var PLLChannel = Fields.GetFieldValueText( FI++ );
+   PLLChannel = PLLChannel >> 1;
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = PLLChannel;
+
+   // BP Mean I/Q
+   var BPMeanI = Fields.GetFieldValueText( FI++ );
+   var BPMeanQ = Fields.GetFieldValueText( FI++ );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = BPMeanI + "/" + BPMeanQ;
+
+   // BP Amplitude I/Q
+   var BPAmpI = Fields.GetFieldValueText( FI++ );
+   var BPAmpQ = Fields.GetFieldValueText( FI++ );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = BPAmpI + "/" + BPAmpQ;
+
+   // MND Counter
+   var M = Fields.GetFieldValueText( FI + 17 );
+   var N = Fields.GetFieldValueText( FI + 18 );
+   var D = Fields.GetFieldValueText( FI + 19 );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = M + "," + N + "," + D;
+
+   // RF IC ID
+   var RFICID = Fields.GetFieldValueText( FI + 27 );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = RFICID;
+
+   // RF DC Offset I/Q
+   var Valid = Fields.GetFieldValue( FI + 20 );
+   if (Valid)
+   {
+      var OffsetI = Fields.GetFieldValueText( FI + 23 );
+      var OffsetQ = Fields.GetFieldValueText( FI + 24 );
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = OffsetI + "/" + OffsetQ;
+   }
+   else
+   {
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // ADC Gain
+   Valid = Fields.GetFieldValue( FI + 22 );
+   if (Valid)
+   {
+      var ADCGain = Fields.GetFieldValueText( FI + 26 );
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = ADCGain;
+   }
+   else
+   {
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // BP Rotator Frequency
+   var RotFreq = Fields.GetFieldValueText( FI++ );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = RotFreq;
+
+   // BP Rotator Frequency Delta
+   var RotFreqDelta = Fields.GetFieldValueText( FI++ );
+   GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = RotFreqDelta;
+
+   // GPF IQ Gain
+   Valid = Fields.GetFieldValue( FI + 3 );
+   if (Valid)
+   {
+      var IQGain = Fields.GetFieldValueText( FI + 6 );
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = IQGain;
+   }
+   else
+   {
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // GPF DC Offset IQ
+   Valid = Fields.GetFieldValue( FI + 2 );
+   if (Valid)
+   {
+      var IOffset = Fields.GetFieldValueText( FI + 4 );
+      var QOffset = Fields.GetFieldValueText( FI + 5 );
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = IOffset + "/" + QOffset;
+   }
+   else
+   {
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // Notch Filter 1 Coefficient
+   Valid = Fields.GetFieldValue( FI++ );
+   if (Valid)
+   {
+      var RLower = Fields.GetFieldValueText( FI + 6 );
+      var RUpper = Fields.GetFieldValueText( FI + 7 );
+      var ILower = Fields.GetFieldValueText( FI + 8 );
+      var IUpper = Fields.GetFieldValueText( FI + 9 );
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText =
+         RLower + "," + RUpper + "," + ILower + "," + IUpper;
+   }
+   else
+   {
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+   // Notch Filter 2 Coefficient
+   Valid = Fields.GetFieldValue( FI );
+   if (Valid)
+   {
+      var RLower = Fields.GetFieldValueText( FI + 10 );
+      var RUpper = Fields.GetFieldValueText( FI + 11 );
+      var ILower = Fields.GetFieldValueText( FI + 12 );
+      var IUpper = Fields.GetFieldValueText( FI + 13 );
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText =
+         RLower + "," + RUpper + "," + ILower + "," + IUpper;
+   }
+   else
+   {
+      GPSRFStatusTable.rows[RowIndex++].cells[1].innerText = "-";
+   }
+
+}
+
+function GenerateKML()
+{
+	if (document.getElementById("enableKMLChkBox").checked == true)
+	{
+		document.getElementById("genKMLButton").disabled = false;
+		WriteKMLHeaderSection();
+	}
+	else
+	{
+		AppendKMLFile();
+		// Disable generate KML button
+		document.getElementById("genKMLButton").disabled = true;
+	}
+}
+
+// Write the KML header section into main & temp file
+function WriteKMLHeaderSection()
+{
+	try 
+	{   
+		// Create dynamic main file name
+		gAbsFileNm = gKMLFolder + gKMLFileName + "_" + gFileNmSuffix + ".kml";			
+        gMainKMLStr = gTempKMLStr = "";
+        
+		// ----- Main KML file content. Segment 1 ----- //
+		// Write standard lines to main file
+		gMainKMLStr += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		gMainKMLStr += "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n";
+		gMainKMLStr += "<Document>\n";
+		gMainKMLStr += "<name>QXDM KML File " + gFileNmSuffix +"</name>\n";
+		gMainKMLStr += "<description>CGPS Position Fixes (0x1370)</description>\n";
+
+		// Icon style //
+		// DUT Fixes
+		gMainKMLStr += "\n<Style id=\"DUTDefaultIconStyle\">\n";
+		gMainKMLStr += "<IconStyle>\n";
+		gMainKMLStr += "<color>0xFF00FF00</color>\n";
+		gMainKMLStr += "<scale>1</scale>\n";
+		gMainKMLStr += "<Icon>\n";
+		gMainKMLStr += "<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+		gMainKMLStr += "</Icon>\n";
+		gMainKMLStr += "</IconStyle>\n";
+		gMainKMLStr += "</Style>\n";
+
+		// - Line styles - //
+		gMainKMLStr += "\n<Style id=\"DUTLineStyle\"><LineStyle><color>0xFF00FF00</color><width>4</width></LineStyle></Style>\n";
+
+		// Create folder to store the fixes
+		gMainKMLStr += "\n<Folder>\n";
+		gMainKMLStr += "<name>DUT</name>\n";
+		
+		// Print line for flyover
+		gMainKMLStr += "\n<Placemark>\n";    
+		gMainKMLStr += "<name>Fix path</name>\n";
+		gMainKMLStr += "<description>Select this and click the Play Button</description>\n";
+		gMainKMLStr += "<styleUrl>#DUTLineStyle</styleUrl>\n";
+		gMainKMLStr += "<LineString>\n";
+		gMainKMLStr += "<tessellate>1</tessellate>\n";
+		gMainKMLStr += "\n<coordinates>\n";   
+		
+		// ----- Temp KML file content. Segment 1 ----- //	
+		gTempKMLStr += "<Folder>\n<name>Fixes</name>\n";
+        
+        // ----- Make sure the file is empty ----- //
+        IQXDM2.TextFileSave(gAbsFileNm, "", true);
+        IQXDM2.TextFileSave(gTempAbsFileNm, "", true);
+        
+        gFileNmSuffix++;
+		if (gFileNmSuffix > 10)
+			gFileNmSuffix = 1;
+	} 
+	catch(e)
+	{ 
+		var errCode = e.number & 0xFFFF;
+		var additionalMsg = "";
+		
+		if (errCode == 76) // Path not found error. 
+			additionalMsg = "'" + gKMLFolder + "' ";
+		else if (errCode == 70) // Write file permission denied.
+			additionalMsg = "'" + gAbsFileNm + "'. ";
+			
+		alert(additionalMsg + e.message + ' (error code: ' + errCode + ').');
+	}
+}
+
+// Append temp KML file contents into main KML file
+function AppendKMLFile()
+{	
+   try 
+   { 			
+       // Append only if KML file has collected any final fixes
+       if (gTempKMLStr.length == 0)
+       {
+            // -- Temp KML file. Segment 3 -- //
+            IQXDM2.TextFileSave(gTempAbsFileNm, "</Folder>\n</Folder>\n</Document>\n</kml>\n", false);
+            
+            // -- Main KML file. Segment 3 -- //
+            IQXDM2.TextFileSave(gAbsFileNm, "</coordinates>\n\n</LineString>\n</Placemark>\n", false);
+                
+            // Copy content from temp to main KML file
+            IQXDM2.TextFileAppend(gAbsFileNm, gTempAbsFileNm);
+            
+            // Empty the temp file
+            IQXDM2.TextFileSave(gTempAbsFileNm, "", true);
+            gTempKMLStr = " ";
+            
+            alert("Location of generated KML file: " + gAbsFileNm + "\nFor future reference pls save away this file.");
+            return true;
+       }
+   } 
+   catch(e)
+   { 
+		alert(e.message + ' (error code: ' + (e.number & 0xFFFF) + ').');
+   }
+   
+   return false;
+}
+
+</script>
+</body>
+</html>

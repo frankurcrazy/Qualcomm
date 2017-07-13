@@ -1,0 +1,1773 @@
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Script Help For DM Commands" />
+   <meta name="DMViewWidth" content="600" />
+   <meta name="DMViewHeight" content="400" />
+   <title>Script Help For DM Commands</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+   <style type="text/css">
+      th
+      {
+         text-align : left;
+         padding-left : 3;
+         padding-right : 3;
+      }   
+   
+      td
+      {
+         text-align : left;
+         padding-left : 3;
+         padding-right : 3;
+      }
+   
+      td.shaded
+      {
+         text-align : left;
+         padding-left : 3;
+         padding-right : 3;         
+         cursor : pointer
+      }
+   </style>
+</head>
+
+<body>
+
+<div class="label-left">Current Commands</div>
+<table width="100%" id="CurrentTable">
+   <tr>
+      <th>Command</th>
+      <th>Description</th>
+   </tr>
+
+   <!-- CWait -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 1 );">CWait</td>
+      <td>Halts scripting for a specified amount of time</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>CWait <strong>Centi-seconds</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         CWait <strong>500</strong><br />
+         Halt script processing for 5 seconds
+      </td>
+   </tr>
+
+   <!-- Echo -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 4 );">Echo</td>
+      <td>Adds the provided string to the DM 'Item Store' with the 'Automation' type. The string will appear in an list based view registered for this type (including the 'Command Output' view)</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Echo <strong>"Text"</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Echo <strong>"Test Completed"</strong></td>
+   </tr>
+
+   <!-- GetCOMPort -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 7 );">GetCOMPort</td>
+      <td>View the current COM port selection for which QXDM will attempt to connect to a phone</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>GetCOMPort</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>GetCOMPort</td>
+   </tr>
+
+   <!-- Logging -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 10 );">Logging</td>
+      <td>Brings up or closes the DM 'Logging View'</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Logging <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Logging <strong>On</strong><br />
+         Brings up the DM 'Logging View', if not already active
+      </td>
+   </tr>
+   
+   <!-- LogMask -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 13 );">LogMask</td>
+      <td>Sets the 'Common' portion of the DM 'Logging View' log mask. Log masks for other technologies are not supported using this command.</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         LogMask <strong>"Mask"</strong><br />
+         <strong>"Mask"</strong> is the desired log mask in the format of 'Hex Value' portion of the 'Logging Config' dialog
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         LogMask <strong>"99FF"</strong><br />
+      </td>
+   </tr>
+   
+   <!-- Mode -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 16 );">Mode</td>
+      <td>Request the target perform a mode change</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Mode <strong>Option</strong><br />
+         <strong>Option</strong> is one of the following values:
+         <ul>
+            <li><strong>FTM</strong> - Change to factory test mode</li>
+            <li><strong>LPM</strong> - Change to low power mode</li>
+            <li><strong>Offline-A</strong> - Change to analog offline mode</li>
+            <li><strong>Offline-D</strong> - Change to digital offline mode</li>
+            <li><strong>Online</strong> - Change to online mode</li>
+            <li><strong>Reset</strong> - Reset the target (may require phone offline mode)</li>
+         </ul>
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Mode <strong>Reset</strong><br />
+         Requests the target reset
+      </td>
+   </tr>
+
+   <!-- Pause -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 19 );">Pause</td>
+      <td>Halts processing of legacy script (.scr) processing.  The space bar must be pressed in the Command edit box to continue processing.</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Pause</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Pause</td>
+   </tr>
+
+   <!-- RequestItem -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 22 );">RequestItem</td>
+      <td>
+         RequestItem allows one to schedule a request to be sent to the phone. The 
+         request itself is built according to a description entered into the QXDM 
+         database or a user database. RequestItem waits for a response and if 
+         received, parses it according to the default description in the QXDM 
+         database or a user database (if such a description exists).
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestItem <strong>"RequestName" Fields</strong><br />
+         
+         <strong>"RequestName"</strong> is the name of the DIAG entity to request 
+         (entity must be either a DIAG request or subsystem dispatch request)<br />
+         
+         <strong>Fields</strong> is a list of space-separated field values used to 
+         build the request. This argument can be omitted if the request does not 
+         require field values. 
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestItem <strong>"Version Number Request"</strong><br />
+         
+         Builds and sends a "Version Number Request" to the target and waits 
+         for and parses the response using the default database description<br /><br />
+         
+         RequestItem <strong>"Extensible Parameter Retrieval Request" 1 1 100</strong><br />
+         
+         Builds and sends a "Extensible Parameter Retrieval Request" with field values 1, 1, 
+         and 100 to the target and waits for and parses the response using the default 
+         database description
+      </td>
+   </tr>
+   
+   <!-- RequestItemFile -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 25);">RequestItemFile</td>
+      <td>
+         RequestItemFile allows one to schedule a request to be sent to the phone using
+         a file that contains input field values. The request itself is 
+         built according to a description entered into the QXDM database or a user 
+         database. RequestItemFile waits for a response and if received, parses it 
+         according to the default description in the QXDM database or a user database 
+         (if such a description exists).
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestItemFile <strong>"RequestName" "FileName"</strong><br />
+         
+         <strong>"RequestName"</strong> is the name of the DIAG entity to request 
+         (entity must be either a DIAG request or subsystem dispatch request)<br />
+         
+         <strong>"FileName"</strong> is the name of a file containing field values used 
+         to build the request. This argument can be omitted if the request does not 
+         require field values. The file should contain one line for each input field 
+         of field, value pairs, separated by the caret (^) character as in the following 
+         example: 
+         <strong>
+         <ul>
+         Number Of Digits^10<br />
+         Digits^2144951009<br />
+         Service Option^17
+         </ul>
+         </strong>
+         <strong>Note: </strong>QXDM searches for "FileName" based on the following
+         search criteria:<br />
+         1. Search using the file as-is<br />
+         2. Search using the QXDM bin folder (QXDM default)<br />
+         3. Search using the Alternate Script Path (Options->Settings)
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestItemFile <strong>"Call Origination Request" "CallOriginate.txt"</strong><br />
+         
+         Builds and sends a "Call Origination Request" to the target with field 
+         values contained in the file "CallOriginate.txt" and waits for and parses 
+         the response using the default database description.<br /><br />
+         
+         RequestItemFile <strong>"Mode Change Request" "ModeOnlineDigital.txt"</strong><br />
+         
+         Builds and sends a "Mode Change Request" with field values contained in 
+         ModeOnlineDigital.txt to the target and waits for and parses the response 
+         using the default database description.
+      </td>
+   </tr>
+   
+   <!-- RequestNamedItem -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 28 );">RequestNamedItem</td>
+      <td>
+         RequestNamedItem allows one to schedule a request to be sent to the phone. The 
+         request itself is built according to a description entered into the QXDM database 
+         or a user database. RequestNamedItem waits for a response and if received, parses 
+         it according to the description matching the provided DIAG entity name.
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestNamedItem <strong>"ResponseName" "RequestName" Fields</strong><br />
+         
+         <strong>"ResponseName"</strong> is the name of the DIAG entity used to parse 
+         the responses (if received)<br />
+         
+         <strong>"RequestName"</strong> is the name of the DIAG entity to request 
+         (entity must be either a DIAG request or subsystem dispatch request)<br />
+         
+         <strong>Fields</strong> is a list of space-separated field values used to 
+         build the request, if the request does not require field values this argument 
+         can be omitted
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestNamedItem <strong>"Version Number Response" "Version Number Request"</strong><br />
+         
+         Builds and sends a "Version Number Request" to the target and waits for and parses the 
+         response using the "Version Number Response" DIAG entity<br /><br />
+         
+         RequestNamedItem <strong>"Extensible Parameter Retrieval Response" "Extensible 
+         Parameter Retrieval Request" 1 1 100</strong><br />
+         
+         Builds and sends a "Extensible Parameter Retrieval Request" with field values 1, 1, 
+         and 100 to the target and waits for and parses the response using the "Extensible 
+         Parameter Retrieval Response" DIAG entity
+      </td>
+   </tr>
+   
+   <!-- RequestNamedItemFile -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 31 );">RequestNamedItemFile</td>
+      <td>
+         RequestNamedItemFile allows one to schedule a request to be sent to the phone using a 
+         file that contains input field values. The request itself is built according to a 
+         description entered into the QXDM database or a user database. RequestNamedItemFile 
+         waits for a response and if received, parses it according to the description matching 
+         the provided DIAG entity name.
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestNamedItemFile <strong>"ResponseName" "RequestName" "FileName"</strong><br />
+         
+         <strong>"ResponseName"</strong> is the name of the DIAG entity used to parse 
+         the responses (if received)<br />
+         
+         <strong>"RequestName"</strong> is the name of the DIAG entity to request 
+         (entity must be either a DIAG request or subsystem dispatch request)<br />
+         
+         <strong>"FileName"</strong> is the name of a file containing field values used 
+         to build the request. This argument can be omitted if the request does not 
+         require field values. The file should contain one line for each input field 
+         of field, value pairs, separated by the caret (^) character as in the following 
+         example: 
+         <strong>
+         <ul>
+         Number Of Digits^10<br />
+         Digits^2144951009<br />
+         Service Option^17
+         </ul>
+         </strong>
+         <strong>Note: </strong>QXDM searches for "FileName" based on the following
+         search criteria:<br />
+         1. Search using the file as-is<br />
+         2. Search using the QXDM bin folder (QXDM default)<br />
+         3. Search using the Alternate Script Path (Options->Settings 
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestItemFile <strong>"Call Origination Response" "Call Origination Request" "CallOriginate.txt"</strong><br />
+         
+         Builds and sends a "Call Origination Request" to the target with field 
+         values contained in the file "CallOriginate.txt" and waits for and parses 
+         the response using the database description for "Call Origination Response".<br /><br />
+         
+         RequestItemFile <strong>"Mode Change Response" "Mode Change Request" "ModeOnlineDigital.txt"</strong><br />
+         
+         Builds and sends a "Mode Change Request" with field values contained in 
+         ModeOnlineDigital.txt to the target and waits for and parses the response 
+         using the database description for "Mode Change Response".
+      </td>
+   </tr>
+
+   <!-- RequestNVItemIDRead -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 34 );">RequestNVItemIDRead</td>
+      <td>
+         RequestNVItemIDRead allows one to schedule one NV read request to be sent to the 
+         phone. The request itself is built according to arguments entered as raw bytes. 
+         RequestNVItemIDRead waits for the response, reporting result status.
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestNVItemIDRead <strong>ItemNumber RawBytes</strong><br />
+         
+         <strong>ItemNumber</strong> is the item number of the NV DIAG entity to be read<br />         
+         <strong>RawBytes</strong> is an optional list of space-separated byte values used 
+         to build the NV item being read.
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestNVItemIDRead <strong>71</strong><br />
+         RequestNVItemIDRead <strong>10 0 0 0</strong>
+      </td>
+   </tr>
+   
+   <!-- RequestNVItemIDWrite -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 37 );">RequestNVItemIDWrite</td>
+      <td>
+         RequestNVItemIDWrite allows one to schedule one NV write request to be sent to the 
+         phone. The request itself is built according to arguments entered as raw bytes. 
+         RequestNVItemIDWrite waits for the response, reporting result status.
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestNVItemIDWrite <strong>ItemNumber RawBytes</strong><br />
+         
+         <strong>ItemNumber</strong> is the item number of the NV DIAG entity to be written<br />         
+         <strong>RawBytes</strong> is a list of space-separated byte values used to build the 
+         NV item being written.
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestNVItemIDWrite <strong>71 77 83 77 32 54 53 53 48</strong><br />
+         RequestNVItemIDWrite <strong>10 0 0 0</strong>
+      </td>
+   </tr>
+   
+   <!-- RequestNVItemRead -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 40 );">RequestNVItemRead</td>
+      <td>
+         RequestNVItemRead allows one to schedule one NV read request to be sent to the 
+         phone. The request itself is built according to a description entered into the 
+         QXDM database or a user database. RequestNVItemRead waits for the response and, 
+         if received, parses it according to the description in the QXDM database or the 
+         user database
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestNVItemRead <strong>"NVItemName" Fields</strong><br />
+         
+         <strong>"NVItemName"</strong> is the name of the NV DIAG entity to be read<br />
+         
+         <strong>Fields</strong> is a list of space-separated field values used to build 
+         the NV item (such as NAM), if the NV item does not require field values this 
+         argument can be omitted
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestNVItemRead <strong>"air_timer" 1</strong>
+      </td>
+   </tr>
+   
+   <!-- RequestNVItemWrite -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 43 );">RequestNVItemWrite</td>
+      <td>
+         RequestNVItemWrite allows one to schedule one NV write request to be sent to the 
+         phone. The request itself is built according to a description entered into the 
+         QXDM database or the user database. RequestNVItemWrite waits for the response and, 
+         if received, parses it according to the description in the QXDM database or 
+         the user database
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         RequestNVItemWrite <strong>"NVItemName" Fields</strong><br />
+         
+         <strong>"NVItemName"</strong> is the name of the NV DIAG entity to be written<br />
+         
+         <strong>Fields</strong> is a list of space-separated field values used to build 
+         the NV item being written
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RequestNVItemWrite <strong>"Banner" "MSM 7500"</strong>
+      </td>
+   </tr>
+   
+   <!-- Run -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 46 );">Run</td>
+      <td>Transfers command processing to a legacy (.scr) script file</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Run <strong>FileName</strong></br>
+         <strong>FileName</strong> is the name of the legacy *.scr file to process
+         <strong>Note: </strong>QXDM searches for "FileName" based on the following
+         search criteria:<br />
+         1. Search using the file as-is<br />
+         2. Search using the QXDM bin folder (QXDM default)<br />
+         3. Search using the Alternate Script Path (Options->Settings 
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Run <strong>test.scr</strong><br />
+         Processes the test.scr script file 
+      </td>
+   </tr>
+   
+   <!-- SendRawRequest -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 49 );">SendRawRequest</td>
+      <td>
+         SendRawRequest allows one to schedule one DIAG request to be sent to the 
+         phone. The request itself is built according to arguments entered as raw 
+         bytes. SendRawRequest waits for the response, reporting result status
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         SendRawRequest <strong>RawBytes</strong><br />
+         
+         <strong>RawBytes</strong> is a list of space-separated byte values used to build the 
+         DIAG request being sent
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         SendRawRequest <strong>39 71 0 77 83 77 32 54 53 53 48 0</strong><br />
+         SendRawRequest <strong>0x8F 0x54 0x9 0xDA 0x22 0xC 0x0</strong><br />
+         SendRawRequest <strong>0</strong>
+      </td>
+   </tr>
+
+   <!-- SendRawRequestFile -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 52 );">SendRawRequestFile</td>
+      <td>
+         SendRawRequestFile allows one to schedule one DIAG request to be sent to the 
+         phone. The request itself is built according to the binary data contained in a 
+         specified file. SendRawRequest waits for the response, reporting result status
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         SendRawRequestFile <strong>"FileName"</strong><br />
+         
+         <strong>"FileName"</strong> is the name of a file containing the binary data used 
+         to build the DIAG request being sent
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         SendRawRequestFile <strong>"Data.txt"</strong><br />
+      </td>
+   </tr>
+
+   <!-- SetCOMPort -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 55 );">SetCOMPort</td>
+      <td>
+         Set the current COM port selection for which QXDM will attempt to connect to a phone
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         SetCOMPort <strong>PortNumber</strong><br />
+         
+         <strong>PortNumber</strong> is the COM port number to select. A value of zero 
+         indicates disconnect
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         SetCOMPort <strong>1</strong><br />
+         Sets the current COM port selection to COM1
+      </td>
+   </tr>
+
+   <!-- SetScriptPath -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 58 );">SetScriptPath</td>
+      <td>
+         SetScriptPath allows one to set the path from which the DM runs scripts. The path must already exist
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         SetScriptPath <strong>"Path"</strong><br />
+         
+         <strong>"Path"</strong> is the new script path to be set
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         SetScriptPath <strong>"C:\Scripts\"</strong><br />
+      </td>
+   </tr>
+
+   <!-- Wait -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 61 );">Wait</td>
+      <td>Halts scripting for a specified amount of time</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Wait <strong>Seconds</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Wait <strong>10</strong><br />
+         Halt script processing for 10 seconds
+      </td>
+   </tr>
+
+   <!-- WaitForConnection -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 64 );">WaitForConnection</td>
+      <td>
+         Halts scripting until the DM is in a phone connected state or until a specified timeout expires
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         WaitForConnection <strong>Milliseconds</strong><br />
+         <strong>Milliseconds</strong> is the timeout value for the wait<br />
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         WaitForConnection <strong>5000</strong><br />
+         Halt script processing until the DM is in a phone connected state, up to a maximum of 5 seconds
+      </td>
+   </tr>
+
+   <!-- WaitForItem -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( CurrentTable, 67 );">WaitForItem</td>
+      <td>
+         WaitForItem allows you to register interest in and wait for an item. The 
+         item name is the DIAG entity name in the QXDM database or the user database. 
+         Requests for asynchronous commands (logs, events, and debug messages) may 
+         result in a registration being sent to the phone. WaitForItem can also be 
+         used to wait for synchronous requests or responses. At the conclusion of 
+         the command, the registration is revoked<br /><br />
+
+         NOTE: WaitForItem only waits for a response. It does not make a request. To 
+         generate requests use one of the above commands
+      </td>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         WaitForItem <strong>"ItemName"</strong><br />
+         
+         <strong>"ItemName"</strong> is the name of the item to wait for<br />
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         WaitForItem <strong>"EVENT_CALL_CONTROL_TERMINATED"</strong>
+      </td>
+   </tr>
+   
+   <!-- IE doesn't like a hidden final row so we add an additional note-->
+   <tr>
+      <th colspan="2">Note</th>
+   </tr>
+   <tr>
+      <td colspan="2">
+         Commands are provided to support waiting for, requesting, and parsing of any 
+         item that is described in the QXDM database. Additional support is provided 
+         by the 'Item Tester' application. The 'Item Tester' application allows one 
+         to explore the QXDM database (as well as all merged user databases) and to 
+         create functioning examples of the above commands. The 'Item Tester' is 
+         accessible from the QXDM Tools menu.
+      </td>
+   </tr> 
+</table>
+   
+<br />   
+
+<div class="label-left">Legacy Commands</div>
+<table width="100%" id="LegacyTable">
+   <tr>
+      <th>Command</th>
+      <th>Description</th>
+   </tr>
+   
+   <!-- Akey -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 1 );">Akey</td>
+      <td>Allows you to enter an authorization key number</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Akey <strong>"number"</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Akey <strong>"15423"</strong><br />
+         Enters the A-key number 15423
+      </td>
+   </tr>
+   
+   <!-- Carrier -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 4 );">Carrier</td>
+      <td>Turns the AMPS mode carrier on or off.</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Carrier <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Carrier <strong>On</strong><br />
+         Turns the AMPS mode carrier on
+      </td>
+   </tr>
+   
+   <!-- CData -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 7 );">CData</td>
+      <td>Configures six bytes of data to transmit in the AMPS reverse control channel message</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         CData <strong>B1 B2 B3 B4 B5 B6</strong><br />
+         <strong>B1 - B6</strong> are  numerical values of the bytes to be sent in the message
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>CData <strong>1 2 3 4 5 6</strong></td>
+   </tr>
+        
+   <!-- Comp -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 10 );">Comp</td>
+      <td>Turns the compander (compressor/expander) on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Comp <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Comp <strong>On</strong><br />
+         Turns the compander on
+      </td>
+   </tr>
+   
+   <!-- Dial -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 13 );">Dial</td>
+      <td>Requests the target originate a call to a specified number using specified call type</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Dial <strong>"PhoneNumber" CallType</strong><br />
+         <strong>"PhoneNumber"</strong> is a sequence of characters allowed in a telephone number, such as digits 0 - 9, *, #<br />
+         <strong>CallType</strong> is one of the following values:
+         <ul>
+            <li><strong>V</strong> - voice call</li>
+            <li><strong>V96</strong> - IS96 and IS96A voice call</li>
+            <li><strong>M</strong> - old style 8 kbps markov call</li>
+            <li><strong>M8</strong> - new style 8 kbps markov call</li>
+            <li><strong>M13</strong> - new style 13 kbps markov call</li>
+            <li><strong>LB</strong> - 8 kbps loopback call</li>
+            <li><strong>LB13</strong> - 13 kbps loopback call</li>
+            <li><strong>STDSO </strong>- simple TDSO call</li>
+            <li><strong>TDSO</strong>- full TDSO call</li>
+         </ul>
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Examples</strong></td>
+      <td>
+         Dial <strong>"18005444977" V13</strong><br />
+         Originates a 13 kbps voice call to 1 (800) 544-4977<br /><br />
+         Dial <strong>"3035551212" M13</strong><br />
+         Originates a 13 kbps markov call to (303) 555-1212
+      </td>
+   </tr>
+   
+   <!-- Dial_End -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 16 );">Dial_End</td>
+      <td>Terminates any call in progress</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Dial_End</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Dial_End</td>
+   </tr>
+   
+   <!-- DipSw -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 19 );">DipSw</td>
+      <td>Sets new values into the DIP switches of the target. Access the 'DIP Switches' dialog to see the meaning of each DIP switch and the bit-value associated with it</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         DipSw <strong>Value</strong><br />
+         <strong>Value </strong>is a 16-bit decimal or hexadecimal number that specifies the values of all 16 supported DIP switches. The value is a combination of the bitmasks associated with each DIP switch
+      </td>   
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         DipSw <strong>1</strong><br />Turns on the first DIP switch and all the remaining switches off<br /><br />
+         DipSw <strong>0xF</strong><br />Turns on the bottom four DIP switches and all the remaining switches off 
+      </td>
+   </tr>
+   
+   <!-- DTMF -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 22 );">DTMF</td>
+      <td>Turns on DTMF tone transmission in AMPS mode</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         DTMF <strong>"Digit"</strong><br />
+         <strong>"Digit"</strong> is the the DTMF digit to be sent: 0 - 9, *, or #
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>DTMF <strong>1</strong><br />Sends DTMF digit 1</td>
+   </tr>
+   
+   <!-- Err_Clr -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 25 );">Err_Clr</td>
+      <td>Clears one or all error log entries from target NVRAM</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Err_Clr <strong>Item</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Note</strong></td>
+      <td>This command is not recommended for use outside of QUALCOMM. The only time it might be used is at the beginning of a test run. At the end of a test run, use the Err_Get command to retrieve any errors that occurred during the test</td>
+   </tr>
+   
+   <!-- Err_Get -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 28 );">Err_Get</td>
+      <td>Displays all error log entries in target NVRAM</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Err_Get</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Err_Get</td>
+   </tr>
+   
+   <!-- Feature_Query -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 31 );">Feature_Query</td>
+      <td>Lists features supported by a target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Feature_Query</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Feature_Query</td>
+   </tr>
+   
+   <!-- HS_Lock -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 34 );">HS_Lock</td>
+      <td>Locks or unlocks the target handset keypad</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>HS_Lock <strong>L | U</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         HS_Lock <strong>U</strong><br />
+         Unlocks the target handset keypad
+      </td>
+   </tr>
+   
+   <!-- Inp -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 37 );">Inp</td>
+      <td>Reads an input port address into the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Inp <strong>InputMode Address</strong><br />
+         <strong>InputMode</strong> specifies the format of the read operation in the test phone. Allowed values are:<br />
+
+         <ul>
+            <li>BYTE - reads the input port as an 8-bit BYTE</li> 
+            <li>WORD - reads the input port as a 16-bit WORD</li>
+         </ul>
+         
+         <strong>Address</strong> specifies the address of the input port as a 16-bit hexadecimal value
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Inp <strong>BYTE 12</strong><br />Reads a BYTE from the input port at hexadecimal address 0x12 (18 decimal)<br /><br>
+         Inp <strong>WORD 20</strong><br />Reads a WORD from the input port at hexadecimal address 0x20 (32 decimal)
+      </td>
+   </tr>
+
+   <!-- Key -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 40 );">Key</td>
+      <td>Request a handset key press operation from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Key <strong>KeyName</strong><br />
+         <strong>KeyName</strong> The textual name of a key to be pressed. It can be one of the following values:<br />
+         <ul>
+            <li><strong>ALPHA</strong> - ALPHA key</li>
+            <li><strong>BAD_BATT</strong> - Car battery is failing</li>
+            <li><strong>CLR</strong> - CLR key</li>
+            <li><strong>DEC_POUND</strong> - Decoded DTMF digit #</li>
+            <li><strong>DEC_STAR</strong> - Decoded DTMF digit *</li>
+            <li><strong>DEC_A</strong> - Decoded DTMF digit A</li>
+            <li><strong>DEC_B</strong> - Decoded DTMF digit B</li>
+            <li><strong>DEC_C</strong> - Decoded DTMF digit C</li>
+            <li><strong>DEC_D</strong> - Decoded DTMF digit D</li>
+            <li><strong>DEC_0</strong> - Decoded DTMF digit 0</li>
+            <li><strong>DEC_1</strong> - Decoded DTMF digit 1</li>
+            <li><strong>DEC_2</strong> - Decoded DTMF digit 2</li>
+            <li><strong>DEC_3</strong> - Decoded DTMF digit 3</li>
+            <li><strong>DEC_4</strong> - Decoded DTMF digit 4</li>
+            <li><strong>DEC_5</strong> - Decoded DTMF digit 5</li>
+            <li><strong>DEC_6</strong> - Decoded DTMF digit 6</li>
+            <li><strong>DEC_7</strong> - Decoded DTMF digit 7</li>
+            <li><strong>DEC_8</strong> - Decoded DTMF digit 8</li>
+            <li><strong>DEC_9</strong> - Decoded DTMF digit 9</li>
+            <li><strong>DOWN</strong> - Down key</li>
+            <li><strong>EAR_DOWN</strong> - Ear piece down</li>
+            <li><strong>EAR_UP</strong> - Ear piece up</li>
+            <li><strong>EAR_UP_END</strong> - Ear piece up together with End key</li>
+            <li><strong>EIGHT</strong> - 8 key</li>
+            <li><strong>END</strong> - End key</li>
+            <li><strong>EXT_PWR_OFF</strong> - External power was turned off</li>
+            <li><strong>EXT_PWR_ON</strong>- External power was turned on</li>
+            <li><strong>FIVE</strong> - 5 key</li>
+            <li><strong>FOUR</strong> - 4 key</li>
+            <li><strong>FREE</strong> - Phone is placed into hands-free car kit</li>
+            <li><strong>IGN_OFF</strong> - Ignition was turned off</li>
+            <li><strong>IGN_ON</strong> - Ignition was turned on</li>
+            <li><strong>INFO</strong> - INFO key</li>
+            <li><strong>MENU</strong> - Menu key</li>
+            <li><strong>MSG</strong> - Message waiting key</li>
+            <li><strong>MUTE</strong> - MUTE key</li>
+            <li><strong>NINE</strong> - 9 key</li>
+            <li><strong>OFF_HOOK</strong> - WLL phone is taken off hook</li>
+            <li><strong>ONE</strong> - 1 key</li>
+            <li><strong>ON_HOOK</strong> - WLL phone is placed on hook</li>
+            <li><strong>PF1</strong> - Softkey # 1 - Left</li>
+            <li><strong>PF2</strong> - Softkey # 2 - Right</li>
+            <li><strong>PHONE</strong> - Phone lifted from hands-free car kit</li>
+            <li><strong>POUND</strong> - # key</li>
+            <li><strong>PWR</strong> - Power key</li>
+            <li><strong>PWR_OFF</strong> - Power key</li>
+            <li><strong>PWR_ON</strong> - Power key</li>
+            <li><strong>RCL</strong> - Recall key</li>
+            <li><strong>REDIAL</strong> - REDIAL key</li>
+            <li><strong>RELEASE</strong> - Releases all keys</li>
+            <li><strong>RING_VOL_0</strong> - WLL phone ringer volume 0</li>
+            <li><strong>RING_VOL_1</strong> - WLL phone ringer volume 1</li>
+            <li><strong>RING_VOL_2</strong> - WLL phone ringer volume 2</li>
+            <li><strong>RSSI_KEY</strong> - RSSI key</li>
+            <li><strong>SD1</strong> - Speed dial 1 key</li>
+            <li><strong>SD2</strong> - Speed dial 2 key</li>
+            <li><strong>SD3</strong> - Speed dial 3 key</li>
+            <li><strong>SEND</strong> - Send key</li>
+            <li><strong>SEVEN</strong> - 7 key</li>
+            <li><strong>SIX</strong> - 6 key</li>
+            <li><strong>STAR</strong> - * key</li>
+            <li><strong>STO</strong> - STO key</li>
+            <li><strong>THREE</strong> - 3 key</li>
+            <li><strong>TMR_OFF</strong> - Power-up timer OFF pseudo key</li>
+            <li><strong>TMR_ON</strong> - Power-up timer ON pseudo key</li>
+            <li><strong>TWO</strong> - 2 key</li>
+            <li><strong>UP</strong> - Up key</li>
+            <li><strong>ZERO</strong> - 0 key</li>
+         </ul>
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Key <strong>UP</strong></td>
+   </tr>
+   
+   <!-- Key_Hold -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 43 );">Key_Hold</td>
+      <td>Request a handset key press operation from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Key_Hold <strong>KeyName</strong><br />
+         <strong>KeyName</strong> The textual name of a key to be pressed. It can be one of the following values:<br />
+         <ul>
+            <li><strong>ALPHA</strong> - ALPHA key</li>
+            <li><strong>BAD_BATT</strong> - Car battery is failing</li>
+            <li><strong>CLR</strong> - CLR key</li>
+            <li><strong>DEC_POUND</strong> - Decoded DTMF digit #</li>
+            <li><strong>DEC_STAR</strong> - Decoded DTMF digit *</li>
+            <li><strong>DEC_A</strong> - Decoded DTMF digit A</li>
+            <li><strong>DEC_B</strong> - Decoded DTMF digit B</li>
+            <li><strong>DEC_C</strong> - Decoded DTMF digit C</li>
+            <li><strong>DEC_D</strong> - Decoded DTMF digit D</li>
+            <li><strong>DEC_0</strong> - Decoded DTMF digit 0</li>
+            <li><strong>DEC_1</strong> - Decoded DTMF digit 1</li>
+            <li><strong>DEC_2</strong> - Decoded DTMF digit 2</li>
+            <li><strong>DEC_3</strong> - Decoded DTMF digit 3</li>
+            <li><strong>DEC_4</strong> - Decoded DTMF digit 4</li>
+            <li><strong>DEC_5</strong> - Decoded DTMF digit 5</li>
+            <li><strong>DEC_6</strong> - Decoded DTMF digit 6</li>
+            <li><strong>DEC_7</strong> - Decoded DTMF digit 7</li>
+            <li><strong>DEC_8</strong> - Decoded DTMF digit 8</li>
+            <li><strong>DEC_9</strong> - Decoded DTMF digit 9</li>
+            <li><strong>DOWN</strong> - Down key</li>
+            <li><strong>EAR_DOWN</strong> - Ear piece down</li>
+            <li><strong>EAR_UP</strong> - Ear piece up</li>
+            <li><strong>EAR_UP_END</strong> - Ear piece up together with End key</li>
+            <li><strong>EIGHT</strong> - 8 key</li>
+            <li><strong>END</strong> - End key</li>
+            <li><strong>EXT_PWR_OFF</strong> - External power was turned off</li>
+            <li><strong>EXT_PWR_ON</strong>- External power was turned on</li>
+            <li><strong>FIVE</strong> - 5 key</li>
+            <li><strong>FOUR</strong> - 4 key</li>
+            <li><strong>FREE</strong> - Phone is placed into hands-free car kit</li>
+            <li><strong>IGN_OFF</strong> - Ignition was turned off</li>
+            <li><strong>IGN_ON</strong> - Ignition was turned on</li>
+            <li><strong>INFO</strong> - INFO key</li>
+            <li><strong>MENU</strong> - Menu key</li>
+            <li><strong>MSG</strong> - Message waiting key</li>
+            <li><strong>MUTE</strong> - MUTE key</li>
+            <li><strong>NINE</strong> - 9 key</li>
+            <li><strong>OFF_HOOK</strong> - WLL phone is taken off hook</li>
+            <li><strong>ONE</strong> - 1 key</li>
+            <li><strong>ON_HOOK</strong> - WLL phone is placed on hook</li>
+            <li><strong>PF1</strong> - Softkey # 1 - Left</li>
+            <li><strong>PF2</strong> - Softkey # 2 - Right</li>
+            <li><strong>PHONE</strong> - Phone lifted from hands-free car kit</li>
+            <li><strong>POUND</strong> - # key</li>
+            <li><strong>PWR</strong> - Power key</li>
+            <li><strong>PWR_OFF</strong> - Power key</li>
+            <li><strong>PWR_ON</strong> - Power key</li>
+            <li><strong>RCL</strong> - Recall key</li>
+            <li><strong>REDIAL</strong> - REDIAL key</li>
+            <li><strong>RELEASE</strong> - Releases all keys</li>
+            <li><strong>RING_VOL_0</strong> - WLL phone ringer volume 0</li>
+            <li><strong>RING_VOL_1</strong> - WLL phone ringer volume 1</li>
+            <li><strong>RING_VOL_2</strong> - WLL phone ringer volume 2</li>
+            <li><strong>RSSI_KEY</strong> - RSSI key</li>
+            <li><strong>SD1</strong> - Speed dial 1 key</li>
+            <li><strong>SD2</strong> - Speed dial 2 key</li>
+            <li><strong>SD3</strong> - Speed dial 3 key</li>
+            <li><strong>SEND</strong> - Send key</li>
+            <li><strong>SEVEN</strong> - 7 key</li>
+            <li><strong>SIX</strong> - 6 key</li>
+            <li><strong>STAR</strong> - * key</li>
+            <li><strong>STO</strong> - STO key</li>
+            <li><strong>THREE</strong> - 3 key</li>
+            <li><strong>TMR_OFF</strong> - Power-up timer OFF pseudo key</li>
+            <li><strong>TMR_ON</strong> - Power-up timer ON pseudo key</li>
+            <li><strong>TWO</strong> - 2 key</li>
+            <li><strong>UP</strong> - Up key</li>
+            <li><strong>ZERO</strong> - 0 key</li>
+         </ul>
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Key_Hold <strong>UP</strong></td>
+   </tr>
+   
+   <!-- Load_Synth -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 46 );">Load_Synth</td>
+      <td>Loads the synthesizer with a new channel value</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Load_Synth <strong>Channel</strong><br />
+         <strong>Channel</strong> is the decimal or hexadecimal channel number
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Load_Synth <strong>1</strong>
+      </td>
+   </tr>
+   
+   <!-- Logging -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 49 );">Logging</td>
+      <td>Brings up or closes the DM 'Logging View'</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Logging <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Logging <strong>On</strong><br />
+         Brings up the DM 'Logging View', if not already active
+      </td>
+   </tr>
+   
+   <!-- LogMask -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 52 );">LogMask</td>
+      <td>Sets the 'Common' portion of the DM 'Logging View' log mask</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         LogMask <strong>"Mask"</strong><br />
+         <strong>"Mask"</strong> is the desired log mask in the format of 'Hex Value' portion of the 'Logging Config' dialog
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         LogMask <strong>"99FF"</strong><br />
+      </td>
+   </tr>
+   
+   <!-- Mode -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 55 );">Mode</td>
+      <td>Request the target perform a mode change</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Mode <strong>Option</strong><br />
+         <strong>Option</strong> is one of the following values:
+         <ul>
+            <li><strong>Offline-A</strong> - Change to analog offline mode</li>
+            <li><strong>Offline-D</strong> - Change to digital offline mode</li>
+            <li><strong>Reset</strong> - Reset the target</li>
+         </ul>
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Mode <strong>Reset</strong><br />
+         Requests the target reset
+      </td>
+   </tr>
+   
+   <!-- Outp -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 58 );">Outp</td>
+      <td>Writes a value to an output port on target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Outp <strong>InputMode Address Value</strong><br />
+         <strong>InputMode</strong> specifies the format of the output operation on the test phone. Allowed values are:<br />
+
+         <ul>
+            <li>BYTE - writes to the output port as an 8-bit value</li> 
+            <li>WORD - write to the output port as a 16-bit value</li>
+         </ul>
+         
+         <strong>Address</strong> specifies the address of the input port as a 16-bit hexadecimal value. Both decimal and hexadecimal values (starting with 0x) are supported<br />
+         <strong>Value</strong> specifies the value being written
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Outp <strong>BYTE 0x12 0x20</strong><br />Writes the hexadecimal value 0x20 (32 decimal) as a BYTE to the output port at hexadecimal address 0x12 (18 decimal)<br /><br>
+         Outp <strong>WORD 20 144</strong><br />Writes the decimal value 144 (0x90 hexadecimal) as a WORD to the output port at decimal address 20 (0x14 hexadecimal)
+      </td>
+   </tr>
+   
+   <!-- Parm_Get -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 61 );">Parm_Get</td>
+      <td>Requests a set of statistic counters from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Parm_Get <strong>ParmSet</strong><br />
+         <strong>ParmSet</strong> is one of the following values:
+         <ul>
+            <li><strong>MUX1</strong> - displays MUX1 set</li>
+            <li><strong>PAGE</strong> - displays paging channel counters</li>
+            <li><strong>ACCESS</strong> - displays access channel counters</li>
+            <li><strong>LAYER2</strong> - displays Layer 2 Messaging counters</li>
+            <li><strong>MUX2</strong> - displays MUX2 set</li>
+            <li><strong>ALL</strong> - displays all of the above counter sets</li>
+            <li><strong>DCCH</strong> - displays DCCH counters</li>
+            <li><strong>BCCH</strong> - displays BCCH counters</li>
+            <li><strong>FCCCH</strong> - displays FCCCH counters</li>
+            <li><strong>REACH</strong> - displays EACH counters</li>
+            <li><strong>RSCH</strong> - displays RSCH counters</li>
+            <li><strong>RSCH_MUX</strong> - displays RSCH0 MUX Opt 0xF20 counters</li>
+            <li><strong>FSCH</strong> - displays FSCH counters</li>
+            <li><strong>FSCH_MUX</strong> - displays FSCH0 MUX Opt 0xF20 counters</li>
+         </ul>
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Parm_Get <strong>ALL</strong></td>
+   </tr>
+   
+   <!-- Parm_Set -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 64 );">Parm_Set</td>
+      <td>Sets the specified parameter(s) on the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Parm_Set <strong>ID Value</strong><br />
+         <strong>ID</strong> is one of the following values:
+         <ul>
+            <li><strong>-1</strong> - all parameters</li>
+            <li><strong>Other</strong> - ID of parameter</li>
+         </ul>
+         <strong>Value</strong> is the desired value of the parameter
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Parm_Set <strong>-1 0</strong><br />
+         Resets all parameters to 0
+      </td>
+   </tr>
+   
+   <!-- Password -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 67 );">Password</td>
+      <td>Send the security password to the target. This is the password associated with the A/DMSS security plan, not the service programming code (SPC). If a target has this password set, sending this command with the correct password will unlock secure features (memory peek/poke, port I/O). If the wrong password is sent then the target powers down</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Password <strong>Argument</strong><br />
+         <strong>Argument</strong> is a 16-character string of hexadecimal digits (0-9, A-F), representing the 8-byte password of the target
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Password <strong>0x0123456789abcdef</strong></td>
+   </tr>
+   
+   <!-- Pause -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 70 );">Pause</td>
+      <td>Halts processing of legacy script (.scr) processing</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Pause</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Pause</td>
+   </tr>
+   
+   <!-- PCM_Lb -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 73 );">PCM_Lb</td>
+      <td>Turns vocoder PCM loopback on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>PCM_Lb <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         PCM_Lb <strong>On</strong><br />
+         Turns vocoder PCM loopback on
+      </td>
+   </tr>
+   
+   <!-- Peek -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 76 );">Peek</td>
+      <td>Reads a block of memory from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Peek <strong>Area Address Length</strong><br />
+         <strong>Area</strong> - refers to the area of target memory to read from.  It can be one of the following values:
+         <ul>
+            <li><strong>BYTE</strong> - reads main memory as BYTEs (8-bit)</li>
+            <li><strong>WORD</strong> - reads main memory as WORDs (16-bit)</li>
+            <li><strong>DWORD</strong> - reads main memory as DWORDs (32-bit)</li>
+            <li><strong>NV_BYTE</strong> - reads NV memory as BYTEs (8-bit)</li>
+            <li><strong>NV_WORD</strong> - reads NV memory as WORDs (16-bit)</li>
+            <li><strong>NV_DWORD</strong> - reads NV memory as DWORDs (32-bit)</li>
+         </ul>
+         <strong>Address</strong> - gives address of target memory, format is (legacy) segmented, i.e. segment : offset where both are hexadecimal values<br />
+         <strong>Length</strong> - gives the number of elements to read (BYTEs, WORDs, DWORDs).  The total length being read cannot exceed 16 bytes
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Peek <strong>BYTE 0:0 16</strong><br />
+         Reads 16 bytes from main memory starting at address 0
+      </td>
+   </tr>
+   
+   <!-- Phone_State -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 79 );">Phone_State</td>
+      <td>Requests the current state of the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Phone_State</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Phone_State</td>
+   </tr>
+   
+   <!-- PKt_Lb -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 82 );">PKt_Lb</td>
+      <td>Turns vocoder packet loopback on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>PKt_Lb <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         PKt_Lb <strong>On</strong><br />
+         Turns vocoder packet loopback on
+      </td>
+   </tr>
+   
+   <!-- Poke -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 85 );">Poke</td>
+      <td>Write a single value to target memory</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Poke <strong>Area Address Value</strong><br />
+         <strong>Area</strong> - refers to the area of target memory to write to.  It can be one of the following values:
+         <ul>
+            <li><strong>BYTE</strong> - writes a BYTE (8-bit) value to main memory </li>
+            <li><strong>WORD</strong> - writes a WORD (16-bit) value to main memory</li>
+            <li><strong>DWORD</strong> - writes a DWORD (32-bit) value to main memory</li>
+            <li><strong>NV_BYTE</strong> - writes a BYTE (8-bit) value to NV memory </li>
+            <li><strong>NV_WORD</strong> - writes a WORD (16-bit) value to NV memory</li>
+            <li><strong>NV_DWORD</strong> - writes a DWORD (32-bit) value to NV memory</li>
+         </ul>
+         <strong>Address</strong> - gives address of target memory, format is (legacy) segmented, i.e. segment : offset where both are hexadecimal values<br />
+         <strong>Value</strong> - value to write (BYTE, WORD, or DWORD).  Both decimal and hexadecimal values (starting with 0x) are supported
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Poke <strong>BYTE 0:0 1</strong><br />
+         Writes the singe byte value 1 to main memory starting at address 0
+      </td>
+   </tr>
+   
+   <!-- Print -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 88 );">Print</td>
+      <td>Adds the provided string to the DM 'Item Store' with the 'Automation' type. The string will appear in an list based view registered for this type (including the 'Command Output' view)</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Print <strong>"Text"</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Print <strong>"Test Completed"</strong></td>
+   </tr>
+   
+   <!-- RCVS1 -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 91 );">RCVS1</td>
+      <td>Start the (offline) analog RCVS1 test</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>RCVS1</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>RCVS1</td>
+   </tr>
+   
+   <!-- RSSI -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 94 );">RSSI</td>
+      <td>Requests the current RSSI (Receive Strength Signal Indicator)</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>RSSI</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>RSSI</td>
+   </tr>
+   
+   <!-- Run -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 97 );">Run</td>
+      <td>Transfers command processing to a legacy (.scr) script file</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Run <strong>FileName</strong></br>
+         <strong>FileName</strong> is the name of the legacy *.scr file to process
+         <strong>Note: </strong>QXDM searches for "FileName" based on the following
+         search criteria:<br />
+         1. Search using the file as-is<br />
+         2. Search using the QXDM bin folder (QXDM default)<br />
+         3. Search using the Alternate Script Path (Options->Settings 
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Run <strong>test.scr</strong><br />
+         Processes the test.scr script file 
+      </td>
+   </tr>
+   
+   <!-- RXMute -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 100 );">RXMute</td>
+      <td>Turns muting of the receiver audio signal on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>RXMute <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         RXMute <strong>On</strong><br />
+         Mutes receiver
+      </td>
+   </tr>
+   
+   <!-- SATOff -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 103 );">SATOff</td>
+      <td>Stops transmission of the SAT AMPS tone</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>SATOff</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>SATOff</td>
+   </tr>
+   
+   <!-- SATOn -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 106 );">SATOn</td>
+      <td>Starts transmission of the SAT AMPS tone</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         SATOn <strong>Value</strong><br />
+         <strong>Value</strong> is the the desired TX SAT. Allowable values are 5970, 6000, and 6030
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>SATOn <strong>6030</strong></td>
+   </tr>
+   
+   <!-- Seq_Nums -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 109 );">Seq_Nums</td>
+      <td>Requests that packets be sent with sequence numbers included</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Seq_Nums</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Seq_Nums</td>
+   </tr>
+   
+   <!-- SER_Report -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 112 );">SER_Report</td>
+      <td>Requests the set of SER frame counters from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>SER_Report</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>SER_Report</td>
+   </tr>
+   
+   <!-- SER_Reset -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 115 );">SER_Reset</td>
+      <td>Clears the set of SER frame counters on the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>SER_Reset</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>SER_Reset</td>
+   </tr>
+   
+   <!-- Set_Attn -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 118 );">Set_Attn</td>
+      <td>Sets AMPS power control to a given value</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         Set_Attn <strong>Value</strong><br />
+         <strong>Value</strong> is the the desired value for the AMPS power control
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Set_Attn <strong>3</strong></td>
+   </tr>
+   
+   <!-- Set_Ext_Int_Type -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 121 );">Set_Ext_Int_Type</td>
+      <td>Sets the type of interrupt (0 - 2)</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Set_Ext_Int_Type <strong>0 | 1 | 2</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Set_Ext_Int_Type <strong>1</strong></td>
+   </tr>
+   
+   <!-- Sleep -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 124 );">Sleep</td>
+      <td>Turns the target sleep mode on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Sleep <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Sleep <strong>On</strong></td>
+   </tr>
+   
+   <!-- SPC -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 127 );">SPC</td>
+      <td>Send the service programming code to the target. Access to some NVRAM items requires the sending of the correct SPC, otherwise the NV operation will fail</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>
+         SPC <strong>"Code"</strong><br />
+         <strong>"Code"</strong> is a string of up to 6 digits, representing the SPC of the target
+      </td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         SPC <strong>"000000"</strong><br />
+         Sends the string "000000" to the target as a security code
+      </td>
+   </tr>
+   
+   <!-- ST -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 130 );">ST</td>
+      <td>Turns transmission of the signaling tone on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>ST <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>ST <strong>On</strong></td>
+   </tr>
+   
+   <!-- Terminate -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 133 );">Terminate</td>
+      <td>Stops RCVS1 or WSTS (offline) analog tests and requests the counter values from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Terminate</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Terminate</td>
+   </tr>
+   
+   <!-- Timestamp -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 136 );">Timestamp</td>
+      <td>Requests the system time value from the target</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Timestamp</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>Timestamp</td>
+   </tr>
+   
+   <!-- To_Data_Mode -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 139 );">To_Data_Mode</td>
+      <td>Requests the target switch from DIAG mode to data services (AT command processor) mode</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>To_Data_Mode</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>To_Data_Mode</td>
+   </tr>
+   
+   <!-- TXMute -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 142 );">TXMute</td>
+      <td>Turns transmitter audio signal on or off</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>TXMute <strong>On | Off</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>TXMute <strong>On</strong></td>
+   </tr>
+   
+   <!-- Wait -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 145 );">Wait</td>
+      <td>Halts scripting for a specified amount of time</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>Wait <strong>Seconds</strong></td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>
+         Wait <strong>10</strong><br />
+         Halt script processing for 10 seconds
+      </td>
+   </tr>
+   
+   <!-- WSTS -->
+   <tr>
+      <td class="shaded" onclick="ToggleExtras( LegacyTable, 148 );">WSTS</td>
+      <td>Start the (offline) analog WSTS test</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Syntax</strong></td>
+      <td>WSTS</td>
+   </tr>
+   <tr style="display : none">
+      <td><strong>Example</strong></td>
+      <td>WSTS</td>
+   </tr>
+   
+   <!-- IE doesn't like a hidden final row so we add an additional note-->
+   <tr>
+      <th colspan="2">Note</th>
+   </tr>
+   <tr>
+      <td colspan="2">
+         The use of legacy commands is strongly discouraged as they may be removed from
+         future releases of QXDM with little or no advanced notice
+      </td>
+   </tr>    
+</table>
+<br />
+   
+<script type="text/jscript">
+
+// Show or hide extra rows under the given base row
+function ToggleExtras( Table, BaseIdx )
+{
+   var CurRows = Table.rows.length;
+   for (var r = BaseIdx + 2; r > BaseIdx; r--)
+   {
+      if (r < CurRows)
+      {
+         if (Table.rows[r].style.display == "none")
+         {
+            Table.rows[r].style.display = "";
+         }
+         else
+         {
+            Table.rows[r].style.display = "none";
+         }   
+      }
+   }
+   
+   Table.refresh();
+}
+
+</script>
+</body>
+
+</html>

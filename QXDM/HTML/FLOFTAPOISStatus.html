@@ -1,0 +1,489 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="FLO FTAP OIS Status" />
+   <meta name="DMViewWidth" content="370" />
+   <meta name="DMViewHeight" content="170" />
+   <title>FLO FTAP OIS Status</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" id="VersionTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>Keeper Version</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>FDS Version</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RSSI (dBm)</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<table border="0" width="100%" id="StatTable">
+   <colgroup span="3">
+      <col width="40%" />
+      <col width="30%" />
+      <col width="30%" />
+   </colgroup>
+   <tr>
+      <th>Type</th>
+      <th>Good PLPs</th>
+      <th>Erasure PLPs</th>
+   </tr>
+   <tr>
+      <th>Local</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Wide</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<input type="button" value="Reset Statistics" onclick="ResetTable();"/>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var TIMEOUT_MS          = 500;
+var UPDATE_MS           = 1000;
+
+var STATE               = "[4]";
+var GET_VER_INFO_REQ    = "MFLO/Get FLO Version Request";
+
+// OIS good/erasure PLPs
+var gWideGoodPLPs       = 0;
+var gLocalGoodPLPs      = 0;
+var gWideErasurePLPs    = 0;
+var gLocalErasurePLPs   = 0;
+
+// Server states
+var SVR_STATE_CONNECTED = 2;
+var SVR_STATE_REPLAY    = 4;
+
+var gMainTickID         = 0;
+var gItemsProcessed     = 0;
+
+// Constructor for a client object
+function Client( LogCode, ProcessFunction )
+{
+   /* Client handle */
+   this.Handle = 0xFFFFFFFF;
+
+   /* Last index processed for client */
+   this.PrevIndex = -1;
+
+   /* Log code client processes */
+   this.LogCode = LogCode;
+
+   /* Function to process new items */
+   this.ProcessFunction = ProcessFunction;
+}
+
+// Client array
+var gClients = new Array();
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We have four individual clients so setup each one
+
+   // The fist client is for responses and state change strings
+   gClients[0] = new Client( 0, ProcessResponses );
+
+   gClients[0].Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (gClients[0].Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+      return;
+   }
+
+   var ClientObject = IQXDM2.ConfigureClientByKeys( gClients[0].Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure subsystem response
+   ClientObject.AddSubsysResponse( 43, 6 );
+
+   // Configure connection string
+   ClientObject.AddString( 4 );
+   ClientObject.CommitConfig();
+   ClientObject = null;
+
+   // The next three are all log based and thus can be setup in a loop
+   gClients[1] = new Client( 0x11F5, ProcessRSSI ); // RSSI value
+   gClients[2] = new Client( 0x120E, ProcessOIS );  // Wide params
+   gClients[3] = new Client( 0x120F, ProcessOIS );  // Local params
+
+   for (var C = 1; C <= 3; C++)
+   {
+      gClients[C].Handle = IQXDM2.RegisterQueueClient( 256 );
+      if (gClients[C].Handle == 0xFFFFFFFF)
+      {
+         window.document.write( "<br />Unable to register as client" );
+         return;
+      }
+
+      ClientObject = IQXDM2.ConfigureClientByKeys( gClients[C].Handle );
+      if (ClientObject == null)
+      {
+         window.document.write("<br />Failed to get client interface pointer");
+         return;
+      }
+
+      ClientObject.AddLog( gClients[C].LogCode );
+      ClientObject.CommitConfig();
+      ClientObject = null;
+   }
+
+   // Are we currently connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED)
+   {
+      // Get FLO version
+      SendRequest( GET_VER_INFO_REQ, "" );
+   }
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   var ClientCount = gClients.length;
+   for (var C = 0; C < ClientCount; C++)
+   {
+      if (gClients[C].Handle != 0xFFFFFFFF)
+      {
+         IQXDM2.UnregisterClient( gClients[C].Handle );
+      }
+   }
+}
+
+// Process our clients
+function ProcessItems()
+{
+   gItemsProcessed = 0;
+
+   // Process each client through the configured process function
+   var ClientCount = gClients.length;
+   for (var C = 0; C < ClientCount; C++)
+   {
+      gClients[C].ProcessFunction( C );
+   }
+}
+
+// Process response/state string client
+function ProcessResponses( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // We have to process all responses and state strings
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      gItemsProcessed++;
+
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      // Check for a state notification 
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == STATE)
+      {
+         // We don't process strings in replay mode
+         var ServerState = IQXDM2.GetServerState();
+         if (ServerState != SVR_STATE_REPLAY)
+         {
+            var Txt = Item.GetItemSummary();
+
+            var bDisconnect = (Txt.indexOf( "Disconnected from" ) >= 0);
+            var bConnect    = (Txt.indexOf( "Connected to" ) >= 0);
+            if (bDisconnect == true || bConnect == true)
+            {
+               // Major state change - we need to reset everything
+               ResetTable();
+
+               // Clear RSSI
+               VersionTable.rows[2].cells[1].innerText = "-";
+
+               // Has connection has been reached?
+               if (bConnect == true && ServerState == SVR_STATE_CONNECTED)
+               {
+                  // Yes, do setup to live target
+                  SendRequest( GET_VER_INFO_REQ, "" );
+               }
+            }
+         }
+
+         continue;
+      }
+
+      // Not a state string, must be a version response
+      var ItemFields = Item.GetConfiguredItemFields( "", false, false );
+      if (ItemFields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+
+      var KeeperVersion = "";
+      if (FieldCount >= 2)
+      {
+         KeeperVersion += ItemFields.GetFieldValue( 0 ) + ".";
+         KeeperVersion += ItemFields.GetFieldValue( 1 ) + ".";
+         KeeperVersion += ItemFields.GetFieldValue( 2 );
+      }
+
+      VersionTable.rows[0].cells[1].innerText = KeeperVersion;
+
+      var FDSVersion = "";
+      if (FieldCount >= 6)
+      {
+         FDSVersion += ItemFields.GetFieldValue( 3 ) + ".";
+         FDSVersion += ItemFields.GetFieldValue( 4 ) + ".";
+         FDSVersion += ItemFields.GetFieldValue( 5 ) + ".";
+         FDSVersion += ItemFields.GetFieldValue( 6 );
+      }
+
+      VersionTable.rows[1].cells[1].innerText = FDSVersion;
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Process RSSI log client
+function ProcessRSSI( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // Clear out the table if no new logs appear
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {  
+      // Skip this if in replay mode
+      var ServerState = IQXDM2.GetServerState();
+      if (ServerState != SVR_STATE_REPLAY)
+      {
+         VersionTable.rows[2].cells[1].innerText = "-";
+      }
+
+      return;
+   }
+
+   // We process the last log only
+   gItemsProcessed++;
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetConfiguredItemFields( "", false, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 6)
+   {
+      return;
+   }
+
+   var RSSIString = "";
+   var RSSIPositive = Fields.GetFieldValue( 5 );
+   var RSSIInteger = Fields.GetFieldValue( 3 );
+   var RSSIFraction = Fields.GetFieldValue( 4 );
+
+   if (RSSIPositive > 0)
+   {
+      RSSIString += "+";
+   }
+   else
+   {
+      RSSIString += "-";
+   }
+
+   RSSIString += RSSIInteger + "." + RSSIFraction;
+   VersionTable.rows[2].cells[1].innerText = RSSIString;
+}
+
+// Process OIS local/wide params log clients
+function ProcessOIS( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   // Wide or local (based on client index)?
+   var bWide = (ClientIdx == 2);
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var Erasures = 0;
+   var Total = 0;
+
+   // We process all the logs in the client
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      gItemsProcessed++;
+
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", false, false );
+      if (Fields == null)
+      {
+         return;
+      }
+
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount < 8)
+      {
+         return;
+      }
+
+      Total += 7;
+      for (var FI = 1; FI <= 7; FI++)
+      {
+         Erasures += Fields.GetFieldValue( FI );
+      }
+   }
+
+   if (bWide == true)
+   {
+      gWideGoodPLPs += (Total - Erasures);
+      gWideErasurePLPs += Erasures;
+
+      StatTable.rows[2].cells[1].innerText = gWideGoodPLPs;
+      StatTable.rows[2].cells[2].innerText = gWideErasurePLPs;
+   }
+   else
+   {
+      gLocalGoodPLPs += (Total - Erasures);
+      gLocalErasurePLPs += Erasures;
+
+      StatTable.rows[1].cells[1].innerText = gLocalGoodPLPs;
+      StatTable.rows[1].cells[2].innerText = gLocalErasurePLPs;
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Clear out the table and global counters
+function ResetTable()
+{
+   StatTable.rows[1].cells[1].innerText = "-";
+   StatTable.rows[1].cells[2].innerText = "-";
+   StatTable.rows[2].cells[1].innerText = "-";
+   StatTable.rows[2].cells[2].innerText = "-";
+
+   gWideGoodPLPs = 0;
+   gLocalGoodPLPs = 0;
+   gWideErasurePLPs = 0;
+   gLocalErasurePLPs = 0;
+}
+
+// Send request
+function SendRequest( Request, ReqString )
+{
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED)
+   {
+      IQXDM2.RequestItem( Request,
+                          ReqString,
+                          1,
+                          TIMEOUT_MS,
+                          1,
+                          1 );
+   }
+}
+
+</script>
+</body>
+</html>

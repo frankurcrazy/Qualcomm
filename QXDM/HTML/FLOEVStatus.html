@@ -1,0 +1,1672 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <title>FLO EV Status View</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="FLO EV Status View" />
+   <meta name="DMViewWidth" content="650" />
+   <meta name="DMViewHeight" content="700" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+
+      <td width="50%" valign="top" class="noborder">
+      <table border="0" width="100%" id="VersionTable">
+         <colgroup span="2">
+            <col width="50%" />
+            <col width="50%" />
+         </colgroup>
+         <tr>
+            <th>FLO Modem Version</th>
+            <td>-</td>
+         </tr>
+         <tr>
+            <th>FDS Version</th>
+            <td>-</td>
+         </tr>
+         <tr>
+            <th>RSSI (dBm)</th>
+            <td>-</td>
+         </tr>
+         <tr>
+            <th>SNR (dB)</th>
+            <td>-</td>
+         </tr>
+         <tr>
+            <th>Tuned RF Carrier Freq(Hz)</th>
+            <td>-</td>
+         </tr>
+         <tr>
+            <th>RF Bandwidth (MHz)</th>
+            <td> - </td>
+         </tr>
+      </table>
+      </td>
+
+      <td width="50%" valign="top" class="noborder">
+      <table border="0" width="100%" id="FlowRequestTable">
+         <colgroup span="2">
+            <col width="50%" />
+            <col width="50%" />
+         </colgroup>
+         <tr>
+            <th>Flow ID</th>
+            <td><input type="text" size="17" id="FlowID" /></td>
+         </tr>
+         <tr>
+            <th>Binding Type</th>
+            <td>
+               <select id="BindingType">
+                  <option value='2048' selected>None Selected</option>
+                  <option value='0'>MFLO Overhead</option>
+                  <option value='1'>RT Video Codec</option>
+                  <option value='2'>RT Audio Codec</option>
+                  <option value='3'>NRT Media</option>
+                  <option value='4'>IP Datacast</option>
+                  <option value='5'>TAP</option>
+                  <option value='6'>Fixed TAP</option>
+               </select>
+            </td>
+         </tr>
+         <tr>
+            <th colspan="2"><input type="button" value="Start Decode" onclick="StartDecode();" /></th>
+         </tr>
+      </table>
+      </td>
+
+   </tr>
+   <tr>
+      <td valign="top" class="noborder" colspan="2" id="Response">-</td>
+   <tr>
+</table>
+
+<br />
+<input type="checkbox" onclick="Toggle( this.checked )" checked id="Toggled"/>Show All Pre Parameters (FLO)
+
+<div class="label-left" id="FlowLabel">Active Flows</div>
+<table width="100%" id="ActiveFlowsTable">
+   <colgroup span="1">
+      <col width="250" />
+   </colgroup>
+   <tr>
+      <th>Flow ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream Uses Both Layers</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Byte Interleave</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Binding</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>System</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th></th>
+      <td>
+         <input type="button" value="Stop Decode" onclick="StopDecode(1);" />
+      </td>
+   </tr>
+   <tr>
+      <th>MLC ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>FFT Bank</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Transmit Mode</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Outer Code (FLO)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream 1 Bound</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream 2 Bound</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>CBs In Current SF</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>
+         <input type="button" value="Reset ALL PLPs" onclick="ResetAllPLPs();" />
+      </th>
+      <td>
+         <input type="button" value="Reset PLPs" onclick="ResetPLPs(1);" />
+      </td>
+   </tr>
+   <tr>
+      <th>Base Layer - Good CBs</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Base Layer - Erasures CBs</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Enhance Layer - Good CBs</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Enhance Layer - Erasures CBs</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Base Layer - PRE RS Good PLPs</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Base Layer - PRE RS Erasures PLPs</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Enhance Layer - PRE RS Good PLPs</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Enhance Layer - PRE RS Erasures PLPs</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Base Layer - Good PLPs</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Base Layer - Erasures PLPs</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Enhance Layer - Good PLPs</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Enhance Layer - Erasures PLPs</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+  <!-- ////////////////////////////////////////////
+ --> 
+   <tr>
+        <th>
+            <input type="button" value="Reset SFER (FLO)" onclick="ResetFLOSFER();" />
+            <input type="button" value="Reset SFER (EV)" onclick="ResetEVSFER();" /> 
+        </th>
+        <td></td> 
+   </tr>
+       
+   <tr>
+      <th>SF Erasure Count (FLO)</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>SF Post RS Erasure Count (FLO)</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Total SF Count (FLO)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>SF with PLP Erasures Count (EV)</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>SF with Code Block Erasure Count (EV)</th>
+      <td style="font-weight: bold; color: red">-</td>
+   </tr>
+   <tr>
+      <th>Total SF Count (EV)</th>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <th>PLP SFER (FLO Mode)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Post-RS SFER (FLO Mode)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>PLP SFER (EV Mode)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>CB SFER (EV Mode)</th>
+      <td>-</td>
+   </tr>
+
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var TIMEOUT_MS              = 500;
+var UPDATE_MS               = 2000;
+
+// Server states
+var SVR_STATE_CONNECTED     = 2;
+var SVR_STATE_REPLAY        = 4;
+
+var GET_CURR_RF_BW_REQ      = "MFLO/Get RF Bandwidth Request";
+var GET_CURR_RF_FREQ        = "MFLO/Get RF Frequency Request";
+var ACTIVATE_FLOW_REQ       = "MFLO/Activate Flow Request";
+var GET_FLO_STATE_REQ       = "MFLO/Get FLO State Request";
+var START_FLO_REQ           = "MFLO/Start FLO Request";
+var GET_VER_INFO_REQ        = "MFLO/Get FLO Version Request";
+var RESET_ALL_PLPS_REQ      = "MFLO/Reset PLP Statistics Request";
+var DEACTIVATE_FLOW_REQ     = "MFLO/Deactivate Flow Request";
+var RESET_PLP_STATS_REQ     = "MFLO/Reset MLC PLP Statistics Request";
+var RESET_SFER_REQ          = "MFLO/SFER Reset Request";
+
+var FLO_STATE_RSP           = "[0043/0001]";
+var VERSION_RSP             = "[0043/0006]";
+var RF_FREQ_RSP             = "[0043/0063]";
+var RF_BW_RSP               = "[0043/0065]";
+var STATE                   = "[4]";
+
+var gRequestIDs             = new Array;
+var gMainTickID             = 0;
+var gResetTimer             = 0;
+var gItemsProcessed         = 0;
+var gBaseErasures           = new Array;
+var gEnhanceErasures        = new Array;
+var gSuperFrames            = new Array;
+var gFLOActiveFlags         = new Array;
+
+// Constructor for a client object
+function Client( LogCode, ProcessFunction )
+{
+   /* Client handle */
+   this.Handle = 0xFFFFFFFF;
+
+   /* Last index processed for client */
+   this.PrevIndex = -1;
+
+   /* Log code client processes */
+   this.LogCode = LogCode;
+
+   /* Function to process new items */
+   this.ProcessFunction = ProcessFunction;
+}
+
+// Client array
+var gClients = new Array();
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We have six individual clients so setup each one
+
+   // The fist client is for responses and state change strings
+   gClients[0] = new Client( 0, ProcessResponses );
+
+   gClients[0].Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (gClients[0].Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+      return;
+   }
+
+   var ClientObject = IQXDM2.ConfigureClientByKeys( gClients[0].Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure subsystem response
+   ClientObject.AddSubsysResponse( 43, 1 );
+   ClientObject.AddSubsysResponse( 43, 6 );
+   ClientObject.AddSubsysResponse( 43, 63 );
+   ClientObject.AddSubsysResponse( 43, 65 );
+
+   // Configure connection string
+   ClientObject.AddString( 4 );
+   ClientObject.CommitConfig();
+   ClientObject = null;
+
+   // The next six are all log based and thus can be setup in a loop
+   gClients[1] = new Client( 0x1215, ProcessList );      // Main log
+   gClients[2] = new Client( 0x11F5, ProcessRSSI );      // RSSI value
+   gClients[3] = new Client( 0x1214, ProcessMLC );       // MLC stats
+   gClients[4] = new Client( 0x11F9, ProcessPLPPre );    // PLP Pre stats
+   gClients[5] = new Client( 0x1213, ProcessPLPPost );   // PLP Post stats
+   gClients[6] = new Client( 0x122A, ProcessSNR );       // SNR value
+   gClients[7] = new Client( 0x123D, ProcessSFER );     // SFER 
+       
+   for (var C = 1; C <= 7; C++)
+   {
+      gClients[C].Handle = IQXDM2.RegisterQueueClient( 256 );
+      if (gClients[C].Handle == 0xFFFFFFFF)
+      {
+         window.document.write( "<br />Unable to register as client" );
+         return;
+      }
+
+      ClientObject = IQXDM2.ConfigureClientByKeys( gClients[C].Handle );
+      if (ClientObject == null)
+      {
+         window.document.write("<br />Failed to get client interface pointer");
+         return;
+      }
+
+      ClientObject.AddLog( gClients[C].LogCode );
+      ClientObject.CommitConfig();
+      ClientObject = null;
+   }
+
+   // Get current RF bandwidth and frequency
+   SendRequest( GET_CURR_RF_BW_REQ, "", 0xFFFFFFFF, UPDATE_MS );
+   SendRequest( GET_CURR_RF_FREQ, "", 0xFFFFFFFF, UPDATE_MS );
+
+   // Are we currently connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED)
+   {
+      SendRequest( GET_FLO_STATE_REQ, "0", 1, 1 );
+      SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+   }
+
+   // Show only POST-RS PLP rows
+   Toggle( false );
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   // Remove all outstanding periodic requests
+   for (var s = 0; s < gRequestIDs.length; ++s)
+   {
+      IQXDM2.RemoveRequest( gRequestIDs[s] );
+   }
+
+   var ClientCount = gClients.length;
+   for (var C = 0; C < ClientCount; C++)
+   {
+      if (gClients[C].Handle != 0xFFFFFFFF)
+      {
+         IQXDM2.UnregisterClient( gClients[C].Handle );
+      }
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   // Update the silly PC time
+   var now = new Date().toString();
+   FlowLabel.innerText = "Active Flows (as of " + now + ")";
+
+   gItemsProcessed = 0;
+
+   /// Increment superframe counter for each active FLO
+   for (var Col = 0; Col < gFLOActiveFlags.length; Col++)
+   {
+      if (gFLOActiveFlags[Col] == true)
+      {
+         gSuperFrames[Col] += 2;
+      }
+      else
+      {
+         gSuperFrames[Col] = 0;
+      }
+   }
+
+   // Process each client through the configured process function
+   var ClientCount = gClients.length;
+   for (var C = 0; C < ClientCount; C++)
+   {
+      gClients[C].ProcessFunction( C );
+   }
+
+   // Only applicable for debugging
+   // var DebugTxt = "Processed: " + gItemsProcessed + " items";
+   // Response.innerText = DebugTxt;
+}
+
+// Process response/state string client
+function ProcessResponses( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // We have to process all responses and state strings
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      gItemsProcessed++;
+
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      // Check for a state notification 
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == STATE)
+      {
+         // We don't process strings in replay mode
+         var ServerState = IQXDM2.GetServerState();
+         if (ServerState != SVR_STATE_REPLAY)
+         {
+            var Txt = Item.GetItemSummary();
+
+            var bDisconnect = (Txt.indexOf( "Disconnected from" ) >= 0);
+            var bConnect    = (Txt.indexOf( "Connected to" ) >= 0);
+            if (bDisconnect == true || bConnect == true)
+            {
+               // Major state change - we need to reset everything
+               ResetTable();
+
+               // Clear RSSI
+               VersionTable.rows[2].cells[1].innerText = "-";
+
+               // Reset global variables
+               gBaseErasures = new Array;
+               gEnhanceErasures = new Array;
+               gSuperFrames = new Array;
+               gFLOActiveFlags = new Array;
+
+               // Has connection has been reached?
+               if (bConnect == true && ServerState == SVR_STATE_CONNECTED)
+               {
+                  // Yes, do setup to live target
+                  SendRequest( GET_FLO_STATE_REQ, "0", 1, 1 );
+                  SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+               }
+            }
+         }
+
+         continue;
+      }
+
+      var ItemFields = Item.GetConfiguredItemFields( "", false, false );
+      if (ItemFields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+
+      switch (ItemKey)
+      {
+         case RF_FREQ_RSP:
+         {
+            var RFFreq = ItemFields.GetFieldValue( 0 );
+            VersionTable.rows[4].cells[1].innerText = RFFreq;
+         }
+         break;
+
+         case RF_BW_RSP:
+         {
+            var RFBandWidth = ItemFields.GetFieldValue( 0 )
+            VersionTable.rows[5].cells[1].innerText = RFBandWidth;
+         }
+         break;
+
+         case FLO_STATE_RSP:
+         {
+            var StateType = ItemFields.GetFieldValue( 0 );
+
+            // FLO state init ?
+            if (StateType == 0 || StateType == 2 || StateType == 4)
+            {
+               SendRequest( START_FLO_REQ, "", 1, 1 );
+               SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+            }
+            else if (StateType == 1 || StateType == 3)
+            {
+               SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+            }
+         }
+         break;
+
+         case VERSION_RSP:
+         {
+            var KeeperVersion = "";
+            if (FieldCount >= 2)
+            {
+               KeeperVersion += ItemFields.GetFieldValue( 0 ) + ".";
+               KeeperVersion += ItemFields.GetFieldValue( 1 ) + ".";
+               KeeperVersion += ItemFields.GetFieldValue( 2 );
+            }
+
+            VersionTable.rows[0].cells[1].innerText = KeeperVersion;
+
+            var FDSVersion = "";
+            if (FieldCount >= 6)
+            {
+               FDSVersion += ItemFields.GetFieldValue( 3 ) + ".";
+               FDSVersion += ItemFields.GetFieldValue( 4 ) + ".";
+               FDSVersion += ItemFields.GetFieldValue( 5 ) + ".";
+               FDSVersion += ItemFields.GetFieldValue( 6 );
+            }
+
+            VersionTable.rows[1].cells[1].innerText = FDSVersion;
+         }
+         break;
+      }
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Process main list log client
+function ProcessList( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // Update the table reset timer
+   gResetTimer++;
+
+   // Clear out the table if no new logs appear
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {
+      // Skip this if in replay mode
+      var ServerState = IQXDM2.GetServerState();
+      if (ServerState != SVR_STATE_REPLAY)
+      {
+         // Reset the table if no new log appears in 10 seconds
+         if (gResetTimer == 5)
+         {
+            gResetTimer = 0;
+            ResetTable();
+         }
+      }
+
+      return;
+   }
+   else
+   {
+      // Reset the table reset timer as we only need it when no new
+      // logs are appearing
+      gResetTimer = 0;
+   }
+
+   // We process the last log only
+   gItemsProcessed++;
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetConfiguredItemFields( "", true, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 2)
+   {
+      return;
+   }
+
+   // Number of active flows
+   var FlowCount = Fields.GetFieldValue( 1 );
+   if (FieldCount < 2 + 7 * FlowCount)
+   {
+      return;
+   }
+
+   var FieldIndex = 2;
+   var FieldVal;
+
+   var ColsUsed = new Array();
+   var Row;
+
+   for (var flows = 0; flows < FlowCount; flows++)
+   {
+      // MLC ID
+      var MLCID = Fields.GetFieldValue( FieldIndex++ );
+
+      // Stream ID
+      var StreamID = Fields.GetFieldValue( FieldIndex++ );
+
+      // Flow ID
+      var FlowID = Fields.GetFieldValue( FieldIndex++ );
+
+      // Check for a new flow ID, if one is found store the column index
+      // else use the existing column
+      var Column = GetColumnByFlowID( FlowID );
+      ColsUsed[Column] = true;
+
+      ActiveFlowsTable.rows[0].cells[Column].innerText = FlowID;
+      ActiveFlowsTable.rows[1].cells[Column].innerText = StreamID;
+      ActiveFlowsTable.rows[7].cells[Column].innerText = MLCID;
+
+      for (Row = 2; Row <= 5; Row++)
+      {
+         FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+         ActiveFlowsTable.rows[Row].cells[Column].innerText = FieldVal;
+      }
+
+      gFLOActiveFlags[Column] = true;
+      if (isNaN(gSuperFrames[Column]))
+      {
+         gSuperFrames[Column] = 2;
+      }
+   }
+
+   // Remove columns no longer in use
+   var Rows;
+   var Col;
+   var Deleted = false;
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+   for (Col = 1; Col < Cols; Col++)
+   {
+      if ((Col in ColsUsed) == false)
+      {
+         Rows = ActiveFlowsTable.rows.length;
+         for (Row = 0; Row < Rows; Row++)
+         {
+            if (Col > 1 || FlowCount > 0)
+            {
+               var Cell = ActiveFlowsTable.rows[Row].cells[Col];
+               ActiveFlowsTable.rows[Row].removeChild( Cell );
+               Deleted = true;
+            }
+            else
+            {
+               if (Row != 6 && Row != 14)
+               {
+                  ActiveFlowsTable.rows[Row].cells[Col].innerText = "-";
+               }
+            }
+         }
+
+         if (Deleted)
+         {
+            gSuperFrames[Col] = 0;
+            gFLOActiveFlags[Col] = false;
+            Deleted = false;
+            Cols--;
+         }
+      }
+   }
+
+   // Patch up button column indices
+   Cols = ActiveFlowsTable.rows[0].cells.length;
+   for (Col = 1; Col < Cols; Col++)
+   {
+      ActiveFlowsTable.rows[6].cells[Col].innerHTML = 
+         "<input type=\"button\" value=\"Stop Decode\" onclick=\"StopDecode(" + Col + ");\">";
+
+      ActiveFlowsTable.rows[14].cells[Col].innerHTML = 
+         "<input type=\"button\" value=\"Reset PLPs\" onclick=\"ResetPLPs(" + Col + ");\">";
+    }
+}
+
+// Process RSSI log client
+function ProcessRSSI( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // Clear out the table if no new logs appear
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {  
+      // Skip this if in replay mode
+      var ServerState = IQXDM2.GetServerState();
+      if (ServerState != SVR_STATE_REPLAY)
+      {
+         VersionTable.rows[2].cells[1].innerText = "-";
+      }
+
+      return;
+   }
+
+   // We process the last log only
+   gItemsProcessed++;
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetConfiguredItemFields( "", false, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 6)
+   {
+      return;
+   }
+
+   var RSSIString = "";
+   var RSSIPositive = Fields.GetFieldValue( 5 );
+   var RSSIInteger = Fields.GetFieldValue( 3 );
+   var RSSIFraction = Fields.GetFieldValue( 4 );
+
+   if (RSSIPositive > 0)
+   {
+      RSSIString += "+";
+   }
+   else
+   {
+      RSSIString += "-";
+   }
+
+   RSSIString += RSSIInteger + "." + RSSIFraction;
+   VersionTable.rows[2].cells[1].innerText = RSSIString;
+}
+
+// Process MLC log client
+function ProcessMLC( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Grab the number of columns - since the logs arrive in order and
+   // in a bursty nature we can safely quite when we have determined
+   // that we have populated all the columns   
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+
+   var Col = 1;
+   var bAll = false;
+   var PopulatedCols = new Array();
+   for (Col = 1; Col < Cols; Col++)
+   {
+      PopulatedCols[Col] = false;
+   }
+
+   var MLCID;
+   var System;
+   var FieldVal;
+
+   // We process in order newest to oldest attempting to exit early
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      gItemsProcessed++;
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount < 17)
+      {
+         continue;
+      }
+
+      MLCID = Fields.GetFieldValueText( 7 );
+      System = Fields.GetFieldValueText( 8 );
+
+      bAll = true;
+      for (var Col = 1; Col < Cols; Col++)
+      {
+         if ( (ActiveFlowsTable.rows[5].cells[Col].innerText == System)
+         &&   (ActiveFlowsTable.rows[7].cells[Col].innerText == MLCID) )
+         {
+            // FLO FFT MLC Base FFT Address
+            FieldVal = Fields.GetFieldValueText( 9 );
+            ActiveFlowsTable.rows[8].cells[Col].innerText = FieldVal;
+
+            // FLO FFT MLC Mode
+            FieldVal = Fields.GetFieldValueText( 6 );
+            ActiveFlowsTable.rows[9].cells[Col].innerText = FieldVal;
+
+            // FLO FFT MLC Outer Code
+            FieldVal = Fields.GetFieldValueText( 11 );
+            ActiveFlowsTable.rows[10].cells[Col].innerText = FieldVal;
+
+            // FLO FFT MLC Number CBS In Curr SF
+            FieldVal = Fields.GetFieldValueText( 10 );
+            ActiveFlowsTable.rows[13].cells[Col].innerText = FieldVal;
+
+            // FLO FFT MLC Stream 1 Bound
+            FieldVal = Fields.GetFieldValueText( 12 );
+            ActiveFlowsTable.rows[11].cells[Col].innerText = FieldVal;
+
+            // FLO FFT MLC Stream 2 Bound
+            FieldVal = Fields.GetFieldValueText( 13 );
+            ActiveFlowsTable.rows[12].cells[Col].innerText = FieldVal;
+
+            // We have populated another column
+            PopulatedCols[Col] = true;
+         }
+
+         if (PopulatedCols[Col] == false) 
+         {
+            bAll = false;
+         }
+      }
+
+      // All done?
+      if (bAll == true)
+      {
+         break;
+      }
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Process PLP (pre) log client
+function ProcessPLPPre( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Grab the number of columns - since the logs arrive in order and
+   // in a bursty nature we can safely quite when we have determined
+   // that we have populated all the columns   
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+
+   var Row;
+   var Col = 1;
+   var bAll = false;
+   var PopulatedCols = new Array();
+   for (Col = 1; Col < Cols; Col++)
+   {
+      PopulatedCols[Col] = false;
+   }
+
+   var MLCID;
+   var System;
+   var FieldVal;
+   var FieldIndex = 1;
+
+   // We process in order newest to oldest attempting to exit early
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      gItemsProcessed++;
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount < 7)
+      {
+         continue;
+      }
+
+      FieldIndex = 1;
+      MLCID = Fields.GetFieldValueText( FieldIndex++ );
+      System = Fields.GetFieldValueText( FieldIndex++ );
+
+      bAll = true;
+      for (Col = 1; Col < Cols; Col++)
+      {
+         if ( (ActiveFlowsTable.rows[5].cells[Col].innerText == System)
+         &&   (ActiveFlowsTable.rows[7].cells[Col].innerText == MLCID) )
+         {
+            FieldIndex = 3;
+
+            var BaseGoodPLPs = Fields.GetFieldValue( FieldIndex++ );
+            ActiveFlowsTable.rows[19].cells[Col].innerText = BaseGoodPLPs;
+
+            var BaseErasurePLPs = Fields.GetFieldValue( FieldIndex++ );
+            ActiveFlowsTable.rows[20].cells[Col].innerText = BaseErasurePLPs;
+
+            var EnhGoodPLPs = Fields.GetFieldValue( FieldIndex++ );
+            ActiveFlowsTable.rows[21].cells[Col].innerText = EnhGoodPLPs;
+
+            var EnhErasurePLPs = Fields.GetFieldValue( FieldIndex );
+            ActiveFlowsTable.rows[22].cells[Col].innerText = EnhErasurePLPs;
+
+            // We have populated another column
+            PopulatedCols[Col] = true;
+         }
+
+         if (PopulatedCols[Col] == false)
+         {
+            bAll = false;
+         }
+      }
+
+      // All done?
+      if (bAll == true)
+      {
+         break;
+      }
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Process PLP (post) log client
+function ProcessPLPPost( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Grab the number of columns - since the logs arrive in order and
+   // in a bursty nature we can safely quite when we have determined
+   // that we have populated all the columns
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+
+   var Row;
+   var Col = 1;
+   var bAll = false;
+   var PopulatedCols = new Array();
+   for (Col = 1; Col < Cols; Col++)
+   {
+      PopulatedCols[Col] = false;
+   }
+   
+   var MLCID;
+   var System;
+   var FieldVal;
+   var FieldIndex = 0;
+
+   // We process in order newest to oldest attempting to exit early
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      gItemsProcessed++;
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount < 12)
+      {
+         continue;
+      }
+
+      FieldIndex = 1;
+      MLCID = Fields.GetFieldValueText( FieldIndex++ );
+      System = Fields.GetFieldValueText( FieldIndex );
+
+      // Skip reserved field
+      FieldIndex += 2;
+
+      bAll = true;
+      for (Col = 1; Col < Cols; Col++)
+      {
+         if ( (ActiveFlowsTable.rows[5].cells[Col].innerText == System)
+         &&   (ActiveFlowsTable.rows[7].cells[Col].innerText == MLCID) )
+         {
+            // Base and Enhanced layer PLP's
+            for (Row = 23; Row <= 26; Row++)
+            {
+               FieldVal = Fields.GetFieldValue( FieldIndex++ );
+               ActiveFlowsTable.rows[Row].cells[Col].innerText = FieldVal;
+            } 
+            
+            // Base and Enhanced layer CB's
+            for (Row = 15; Row < 19; Row++)
+            {
+               FieldVal = Fields.GetFieldValue( FieldIndex++ );
+               ActiveFlowsTable.rows[Row].cells[Col].innerText = FieldVal;
+            }
+
+            // We have populated another column
+            PopulatedCols[Col] = true;
+            FieldIndex = 4;
+         }
+
+         if (PopulatedCols[Col] == false)
+         {
+            bAll = false;
+         }
+      }
+
+      // All done?
+      if (bAll == true)
+      {
+         break;
+      }
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Process SNR log client
+function ProcessSNR( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // Clear out the table if no new logs appear
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {  
+      // Skip this if in replay mode
+      var ServerState = IQXDM2.GetServerState();
+      if (ServerState != SVR_STATE_REPLAY)
+      {
+         VersionTable.rows[3].cells[1].innerText = "-";
+      }
+
+      return;
+   }
+
+   var FieldIndex = 0;
+
+   // We process only the last item
+   gItemsProcessed++;
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetItemFields();
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 22)
+   {
+      return;
+   }
+
+   FieldIndex = 1;
+   var SNRValid = Fields.GetFieldValue( FieldIndex );
+   if (SNRValid != 1)
+   {
+      return;
+   }
+
+   // Skip remaining fields
+   FieldIndex += 19;
+
+   // FLO FFT WIC Channel Energy
+   var chEnergy = Fields.GetFieldValue( FieldIndex++ );
+
+   // FLO FFT WIC Interference Energy
+   var intEnergy = Fields.GetFieldValue( FieldIndex );
+
+   var SNR = 10 * Math.LOG10E * Math.log(((2 * chEnergy) - intEnergy) / (4 * intEnergy));
+   SNR = SNR.toFixed( 2 );
+   VersionTable.rows[3].cells[1].innerText = SNR;
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+// Clear out the table and global arrays
+function ResetTable()
+{
+   Response.innerText = "-";
+
+   var Cell;
+   var Rows = ActiveFlowsTable.rows.length;
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+   for (var r = 0; r < Rows; r++)
+   {
+      for (var c = Cols - 1; c > 0; c--)
+      {
+         if (c > 1)
+         {
+            Cell = ActiveFlowsTable.rows[r].cells[c];
+            ActiveFlowsTable.rows[r].removeChild( Cell );
+         }
+         else
+         {
+            if (r != 6 && r != 14)
+            {
+               ActiveFlowsTable.rows[r].cells[c].innerText = "-";
+            }
+         }
+      }
+   }
+}
+
+// Return column index to update for a given flow ID
+// else return -1 (create new column)
+function GetColumnByFlowID( FlowID )
+{
+   var Column = -1;
+
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+   for (var Col = 1; Col < Cols; Col++)
+   {
+      var ColFlowID = ActiveFlowsTable.rows[0].cells[Col].innerText;
+      if (isNaN(ColFlowID))
+      {
+         Column = Col;
+         break;
+      }
+
+      if (ColFlowID == FlowID)
+      {
+         Column = Col;
+         break;
+      }
+   }
+
+   var TableRow;
+   var TableCell;
+
+   if (Column == -1)
+   {
+      // Create new column for new flow ID?
+      Column = ActiveFlowsTable.rows[0].cells.length;
+      if (Column == 2 && ActiveFlowsTable.rows[0].cells[1].innerText == "-")
+      {
+         // Use the placeholder
+         Column = 1;
+      }
+      else
+      {
+         var Rows = ActiveFlowsTable.rows.length;
+         for (var r = 0; r < Rows; r++)
+         {
+            TableRow = ActiveFlowsTable.rows[r];
+            TableCell = TableRow.insertCell();
+            if (r == 6)
+            {
+               ActiveFlowsTable.rows[r].cells[Column].innerHTML = 
+                  "<input type=\"button\" value=\"Stop Decode\" onclick=\"StopDecode(" + Column + ");\">";
+            }
+            else if (r == 14)
+            {
+               ActiveFlowsTable.rows[r].cells[Column].innerHTML = 
+                  "<input type=\"button\" value=\"Reset PLPs\" onclick=\"ResetPLPs(" + Column + ");\">";
+            }
+            else
+            {
+               if (r == 16 || r == 18 || r == 20 || r == 22 || r == 24 || r == 26 || r  == 28
+               || r == 29 || r == 31 || r == 32 )
+               {
+                  TableCell.style.fontWeight = "bold";
+                  TableCell.style.color = "red";
+               }
+               TableCell.innerText = "-";
+            }
+         }
+      }
+   }
+
+   return Column;
+}
+
+// Send request
+function SendRequest( Request, ReqString, ReqCount, Frequency )
+{
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED || ReqCount > 1)
+   {
+      var ReqID = IQXDM2.RequestItem( Request,
+                                      ReqString,
+                                      1,
+                                      TIMEOUT_MS,
+                                      ReqCount,
+                                      Frequency );
+
+      if (ReqCount > 1)
+      {
+         gRequestIDs[gRequestIDs.length] = ReqID;
+      }
+
+      if (ReqID != 0)
+      {
+         Txt = "Error scheduling " + Request;
+         Response.innerText = Txt;
+         return;
+      }
+      else
+      {
+         Txt = Request + " scheduled";
+         Response.innerText = Txt;
+      }
+   }
+   else
+   {
+      Txt = "Error scheduling " + Request + " - Invalid State";
+      Response.innerText = Txt;
+   }
+}
+
+// Start decoding for a given flow ID and binding type
+function StartDecode()
+{
+   var FlowValue = parseInt( FlowID.value );
+   if (isNaN(FlowValue))
+   {
+      Response.innerText = "Invalid Flow ID";
+      FlowID.value = "";
+      return;
+   }
+
+   var BindingValue = BindingType.value;
+   if (BindingValue == 2048)
+   {
+      Response.innerText = "A binding type must be specified" ;
+      return;
+   }
+
+   var RequestString = FlowValue + " " + BindingValue;
+   SendRequest( ACTIVATE_FLOW_REQ, RequestString, 1, 1 );
+   SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+}
+
+// Stop decoding for a given flow ID
+function StopDecode( Column )
+{
+   var FlowID = ActiveFlowsTable.rows[0].cells[Column].innerText;
+   if (isNaN(FlowID))
+   {
+      Response.innerText = "Invalid Flow ID";
+      return;
+   }
+
+   SendRequest( DEACTIVATE_FLOW_REQ, FlowID, 1, 1 );
+   SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+}
+
+// Send reset PLP request for given MLC ID and system
+function ResetPLPs( Column )
+{
+   var MLCID = ActiveFlowsTable.rows[7].cells[Column].innerText;
+   var System = ActiveFlowsTable.rows[5].cells[Column].innerText;
+
+   if (System == "Wide")
+   {
+      System = 0;
+   }
+   else if (System == "Local")
+   {
+      System = 1;
+   }
+
+   if (isNaN(MLCID) || isNaN(System))
+   {
+      Response.innerText = "Invalid ID";
+      return;
+   }
+
+   var RequestString = MLCID + " " + System;
+   SendRequest( RESET_PLP_STATS_REQ, RequestString, 1, 1 ); 
+   SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+}
+
+// Send reset all PLPs request
+function ResetAllPLPs()
+{
+   SendRequest( RESET_ALL_PLPS_REQ, "", 1, 1 );
+   SendRequest( GET_VER_INFO_REQ, "", 1, 1 );
+}
+
+function ResetFLOSFER()
+{
+   SendRequest( RESET_SFER_REQ, "1 0", 1, 1 );
+}
+
+function ResetEVSFER()
+{
+  SendRequest( RESET_SFER_REQ, "0 1", 1, 1 );
+}
+
+// Show or hide rows
+function Toggle( bChecked )
+{
+   var hideline = 3;
+   // hide "Byte Interleave" 
+   var Cells = ActiveFlowsTable.rows[hideline].cells.length;
+   for (var c = 0; c < Cells; c++)
+   {
+       ActiveFlowsTable.rows[hideline].cells[c].style.display = "none";
+   }
+   ActiveFlowsTable.rows[hideline].style.display = "none";
+       
+   // toggle CB in 0x1213 
+   if (bChecked == false)
+   {
+      Toggled.checked = false;
+      for (var r = 19; r <= 22; r++)
+      {
+         var Cells = ActiveFlowsTable.rows[r].cells.length;
+         for (var c = 0; c < Cells; c++)
+         {
+            ActiveFlowsTable.rows[r].cells[c].style.display = "none";
+         }
+
+         ActiveFlowsTable.rows[r].style.display = "none";
+      }
+   }
+   else
+   {
+      Toggled.checked = true;
+      for (var r = 19; r <= 22; r++)
+      {
+         var Cells = ActiveFlowsTable.rows[r].cells.length;
+         for (var c = 0; c < Cells; c++)
+         {
+            ActiveFlowsTable.rows[r].cells[c].style.display = "";
+         }
+
+         ActiveFlowsTable.rows[r].style.display = "";
+      }
+   }
+
+   ActiveFlowsTable.refresh();
+}
+
+// Process SFER log client
+function ProcessSFER( ClientIdx )
+{
+   var Handle = gClients[ClientIdx].Handle;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (gClients[ClientIdx].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[ClientIdx].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   if (CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Grab the number of columns - since the logs arrive in order and
+   // in a bursty nature we can safely quite when we have determined
+   // that we have populated all the columns   
+   var Cols = ActiveFlowsTable.rows[0].cells.length;
+
+   var Col = 1;
+   var bAll = false;
+   var PopulatedCols = new Array();
+   for (Col = 1; Col < Cols; Col++)
+   {
+      PopulatedCols[Col] = false;
+   }
+
+   var MLCID;
+   var System;
+   var FieldVal;
+   var sf_erasure_flo, sf_rs_erasure_flo, sf_total_flo;
+   var sf_plp_erasure_ev, sf_cb_erasure_ev, sf_total_ev;
+
+   // We process in order newest to oldest attempting to exit early
+   var PrevIndex = gClients[ClientIdx].PrevIndex;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      gItemsProcessed++;
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount < 11)
+      {
+         continue;
+      }
+      
+      var nVersion = Fields.GetFieldValueText( 0 );
+      if ( nVersion != 0)
+      {
+         continue;
+      }
+
+      MLCID = Fields.GetFieldValueText( 1 );
+      System = Fields.GetFieldValueText( 2 );
+
+      bAll = true;
+      for (var Col = 1; Col < Cols; Col++)
+      {
+            /*For version 0, ignore MLC ID and System*/
+         if ( 1 )
+         {
+            // SF Erasure Count  (FLO)                
+            sf_erasure_flo = Fields.GetFieldValueText( 5 );
+            ActiveFlowsTable.rows[28].cells[Col].innerText = sf_erasure_flo;
+
+            // SF Post RS Erasure Count (FLO)
+            sf_rs_erasure_flo = Fields.GetFieldValueText( 6 );
+            ActiveFlowsTable.rows[29].cells[Col].innerText = sf_rs_erasure_flo;
+
+            // Total SF Count (FLO)
+            sf_total_flo = Fields.GetFieldValueText( 7 );
+            ActiveFlowsTable.rows[30].cells[Col].innerText = sf_total_flo;
+
+            // SF with PLP Erasures Count (EV)
+            sf_plp_erasure_ev = Fields.GetFieldValueText( 8 );
+            ActiveFlowsTable.rows[31].cells[Col].innerText = sf_plp_erasure_ev;
+
+            // SF with Code Block Erasure Count (EV)
+            sf_cb_erasure_ev = Fields.GetFieldValueText( 9 );
+            ActiveFlowsTable.rows[32].cells[Col].innerText = sf_cb_erasure_ev;
+
+            // Total SF Count (EV)
+            sf_total_ev = Fields.GetFieldValueText( 10 );
+            ActiveFlowsTable.rows[33].cells[Col].innerText = sf_total_ev;
+           
+           if (sf_total_flo != 0)
+           {
+                 // FLO Mode PLP SFER  
+                 FieldVal = sf_erasure_flo / sf_total_flo;
+                 ActiveFlowsTable.rows[34].cells[Col].innerText = FieldVal.toFixed( 2 );
+                 
+                 // FLO Mode Post-RS SFER 
+                 FieldVal = sf_rs_erasure_flo / sf_total_flo;
+                 ActiveFlowsTable.rows[35].cells[Col].innerText = FieldVal.toFixed( 2 );
+           }   
+           
+           if (sf_total_ev != 0)
+           {
+                 // FLO-EV Mode PLP SFER 
+                 FieldVal = sf_plp_erasure_ev / sf_total_ev;
+                 ActiveFlowsTable.rows[36].cells[Col].innerText = FieldVal.toFixed( 2 );
+                 
+                 // FLO-EV Mode BC SFER 
+                 FieldVal = sf_cb_erasure_ev / sf_total_ev;
+                 ActiveFlowsTable.rows[37].cells[Col].innerText = FieldVal.toFixed( 2 );
+           }   
+
+            // We have populated another column
+            PopulatedCols[Col] = true;
+         }
+
+         if (PopulatedCols[Col] == false) 
+         {
+            bAll = false;
+         }
+      }
+
+      // All done?
+      if (bAll == true)
+      {
+         break;
+      }
+   }
+
+   gClients[ClientIdx].PrevIndex = CurrIndex;
+}
+
+</script>
+</body>
+</html>

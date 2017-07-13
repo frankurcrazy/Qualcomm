@@ -1,0 +1,265 @@
+<job id="QXDM RequestItem Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMRequestItem.wsf <COM Port Number>
+
+// This script demostrates usage of the QXDM2 automation
+// interface method RequestItem
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// COM port to be used for communication with the phone by QXDM
+var PortNumber = "";
+
+// Process the argument - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript RequestItem.wsf <COM Port Number>\n"
+            + "Eg:     CScript RequestItem.wsf 5\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 1)
+   {
+      WScript.StdOut.WriteLine( Help );
+
+      return RC;
+   }
+
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Get file name from QXDM installation path
+function GetFileName()
+{
+   var FileName = "";
+   var QXDMFolderPath = GetPathFromScript();
+
+   // The above returns the path to the QXDM executable so we need to 
+   // go up one folder
+   var LastSep = QXDMFolderPath.lastIndexOf( "\\" );
+   QXDMFolderPath = LastSep >= 0 ? QXDMFolderPath.slice( 0, ++LastSep ) : "";
+   if (QXDMFolderPath == "")
+   {
+      WScript.StdOut.WriteLine( "Unable to obtain QXDM path" );
+      return FileName;
+   }
+
+   // Emulate handset keypress request file name
+   FileName = QXDMFolderPath + "InfoButtonPress.txt";
+   return FileName;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Schedule requests to be sent
+function ScheduleRequests()
+{
+   var Txt = "";
+
+   // Schedule version number request with 1000 ms timeout
+   var RequestName = "Version Number Request";
+   var ReqID = QXDM2.RequestItem( RequestName,
+                                  "",
+                                  true,
+                                  1000,
+                                  1,
+                                  1 );
+   if (ReqID == 0)
+   {
+      Txt = "RequestItem failed\n";
+      Txt += "Unable to schedule request - \'" + RequestName + "\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "RequestItem succeeded\n" 
+       + "\'" + RequestName + "\' scheduled by QXDM";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Schedule request for 'Info' button to be pressed on
+   // the phone with 500 ms timeout
+   RequestName = "Emulate Handset Keypress Request";
+   ReqID = QXDM2.RequestItem( RequestName,
+                              "0 112",
+                              true,
+                              500,
+                              1,
+                              1 );
+   if (ReqID == 0)
+   {
+      Txt = "RequestItem failed\n";
+      Txt += "Unable to schedule request - \'" + RequestName + "\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "RequestItem succeeded\n" 
+       + "\'" + RequestName + "\' scheduled by QXDM\n"
+       + "Request arguments are: " + "0 112";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Schedule request for 'Info' button to be pressed on
+   // the phone with 2000 ms timeout and get the request
+   // arguments from a file
+   var FileName = GetFileName();
+   if (FileName == "")
+   {
+      return;
+   }
+
+   ReqID = QXDM2.RequestItem( RequestName,
+                              FileName,
+                              false,
+                              2000,
+                              1,
+                              1 );
+   if (ReqID == 0)
+   {
+      Txt = "RequestItem failed\n";
+      Txt += "Unable to schedule request - \'" + RequestName + "\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "RequestItem succeeded\n" 
+       + "\'" + RequestName + "\' scheduled by QXDM\n"
+       + "Request argument is a file:\n" 
+       + FileName;
+   WScript.StdOut.WriteLine( Txt );
+
+
+   // Schedule version number requests with 1000 ms timeout
+   // and with frequency of 2000 ms
+   RequestName = "Version Number Request";
+   ReqID = QXDM2.RequestItem( RequestName,
+                              "",
+                              true,
+                              1000,
+                              2,
+                              2000 );
+   if (ReqID == 0)
+   {
+      Txt = "RequestItem failed\n";
+      Txt += "Unable to schedule request - \'" + RequestName + "\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "RequestItem succeeded\n" 
+       + "\'" + RequestName + "\' scheduled by QXDM with 2s frequency";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Wait for all the requests to go through
+   var WaitCount = 0;
+   while (WaitCount < 10)
+   {
+      WScript.sleep( 1000 );
+      WaitCount++;
+   }
+}
+
+// Main body of script
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Connect to our desired port
+   RC = Connect( PortNumber );
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Schedule requests using "RequestItem"
+   ScheduleRequests();
+
+   // Disconnect phone
+   Disconnect();
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,794 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GNSS Position Report" />
+   <meta name="DMViewWidth" content="800" />
+   <meta name="DMViewHeight" content="640" />
+
+   <title>GNSS Position Report</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+
+   <tr>
+
+      <td width="50%" valign="top" class="noborder">
+         <div class="label">Fix Count</div>
+         <table width="100%" id="CurrentFixTable">
+            <colgroup span="1">
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th>Current Fix</th>
+               <td>-</td>
+            </tr>
+         </table>
+         <table width="100%" id="FixCountTable">
+            <colgroup span="4">
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+            </colgroup>
+            <tr>
+               <th>WLS FixCount</th>
+               <th>KF Fix Count</th>
+               <th>Other Count</th>
+               <th>No Fix Count</th>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">GPS/SBAS Fix SVs</div>
+         <table width="100%" id="GPSSVTable">
+            <colgroup span="7">
+               <col width="10%" />
+               <col width="10%" />
+               <col width="10%" />
+               <col width="15%" />
+               <col width="15%" />
+               <col width="20%" />
+               <col width="20%" />
+            </colgroup>
+            <tr>
+               <th>Sv</th>
+               <th>Type</th>
+               <th>IODE</th>
+               <th>PR RES(m)</th>
+               <th>PR UNC(m)</th>
+               <th>PRR RES(m/s)</th>
+               <th>PRR UNC(m/s)</th>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+      <br />
+
+      <div class="label">GLONASS Fix SVs</div>
+      <table width="100%" id="GLONASSSVTable">
+         <colgroup span="7">
+            <col width="10%" />
+            <col width="10%" />
+            <col width="10%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="20%" />
+            <col width="20%" />
+         </colgroup>
+         <tr>
+            <th>Sv</th>
+            <th>Freq #</th>
+            <th>Tb</th>
+            <th>PR RES(m)</th>
+            <th>PR UNC(m)</th>
+            <th>PRR RES(m/s)</th>
+            <th>PRR UNC(m/s)</th>
+         </tr>
+         <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+         </tr>
+      </table>
+
+      <td width="50%" valign="top" class="noborder">
+         <div class="label">Navigation Fix</div>
+         <table width="100%" id="NavigationTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Source</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>F Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Fix Is 2D</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Fix Is GGTB Constrained</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Fix Is SFT</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Latitude (Degrees)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Longitude (Degrees)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Height (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Height UNC (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Heading (Degrees)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Speed (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Speed UNC (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Vertical Velocity (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Vertical Velocity UNC (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>PDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>HDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>VDOP</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Confidence (%)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse Angle (Degrees)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse SemiMajor Axis (m)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ellipse SemiMinor Axis (m)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Filtered Height (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Filtered Height UNC (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Bias Solution (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Bias Solution UNC (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Time Solution (Seconds)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Time Solution UNC (Seconds)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GGTB Solution (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>GGTB Solution UNC (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Filtered GGTB (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Filtered GGTB UNC (Meters)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Freq Bias Solution (m/s)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Clock Freq Bias Solution UNC (m/s)</th>
+               <td>-</td>
+            </tr>
+         </table>
+      </td>
+
+   </tr>
+
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle          = 0xFFFFFFFF;
+var UPDATE_MS       = 1000;
+var PrevIndex       = -1;
+var gMainTickID     = 0;
+
+// Constants for fix types
+var gWLSFix   = 0;
+var gKFFix    = 0;
+var gOtherFix = 0;
+var gNoFix    = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure GNSS position report log
+   ClientObject.AddLog( 0x1476 );
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client view
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // We have to process all new items
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == "[0x1476]")
+      {
+         PopulateGNSSPositionTable( Fields );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the GNSS position report tables
+function PopulateGNSSPositionTable( Fields )
+{
+   // Do we have minimum required fields ?
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 51)
+   {
+      return;
+   }
+
+   // Is the version of the log valid ?
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+
+   var FI = 2;
+   var NewSession = 0;
+   var PositionSourceString = Fields.GetFieldValueText( FI );
+   CurrentFixTable.rows[0].cells[1].innerText = PositionSourceString;
+
+   var FinalFixSource = -1;
+   var PositionSource = Fields.GetFieldValue( 2 );
+   if (PositionSource == 1)
+   {
+      FinalFixSource = Fields.GetFieldValue( 11 );
+   }
+   else if (PositionSource == 2)
+   {
+      FinalFixSource = Fields.GetFieldValue( 8 );
+   }
+
+   // Ignore fixes sent from LM, we only process fixes sent from NF
+   if (FinalFixSource == 1)
+   {
+      return;
+   }
+
+   // New Session field index
+   FI = Fields.GetFieldIndexFromByID( 308924, FI, false );
+   if (FI == 0xFFFFFFFF)
+   {
+      return;
+   }
+
+   // Is this a new session ?
+   NewSession = Fields.GetFieldValue( FI );
+   if (NewSession)
+   {
+      // Reset all fix counters
+      gWLSFix = 0;
+      gKFFix = 0;
+      gOtherFix = 0;
+      gNoFix = 0;
+      FixCountTable.rows[1].cells[0].innerText = 0;
+      FixCountTable.rows[1].cells[1].innerText = 0;
+      FixCountTable.rows[1].cells[2].innerText = 0;
+      FixCountTable.rows[1].cells[3].innerText = 0;
+   }
+
+   if (PositionSource == 1 || PositionSource == 2)
+   {
+      var Is2D = Fields.GetFieldValue( 3 );
+      if (Is2D)
+      {
+         NavigationTable.rows[2].cells[1].innerText = "Yes";
+      }
+      else
+      {
+         NavigationTable.rows[2].cells[1].innerText = "No";
+      }
+
+      var IsSFT = Fields.GetFieldValue( 4 );
+      if (IsSFT)
+      {
+         NavigationTable.rows[4].cells[1].innerText = "Yes";
+      }
+      else
+      {
+         NavigationTable.rows[4].cells[1].innerText = "No";
+      }
+   }
+
+   switch (PositionSource)
+   {
+      case 0:
+      case 3:
+      case 4:
+      {
+         if (!NewSession)
+         {
+            gNoFix++;
+         }
+         FixCountTable.rows[1].cells[3].innerText = gNoFix;
+      }
+      break;
+
+      case 1:
+      {
+         if (!NewSession)
+         {
+            gWLSFix++;
+         }
+         FixCountTable.rows[1].cells[0].innerText = gWLSFix;
+
+         var IsGGTBConstrained = Fields.GetFieldValue( 23 );
+         if (IsGGTBConstrained)
+         {
+            NavigationTable.rows[3].cells[1].innerText = "Yes";
+         }
+         else
+         {
+            NavigationTable.rows[3].cells[1].innerText = "No";
+         }
+      }
+      break;
+
+      case 2:
+      {
+         if (!NewSession)
+         {
+            gKFFix++;
+         }
+         FixCountTable.rows[1].cells[1].innerText =gKFFix;
+      }
+      break;
+
+      default:
+      {
+         if (!NewSession)
+         {
+            gOtherFix++;
+         }
+         FixCountTable.rows[1].cells[2].innerText = gOtherFix;
+      }
+      break;
+   }
+
+   NavigationTable.rows[0].cells[1].innerText = PositionSourceString;
+
+   FI = 1;
+   var Row = 5;
+
+   // FCount
+   var FCount = Fields.GetFieldValueText( FI );
+   NavigationTable.rows[1].cells[1].innerText = FCount;
+
+   // Index of Latitude field
+   FI = Fields.GetFieldIndexFromByID( 305094, FI, false );
+   if (FI == 0xFFFFFFFF)
+   {
+      return;
+   }
+
+   // Latitude
+   var Latitude = Fields.GetFieldValue( FI++ );
+   Latitude = Latitude * (180 / Math.PI);
+   NavigationTable.rows[Row++].cells[1].innerText = Latitude.toFixed( 6 );
+
+   // Longitude
+   var Longitude = Fields.GetFieldValue( FI++ );
+   Longitude = Longitude * (180 / Math.PI);
+   NavigationTable.rows[Row++].cells[1].innerText = Longitude.toFixed( 6 );
+
+   // Height
+   var Height = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = Height.toFixed( 2 );
+
+   // Height Uncertainty
+   var HeightUncertainty = Fields.GetFieldValue( FI + 28 );
+   NavigationTable.rows[Row++].cells[1].innerText = HeightUncertainty.toFixed( 2 );
+
+   // Heading
+   var Heading = Fields.GetFieldValue( FI++ );
+   Heading = Heading * (180 / Math.PI);
+   NavigationTable.rows[Row++].cells[1].innerText = Heading.toFixed( 1 );
+
+   // Speed
+   var EastVel = Fields.GetFieldValue( FI++ );
+   var NorthVel = Fields.GetFieldValue( FI++ );
+   var Speed = Math.sqrt( (EastVel * EastVel) + (NorthVel * NorthVel) );
+   NavigationTable.rows[Row++].cells[1].innerText = Speed.toFixed( 4 );
+
+   var UpVel = Fields.GetFieldValue( FI++ );
+   var EastVelUnc = Fields.GetFieldValue( FI++ );
+   var NorthVelUnc = Fields.GetFieldValue( FI++ );
+   var UpVelUnc = Fields.GetFieldValue( FI++ );
+
+   // Speed Uncertainty
+   var SpeedUnc = Math.sqrt( (EastVelUnc * EastVelUnc) + (NorthVelUnc * NorthVelUnc) );
+   NavigationTable.rows[Row++].cells[1].innerText = SpeedUnc.toFixed( 4 );
+
+   // Vertical Velocity
+   NavigationTable.rows[Row++].cells[1].innerText = UpVel.toFixed( 4 );
+
+   // Vertical Velocity Uncertainty
+   NavigationTable.rows[Row++].cells[1].innerText = UpVelUnc.toFixed( 4 );
+
+   FI += 14;
+
+   // Position Dilution Of Precision
+   var PDOP = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = PDOP.toFixed( 1 );
+
+   // Horizontal Dilution Of Precision
+   var HDOP = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = HDOP.toFixed( 1 );
+
+   // Vertical Dilution Of Precision
+   var VDOP = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = VDOP.toFixed( 1 );
+
+   // Ellipse Confidence
+   var EllipseConfidence = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = EllipseConfidence;
+
+   // Ellipse Angle
+   var EllipseAngle = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = EllipseAngle.toFixed( 1 );
+
+   // Ellipse SemiMajor Axis
+   var EllipseSemiMajorAxisUnc = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = EllipseSemiMajorAxisUnc.toFixed( 2 );
+
+   // Ellipse SemiMinor Axis
+   var EllipseSemiMinorUnc = Fields.GetFieldValue( FI++ );
+   NavigationTable.rows[Row++].cells[1].innerText = EllipseSemiMinorUnc.toFixed( 2 );
+
+   // Filtered Height
+   var FilteredHeight = Fields.GetFieldValue( FI - 11 );
+   NavigationTable.rows[Row++].cells[1].innerText = FilteredHeight.toFixed( 2 );
+
+   // Filtered Height Uncertainty
+   var FilteredHeightUnc = Fields.GetFieldValue( FI - 10 );
+   NavigationTable.rows[Row++].cells[1].innerText = FilteredHeightUnc.toFixed( 2 );
+
+   // Clock Bias
+   var ClockBias = Fields.GetFieldValue( FI - 21 );
+   NavigationTable.rows[Row++].cells[1].innerText = ClockBias.toFixed( 2 );
+
+   // Clock Bias Uncertainty
+   var ClockBiasUnc = Fields.GetFieldValue( FI - 20 );
+   NavigationTable.rows[Row++].cells[1].innerText = ClockBiasUnc.toFixed( 2 );
+
+   // Time Solution
+   var TimeSolution = Fields.GetFieldValue( FI - 15 );
+   NavigationTable.rows[Row++].cells[1].innerText = TimeSolution.toFixed( 4 );
+
+   // Time Solution Uncertainty
+   var TimeSolutionUnc = Fields.GetFieldValue( FI - 14 );
+   NavigationTable.rows[Row++].cells[1].innerText = TimeSolutionUnc.toFixed( 4 );
+
+   // GGTB Solution
+   var GGTBSolution = Fields.GetFieldValue( FI - 19 );
+   NavigationTable.rows[Row++].cells[1].innerText = GGTBSolution.toFixed( 2 );
+
+   // GGTB Solution Uncertainty
+   var GGTBSolutionUnc = Fields.GetFieldValue( FI - 18 );
+   NavigationTable.rows[Row++].cells[1].innerText = GGTBSolutionUnc.toFixed( 2 );
+
+   // Filtered GGTB
+   var FilteredGGTBSolution = Fields.GetFieldValue( FI - 17 );
+   NavigationTable.rows[Row++].cells[1].innerText = FilteredGGTBSolution.toFixed( 2 );
+
+   // Filtered GGTB Uncertainty
+   var FilteredGGTBUnc = Fields.GetFieldValue( FI - 16 );
+   NavigationTable.rows[Row++].cells[1].innerText = FilteredGGTBUnc.toFixed( 2 );
+
+   // Clock Frequeny Bias Solution
+   var FreqBias = Fields.GetFieldValue( FI - 13 );
+   NavigationTable.rows[Row++].cells[1].innerText = FreqBias.toFixed( 4 );
+
+   // Clock Frequeny Solution Uncertainty
+   var FreqUnc = Fields.GetFieldValue( FI - 12 );
+   NavigationTable.rows[Row++].cells[1].innerText = FreqUnc.toFixed( 4 );
+
+   FI += 3;
+
+   var NumGPSSVs = Fields.GetFieldValue( FI );
+   if (NumGPSSVs > 16)
+   {
+      NumGPSSVs = 16;
+   }
+
+   FI += 2;
+
+   var NumGLONASSSVs = Fields.GetFieldValue( FI++ );
+   if (NumGLONASSSVs > 14)
+   {
+      NumGLONASSSVs = 14;
+   }
+
+   // Do we have the required number of fields ?
+   if (FieldCount < (FI +(NumGPSSVs * 10) + (NumGLONASSSVs * 10)))
+   {
+      return;
+   }
+
+   // Update the GPS fixes table
+   PopulateFixTables( Fields, FI, NumGPSSVs, GPSSVTable, 0 );
+
+   FI = FI + (NumGPSSVs * 10);
+
+   // Update the GLONASS fixes table
+   PopulateFixTables( Fields, FI, NumGLONASSSVs, GLONASSSVTable, 1 );
+}
+
+// Populate the GPS/GLONASS fixes tables
+function PopulateFixTables( Fields, FI, NumSVs, TableName, PEType )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var TableRow;
+   var TableCell;
+   var Col = 0;
+   var Row = 0;
+
+   // Grab number of rows in existing table
+   var CurRows = TableName.rows.length - 1;
+
+   // Need to do the fixes table here
+   for (var r = 0; r < NumSVs; r++)
+   {
+      var SVID;
+      var SVUsed = Fields.GetFieldValue( FI++ );
+      var SVType = Fields.GetFieldValue( FI );
+      if (SVType != PEType)
+      {
+         FI += 9;
+         continue;
+      }
+
+      if (Row >= CurRows)
+      {
+         TableRow = TableName.insertRow();
+         for (var c = 0; c < 7; c++)
+         {
+            TableCell = TableRow.insertCell();
+         }
+      }
+
+      FI += 2;
+
+      // Is this SV used for fix ?
+      if (!SVUsed)
+      {
+         // SV ID
+         SVID = Fields.GetFieldValue( FI++ );
+         TableName.rows[Row + 1].cells[Col++].innerText = SVID;
+
+         // Clear out other information
+         for (var c = 1; c < 7; c++)
+         {
+            TableName.rows[Row + 1].cells[c].innerText = "-";
+         }
+
+         // Update Frequency number for GLONASS PE type
+         if (PEType)
+         {
+            var FreqNumber = Fields.GetFieldValue( FI );
+            TableName.rows[Row + 1].cells[Col++].innerText = FreqNumber;
+         }
+
+         FI += 6;
+
+         Row++;
+         Col = 0;
+         continue;
+      }
+
+      // SV ID
+      SVID = Fields.GetFieldValue( FI++ );
+      TableName.rows[Row + 1].cells[Col++].innerText = SVID;
+
+      // GPS or GLONASS PE types ?
+      if (!PEType)
+      {
+         // GPS PE
+         var MeasType = Fields.GetFieldValueText( FI - 2 );
+         TableName.rows[Row + 1].cells[Col++].innerText = MeasType;
+      }
+      else
+      {
+         // GLONASS PE
+         var FreqNumber = Fields.GetFieldValue( FI );
+         TableName.rows[Row + 1].cells[Col++].innerText = FreqNumber;
+      }
+
+      FI++;
+
+      // IODE
+      var IODE = Fields.GetFieldValue( FI++ );
+      TableName.rows[Row + 1].cells[Col++].innerText = IODE;
+
+      // PR Residual
+      var PRResidual = Fields.GetFieldValue( FI++ );
+      TableName.rows[Row + 1].cells[Col++].innerText = PRResidual.toFixed( 2 );
+
+      var PRRResidual = Fields.GetFieldValue( FI++ );
+      var PRUncertainty = Fields.GetFieldValue( FI++ );
+      var PRRUncertainty = Fields.GetFieldValue( FI++ );
+
+      // PR Uncertainty
+      TableName.rows[Row + 1].cells[Col++].innerText = PRUncertainty.toFixed( 2 );
+
+      // PRR Residual
+      TableName.rows[Row + 1].cells[Col++].innerText = PRRResidual.toFixed( 4 );
+
+      // PRR Uncertainty
+      TableName.rows[Row + 1].cells[Col].innerText = PRRUncertainty.toFixed( 4 );
+
+      Row++;
+      Col = 0;
+   }
+
+   // Delete excess rows
+   DeleteExcessRows( TableName, 1, CurRows + 1, Row, true );
+}
+
+</script>
+</body>
+</html>

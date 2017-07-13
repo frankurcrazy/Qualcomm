@@ -1,0 +1,111 @@
+<job id="QXDM ConfigureClientByNames Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMConfigureClientByNames.wsf
+
+// This script demostrates usage of the QXDM2 automation
+// interface method ConfigureClientByNames
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Configure client by names
+function ConfigureClient()
+{
+   var Txt = "";
+
+   // Constants   
+   var LogName1 = "General Temporal Analyzer";
+   var LogName2 = "Active Set";
+
+   // Get a QXDM client
+   var ReqHandle = QXDM2.RegisterClient( "", false );
+   if (ReqHandle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to register a client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var DiagEntities = "\"" + LogName1 + "\" \"" + LogName2 + "\"";
+   var Client = QXDM2.ConfigureClientByNames( ReqHandle, DiagEntities );
+   if (Client == false)
+   {
+      Txt = "Unable to configure client by names\n" 
+          + "ConfigureClientByNames failed";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( ReqHandle );
+      return;
+   }
+
+   Txt = "ConfigureClientByNames succeeded\n" 
+       + "Client configured by names for:\n" 
+       + "   \'" + LogName1 + "\' and '" + LogName2 + "'";
+   WScript.StdOut.WriteLine( Txt );
+
+   QXDM2.UnregisterClient( ReqHandle );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Configure client using "ConfigureClientByNames"
+   ConfigureClient();
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,144 @@
+<job id="QXDM COMPort Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMCOMPort.wsf [COM Port Number]
+
+// This example demonstrates the usage of the QXDM automation
+// interface method COMPort
+
+// Global variable
+var QXDM;
+
+// COM port to be used for communication with the phone by QXDM
+var PortNumber = -1;
+
+// Process the argument - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript QXDMCOMPort.wsf [Optional COM Port Number]\n"
+            + "Eg:     CScript QXDMCOMPort.wsf 5\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 1)
+   {
+      // COM port is optional
+      RC = true;
+      return RC;
+   }
+
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Obtain and dump out the COM port status
+function DumpCOMPort()
+{
+   var Txt = "";
+
+   // Check COM port status
+   var COMPort = QXDM.COMPort;
+   if (COMPort == -1)
+   {
+      Txt = "Error occurred";
+      WScript.StdOut.WriteLine( Txt );
+   }
+   else if (COMPort == 0)
+   {
+      Txt = "Disconnected state";
+      WScript.StdOut.WriteLine( Txt );
+   }
+   else if (COMPort > 0)
+   {
+      Txt = "Connected to port: COM" + COMPort;
+      WScript.StdOut.WriteLine( Txt );
+   }
+}
+
+// Main body of script
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   if (PortNumber != -1)
+   {
+      // Change the COM port
+      QXDM.COMPort = PortNumber;
+   }
+
+   // Wait for change in COM port
+   WScript.sleep( 2000 );
+
+   // Obtain and dump out the COM port status
+   DumpCOMPort();
+}
+
+Execute();
+
+</script>
+</job>

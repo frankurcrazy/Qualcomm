@@ -1,0 +1,483 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="MDR Statistics" />
+   <meta name="DMViewWidth" content="620" />
+   <meta name="DMViewHeight" content="260" />
+   <meta name="DMViewKey" content="ALTF8" />
+   <title>MDR Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="StatsTable">   
+   <colgroup span="10">
+      <col width="13%" />
+      <col width="8%" />
+      <col width="8%" />
+      <col width="8%" />
+      <col width="8%" />
+      <col width="8%" />
+      <col width="8%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+   </colgroup>   
+   <tr>
+      <th>Channel</th>
+      <th colspan="6">Walsh Codes (Active Sets)</th>
+      <th colspan="3">Statistics</th>
+   </tr>
+   <tr>
+      <th>PN</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <th>Errors</th>
+      <th>Frames</th>
+      <th>Err Rate</th>
+   </tr>
+   <tr>
+      <th>F-FCH</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>F-SCCH1</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      </tr>
+   <tr>
+      <th>F-SCCH2</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>F-SCCH3</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>F-SCCH4</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      </tr>
+   <tr>
+      <th>F-SCCH5</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>F-SCCH6</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>F-SCCH7</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle      = 0xFFFFFFFF;
+var TIMEOUT_MS  = 500;
+var UPDATE_MS   = 1000;
+var CODES_REQ   = "IS-95B F-SCCH Channel Walsh Codes Request";
+var FER_REQ     = "IS-95B Frame Error Rate Request";
+
+var gRequestIDs = new Array;
+var gMainTickID = 0;
+var PrevIndex   = -1;
+
+// Current (for each active set)/maximum number of supplemental channels
+var gSupplementals    = new Array( 6 );
+var gMaxSupplementals = 7;
+
+// Maximum number of active sets
+var gMaxActiveSets    = 6;
+
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // We start off with no active supplemental channels
+   for (var s = 0; s < gMaxActiveSets; s++)
+   {
+      gSupplementals[s] = 0;
+   }
+
+   // Configure ourselves for the DIAG responses
+   clientObject.AddDIAGResponse( 85 );
+   clientObject.AddDIAGResponse( 86 );   
+   clientObject.CommitConfig();
+   
+   // Setup ongoing requests
+   SetupRequest( CODES_REQ );
+   SetupRequest( FER_REQ );
+   
+   if (gRequestIDs.length < 2)
+   {
+      window.document.write( "<br /> Error scheduling requests" );
+      return;
+   }       
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessResponses()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+   
+   // Remove all outstanding periodic requests
+   for (var s = 0; s < gRequestIDs.length; ++s)
+   {
+      IQXDM2.RemoveRequest( gRequestIDs[s] );
+   }      
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Set up a repetitive request for the DIAG entity request name
+function SetupRequest( Name )
+{
+   // Assume failure
+   var bOK = false;
+   
+   var Inf = 0xFFFFFFFF;
+   var ReqID = IQXDM2.RequestItem( Name, "", 1, TIMEOUT_MS, Inf, UPDATE_MS );
+   if (ReqID != 0)
+   {
+      gRequestIDs[gRequestIDs.length] = ReqID;
+      bOK = true;
+   }  
+  
+   return bOK;
+} 
+
+// Process new DIAG responses in our client view
+function ProcessResponses()
+{
+   var CmdWalshCodes = "[086]";
+   var CmdFERInfo    = "[085]";
+   
+   // We only process the last instance of each DIAG response
+   var bWalshCodes = false;
+   var bFERInfo    = false;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case CmdWalshCodes:
+         {
+            if (bWalshCodes == false)
+            {
+               ProcessWalshCodes( ItemFields );
+               bWalshCodes = true;
+            }
+         }
+         break;  
+           
+         case CmdFERInfo:
+         {
+            if (bFERInfo == false)
+            {
+               ProcessFERInfo( ItemFields );
+               bFERInfo = true;
+            }
+         }
+         break;  
+      }
+      
+      if (bWalshCodes == true && bFERInfo == true)
+      {
+         break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Process response packet containing pilot walsh codes
+function ProcessWalshCodes( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+   
+   // Get number of active sets (0 - gMaxActiveSets)
+   var Sets = Fields.GetFieldValue( 0 );
+   if (Sets > gMaxActiveSets)
+   {
+      // Messed up packets
+      Sets = 0;
+   }
+   
+   var s = 0;
+   var c = 0;
+      
+   var PN;
+   var Supplementals;
+   var FCHCode;
+   var SCHCode;
+      
+   var Idx = 1;   
+   for (s = 0; s < gMaxActiveSets; s++)
+   {
+      // Active?
+      if (s < Sets)
+      {
+         // PN 
+         PN = Fields.GetFieldValueText( Idx );
+         StatsTable.rows[1].cells[1 + s].innerText = PN;
+         
+         // Grab number of supplementals
+         Supplementals = Fields.GetFieldValue( Idx + 1 );
+         if (Supplementals > gMaxSupplementals)
+         {         
+            // Messed up packet
+            Supplementals = 0;            
+         }
+         
+         // Store for FER info
+         gSupplementals[s] = Supplementals;
+         
+         // F-FCH code
+         FCHCode = Fields.GetFieldValueText( Idx + 2 );
+         StatsTable.rows[2].cells[1 + s].innerText = FCHCode;
+         
+         // Add SCCH codes
+         for (c = 0; c < gMaxSupplementals; c++)
+         {
+            if (c < Supplementals)
+            {
+               SCHCode = Fields.GetFieldValueText( Idx + 3 + c );
+               StatsTable.rows[3 + c].cells[1 + s].innerText = SCHCode;
+            }
+            else
+            {
+               StatsTable.rows[3 + c].cells[1 + s].innerText = "N/A";
+            }
+         }
+      }
+      else
+      {
+         // PN
+         StatsTable.rows[1].cells[1 + s].innerText = "N/A";
+         
+         // Store for FER info
+         gSupplementals[s] = 0;
+         
+         // F-FCH code
+         StatsTable.rows[2].cells[1 + s].innerText = "N/A";
+         
+         // Add SCCH codes
+         for (c = 0; c < gMaxSupplementals; c++)
+         {
+            StatsTable.rows[3 + c].cells[1 + s].innerText = "N/A";
+         }
+      }
+      
+      // PN, supplemental channel count, F-FC codeH, F-SCCH1 - F-SCCH7 codes
+      Idx += 10;
+   }
+}
+
+// Process response packet containing frame error rate info
+function ProcessFERInfo( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 16)
+   {
+      return;
+   }
+   
+   // Figure out the largest supplemental channel
+   var currentMax = 0;
+   for (var s = 0; s < gMaxSupplementals; s++)
+   {
+      if (gSupplementals[s] > currentMax)
+      {
+         currentMax = gSupplementals[s];      
+      }
+   }
+   
+   var c;
+   var sc;
+   var tmp;
+   var offset;
+   
+   var Errors;   
+   var Frames;
+   var Rate;
+   
+   for (c = 0; c <= gMaxSupplementals; c++)
+   {  
+      // Supplemental channel not active?
+      sc = c - 1;
+      if (sc >= currentMax)
+      {
+         StatsTable.rows[2 + c].cells[7].innerText = "N/A";
+         StatsTable.rows[2 + c].cells[8].innerText = "N/A";
+         StatsTable.rows[2 + c].cells[9].innerText = "N/A";
+         
+         continue;
+      }
+    
+      Errors = Fields.GetFieldValue( c );
+      StatsTable.rows[2 + c].cells[7].innerText = Errors;  
+      
+      Frames = Fields.GetFieldValue( c + 8 );
+      StatsTable.rows[2 + c].cells[8].innerText = Frames;  
+       
+      Rate = 0.0;      
+      if (Frames > 0)
+      {
+         Rate = Errors/Frames;
+      }
+   
+      // Keep 2 decimal places
+      tmp = Precision( Rate, 2, true );
+      StatsTable.rows[2 + c].cells[9].innerText = tmp;
+   }
+}
+
+</script>
+
+</body>
+</html>

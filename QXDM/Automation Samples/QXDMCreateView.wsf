@@ -1,0 +1,95 @@
+<job id="QXDM CreateView Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMCreateView.wsf
+
+// This example demonstrates the usage of the QXDM automation
+// interface method CreateView
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Create QXDM views
+function CreateViews()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create item view
+   RC = QXDM.CreateView( "Item View", "" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Item View\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Item View\' successfully created";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Create the view which supports multiple instances and
+   // tag this view as "Client View"
+   RC = QXDM.CreateView( "Filtered View", "Client View" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Filtered View {Client View}\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Filtered View {Client View}\' successfully created";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Create QXDM views
+   CreateViews();
+}
+
+Execute();
+
+</script>
+</job>

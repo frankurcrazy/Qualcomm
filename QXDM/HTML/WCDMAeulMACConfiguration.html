@@ -1,0 +1,534 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA EUL MAC Configuration" />
+   <meta name="DMViewWidth" content="600" />
+   <meta name="DMViewHeight" content="400" />
+
+   <title>WCDMA EUL MAC Configuration</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" cellpadding="2">
+   <colgroup span="2">
+      <col width="200" />
+      <col />
+   </colgroup>
+   <tr>
+      <td valign="top" class="noborder">
+         <table width="100%" id="DataTable">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+            <tr>
+               <th>E-Table</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Happy Delay</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Min E-TFCI</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>S HARQ Alloc</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>SI Period - NG</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>SI Period - G</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>SI Power Offset</th>
+               <td>-</td>
+            </tr>
+         </table>   
+      </td>
+      <td valign="top" class="noborder">
+         <table id="FlowTable">
+            <colgroup span="2">
+               <col width="120" />
+               <col width="80" />
+            </colgroup>
+            <tr>
+               <th>Flow ID</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Sched Type</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MAC-d PO</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Max ReTx</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>MUX List</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>NS HARQ Alloc</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>NS Grant Alloc</th>
+               <td>-</td>
+            </tr>
+         </table>   
+      </td>   
+   </tr>
+</table>
+<br />
+<table width="100%" id="ChTable">
+   <colgroup span="7">
+      <col width="15%" />
+      <col width="15%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+   </colgroup>
+   <tr>
+      <th>Flow ID</th>
+      <th>LCH ID</th>
+      <th>RB ID</th>
+      <th>Priority</th>
+      <th>Type</th>
+      <th>RLC Mode</th>
+      <th>Include in SI</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>   
+<br />
+<table width="100%" id="PDUTable">
+   <colgroup span="4">
+      <col width="15%" />
+      <col width="15%" />
+      <col width="35%" />
+      <col width="35%" />
+   </colgroup>
+   <tr>
+      <th>Flow ID</th>
+      <th>LCH ID</th>
+      <th>DDI</th>
+      <th>PDU Size</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>   
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle              = 0xFFFFFFFF;
+var gMainTickID         = 0;
+
+var UPDATE_MS           = 1000;
+var PrevIndex           = -1;
+
+var STATE               = "[4]";
+var LOG_ON_DEMAND_REQ   = "Log On Demand Request";
+var SVR_STATE_CONNECTED = 2;
+var TIMEOUT_MS          = 500;
+
+function AdjustRows( AdjustTable, NumRows )
+{  
+   var CurRows = AdjustTable.rows.length - 1;
+
+   // Add rows if necessary
+   for (var i = CurRows + 1; i <= NumRows; i++)
+   {
+      var TableRow = AdjustTable.insertRow();
+      for (var j = 0; j < AdjustTable.rows[0].cells.length; j++)
+      {
+         var TableCell = TableRow.insertCell();
+      }
+   }
+
+   // Delete columns if necessary
+   for (var i = CurRows; i > NumRows; i--)
+   {
+      if (i == 1)
+      {
+         for (var j = 0; j < AdjustTable.rows[0].cells.length; j++)
+         {
+            AdjustTable.rows[i].cells[j].innerText = "-";    
+         }
+      }
+      else
+      {
+         AdjustTable.deleteRow();
+      }     
+   }
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure connection string
+   clientObject.AddString( 4 );
+
+   // Configure logs
+   clientObject.AddLog( 0x4321 );
+   clientObject.CommitConfig();
+
+   // Are we currently connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED)
+   {
+      // Request log
+      IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, 
+                          "0x4321", 
+                          1,
+                          TIMEOUT_MS, 
+                          1,
+                          1 );
+   }
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var bFound = false;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         // Check for a state notification 
+         var ItemKey = Item.GetItemKeyText();
+         if (ItemKey == STATE)
+         {
+            var ServerState = IQXDM2.GetServerState();
+            if (ServerState == SVR_STATE_CONNECTED)
+            {
+               var Txt = Item.GetItemSummary();
+
+               var bConnect = (Txt.indexOf( "Connected to" ) >= 0);
+               if (bConnect == true)
+               {  
+                  // Request log
+                  IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, 
+                                      "0x4321", 
+                                      1,
+                                      TIMEOUT_MS, 
+                                      1,
+                                      1 );
+               }
+            }
+         }
+         else if (bFound == false)
+         {      
+            var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+            if (Item != null)
+            {
+               var Fields = Item.GetConfiguredItemFields( "", true, false );
+               if (Fields != null)
+               {
+                  PopulateTable( Fields );
+               }
+            }
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+ 
+function PopulateTable( Fields )
+{
+   var ChTotal = 0;
+   var PDUTotal = 0;  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 16)
+   {
+      return;
+   }
+
+   // ETFCI Table
+   var FieldVal = Fields.GetFieldValueText( 1 );   
+   DataTable.rows[0].cells[1].innerText = FieldVal;
+
+   // Happy Delay
+   FieldVal = Fields.GetFieldValue( 2 );   
+   DataTable.rows[1].cells[1].innerText = FieldVal + " ms";    
+   
+   // Minimum ETFCI
+   FieldVal = Fields.GetFieldValueText( 4 );
+   DataTable.rows[2].cells[1].innerText = FieldVal;    
+   
+   // Scheduled HARQ Allocation
+   FieldVal = "";
+   for (var i = 0; i < 8; i++)
+   {
+      FieldVal = Fields.GetFieldValueText( 5 + i ) + FieldVal;
+   }
+   DataTable.rows[3].cells[1].innerText = FieldVal;    
+   
+   // SI Period No Grant
+   FieldVal = Fields.GetFieldValueText( 13 );
+   if (isNaN( FieldVal ) == false)
+   {
+      FieldVal += " ms";
+   }
+   DataTable.rows[4].cells[1].innerText = FieldVal;    
+   
+   // SI Period Grant
+   FieldVal = Fields.GetFieldValueText( 14 );
+   if (isNaN( FieldVal ) == false)
+   {
+      FieldVal += " ms";
+   }
+   DataTable.rows[5].cells[1].innerText = FieldVal;    
+   
+   // SI Power Offset
+   FieldVal = Fields.GetFieldValue( 15 );
+   DataTable.rows[6].cells[1].innerText = FieldVal + " dB";    
+   
+   var NumFlows = Fields.GetFieldValue( 3 );
+   if (NumFlows > 7)
+   {
+      return;
+   }
+   
+   if (FieldCount < 16 + 22 * NumFlows)
+   {
+      return;
+   }
+   
+   var CurFlows = FlowTable.rows[0].cells.length - 1;
+
+   // Add columns if necessary
+   for (var i = CurFlows; i < NumFlows; i++)
+   {
+      for (var j = 0; j < FlowTable.rows.length; j++)
+      {
+         var TableRow = FlowTable.rows[j];
+         var TableCell = TableRow.insertCell();
+         TableCell.width = 80;
+      }
+   }
+
+   // Delete columns if necessary
+   for (var i = CurFlows; i > NumFlows; i--)
+   {
+      for (var j = 0; j < FlowTable.rows.length; j++)
+      {
+         if (i == 1)
+         {
+            FlowTable.rows[j].cells[1].innerText = "-";    
+         }
+         else
+         {
+            var TableRow = FlowTable.rows[j];
+            var TableCell = TableRow.deleteCell( i );
+         }     
+      }
+   }
+
+   var fi = 16;
+   for (var f = 1; f <= NumFlows; f++)
+   {
+      // Flow ID
+      var FlowID = Fields.GetFieldValueText( fi );
+      FlowTable.rows[0].cells[f].innerText = FlowID;    
+
+      // Grant Type
+      FieldVal = Fields.GetFieldValueText( fi + 11 );
+      FlowTable.rows[1].cells[f].innerText = FieldVal;    
+
+      // Power Offset
+      FieldVal = Fields.GetFieldValueText( fi + 1 );
+      FlowTable.rows[2].cells[f].innerText = FieldVal;    
+
+      // Maximum Retransmissions
+      FieldVal = Fields.GetFieldValueText( fi + 2 );
+      FlowTable.rows[3].cells[f].innerText = FieldVal;    
+
+      // MUX List
+      FieldVal = "";
+      for (var i = 0; i < 8; i++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + 3 + i ) + FieldVal;
+      }
+      FlowTable.rows[4].cells[f].innerText = FieldVal;    
+
+      // Non-Scheduled HARQ Allocation
+      FieldVal = "";
+      for (var i = 0; i < 8; i++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + 14 + i ) + FieldVal;
+      }
+      FlowTable.rows[5].cells[f].innerText = FieldVal;    
+
+      // Non-Scheduled Grant Value
+      FieldVal = Fields.GetFieldValueText( fi + 13 );
+      FlowTable.rows[6].cells[f].innerText = FieldVal;    
+
+      var NumCh = Fields.GetFieldValue( fi + 12 );
+
+      // Advance to Logical Channels
+      fi += 22;
+      
+      AdjustRows( ChTable, ChTotal + NumCh );
+      for (var c = ChTotal + 1; c <= ChTotal + NumCh; c++)
+      {
+         if (FieldCount < fi + 7)
+         {
+            return;
+         }
+
+         ChTable.rows[c].cells[0].innerText = FlowID;    
+
+         var ChID = Fields.GetFieldValueText( fi + 1 );
+         ChTable.rows[c].cells[1].innerText = ChID;    
+
+         // Radio Bearer ID
+         FieldVal = Fields.GetFieldValueText( fi );
+         ChTable.rows[c].cells[2].innerText = FieldVal;    
+
+         // Priority
+         FieldVal = Fields.GetFieldValueText( fi + 2 );
+         ChTable.rows[c].cells[3].innerText = FieldVal;    
+
+         // Logical Channel Type
+         FieldVal = Fields.GetFieldValueText( fi + 3 );
+         ChTable.rows[c].cells[4].innerText = FieldVal;    
+
+         // RLC Mode
+         FieldVal = Fields.GetFieldValueText( fi + 4 );
+         ChTable.rows[c].cells[5].innerText = FieldVal;    
+
+         // Include in SI
+         FieldVal = Fields.GetFieldValueText( fi + 5 );
+         if (FieldVal == 0)
+         {
+            FieldVal = "No";
+         }
+         else
+         {
+            FieldVal = "Yes";
+         }
+         ChTable.rows[c].cells[6].innerText = FieldVal;    
+
+         var PDUSizes = Fields.GetFieldValue( fi + 6 );
+
+         // Advance to PDU Sizes
+         fi += 7;
+         
+         AdjustRows( PDUTable, PDUTotal + PDUSizes );
+         for (var p = PDUTotal + 1; p <= PDUTotal + PDUSizes; p++)
+         {
+            if (FieldCount < fi + 2)
+            {
+               return;
+            }
+
+            PDUTable.rows[p].cells[0].innerText = FlowID;    
+            PDUTable.rows[p].cells[1].innerText = ChID;    
+
+            // Data Description Indicator
+            FieldVal = Fields.GetFieldValueText( fi );
+            PDUTable.rows[p].cells[2].innerText = FieldVal;    
+
+            // PDU Size
+            FieldVal = Fields.GetFieldValueText( fi + 1 );
+            PDUTable.rows[p].cells[3].innerText = FieldVal;    
+
+            // Advance to next PDU Size
+            fi += 2;
+         }
+
+         PDUTotal += PDUSizes;
+      }
+
+      ChTotal += NumCh;
+   }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1326 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPRS 2G/3G Combined Neighboring Cell Information" />
+   <meta name="DMViewWidth" content="1000" />
+   <meta name="DMViewHeight" content="840" />
+
+   <title>GPRS 2G/3G Combined Neighboring Cell Information</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css">
+
+</head>
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<body onload="Initialize()" onunload="Unregister()">
+
+<input type="checkbox" name="Freeze" value="No" onclick="SetFreeze()">Freeze Display
+
+<table border="0" width="100%" cellpadding="2">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <td colspan="2" valign="top" class="noborder">
+         <table id="OutTable2G3G">
+            <colgroup span="14">
+               <col width="15.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+               <col width="6.5%" />
+            </colgroup>       
+            <tr>
+               <th>Parameter</th>
+               <th>Serving Cell</th>
+               <th>NCell 1</th>
+               <th>NCell 2</th>
+               <th>NCell 3</th>
+               <th>NCell 4</th>
+               <th>NCell 5</th>
+               <th>NCell 6</th>
+               <th>NCell 7</th>
+               <th>NCell 8</th>
+               <th>NCell 9</th>
+               <th>NCell 10</th>
+               <th>NCell 11</th>
+               <th>NCell 12</th>
+            </tr>
+            <tr>
+               <th>RAT</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th colspan="14">GSM/GPRS Cell Information</th>
+            </tr>
+            <tr>
+               <th>BCCH ARFCN</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>PBCCH ARFCN</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>Priority Class</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>C1</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>C2</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>C31</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>C32</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>Recent Reselection</th>
+               <td> - </td>
+               <td colspan="12" class="shaded"> - </td>
+            </tr>
+            <tr>
+               <th>Serving Cell RA/LAI</th>
+               <td colspan="1" class="shaded"> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th colspan="14">UMTS Cell Information</th>
+            </tr>
+            <tr>
+               <th>UARFCN</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>PSC</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>Diversity</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th colspan="14">Common Cell Information</th>
+            </tr>
+            <tr>
+               <th>Rx Level (dBm)</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>5 Sec Timer</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>Cell Barred</th>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+         </table>
+      </td>
+   </tr>
+
+   <tr>
+      <td class="noborder">
+         <table width="100%" id="OutTableBA">
+            <colgroup span="4">
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+            </colgroup>         
+            <tr>
+               <th colspan="4">BA List ARFCNs</th>
+            </tr>
+            <tr>
+               <th> Number : ARFCN </th>
+               <th> Number : ARFCN </th>
+               <th> Number : ARFCN </th>
+               <th> Number : ARFCN </th>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+            <tr>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+               <td> - </td>
+            </tr>
+         </table>
+      </td>
+
+      <td class="noborder">
+         <table width="100%" id="OutTable3GParam">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup> 
+            <tr>
+               <th colspan="2">3G Settings</th>
+            </tr>
+            <tr>
+               <th>QSearch-P</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>QSearch-I</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>QSearch-C Initial</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD QOffset (dB)</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD GPRS QOffset (dB)</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD QMin</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>3G Search Prio</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>3G BA Ind</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD Rep Quant</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD MultiRAT Reporting</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD Reporting Offset</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>FDD Reporting Threshold</th>
+               <td> - </td>
+            </tr>
+         </table>
+         
+         <br />
+         
+         <table width="100%" id="OutTableTimer">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Ready Timer</th>
+            </tr>
+            <tr>
+               <th>Value (seconds)</th>
+               <td> - </td>
+            </tr>
+            <tr>
+               <th>Status</th>
+               <td> - </td>
+            </tr>
+         </table>      
+      </td>   
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var MaxNeighbors2G = 6;
+var Serving2G
+var Neighbors2G;
+
+var MaxNeighbors3G = 6;
+var Neighbors3G;
+var MeasParams3G;
+
+var MaxCellsCombined = MaxNeighbors2G + MaxNeighbors3G + 1;
+var CellTypeInvalid  = 0;
+var CellType2G       = 1;
+var CellType3G       = 2;
+var CellsCombined;
+
+var GSMBAListSize    = 64;
+
+var IQXDM2;
+var Handle      = 0xFFFFFFFF;
+var PrevIndex   = -1;
+
+var gStackID = -1;
+var gbDefault = false;
+
+var CO          = 1;
+var gMainTickID = 0;
+var UPDATE_MS   = 1000;
+
+var log513C = "[0x513C]";
+var log51FC = "[0x51FC]";
+var log521A = "[0x521A]";
+var log5262 = "[0x5262]";
+var log5263 = "[0x5263]";
+
+// 2G cell info methods
+function PopulateCellInfo2G( fields, Neighbor, bTabs )
+{
+   var bOK = false; 
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var fi = 0;
+   var tmp = 0;
+   var FieldCount = fields.GetFieldCount();
+   
+   if (Neighbor == -1)
+   {
+      // Serving cell
+      if (FieldCount < fi + 14)
+      {
+         return bOK;
+      }
+
+      // Get Serving Cell Recent Reselection
+      tmp = fields.GetFieldValue( 12 );
+      if (tmp == 0)
+      {
+         this.RecentSelection = "No";
+      }
+      else
+      {
+         this.RecentSelection = "Yes";
+      }
+         
+      // Get Neighboring 6 Strongest Cells Count
+      this.Neighbors = fields.GetFieldValueText( 13 );
+      
+      this.ServingRA = 1;
+   }
+   else
+   {
+      // Neighbor cell
+      fi = Neighbor * 13 + 14;
+      if (FieldCount < fi + 13)
+      {
+         return bOK;
+      }
+
+      this.RecentSelection = 0;
+
+      this.Neighbors = 0;
+
+      // Get Serving RA
+      tmp = fields.GetFieldValue( fi + 12 );
+      if (tmp == 0)
+      {
+         this.ServingRA = "Not In RA";
+      }
+      else
+      {
+         this.ServingRA = "In RA";
+      }
+   }
+
+   // Get Cell BCCH ARFCN
+   this.BCCH_ARFCN = fields.GetFieldValueText( fi );
+
+   // Get Cell PBCCH ARFCN
+   this.PBCCH_ARFCN = fields.GetFieldValueText( fi + 2 );
+
+   // Get Priority Class
+   this.PriorityClass = fields.GetFieldValueText( fi + 4 );
+
+   // Get Cell Rx Level Average
+   this.RxLevel =fields.GetFieldValue( fi + 5 ) - 110;
+
+   // Get Cell - Computed C1 Value
+   this.C1 = fields.GetFieldValueText( fi + 6 );
+
+   // Get Cell - Computed C2 Value
+   this.C2 = fields.GetFieldValueText( fi + 7 );
+
+   // Get Cell - Computed C31 Value
+   this.C31 = fields.GetFieldValueText( fi + 8 );
+
+   // Get Cell - Computed C32 Value
+   this.C32 = fields.GetFieldValueText( fi + 9 );
+
+   // Get Five Second Timer
+   this.FiveSecTimerStatus = fields.GetFieldValueText( fi + 10 );
+
+   // Get Cell Reselection
+   tmp = fields.GetFieldValue( fi + 11 );
+   if (tmp == 0)
+   {
+      this.ReselectStatus = "No";
+   }
+   else
+   {
+      this.ReselectStatus = "Yes";
+   }
+
+   bOK = true;
+   return bOK;
+}
+
+function CellInfo2G()
+{
+   this.PopulateCellInfo2G = PopulateCellInfo2G;
+}
+
+// 3G cell info methods
+function PopulateCellInfo3G( fields, Neighbor, bTabs )
+{
+   var bOK = false;
+
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var FieldCount = fields.GetFieldCount();
+   var fi = Neighbor * 5 + 1;
+   if (FieldCount < fi + 5)
+   {
+      return bOK;
+   }
+
+   // Get UMTS Carrier Channel Number
+   this.UARFCN = fields.GetFieldValueText( fi );
+   // Get Scrambling Code
+   this.PSC = fields.GetFieldValueText( fi + 1 );
+
+   // Get Diversity
+   this.Diversity = fields.GetFieldValueText( fi + 2 );
+
+   // Get RSCP
+   this.RSCP = fields.GetFieldValueText( fi + 3 );
+
+   // Get Five Second Timer State
+   this.FiveSecTimerStatus = fields.GetFieldValueText( fi + 4 );
+
+   this.CellBarredTimerStatus = "?";
+   
+   bOK = true;
+   return bOK;
+}
+
+function CellInfo3G()
+{
+   this.PopulateCellInfo3G = PopulateCellInfo3G;
+}
+
+// Combined 2G/3G cell info methods
+function ZapCellInfoCombined()
+{
+   this.CellType           = CellTypeInvalid;
+
+   this.BCCH_ARFCN             = 0;
+   this.PBCCH_ARFCN            = 0;
+   this.PriorityClass          = 0;
+   this.C1                     = 0;
+   this.C2                     = 0;
+   this.C31                    = 0;
+   this.C32                    = 0;
+   this.RecentSelection        = 0;
+   this.ServingRA              = 0;
+
+   this.UARFCN                 = 0;
+   this.PSC                    = 0;
+   this.Diversity              = 0;
+
+   this.RxLevel                = 0;
+   this.FiveSecTimerStatus     = 0;
+   this.CellBarred             = 0;
+}
+
+function PopulateCell2G( Info2G )
+{
+   this.CellType               = CellType2G;
+
+   this.BCCH_ARFCN             = Info2G.BCCH_ARFCN;
+   this.PBCCH_ARFCN            = Info2G.PBCCH_ARFCN;
+   this.PriorityClass          = Info2G.PriorityClass;
+   this.C1                     = Info2G.C1;
+   this.C2                     = Info2G.C2;
+   this.C31                    = Info2G.C31;
+   this.C32                    = Info2G.C32;
+   this.RecentSelection        = Info2G.RecentSelection;
+   this.ServingRA              = Info2G.ServingRA;
+
+   this.UARFCN                 = 0;
+   this.PSC                    = 0;
+   this.Diversity              = 0;
+
+   this.RxLevel                = Info2G.RxLevel;
+   this.FiveSecTimerStatus     = Info2G.FiveSecTimerStatus;
+   this.CellBarred             = Info2G.ReselectStatus;
+}
+
+function PopulateCell3G( Info3G )
+{
+   this.CellType               = CellType3G;
+
+   this.BCCH_ARFCN             = 0;
+   this.PBCCH_ARFCN            = 0;
+   this.PriorityClass          = 0;
+   this.C1                     = 0;
+   this.C2                     = 0;
+   this.C31                    = 0;
+   this.C32                    = 0;
+   this.RecentSelection        = 0;
+   this.ServingRA              = 0;
+
+   this.UARFCN                 = Info3G.UARFCN;
+   this.PSC                    = Info3G.PSC;
+   this.Diversity              = Info3G.Diversity;
+
+   this.RxLevel                = Info3G.RSCP;
+   this.FiveSecTimerStatus     = Info3G.FiveSecTimerStatus;
+   this.CellBarred             = Info3G.CellBarredTimerStatus;
+}
+
+function BlankCellInfoCombined( Column )
+{
+   var RO = 1;
+   var NI = CO + Column;
+
+   OutTable2G3G.rows[RO+0].cells[NI].innerText = " ";
+
+   OutTable2G3G.rows[RO+2].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+3].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+4].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+5].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+6].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+7].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+8].cells[NI].innerText = " ";
+
+   if (Column == 0)
+   {
+      OutTable2G3G.rows[RO+9].cells[NI].innerText = " ";
+   }
+   else
+   {
+      OutTable2G3G.rows[RO+10].cells[NI].innerText = " ";
+   }
+
+   OutTable2G3G.rows[RO+12].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+13].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+14].cells[NI].innerText = " ";
+
+   OutTable2G3G.rows[RO+16].cells[NI].innerText = " ";
+
+   OutTable2G3G.rows[RO+17].cells[NI].innerText = " ";
+   OutTable2G3G.rows[RO+18].cells[NI].innerText = " ";
+}
+
+function DisplayCellInfoCombined(Column)
+{
+   if (this.CellType == CellTypeInvalid)
+   {
+      this.BlankCellInfoCombined(Column);
+   }
+   else
+   {
+      var RO = 1;
+      var NI = CO + Column;
+
+      if (this.CellType == CellType2G)
+      {
+         OutTable2G3G.rows[RO+0].cells[NI].innerText = "2G";
+         OutTable2G3G.rows[RO+2].cells[NI].innerText = this.BCCH_ARFCN;
+         OutTable2G3G.rows[RO+3].cells[NI].innerText = this.PBCCH_ARFCN;
+         OutTable2G3G.rows[RO+4].cells[NI].innerText = this.PriorityClass;
+         OutTable2G3G.rows[RO+5].cells[NI].innerText = this.C1;
+         OutTable2G3G.rows[RO+6].cells[NI].innerText = this.C2;
+         OutTable2G3G.rows[RO+7].cells[NI].innerText = this.C31;
+         OutTable2G3G.rows[RO+8].cells[NI].innerText = this.C32;
+
+         if (Column == 0)
+         {
+            OutTable2G3G.rows[RO+9].cells[NI].innerText = this.RecentSelection;
+         }
+         else
+         {
+            OutTable2G3G.rows[RO+10].cells[NI].innerText = this.ServingRA;
+         }
+
+         OutTable2G3G.rows[RO+12].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+13].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+14].cells[NI].innerText = " ";
+      }
+      else if (this.CellType == CellType3G)
+      {
+         OutTable2G3G.rows[RO+0].cells[NI].innerText = "3G";
+
+         OutTable2G3G.rows[RO+2].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+3].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+4].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+5].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+6].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+7].cells[NI].innerText = " ";
+         OutTable2G3G.rows[RO+8].cells[NI].innerText = " ";
+
+         if (Column == 0)
+         {
+            OutTable2G3G.rows[RO+9].cells[NI].innerText = " ";
+         }
+         else
+         {
+            OutTable2G3G.rows[RO+10].cells[NI].innerText = " ";
+         }
+
+         OutTable2G3G.rows[RO+12].cells[NI].innerText = this.UARFCN;
+         OutTable2G3G.rows[RO+13].cells[NI].innerText = this.PSC;
+         OutTable2G3G.rows[RO+14].cells[NI].innerText = this.Diversity;
+      }
+
+      OutTable2G3G.rows[RO+16].cells[NI].innerText = this.RxLevel;
+
+      OutTable2G3G.rows[RO+17].cells[NI].innerText = this.FiveSecTimerStatus;
+      OutTable2G3G.rows[RO+18].cells[NI].innerText = this.CellBarred;
+   }
+}
+
+function CellInfoCombined()
+{
+   this.ZapCellInfoCombined     = ZapCellInfoCombined;
+   this.PopulateCell2G          = PopulateCell2G;
+   this.PopulateCell3G          = PopulateCell3G;
+   this.BlankCellInfoCombined   = BlankCellInfoCombined;
+   this.DisplayCellInfoCombined = DisplayCellInfoCombined;
+   this.ZapCellInfoCombined();
+}
+
+// 3G measurement parameter methods
+function PopulateMeasParams3G(fields)
+{
+   var bOK = false;
+
+   var RO = 1;
+   var FieldCount = fields.GetFieldCount();
+   if (FieldCount < 12)
+   {
+      return bOK;
+   }
+
+   // Get Quality Threshold P - Cell Reselection
+   OutTable3GParam.rows[RO+0].cells[CO].innerText = fields.GetFieldValueText( 0 );
+
+   // Get Quality Threshold I - Cell Reselection
+   OutTable3GParam.rows[RO+1].cells[CO].innerText = fields.GetFieldValueText( 1 );
+
+   // Get Qsearch C Initial
+   OutTable3GParam.rows[RO+2].cells[CO].innerText = fields.GetFieldValueText( 2 );
+
+   // Get FDD Qoffset
+   OutTable3GParam.rows[RO+3].cells[CO].innerText = fields.GetFieldValue( 3 ) * 4 - 32;
+
+   // Get FDD GPRS Qoffset
+   OutTable3GParam.rows[RO+4].cells[CO].innerText = fields.GetFieldValue( 4 ) * 4 - 32;
+
+   // Get FDD Qmin
+   OutTable3GParam.rows[RO+5].cells[CO].innerText = fields.GetFieldValueText( 5 );
+
+   // Get 3G Search Priority
+   OutTable3GParam.rows[RO+6].cells[CO].innerText = fields.GetFieldValueText( 6 );
+
+   // Get 3G BA List
+   OutTable3GParam.rows[RO+7].cells[CO].innerText = fields.GetFieldValueText( 7 );
+
+   // Get FDD Reporting Quantity
+   OutTable3GParam.rows[RO+8].cells[CO].innerText = fields.GetFieldValueText( 8 );
+
+   // Get FDD Multirat Reporting
+   OutTable3GParam.rows[RO+9].cells[CO].innerText = fields.GetFieldValueText( 9 );
+
+   // Get FDD Reporting Offset
+   OutTable3GParam.rows[RO+10].cells[CO].innerText = fields.GetFieldValueText( 10 );
+
+   // Get FDD Reporting Threshold
+   OutTable3GParam.rows[RO+11].cells[CO].innerText = fields.GetFieldValueText( 11 );
+
+   bOK = true;
+   return bOK;
+}
+
+function MeasParams3G()
+{
+   this.PopulateMeasParams3G = PopulateMeasParams3G;
+}
+
+function SetFreeze()
+{
+   gUpdateDisplay = ( (gUpdateDisplay == 0) ? 1 : 0 );
+}
+
+// Populate the GSM BA list table
+function PopulateBAList( fields, bTabs )
+{
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var RO = 2;
+   var index;
+   var FieldCount = fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return bOK;
+   }
+
+   // Get Number of Entries
+   var ARFCNCount = fields.GetFieldValue( 0 );
+   if (ARFCNCount < 0)
+   {
+      ARFCNCount = 0;
+   }
+   
+   if (ARFCNCount > GSMBAListSize)
+   {
+      ARFCNCount = GSMBAListSize;
+   }
+
+   for (index = 0; index < GSMBAListSize; ++index)
+   {
+      var RI = index % 16 + RO;
+      var CI = Math.floor( index/16 );
+      if (index < ARFCNCount)
+      {
+         var fi = index * 2 + 1;
+         if (FieldCount < fi + 2)
+         {
+            break;
+         }
+         
+         // Get BCCH ARFCN
+         OutTableBA.rows[RI].cells[CI].innerText 
+            = index + 1 + " : " + fields.GetFieldValueText( fi );
+      }
+      else
+      {
+          OutTableBA.rows[RI].cells[CI].innerText = "-";
+      }
+   }
+
+   bOK = true;
+   return bOK;
+}
+
+// Populate the ready time table
+function PopulateRdyTmr( fields, bTabs )
+{
+   var bOK = false;
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var RO = 1;
+
+   var FieldCount = fields.GetFieldCount();
+   if (FieldCount < 2)
+   {
+      return bOK;
+   }
+
+   // Get Value
+   OutTableTimer.rows[RO+0].cells[CO].innerText = fields.GetFieldValueText( 0 );
+
+   // Get Status
+   OutTableTimer.rows[RO+1].cells[CO].innerText = fields.GetFieldValueText( 1 );
+
+   bOK = true;   
+   return bOK;
+}
+
+// Process incoming items
+function ProcessItems()
+{
+   var index;
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var index2G       = 0;
+   var index3G       = 0;
+   var indexCombined = 1;
+
+   // Keep track if populate attempt succeeds.
+   var bLog51FC = false;
+   var bLog5263 = false;
+   var bLog5262 = false;
+   var bLog513C = false;
+   var bLog521A = false;
+
+   var bUpdate = false;
+   var bOK = false;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var item = IQXDM2.GetClientItem( Handle, i );
+      if (item == null)
+      {
+         break;
+      }
+
+      var fields = item.GetItemFields();
+      if (fields == null)
+      {
+         break;
+      }
+
+      var key = item.GetItemKeyText();
+
+      var bTabs = false;
+      switch (key)
+      {                  
+         case log51FC:
+         {
+            if (bLog51FC == false)
+            {
+               bLog51FC = true;
+               var FieldCount = fields.GetFieldCount();
+               if (FieldCount < 14)
+               {
+                  break;
+               }
+
+               // Get Neighboring 6 Strongest Cells Count
+               var cellCount = fields.GetFieldValue( 13 );
+                
+               bOK = Serving2G.PopulateCellInfo2G( fields, -1, bTabs );
+               if (bOK == true)
+               {
+                  bUpdate = true;
+               }
+               
+               for (index = 0; index < cellCount; ++index)
+               {
+                  bOK = Neighbors2G[index].PopulateCellInfo2G(fields, index, bTabs);
+                  if (bOK == true)
+                  {
+                     bUpdate = true;
+                  }
+               }
+               
+               if (bUpdate == true)
+               {
+                  CellsCombined[0].PopulateCell2G(Serving2G);
+                  for (index2G = 0; index2G < Serving2G.Neighbors; ++index2G)
+                  {
+                     CellsCombined[indexCombined++].PopulateCell2G( Neighbors2G[index2G] );
+                  }
+               }
+            }
+         }
+         break;
+         
+         case log5263:
+         {
+            if (bLog5263 == false)
+            {
+               bLog5263 = true;
+               for (index = 0; index < MaxNeighbors3G; ++index)
+               {
+                  bOK = Neighbors3G[index].PopulateCellInfo3G(fields, index, bTabs);
+                  if (bOK == true)
+                  {
+                     bUpdate = true;
+                  }
+               }
+
+               if (bUpdate == true)
+               {
+                  var FieldCount = fields.GetFieldCount();
+                  if (FieldCount < 1)
+                  {
+                     break;
+                  }
+
+                  // Get Cell Count - UARFCN
+                  var cellCount = fields.GetFieldValue( 0 );
+                  for (index3G = 0; index3G < cellCount; ++index3G)
+                  {
+                     if ( (Neighbors3G[index3G].UARFCN != 0) 
+                     &&   (Neighbors3G[index3G].UARFCN != 0xFFFF) )
+                     {
+                        CellsCombined[indexCombined++].PopulateCell3G( Neighbors3G[index3G] );
+                     }
+                  }               
+               }
+            }
+         }
+         break;
+
+         case log5262:
+         {
+            if (bLog5262 == false)
+            {
+               bLog5262 = true;
+               if (gUpdateDisplay)
+               {
+                  bOK = MeasParams3G.PopulateMeasParams3G( fields, bTabs );
+                  if (bOK == true)
+                  {
+                     bUpdate = true;
+                  }
+               }               
+            }
+         }
+         break;
+         
+         case log513C:
+         {
+            if (bLog513C == false)
+            {
+               bLog513C = true;
+               if (gUpdateDisplay)
+               {                  
+                  bOK = PopulateBAList( fields, bTabs );
+                  if (bOK == true)
+                  {
+                     bUpdate = true;
+                  }
+               }
+            }
+         }
+         break;
+
+         case log521A:
+         {
+            if (bLog521A == false)
+            {
+               bLog521A = true;
+               if (gUpdateDisplay)
+               {
+                  bOK = PopulateRdyTmr( fields, bTabs );
+                  if (bOK == true)
+                  {
+                     bUpdate = true;
+                  }
+               }
+            }
+         }
+         break;
+      }
+   }
+   
+   if (gUpdateDisplay && bUpdate == true)
+   {
+      // Build combined 2G/3G cells list
+      while (indexCombined < MaxCellsCombined)
+      {
+         CellsCombined[indexCombined++].ZapCellInfoCombined();
+      }
+
+      // Display combined 2G/3G cells list
+      for (index = 0; index < MaxCellsCombined; ++index)
+      {
+         CellsCombined[index].DisplayCellInfoCombined( index );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function Initialize()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // Register a client view.
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write("<br />Unable to register as client.\n");
+      return;
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.
+   clientObject.AddLog( 0x513C );
+   clientObject.AddLog( 0x51FC );
+   clientObject.AddLog( 0x521A );
+   clientObject.AddLog( 0x5262 );
+   clientObject.AddLog( 0x5263 );
+   clientObject.CommitConfig();
+*/
+
+   var index;
+
+   Serving2G     = new CellInfo2G();
+   Neighbors2G   = new Array;
+   Neighbors3G   = new Array;
+   MeasParams3G  = new MeasParams3G;
+   CellsCombined = new Array;
+
+   for (index = 0; index < MaxNeighbors2G; ++index)
+   {
+      Neighbors2G[index] = new CellInfo2G();
+   }
+
+   for (index = 0; index < MaxNeighbors3G; ++index)
+   {
+      Neighbors3G[index] = new CellInfo3G();
+   }
+
+   for (index = 0; index < MaxCellsCombined; ++index)
+   {
+      CellsCombined[index] = new CellInfoCombined();
+   }
+
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+   gUpdateDisplay = 1;
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+</script>
+</body>
+</html>

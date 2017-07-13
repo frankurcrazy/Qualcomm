@@ -1,0 +1,614 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Pilot Sets" />
+   <meta name="DMViewWidth" content="1200" />
+   <meta name="DMViewHeight" content="500" />
+
+   <title>HDR Pilot Sets</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td width="38%" valign="top" class="noborder">
+
+         <div class="label">General</div>
+         <table width="100%" id="GeneralTable">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup>
+
+            <tr>
+               <th>Version</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Pilot PN Increment</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Band Class</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Searcher State</th>
+               <td>-</td>
+            </tr>
+             <tr>
+               <th>Active Set Channel</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Active Set Window</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Candidate Set Window</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Remaining Set Window</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+         <div class="label">Active Set</div>
+         <table width="100%">
+            <colgroup span="5">
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+            </colgroup>
+
+            <tr>
+               <th>Pilot PN</th>
+               <th>Pilot Energy</th>
+               <th>OFS Cond Energy</th>
+               <th>Mac Index</th>
+               <th>Window Center</th>
+            </tr>
+
+            <tbody id="ActiveSetTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <br />
+         <div class="label">Candidate Set</div>
+         <table width="100%">
+            <colgroup span="6">
+               <col width="10%" />
+               <col width="10%" />
+               <col width="20%" />
+               <col width="15%" />
+               <col width="35%" />
+               <col width="10%" />
+            </colgroup>
+
+            <tr>
+               <th>Pilot PN</th>
+               <th>Pilot Energy</th>
+               <th>OFS Cond Energy</th>
+               <th>Channel Number</th>
+               <th>Band Class</th>
+               <th>Window Center</th>
+            </tr>
+
+            <tbody id="CandidateSetTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+      </td>
+      <td width="62%" valign="top" class="noborder">
+      
+         <div class="label">Neighbor Set</div>
+         <table width="100%">
+            <colgroup span="8">
+               <col width="16%" />
+               <col width="14%" />
+               <col width="10%" />
+               <col width="14%" />
+               <col width="22%" />
+               <col width="8%" />
+               <col width="8%" />
+               <col width="8%" />
+            </colgroup>
+
+            <tr>
+               <th>Pilot PN</th>
+               <th>Pilot Energy</th>
+               <th>OFS Cond Energy</th>
+               <th>Channel Number</th>
+               <th>Band Class</th>
+               <th>Window Center</th>
+               <th>Offset</th>
+               <th>Age</th>
+            </tr>
+
+            <tbody id="NeighborSetTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+      </td>
+   </tr>
+</table>
+
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 250;
+var PrevIndex      = -1;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   ClientObject.AddLog( 0x108B );
+   ClientObject.AddLog( 0x12B6 );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client - we only update based on the last item
+// since the user cannot discern anything faster than our update
+// interval
+function ProcessItems()
+{
+   var Log0x108B = "[0x108B]";
+   var Log0x12B6 = "[0x12B6]";
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         var ItemKey = Item.GetItemKeyText();
+         if (ItemKey == Log0x108B)
+         {
+            PopulateV2Tables( Fields );
+         }
+         else if (ItemKey == Log0x12B6)
+         {
+            PopulateV3Tables( Fields );
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function ComputeRSSI( RSSI )
+{
+   var result = "N/A";
+   if (RSSI > 0)
+   {
+      var inDB = 10 * Math.LOG10E * Math.log( (RSSI/512) );
+
+      // Keep 2 decimal places
+      result = Precision( inDB, 2, false );
+   }
+   
+   return result;
+}
+
+// Populate version 2 of pilot sets log
+function PopulateV2Tables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 10)
+   {
+      return;
+   }
+
+   GeneralTable.rows[0].cells[1].innerText = "-";
+
+   // Fill in the general fields
+   var FieldVal = Fields.GetFieldValueText( 0 );
+   GeneralTable.rows[1].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 4 );
+   GeneralTable.rows[2].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 5 );
+   GeneralTable.rows[3].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 3 );
+   GeneralTable.rows[4].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 2 );
+   GeneralTable.rows[5].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 7 );
+   GeneralTable.rows[6].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 9 );
+   GeneralTable.rows[7].cells[1].innerText = FieldVal;
+
+   // Get the number of sets for each table
+   var ASets = Fields.GetFieldValue( 1 );
+   var CSets = Fields.GetFieldValue( 6 );
+   var NSets = Fields.GetFieldValue( 8 );
+
+   var c;
+   var r;
+   var fi;
+   var FieldName;
+   var FieldVal;
+   var RSSI;
+
+   var CurRows = ActiveSetTable.rows.length;
+   ManageRows( ActiveSetTable, 0, CurRows, ASets, 5, true );
+
+   FieldName = "Active Set[0].Pilot PN";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new active sets
+   for (r = 0; r < ASets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      ActiveSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      ActiveSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy -- Not valid for version 2 log
+      ActiveSetTable.rows[r].cells[2].innerText = "-";
+
+      // Mac Index
+      FieldVal = Fields.GetFieldValueText( fi + 6 );
+      ActiveSetTable.rows[r].cells[3].innerText = FieldVal;
+
+      // Window center
+      FieldVal = Fields.GetFieldValueText( fi + 10 );
+      ActiveSetTable.rows[r].cells[4].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 11;
+   }
+
+   CurRows = CandidateSetTable.rows.length;
+   ManageRows( CandidateSetTable, 0, CurRows, CSets, 6, true );
+
+   FieldName = "Candidate Set[0].Pilot PN";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new candidate sets
+   for (r = 0; r < CSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      CandidateSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      CandidateSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy -- Not valid for version 2 log
+      CandidateSetTable.rows[r].cells[2].innerText = "-";
+
+      // Channel Number
+      FieldVal = Fields.GetFieldValueText( fi + 2 );
+      CandidateSetTable.rows[r].cells[3].innerText = FieldVal;
+
+      // Band Class
+      FieldVal = Fields.GetFieldValueText( fi + 3 );
+      CandidateSetTable.rows[r].cells[4].innerText = FieldVal;
+
+      // Window center
+      FieldVal = Fields.GetFieldValueText( fi + 8 );
+      CandidateSetTable.rows[r].cells[5].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 9;
+   }
+
+   CurRows = NeighborSetTable.rows.length; 
+   ManageRows( NeighborSetTable, 0, CurRows, NSets, 8, true );
+
+   FieldName = "Neighbor Set[0].Pilot PN";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new neighbor sets
+   for (r = 0; r < NSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      NeighborSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      NeighborSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy -- Not valid for version 2 log
+      NeighborSetTable.rows[r].cells[2].innerText = "-";
+
+      // Channel Number
+      FieldVal = Fields.GetFieldValueText( fi + 2 );
+      NeighborSetTable.rows[r].cells[3].innerText = FieldVal;
+
+      // Band Class
+      FieldVal = Fields.GetFieldValueText( fi + 3 );
+      NeighborSetTable.rows[r].cells[4].innerText = FieldVal;
+
+      // Window size
+      FieldVal = Fields.GetFieldValueText( fi + 4 );
+      NeighborSetTable.rows[r].cells[5].innerText = FieldVal;
+
+      // Offset
+      FieldVal = Fields.GetFieldValueText( fi + 5 );
+      NeighborSetTable.rows[r].cells[6].innerText = FieldVal;
+
+      // Age
+      FieldVal = Fields.GetFieldValueText( fi + 7 );
+      NeighborSetTable.rows[r].cells[7].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 8;
+   }
+}
+
+// Populate version 3 of pilot sets log
+function PopulateV3Tables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 11)
+   {
+      return;
+   }
+
+   // Fill in the general fields
+   var FieldVal = Fields.GetFieldValueText( 0 );
+   GeneralTable.rows[0].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 1 );
+   GeneralTable.rows[1].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 5 );
+   GeneralTable.rows[2].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 6 );
+   GeneralTable.rows[3].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 4 );
+   GeneralTable.rows[4].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 3 );
+   GeneralTable.rows[5].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 8 );
+   GeneralTable.rows[6].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 10 );
+   GeneralTable.rows[7].cells[1].innerText = FieldVal;
+
+   // Get the number of sets for each table
+   var ASets = Fields.GetFieldValue( 2 );
+   var CSets = Fields.GetFieldValue( 7 );
+   var NSets = Fields.GetFieldValue( 9 );
+
+   var c;
+   var r;
+   var fi;
+   var FieldName;
+   var FieldVal;
+   var RSSI;
+
+   var CurRows = ActiveSetTable.rows.length;
+   ManageRows( ActiveSetTable, 0, CurRows, ASets, 5, true );
+
+   FieldName = "Active Set[0].Pilot PN";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new active sets
+   for (r = 0; r < ASets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      ActiveSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      ActiveSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy
+      FieldVal = Fields.GetFieldValue( fi + 2 );
+      ActiveSetTable.rows[r].cells[2].innerText = FieldVal;
+
+      // Mac Index
+      FieldVal = Fields.GetFieldValueText( fi + 7 );
+      ActiveSetTable.rows[r].cells[3].innerText = FieldVal;
+
+      // Window center
+      FieldVal = Fields.GetFieldValueText( fi + 11 );
+      ActiveSetTable.rows[r].cells[4].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 12;
+   }
+
+   CurRows = CandidateSetTable.rows.length;
+   ManageRows( CandidateSetTable, 0, CurRows, CSets, 6, true );
+
+   FieldName = "Candidate Set[0].Pilot PN";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new candidate sets
+   for (r = 0; r < CSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      CandidateSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      CandidateSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy
+      FieldVal = Fields.GetFieldValue( fi + 2 );
+      CandidateSetTable.rows[r].cells[2].innerText = FieldVal;
+
+      // Channel Number
+      FieldVal = Fields.GetFieldValueText( fi + 3 );
+      CandidateSetTable.rows[r].cells[3].innerText = FieldVal;
+
+      // Band Class
+      FieldVal = Fields.GetFieldValueText( fi + 4 );
+      CandidateSetTable.rows[r].cells[4].innerText = FieldVal;
+
+      // Window center
+      FieldVal = Fields.GetFieldValueText( fi + 9 );
+      CandidateSetTable.rows[r].cells[5].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 10;
+   }
+
+   CurRows = NeighborSetTable.rows.length; 
+   ManageRows( NeighborSetTable, 0, CurRows, NSets, 8, true );
+
+   FieldName = "Neighbor Set[0].Pilot PN";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new neighbor sets
+   for (r = 0; r < NSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      NeighborSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      NeighborSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy
+      FieldVal = Fields.GetFieldValue( fi + 2 );
+      NeighborSetTable.rows[r].cells[2].innerText = FieldVal;
+
+      // Channel Number
+      FieldVal = Fields.GetFieldValueText( fi + 3 );
+      NeighborSetTable.rows[r].cells[3].innerText = FieldVal;
+
+      // Band Class
+      FieldVal = Fields.GetFieldValueText( fi + 4 );
+      NeighborSetTable.rows[r].cells[4].innerText = FieldVal;
+
+      // Window size
+      FieldVal = Fields.GetFieldValueText( fi + 5 );
+      NeighborSetTable.rows[r].cells[5].innerText = FieldVal;
+
+      // Offset
+      FieldVal = Fields.GetFieldValueText( fi + 6 );
+      NeighborSetTable.rows[r].cells[6].innerText = FieldVal;
+
+      // Age
+      FieldVal = Fields.GetFieldValueText( fi + 8 );
+      NeighborSetTable.rows[r].cells[7].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 9;
+   }
+}
+
+</script>
+
+</body>
+</html>

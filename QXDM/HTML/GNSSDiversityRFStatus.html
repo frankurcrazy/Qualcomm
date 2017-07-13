@@ -1,0 +1,367 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GNSS Diversity RF Status" />
+   <meta name="DMViewWidth" content="300" />
+   <meta name="DMViewHeight" content="380" />
+
+   <title>GNSS Diversity RF Status</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="GNSSDRXTable">
+   <colgroup span="2">
+      <col width="55%" />
+      <col width="45%" />
+   </colgroup>
+   <tr>
+      <th>F Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th align="left" style="font-weight: bold; color:Teal">RF IC</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>RF IC Mode</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RF Linearity State</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>VCO Tuning Code</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Coarse DC DAC I/Q</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Fine DC DAC I/Q</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>PGA Gain (dB)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2" align="left" style="font-weight: bold; color:Teal">ADC Processor</th>
+   </tr>
+   <tr>
+      <th>ADC Sample Rate (MHz)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>ADC Pre-Mean I/Q</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2" align="left" style="font-weight: bold; color:Teal">DRX Baseband Processor</th>
+   </tr>
+   <tr>
+      <th>Sample Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>BP Mean I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>BP Pre-Amplitude I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>BP Amplitude I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>Fine Freq Adjust (KHz)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Active Notch Filters</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Group Delay (ns)</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle      = 0xFFFFFFFF;
+var UPDATE_MS   = 1000;
+var PrevIndex   = -1;
+var gMainTickID = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure GNSS DRX RF hardware status report log
+   ClientObject.AddLog( 0x147F );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client view
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetConfiguredItemFields( "", true, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var ItemKey = Item.GetItemKeyText();
+   if (ItemKey == "[0x147F]")
+   {
+      if (Fields.GetFieldCount() < 1)
+      {
+         return;
+      }
+
+      var Version = Fields.GetFieldValue( 0 );
+      if (Version == 0)
+      {
+         PopulateDRXRFStatusVersion0( Fields );
+      }
+      else if (Version == 1)
+      {
+         PopulateDRXRFStatusVersion1( Fields );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the Diversity RX RF and HW Status table
+function PopulateDRXRFStatusVersion0( Fields )
+{
+   var FieldVal;
+   if (Fields.GetFieldCount() < 22)
+   {
+      return;
+   }
+
+   // FCount
+   FieldVal = Fields.GetFieldValueText( 1 );
+   GNSSDRXTable.rows[0].cells[1].innerText = FieldVal;
+
+   // RFIC
+   FieldVal = Fields.GetFieldValueText( 2 );
+   GNSSDRXTable.rows[1].cells[1].innerText = FieldVal;
+   GNSSDRXTable.rows[2].cells[1].innerText = "-";
+   GNSSDRXTable.rows[3].cells[1].innerText = "-";
+
+   // VCO Tuning Code
+   FieldVal = Fields.GetFieldValueText( 6 );
+   GNSSDRXTable.rows[4].cells[1].innerText = FieldVal;
+
+   // Coarse DC DAC I/Q
+   var I = Fields.GetFieldValueText( 7 );
+   var Q = Fields.GetFieldValueText( 8 );
+   GNSSDRXTable.rows[5].cells[1].innerText = I + " / " + Q;
+   GNSSDRXTable.rows[6].cells[1].innerText = "-";
+
+   // ADC Gain
+   FieldVal = Fields.GetFieldValueText( 9 );
+   GNSSDRXTable.rows[7].cells[1].innerText = FieldVal;
+
+   // ADC Sample Rate
+   FieldVal = Fields.GetFieldValue( 10 );
+   GNSSDRXTable.rows[9].cells[1].innerText = FieldVal.toFixed( 2 );
+
+   // Preliminary ADC Mean I/Q Valid ?
+   var valid = Fields.GetFieldValue( 11 );
+   if (valid)
+   {
+      I = Fields.GetFieldValue( 12 );
+      Q = Fields.GetFieldValue( 13 );
+      GNSSDRXTable.rows[10].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+   }
+   else
+   {
+      GNSSDRXTable.rows[10].cells[1].innerText = "-";
+   }
+
+   // DRX Baseband Processor Coarse DC Mean I/Q
+   GNSSDRXTable.rows[12].cells[1].innerText = "-";
+   I = Fields.GetFieldValue( 15 );
+   Q = Fields.GetFieldValue( 16 );
+   GNSSDRXTable.rows[13].cells[1].innerText = I + " / " + Q;
+
+   // DRX Baseband Processor Pre-amplitude I/Q
+   I = Fields.GetFieldValue( 17 );
+   Q = Fields.GetFieldValue( 18 );
+   GNSSDRXTable.rows[14].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+   GNSSDRXTable.rows[15].cells[1].innerText = "-";
+
+   // DRX Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 19 );
+   GNSSDRXTable.rows[16].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // DRX Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 20 );
+   GNSSDRXTable.rows[17].cells[1].innerText = FieldVal;
+
+   // DRX Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 21 );
+   GNSSDRXTable.rows[18].cells[1].innerText = FieldVal;
+}
+
+// Populate the Diversity RX RF and HW Status table
+function PopulateDRXRFStatusVersion1( Fields )
+{
+   var FieldVal;
+   if (Fields.GetFieldCount() < 26)
+   {
+      return;
+   }
+
+   // FCount
+   FieldVal = Fields.GetFieldValueText( 2 );
+   GNSSDRXTable.rows[0].cells[1].innerText = FieldVal;
+
+   // RFIC
+   FieldVal = Fields.GetFieldValueText( 3 );
+   GNSSDRXTable.rows[1].cells[1].innerText = FieldVal;
+
+   // RFIC Mode
+   FieldVal = Fields.GetFieldValueText( 4 );
+   GNSSDRXTable.rows[2].cells[1].innerText = FieldVal;
+
+   // RFIC Linearity States
+   var Lin1 = Fields.GetFieldValueText( 5 );
+   var Lin2 = Fields.GetFieldValueText( 6 );
+   GNSSDRXTable.rows[3].cells[1].innerText = Lin1 + " / " + Lin2;
+
+   // VCO Tuning Code
+   FieldVal = Fields.GetFieldValueText( 7 );
+   GNSSDRXTable.rows[4].cells[1].innerText = FieldVal;
+
+   // Coarse DC DAC I/Q
+   var I = Fields.GetFieldValueText( 8 );
+   var Q = Fields.GetFieldValueText( 10 );
+   GNSSDRXTable.rows[5].cells[1].innerText = I + " / " + Q;
+
+   // Coarse DC DAC I/Q
+   I = Fields.GetFieldValueText( 9 );
+   Q = Fields.GetFieldValueText( 11 );
+   GNSSDRXTable.rows[6].cells[1].innerText = I + " / " + Q;
+
+   // PGA Gain
+   FieldVal = Fields.GetFieldValueText( 12 );
+   GNSSDRXTable.rows[7].cells[1].innerText = FieldVal;
+
+   // ADC Sample Rate
+   FieldVal = Fields.GetFieldValue( 13 );
+   GNSSDRXTable.rows[9].cells[1].innerText = FieldVal.toFixed( 2 );
+
+   // Preliminary ADC Mean I/Q
+   I = Fields.GetFieldValue( 14 );
+   Q = Fields.GetFieldValue( 15 );
+   GNSSDRXTable.rows[10].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // DRX Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 16 );
+   GNSSDRXTable.rows[12].cells[1].innerText = FieldVal;
+
+   // DRX Baseband Processor BP Mean I/Q
+   I = Fields.GetFieldValue( 17 );
+   Q = Fields.GetFieldValue( 18 );
+   GNSSDRXTable.rows[13].cells[1].innerText = I + " / " + Q;
+
+   // DRX Baseband Processor Pre-amplitude I/Q
+   I = Fields.GetFieldValue( 19 );
+   Q = Fields.GetFieldValue( 20 );
+   GNSSDRXTable.rows[14].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // DRX Baseband Processor Amplitude I/Q
+   I = Fields.GetFieldValue( 21 );
+   Q = Fields.GetFieldValue( 22 );
+   GNSSDRXTable.rows[15].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // DRX Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 23 );
+   GNSSDRXTable.rows[16].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // DRX Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 24 );
+   GNSSDRXTable.rows[17].cells[1].innerText = FieldVal;
+
+   // DRX Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 25 );
+   GNSSDRXTable.rows[18].cells[1].innerText = FieldVal;
+}
+
+</script>
+</body>
+</html>

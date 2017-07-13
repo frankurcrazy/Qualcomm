@@ -1,0 +1,70 @@
+<job id="QXDM Automation Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+//    CScript SaveConfiguration.wsf
+
+// This example demonstrates saving the QXDM configuration
+// to a .DMC file
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Get file name from script folder path
+   var FileName = GenerateFileName( "", ".dmc" );
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Save configuration
+   QXDM.SaveConfig( FileName );
+
+   var Txt = "QXDM configuration saved to:\n";
+   WScript.StdOut.WriteLine( Txt + FileName );
+}
+
+Execute();
+
+</script>
+</job>

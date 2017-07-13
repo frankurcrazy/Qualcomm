@@ -1,0 +1,393 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA Physical Channels" />
+   <meta name="DMViewWidth" content="700" />
+   <meta name="DMViewHeight" content="400" />
+   <title>WCDMA Physical Channels</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">Uplink Channel Parameters</div>
+<table width="100%" id="UplinkTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+
+   <tr>
+      <th colspan="2">DPCH</th>
+   </tr>
+   <tr>
+      <th>Scrambling Code</th>
+      <td>-</td>
+   </tr>
+    <tr>
+      <th>Slot Format</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Minimum Spreading Factor</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2">PRACH</th>
+   </tr>
+   <tr>
+      <th>RACH Minimum Spreading Factor</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Scrambling Code Index</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label">Downlink Dedicated Physical Channels</div>
+<table width="100%" id="DedicatedDownlinkTable">
+   <colgroup span="7">
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="16%" />
+   </colgroup>
+
+   <tr>
+      <th>CCTRCH ID</th>
+      <th>Channel Type</th>
+      <th>Slot Format</th>
+      <th>Scrambling Code</th>
+      <th>Diversity Mode</th>
+      <th>Time Offset</th>
+      <th>Channelization Code</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label">Downlink Common Physical Channels</div>
+<table width="100%" id="CommonDownlinkTable">
+   <colgroup span="7">
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="16%" />
+   </colgroup>
+
+   <tr>
+      <th>CCTRCH ID</th>
+      <th>Channel Type</th>
+      <th>Slot Format</th>
+      <th>Scrambling Code</th>
+      <th>Diversity Mode</th>
+      <th>Time Offset</th>
+      <th>Channelization Code</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle               = 0xFFFFFFFF;
+var gMainTickID          = 0;
+var UPDATE_MS            = 500;
+var PrevIndex            = -1;
+var ValidChannelsCommon  = new Array();
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   clientObject.AddLog( 0x410A );
+   clientObject.AddLog( 0x410B );
+   clientObject.AddLog( 0x410C );
+   clientObject.AddLog( 0x410D );
+
+   clientObject.CommitConfig();
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process new logs in our client view
+function ProcessItems()
+{
+   var Log410A  = "[0x410A]";
+   var Log410B  = "[0x410B]";
+   var Log410C  = "[0x410C]";
+   var Log410D  = "[0x410D]";
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {   
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetItemFields();
+         if (Fields != null)
+         {
+            var ItemKey = Item.GetItemKeyText();
+            switch (ItemKey)
+            {
+               case Log410A:
+               {
+                  UpdateCommonDownlinkChannels( Fields );
+               }
+               break;
+
+               case Log410B:
+               {
+                  PopulateDedicatedDownlinkTable( Fields );
+               }
+               break; 
+
+               case Log410C:
+               {
+                  PopulateUplinkDPCHTable( Fields );
+               }
+               break;
+
+               case Log410D:
+               {
+                  PopulateUplinkPRACHTable( Fields );
+               }
+               break;
+            }
+         }
+      }
+   }
+   
+   PopulateCommonDownlinkTable();
+   PrevIndex = CurrIndex;
+}
+
+function UpdateCommonDownlinkChannels( Fields )
+{
+   var ChannelType = Fields.GetFieldValue( 2 );
+   var ChannelState = Fields.GetFieldValue( 0 );
+   if (ChannelState == 1)
+   {
+      ValidChannelsCommon[ChannelType] = new Array
+      (
+         Fields.GetFieldValueText( 6 ),
+         Fields.GetFieldValueText( 2 ),
+         Fields.GetFieldValueText( 3 ),
+         Fields.GetFieldValueText( 4 ),
+         Fields.GetFieldValueText( 5 ),
+         Fields.GetFieldValueText( 7 ),
+         Fields.GetFieldValueText( 8 )
+      );
+   }
+   else if (ChannelState == 0)
+   {
+      if (ChannelType in ValidChannelsCommon)
+      {
+         for (var g = 0; g < 7; g++)
+         {
+            ValidChannelsCommon[ChannelType][g] = "-";
+         }
+      }
+   }
+}
+
+function PopulateCommonDownlinkTable()
+{
+   var FieldVal;
+   var Channel;
+   var ValidChannels = 0;
+   
+   for (Channel in ValidChannelsCommon)
+   {
+      // Indicates Invalid Channel Entry
+      if (ValidChannelsCommon[Channel][1] != "-")
+      {
+         ValidChannels++;
+      }
+   }
+      
+   var RO = 1;
+   var CurRows = CommonDownlinkTable.rows.length;
+   ManageRows( CommonDownlinkTable, RO, CurRows, ValidChannels, 7, true );
+   
+   // Populate the table with valid channel types
+   for (Channel in ValidChannelsCommon)
+   {   
+      if (ValidChannelsCommon[Channel][1] != "-")
+      {
+         for (var g = 0; g < 7; g++)
+         {
+            FieldVal = ValidChannelsCommon[Channel][g];
+            CommonDownlinkTable.rows[RO].cells[g].innerText = FieldVal;
+         }
+         
+         RO++;
+      }
+   }
+}
+
+function PopulateDedicatedDownlinkTable( Fields )
+{   
+   var FieldVal;
+   var RadioLinkCount;
+   var CurRows = DedicatedDownlinkTable.rows.length;
+   var RO = 1;
+
+   var ChannelState = Fields.GetFieldValue( 2 );
+   if (ChannelState == 1)
+   {
+      RadioLinkCount = Fields.GetFieldValue( 4 );
+      ManageRows( DedicatedDownlinkTable, RO, CurRows, RadioLinkCount, 7, true );
+      
+      for (f = 0; f < RadioLinkCount; f++)
+      {
+         // CCTRCH ID
+         FieldVal = Fields.GetFieldValueText( 1 );
+         DedicatedDownlinkTable.rows[f + RO].cells[0].innerText = FieldVal;
+         
+         // Dedicated Channel Type
+         DedicatedDownlinkTable.rows[f + RO].cells[1].innerText = "DPDCH/DPCCH";
+
+         // Slot Format
+         FieldVal = Fields.GetFieldValueText( 3 );
+         DedicatedDownlinkTable.rows[f + RO].cells[2].innerText = FieldVal;
+
+         // Primary Scrambling Code
+         FieldVal = Fields.GetFieldValueText( 6 );
+         DedicatedDownlinkTable.rows[f + RO].cells[3].innerText = FieldVal;
+
+         // Diversity Mode
+         FieldVal = Fields.GetFieldValueText( 0 );
+         DedicatedDownlinkTable.rows[f + RO].cells[4].innerText = FieldVal;
+
+         // Time Offset
+         FieldVal = Fields.GetFieldValueText( 5 );
+         DedicatedDownlinkTable.rows[f + RO].cells[5].innerText = FieldVal;
+
+         // Channelization Code
+         FieldVal = Fields.GetFieldValueText( 9 );
+         DedicatedDownlinkTable.rows[f + RO].cells[6].innerText = FieldVal;
+      }
+   }
+   else if (ChannelState == 0)
+   {
+      ManageRows( DedicatedDownlinkTable, RO, CurRows, 0, 7, true );
+   }
+}
+
+function PopulateUplinkDPCHTable( Fields )
+{
+   var FieldVal;
+   var DataIndex = 9;
+
+   // DPCCH Slot Format
+   FieldVal = Fields.GetFieldValueText( DataIndex );
+   UplinkTable.rows[2].cells[1].innerText = FieldVal;
+   DataIndex += 2;
+
+   // Scrambling Code
+   FieldVal = Fields.GetFieldValueText( DataIndex++ );
+   UplinkTable.rows[1].cells[1].innerText = FieldVal;
+   
+   // Minimum Spreading Factor
+   FieldVal = Fields.GetFieldValueText( DataIndex );
+   UplinkTable.rows[3].cells[1].innerText = FieldVal;
+}
+
+function PopulateUplinkPRACHTable( Fields )
+{
+   var FieldVal;
+   var DataIndex = 3;
+
+   // SF RACH
+   FieldVal = Fields.GetFieldValueText( DataIndex++ );
+   UplinkTable.rows[5].cells[1].innerText = FieldVal;
+   
+   // Scrambling Code Index
+   FieldVal = Fields.GetFieldValueText( DataIndex );
+   UplinkTable.rows[6].cells[1].innerText = FieldVal;
+}
+
+</script>
+</body>
+</html>

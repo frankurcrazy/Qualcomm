@@ -1,0 +1,98 @@
+body
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+   color: black;
+   background-color: #EEEEEE;
+   margin-top: 6px;
+   margin-bottom: 6px;
+   margin-left: 6px;
+   margin-right: 6px;
+}
+
+tr, div, input, select, option
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+}
+
+div.fixed
+{
+   font-size: 8pt;
+   font-family: Monospace;
+   color: black;
+}
+
+div.label
+{
+   font-size: 8pt;
+   font-family: Verdana;
+   font-weight: bold;
+   color: black;
+   text-align: center;
+}
+
+div.label-left
+{
+   font-size: 8pt;
+   font-family: Verdana;
+   font-weight: bold;
+   color: black;
+   text-align: left;
+}
+
+th
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+   background-color: #AAAAAA;
+   border: 1px #808080 solid;
+   padding: 1;
+   white-space: nowrap;
+}
+
+th.left
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+   background-color: #AAAAAA;
+   border: 1px #808080 solid;
+   padding: 1;
+   text-align: left;
+   white-space: nowrap;
+}
+
+td 
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+   background-color: #EEEEEE;
+   border: 1px #808080 solid;
+   text-align: center;
+   padding: 1;
+}
+
+td.noborder
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+   background-color: #EEEEEE;
+   border-width: 0;
+   text-align: center;
+   padding: 1;
+}
+
+td.shaded
+{
+   font-size: 8pt;
+   font-family: Tahoma;
+   background-color: #AAAAAA;
+   border: 1px #808080 solid;
+   text-align: center;
+   padding: 1;
+}
+
+table
+{
+   border-collapse: collapse
+}

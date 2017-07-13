@@ -1,0 +1,91 @@
+<job id="QXDM ClearViewItems Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMClearViewItems.wsf
+
+// This script demostrates usage of the QXDM automation
+// interface method ClearViewItems
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Clear the item view
+function ClearViewItems()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create the view first
+   RC = QXDM.CreateView( "Item View", "" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Item View\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   // Clear the view
+   RC = QXDM.ClearViewItems( "Item View" );
+   if (RC == false)
+   {
+      Txt = "Cannot clear view \'Item View\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Item View\' successfully cleared";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Clear the item view
+   ClearViewItems();
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,50 @@
+0^"Known Events"^-1^-1
+1^"Common"^-1^0
+2^"CDMA 1xEV"^-1^0
+3^"CDMA 1xEV Trace"^-1^0
+4^"WCDMA"^-1^0
+5^"GSM"^-1^0
+6^"GPS"^-1^0
+7^"UMTS"^-1^0
+8^"CDMA 1X"^-1^0
+9^"BREW"^-1^0
+10^"Multimedia"^-1^0
+11^"SMS CB"^-1^111
+12^"Essential For Post-Processing Tools"^-1^0
+13^"LINUX"^-1^0
+14^"Security"^-1^0
+15^"Digital Rights Management"^-1^14
+16^"LTE"^-1^0
+100^"QTV"^-1^10
+101^"Camera"^-1^10
+102^"Media Player"^-1^10
+103^"General Playback"^-1^100
+104^"Streaming Information"^-1^100
+105^"Visual Effects"^-1^100
+106^"Playback State Transitions"^-1^100
+107^"Reserved"^-1^100
+108^"Multimode Generic SIM Driver Interface"^-1^0
+109^"Call Manager"^-1^1
+110^"QVP"^-1^10
+111^"SMS"^-1^0
+112^"Qcamcorder"^-1^10
+113^"MFLO"^-1^0
+114^"QVS"^-1^10
+115^"Flute"^-1^0
+116^"Content Handler"^-1^0
+117^"ROAP"^-1^14
+118^"Security"^-1^116
+119^"HS USB"^-1^0
+120^"DTV"^-1^0
+121^"L3"^-1^120
+122^"L1"^-1^120
+123^"MBP RF"^-1^120
+124^"NAS EMM"^-1^16
+125^"NAS ESM"^-1^16
+126^"WLAN"^-1^1
+127^"IMS"^-1^1
+128^"CMMB"^-1^120
+129^"ECALL"^-1^1
+130^"DSDS"^-1^5
+131^"SNS"^-1^1
+132^"PM"^-1^1

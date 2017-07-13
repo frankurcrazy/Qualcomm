@@ -1,0 +1,316 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Fingers" />
+   <meta name="DMViewWidth" content="700" />
+   <meta name="DMViewHeight" content="300" />
+
+   <title>HDR Fingers</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label-left">State Information</div>
+
+<table width="50%" id="StateInfoTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   
+   <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+   </tr>
+
+   <tr>
+      <td>Search State</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>MSTR (chip x8)</td>
+      <td>-</td>
+   </tr>
+   <tr> 
+      <td>MSTR Error</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>MSTR Pilot PN</td>
+      <td>-</td>
+   </tr>
+</table>     
+
+<br />
+<div class="label-left">Finger Information</div>
+
+<table width="100%">
+   <colgroup span="11">
+      <col width="10%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+      <col width="9%" />
+   </colgroup>
+   
+   <tr>
+      <th>PN</th>
+      <th>RTC Offset</th>
+      <th>C/I</th>
+      <th>Locked</th>
+      <th>Antenna</th>
+      <th>Diversity</th>
+      <th>Finger Idx</th>
+      <th>RPC Cell Idx</th>
+      <th>ASP Idx</th>
+      <th>C/I (Ant0)</th>
+      <th>C/I (Ant1)</th>
+   </tr>
+   
+   <tbody id="FingerInfoTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 100;
+var UNASSIGNED_STR = "Unassigned"
+var UNASSIGNED_VAL = 0xFFFF;
+
+var PrevIndex      = -1;
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x108A );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         UpdateCellValues( Fields );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+  
+function ComputeRSSI( RSSI )
+{
+   var result = "N/A";
+   if (RSSI > 0)
+   {
+      var inDB = 10 * Math.LOG10E * Math.log( (RSSI/512) );
+
+      // Keep 2 decimal places
+      result = Precision( inDB, 2, false );
+   }
+   
+   return result;
+}
+    
+function UpdateCellValues( Fields )
+{  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 5)
+   {
+      return;
+   }
+
+   var FieldVal = Fields.GetFieldValueText( 0 );   
+   StateInfoTable.rows[1].cells[1].innerText = FieldVal;    
+   
+   FieldVal = Fields.GetFieldValueText( 1 );   
+   StateInfoTable.rows[2].cells[1].innerText = FieldVal;
+   
+   FieldVal = Fields.GetFieldValueText( 2 );   
+   StateInfoTable.rows[3].cells[1].innerText = FieldVal;   
+
+   FieldVal = Fields.GetFieldValue( 3 );
+   if (FieldVal == UNASSIGNED_VAL)
+   {
+      FieldVal = UNASSIGNED_STR;
+   }
+   
+   StateInfoTable.rows[4].cells[1].innerText = FieldVal;   
+
+   var RSSI;     
+   var Diversity;
+   var DataIndex = 5;
+   var ColIndex = 0;
+   
+   // Grab number of rows in existing table
+   var CurRows = FingerInfoTable.rows.length;
+   
+   // Grab number of fingers and process   
+   var NumFingers = Fields.GetFieldValue( 4 );
+   ManageRows( FingerInfoTable, 0, CurRows, NumFingers, 11, true );
+   
+   for (var r = 0; r < NumFingers; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValue( DataIndex + 0 );
+      if (FieldVal == UNASSIGNED_VAL)
+      {
+         FieldVal = UNASSIGNED_STR;
+      }
+      
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+     
+      // RTC offset
+      FieldVal = Fields.GetFieldValueText( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+      
+      // RSSI
+      RSSI = Fields.GetFieldValue( DataIndex + ColIndex );
+      RSSI = ComputeRSSI( RSSI );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = RSSI
+      
+      // Lock
+      FieldVal = Fields.GetFieldValueText( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+        
+      // Antenna
+      FieldVal = Fields.GetFieldValueText( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+
+      // Diversity
+      Diversity = Fields.GetFieldValue( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = Diversity;
+
+      // Finger index
+      FieldVal = Fields.GetFieldValueText( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+
+      // RPC cell index 
+      FieldVal = Fields.GetFieldValueText( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+
+      // ASP index
+      FieldVal = Fields.GetFieldValueText( DataIndex + ColIndex );
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+
+      // RSSI 0
+      FieldVal = Fields.GetFieldValue( DataIndex + ColIndex );
+      if (Diversity == 1)
+      {
+         FieldVal = ComputeRSSI( FieldVal );
+      }
+      else
+      {
+         FieldVal = RSSI;
+      }
+      
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+
+      // RSSI 1
+      FieldVal = Fields.GetFieldValue( DataIndex + ColIndex );
+      if (Diversity == 1)
+      {
+         FieldVal = ComputeRSSI( FieldVal );
+      }
+      else
+      {
+         FieldVal = "N/A";
+      }
+      
+      FingerInfoTable.rows[r].cells[ColIndex++].innerText = FieldVal;
+     
+      DataIndex += 11;
+      ColIndex = 0;
+   }
+}
+
+</script>
+
+</body>
+</html>

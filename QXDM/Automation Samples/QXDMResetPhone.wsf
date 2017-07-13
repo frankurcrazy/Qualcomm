@@ -1,0 +1,215 @@
+<job id="QXDM ResetPhone Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMResetPhone.wsf <COM Port Number>
+
+// NOTE: This function has been duplicated from the script
+// library solely for the purposes of demonstration
+
+// This example demonstrates the usage of the QXDM automation
+// interface method ResetPhone
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// COM port to be used for communication with the phone by QXDM
+var PortNumber = "";
+
+// Process the argument - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript QXDMResetPhone.wsf <COM Port Number>\n"
+            + "Eg:     CScript QXDMResetPhone.wsf 5\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 1)
+   {
+      WScript.StdOut.WriteLine( Help );
+
+      return RC;
+   }
+
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Attempt to reset the phone and wait for it to come back up
+function ResetPhone()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   WScript.StdOut.Write( "Reset phone ... " );
+
+   // We need to be connected for this to work
+   var ServerState = QXDM2.GetServerState();
+   if (ServerState != SERVER_CONNECTED)
+   {
+      WScript.StdOut.WriteLine( "failed (not connected)" );
+      return RC;
+   }
+
+   // Reset the phone
+   var Status = QXDM.ResetPhone();
+   if (Status == 1)
+   {
+      WScript.StdOut.WriteLine( "succeeded" );
+      RC = true;
+   }
+   else
+   {
+      WScript.StdOut.WriteLine( "failed" );
+      return RC;
+   }
+
+   WScript.StdOut.Write( "Waiting for phone to restart ... " );
+
+   // The phone should first disconnect
+   var WaitCount = 0;
+   ServerState = SERVER_CONNECTED;
+   while (ServerState != SERVER_DISCONNECTED && WaitCount < 5)
+   {
+      WScript.sleep( 1000 );
+
+      ServerState = QXDM2.GetServerState();
+      WaitCount++;
+   }
+
+   if (ServerState != SERVER_DISCONNECTED)
+   {
+      WScript.StdOut.WriteLine( "failed" );
+      return RC;
+   }
+
+   // Now wait until DIAG server state transitions back to connected
+   // (we do this for up to twenty seconds)
+   WaitCount = 0;
+   ServerState = SERVER_DISCONNECTED;
+   while (ServerState != SERVER_CONNECTED && WaitCount < 20)
+   {
+      WScript.sleep( 1000 );
+
+      ServerState = QXDM2.GetServerState();
+      WaitCount++;
+   }
+
+   if (ServerState == SERVER_CONNECTED)
+   {
+      Txt = "succeeded";
+      WScript.StdOut.WriteLine( Txt );
+      RC = true;
+   }
+   else
+   {
+      Txt = "failed";
+      WScript.StdOut.WriteLine( Txt );
+   }
+
+   return RC;
+}
+
+// Main body of script
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Connect to our desired port
+   RC = Connect( PortNumber );
+   if (RC == false)
+   {
+      return;
+   }
+
+   // The phone will only reset if we first go offline
+   PhoneOffline();
+
+   // Reset phone
+   ResetPhone();
+
+   // Disconnect phone
+   Disconnect();
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,100 @@
+<job id="QXDM Visible Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMVisible.wsf
+
+// This example demonstrates the usage of the QXDM automation
+// interface method Visible
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Dump out and change QXDM server's visibility status
+function Visible()
+{
+   var Txt = "";
+
+   // QXDM server's visible status
+   var VisibleValue = QXDM.Visible;
+   if (VisibleValue == false)
+   {
+      Txt = "QXDM is currently not visible";
+      WScript.StdOut.WriteLine( Txt );
+
+      // Make QXDM server visible
+      QXDM.Visible = true;
+
+      Txt = "QXDM server now visible";
+      WScript.StdOut.Writeline( Txt );
+
+      return;
+   }
+
+   Txt = "QXDM is currently visible";
+   WScript.StdOut.WriteLine( Txt );
+
+   Txt = "Making QXDM server unvisible";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Make QXDM server unvisible
+   QXDM.Visible = false;
+
+   // QXDM server unvisible for 5s
+   WScript.sleep( 5000 );
+
+   QXDM.Visible = true;
+
+   // Make QXDM server visible
+   Txt = "QXDM server is visible again";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Dump out and change QXDM visibility status
+   Visible();
+}
+
+Execute();
+
+</script>
+</job>

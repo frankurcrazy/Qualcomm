@@ -1,0 +1,569 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Enhanced System Selection/Avoidance" />
+   <meta name="DMViewWidth" content="1265" />
+   <meta name="DMViewHeight" content="420" />
+   <title>Enhanced System Selection/Avoidance</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+      <table width="40%" id="ABSR">
+      <tr>
+         <th>
+            ABSR Count</th>
+         <th>
+            ABSR Interval</th>
+      </tr>
+      <tr>
+         <td>
+            -</td>
+         <td>
+            -</td>
+      </tr>
+   </table>
+   
+   <br />
+   <span style="color: blue"><strong>CDMA</strong><br />
+   </span>
+   
+   <table width="100%" id="CDMATable"">
+      <tr>
+         <th>
+            Band</th>
+         <th>
+            Chan</th>
+         <th>
+            Avoid Type</th>
+         <th>
+            Exp Uptime</th>
+         <th>
+            New Acq Count</th>
+         <th>
+            Reg Status</th>
+         <th>
+            Cur Count</th>
+      </tr>
+      <tr>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+      </tr>
+   </table>
+   <br />
+   <span style="color: orangered"><strong><span>HDR</span></strong><br />
+   </span>
+   <table width="100%" id="HDRTable">
+      <tr>
+         <th>
+            Band</th>
+         <th>
+            Chan</th>
+         <th>
+            Avoid Type</th>
+         <th>
+            Exp Uptime</th>
+         <th>
+            New Acq Count</th>
+         <th>
+            Reg Status</th>
+         <th>
+            Cur Count</th>
+      </tr>
+      <tr>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+         <td>
+            -</td>
+      </tr>
+   </table>
+
+   <script type="text/jscript" src="HelperFunctions.js"></script>
+
+   <script type="text/jscript">
+
+var IQXDM2;
+var Handle        = 0xFFFFFFFF;
+var UPDATE_MS     = 250;
+var PrevIndex     = -1;
+var gTimers = new Array();
+var gTimerCnt = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure GNSS GPS High Bandwidth Receive Diversity Measurement log
+   ClientObject.AddEvent ( 1923 );
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Process items oldest to newest
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == "[01923]")
+      {
+         var FieldCount = Fields.GetFieldCount();
+         if (FieldCount != 15)
+         {
+            return;
+         }
+         var absrCount = Fields.GetFieldValue( 9 );
+         var abarInterval = Fields.GetFieldValue( 14 );
+         
+         ABSR.rows[1].cells[0].innerText = absrCount;
+         ABSR.rows[1].cells[1].innerText = abarInterval;
+         
+         var mode = Fields.GetFieldValue( 2 );
+         if ( mode == 2 )
+         { 
+            PopulateCDMATable( Fields );
+         }
+         else if ( mode == 3 ) 
+         {
+            PopulateHDRTable( Fields );
+         }          
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the CDMA table
+function PopulateCDMATable( Fields )
+{
+   var AvoidReport = Fields.GetFieldValue( 0 );
+   var Band = Fields.GetFieldValue( 4 );
+   var Chan = Fields.GetFieldValue( 6 );
+   
+   // Add entry or update entry.
+   if ( 1 == AvoidReport || 4 == AvoidReport || 5 == AvoidReport || 6 == AvoidReport )
+   {
+      // Is this new or old?
+      var RowCount = CDMATable.rows.length;
+      var Row = CDMATable.rows[0];;
+      for ( var r = 1; r < RowCount; ++r )
+      {
+         Row = CDMATable.rows[r];
+         if ( Row.cells[0].innerText == Band && Row.cells[1].innerText == Chan )
+         {
+            // It exists.
+            break;
+         }
+      }
+      
+      // 1 == AvoidReport or we didn't find the record
+      if ( r == RowCount || 1 == AvoidReport )
+      {
+         if ( RowCount > 1 )
+         {
+            Row = CDMATable.rows[1];
+         }
+         
+         if ( Row.cells[0].innerText != "-" && 
+              Row.cells[1].innerText != "-" )
+         {
+            // Add a new row
+            Row = CDMATable.insertRow(RowCount);
+            for (var c = 0; c < 7; c++)
+            {
+               Row.insertCell();
+               Row.cells[c].innerText = "-";
+            }         
+         }
+      }
+      
+      Row.cells[0].innerText = Band;
+      Row.cells[1].innerText = Chan;
+            
+      var AvoidType = Fields.GetFieldValue( 7 );
+      Row.cells[2].innerText = Fields.GetFieldValueText( 7 );
+      
+      // Exp uptime
+      var ExpUptime = Fields.GetFieldValue( 13 );
+      if ( ExpUptime != 0 )
+      {
+         Row.cells[3].innerText = ExpUptime;
+         var arg = function() { CDMAActiveMonitor(Band,Chan,ExpUptime); };
+         gTimers[gTimerCnt++] = setTimeout( arg, ExpUptime * 1000 );  
+      }
+      else
+      {
+         Row.cells[3].innerText = "Invalid";
+      }
+      
+      // New Acq Count
+      var NewAcqCnt = Fields.GetFieldValue( 11 );
+      if ( NewAcqCnt != 0x100)
+      {
+         Row.cells[4].innerText = NewAcqCnt;
+      }
+      else
+      {
+         Row.cells[4].innerText = "Invalid";
+      }
+      
+      var RegStatus = Fields.GetFieldValueText( 10 );
+      Row.cells[5].innerText = RegStatus;
+      
+      var CurCount = Fields.GetFieldValue( 8 );
+      if ( CurCount != 0xFF )
+      {
+         Row.cells[6].innerText = CurCount;
+      }
+   }
+   
+   if ( 2 == AvoidReport )
+   {    
+      CDMADeleteEntryUsingKeys ( Band, Chan );
+   }
+   
+   if ( 7 == AvoidReport )
+   {  
+      CDMADeleteEntryWithNewAcqCnt( );  
+   }
+
+}
+
+// Delete entries matching band and chan
+function CDMADeleteEntryUsingKeys (Band, Chan)
+{
+   var RowCount = CDMATable.rows.length;
+   for ( var r = 1; r < RowCount; ++r )
+   {
+      var Row = CDMATable.rows[r];
+      if ( Row.cells[0].innerText == Band && Row.cells[1].innerText == Chan )
+      {
+         // Found it
+         CDMADeleteEntry(r);
+         CDMADeleteEntryUsingKeys ( Band, Chan );
+         break;
+      }
+   } 
+}
+
+// Delete entries whose new_acq_cnt is valid
+function CDMADeleteEntryWithNewAcqCnt ( )
+{
+   var RowCount = CDMATable.rows.length;
+   for ( var r = 1; r < RowCount; ++r )
+   {
+      var Row = CDMATable.rows[r];
+      if ( "-" != Row.cells[4].innerText )
+      {
+         // Valid new acq cnt, delete it.
+         CDMADeleteEntry(r);
+         CDMADeleteEntryWithNewAcqCnt( );
+         break;
+      }
+   } 
+}
+
+// Delete entries matching band and chan
+function CDMADeleteEntry ( r )
+{
+   var RowCount = CDMATable.rows.length;
+   if ( r > 0 && r < RowCount )
+   {
+      CDMATable.deleteRow(r);
+      RowCount--;
+   }
+   
+   if ( RowCount == 1 )
+   {
+      // Add a new row
+      Row = CDMATable.insertRow(RowCount);
+      for (var c = 0; c < 7; c++)
+      {
+         Row.insertCell();
+         Row.cells[c].innerText = "-";
+      } 
+   }
+}
+
+// Based on the ExpUptimer, delete the entry when timer expires.
+function CDMAActiveMonitor ( Band, Chan, ExpUptime)
+{
+   var RowCount = CDMATable.rows.length;
+   var Row;
+   for ( var r = 1; r < RowCount; ++r )
+   {
+      Row = CDMATable.rows[r];
+      if ( Row.cells[0].innerText == Band && 
+           Row.cells[1].innerText == Chan && 
+           Row.cells[3].innerText == ExpUptime )
+      {
+         CDMADeleteEntry(r);
+         break;
+      }
+   }
+}
+
+// Populate the HDR table
+function PopulateHDRTable( Fields )
+{
+   var AvoidReport = Fields.GetFieldValue( 0 );
+   var Band = Fields.GetFieldValue( 4 );
+   var Chan = Fields.GetFieldValue( 6 );
+   
+   // Add entry or update entry.
+   if ( 1 == AvoidReport || 4 == AvoidReport || 5 == AvoidReport || 6 == AvoidReport )
+   {
+      // Is this new or old?
+      var RowCount = HDRTable.rows.length;
+      var Row = HDRTable.rows[0];;
+      for ( var r = 1; r < RowCount; ++r )
+      {
+         Row = HDRTable.rows[r];
+         if ( Row.cells[0].innerText == Band && Row.cells[1].innerText == Chan )
+         {
+            // It exists.
+            break;
+         }
+      }
+      
+      // 1 == AvoidReport or we didn't find the record
+      if ( r == RowCount || 1 == AvoidReport )
+      {
+         if ( RowCount > 1 )
+         {
+            // Check whether we have a empty first row
+            Row = HDRTable.rows[1];
+         }
+         
+         if ( Row.cells[0].innerText != "-" && 
+              Row.cells[1].innerText != "-" )
+         {
+            // Add a new row
+            Row = HDRTable.insertRow(RowCount);
+            for (var c = 0; c < 7; c++)
+            {
+               Row.insertCell();
+               Row.cells[c].innerText = "-";
+            }         
+         }
+      }
+      
+      Row.cells[0].innerText = Band;
+      Row.cells[1].innerText = Chan;
+            
+      var AvoidType = Fields.GetFieldValue( 7 );
+      Row.cells[2].innerText = Fields.GetFieldValueText( 7 );
+       
+      // Exp uptime
+      var ExpUptime = Fields.GetFieldValue( 13 );
+      if ( ExpUptime != 0 )
+      {            
+         Row.cells[3].innerText = ExpUptime;
+         var arg = function() { HDRActiveMonitor(Band,Chan,ExpUptime); };
+         gTimers[gTimerCnt++] = setTimeout( arg, ExpUptime * 1000 );  
+      }
+      else
+      {
+         Row.cells[3].innerText = "Invalid";
+      }
+   
+     // New Acq Count
+      var NewAcqCnt = Fields.GetFieldValue( 11 );
+      if ( NewAcqCnt != 0x100)
+      {
+         Row.cells[4].innerText = NewAcqCnt;
+      }
+      else
+      {
+         Row.cells[4].innerText = "Invalid";
+      }
+      
+      var RegStatus = Fields.GetFieldValueText( 10 );
+      Row.cells[5].innerText = RegStatus;
+      
+      var CurCount = Fields.GetFieldValue( 8 );
+      if ( CurCount != 0xFF )
+      {
+         Row.cells[6].innerText = CurCount;
+      }
+   }
+   
+   if ( 2 == AvoidReport )
+   {    
+      HDRDeleteEntryUsingKeys ( Band, Chan );
+   }
+   
+   if ( 7 == AvoidReport )
+   {  
+      HDRDeleteEntryWithNewAcqCnt( );  
+   }
+
+}
+
+// Delete entries matching band and chan
+function HDRDeleteEntryUsingKeys (Band, Chan)
+{
+   var RowCount = HDRTable.rows.length;
+   for ( var r = 1; r < RowCount; ++r )
+   {
+      var Row = HDRTable.rows[r];
+      if ( Row.cells[0].innerText == Band && Row.cells[1].innerText == Chan )
+      {
+         // Found it
+         HDRDeleteEntry(r);
+         HDRDeleteEntryUsingKeys ( Band, Chan );
+         break;
+      }
+   } 
+}
+
+// Delete entries whose new_acq_cnt is valid
+function HDRDeleteEntryWithNewAcqCnt ( )
+{
+   var RowCount = HDRTable.rows.length;
+   for ( var r = 1; r < RowCount; ++r )
+   {
+      var Row = HDRTable.rows[r];
+      if ( "-" != Row.cells[4].innerText )
+      {
+         // Valid new acq cnt, delete it.
+         HDRDeleteEntry(r);
+         HDRDeleteEntryWithNewAcqCnt( );
+         break;
+      }
+   } 
+}
+
+// Delete entries matching band and chan
+function HDRDeleteEntry ( r )
+{
+   var RowCount = HDRTable.rows.length;
+   if ( r > 0 && r < RowCount )
+   {
+      HDRTable.deleteRow(r);
+      RowCount--;
+   }
+   
+   if ( RowCount == 1 )
+   {
+      // Add a new row
+      Row = HDRTable.insertRow(RowCount);
+      for (var c = 0; c < 7; c++)
+      {s
+         Row.insertCell();
+         Row.cells[c].innerText = "-";
+      } 
+   }
+}
+
+// Based on the ExpUptimer, delete the entry when timer expires.
+function HDRActiveMonitor ( Band, Chan, ExpUptime)
+{
+   var RowCount = HDRTable.rows.length;
+   var Row;
+   for ( var r = 1; r < RowCount; ++r )
+   {
+      Row = HDRTable.rows[r];
+      if ( Row.cells[0].innerText == Band && 
+           Row.cells[1].innerText == Chan && 
+           Row.cells[3].innerText == ExpUptime )
+      {
+         HDRDeleteEntry(r);
+         break;
+      }
+   }
+}
+
+
+</script>
+
+</body>
+</html>

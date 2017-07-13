@@ -1,0 +1,290 @@
+100^"Application Statistics"^"0"^-1
+105^"Audio Video Statistics"^"0"^-1
+110^"BlueTooth Logs"^"0"^-1
+115^"Call Manager"^"0"^-1
+120^"Command Output"^"0"^-1
+130^"Data Protocol Logging"^"0"^-1
+140^"Debug Trace View"^"0"^-1
+143^"DSM Pool Tracing"^"0"^-1
+145^"DVB-H Channel Impulse Response"^"11"^-1
+146^"DVB-H CPCE Candidate Pathlist"^"11"^-1
+147^"DVB-H CPCE Decimated CIR Info"^"11"^-1
+148^"DVB-H CPCE Path Information"^"11"^-1
+149^"DVB-H CPCE Utilized Pathlist"^"11"^-1
+155^"Dynamic Item View"^"0"^-1
+157^"Enhanced System Selection/Avoidance"^"0"^-1
+160^"Filtered View"^"0"^-1
+170^"Glossary List"^"0"^-1
+180^"Item View"^"0"^-1
+190^"Keypad"^"0"^-1
+200^"Log View"^"0"^-1
+210^"Memory Viewer"^"0"^-1
+220^"Messages View"^"0"^-1
+230^"NV Browser"^"0"^-1
+240^"OS Core Dump"^"0"^-1
+245^"Protocol Stack Instance Statistics View"^"0"^-1
+250^"QTV Audio Video Sync"^"0"^-1
+260^"QTV Buffer Occupancy"^"0"^-1
+265^"QTV Frame Rate"^"0"^-1
+270^"QTV Interarrival Jitter"^"0"^-1
+280^"QTV Packets Lost"^"0"^-1
+290^"QTV Streaming RX Statistics"^"0"^-1
+295^"RoHC Compression Efficiency"^"0"^-1
+300^"Script Help For DM Commands"^"0"^-1
+305^"Search/Sleep State Frequency"^"0"^-1
+310^"Status (Dynamic)"^"0"^-1
+311^"Status (Static)"^"0"^-1
+320^"Task Profiling - APU"^"0"^-1
+321^"Task Profiling - MPU"^"0"^-1
+322^"Temperature Monitor Display"^"0"^-1
+323^"TRM Info"^"0"^-1
+330^"VoIP QDJ Parameters"^"0"^-1
+340^"VoIP QDTX Parameters"^"0"^-1
+350^"Watermarks Tracing"^"0"^-1
+352^"Broadcast Acquisition CFA"^"11"^-1
+353^"Broadcast ISDB-T L3 Error Rates"^"11"^-1
+354^"Broadcast ISDB-T TS Buffer State"^"11"^-1
+358^"Broadcast UBM2 Peek/Poke"^"11"^-1
+360^"Broadcast Channel Impulse Response"^"11"^-1
+361^"Broadcast Per-Frame DC"^"12"^-1
+362^"Broadcast Per-Frame Doppler Estimation"^"12"^-1
+363^"Broadcast Per-Frame ESR FER MFER"^"12"^-1
+364^"Broadcast Per-Frame Viterbi And RS"^"12"^-1
+365^"Broadcast Per-Frame RSSI Gain-State CSNR"^"12"^-1
+366^"Broadcast Per-Frame Time And Frequency Tracking"^"12"^-1
+367^"Broadcast Per-Symbol DC"^"13"^-1
+368^"Broadcast Per-Symbol FFT And Channel Estimation"^"13"^-1
+369^"Broadcast Per-Symbol RSSI GS JD-mode ADC Level"^"13"^-1
+370^"Broadcast RF Data"^"11"^-1
+371^"Broadcast ISDB-T Performance"^"11"^-1
+372^"Broadcast Per-Symbol DVGA Gain DVGA Output"^"13"^-1
+373^"Broadcast DVB-H Physical Layer"^"11"^-1
+374^"Broadcast Per-Symbol Constellation Points"^"13"^-1
+376^"Broadcast Per-Frame RSSI GS ADC Level"^"12"^-1
+377^"Broadcast ISDB-T Control Panel"^"11"^-1
+378^"Broadcast CMMB Configuration File"^"11"^-1
+379^"Broadcast Detailed Acquisition DC"^"11"^-1
+380^"Broadcast Detailed Acquisition DVGA Gain DVGA Output"^"11"^-1
+381^"Broadcast Detailed Acquisition Gain State ADC Level And RSSI"^"11"^-1
+382^"Broadcast ISDB-T Diagnostic"^"11"^-1
+383^"Broadcast Per-Frame EVM"^"12"^-1
+384^"Broadcast Per-Symbol ZFCE"^"13"^-1
+385^"Broadcast Script Execution Verifier"^"11"^-1
+386^"Broadcast RT Watch Dog"^"11"^-1
+387^"Broadcast CMMB A/V Buffers and LDPC and RSSI"^"11"^-1
+388^"Broadcast CMMB Control Panel"^"11"^-1
+1100^"Active Set Information"^"1"^-1
+1111^"CDMA Active Set Pilot Strength"^"1"^-1
+1112^"CDMA Finger Placement"^"1"^-1
+1120^"CDMA Link Info - Forward"^"1"^-1
+1130^"CDMA Link Info - Reverse"^"1"^-1
+1135^"CDMA Paging Message Error Rate"^"1"^-1
+1140^"CDMA Pilot Information"^"1"^-1
+1150^"CDMA Power"^"1"^-1
+1151^"CDMA Power Control Reverse Link"^"1"^-1
+1152^"CDMA Power Control Setpoints Forward Link"^"1"^-1
+1155^"CDMA QPCH Information"^"1"^-1
+1160^"CDMA RLP Statistics"^"1"^-1
+1170^"CDMA RLP Throughput"^"1"^-1
+1180^"CDMA Retrievable Parameters"^"1"^-1
+1190^"CDMA Temporal Analyzer"^"1"^-1
+1195^"CGPS GPS Control"^"4"^-1
+1196^"CGPS NMEA Control"^"4"^-1
+1200^"Common Channel Statistics"^"1"^-1
+1210^"IS-95A Retrievable Parameters"^"1"^-1
+1220^"Markov"^"1"^-1
+1230^"MDR Statistics"^"1"^-1
+1240^"Service Configuration Info"^"1"^-1
+2100^"HDR Air Link Summary"^"2"^-1
+2105^"HDR DIP Switches"^"2"^-1
+2110^"HDR Fingers"^"2"^-1
+2115^"HDR Forward Statistics"^"2"^-1
+2120^"HDR Information"^"2"^-1
+2250^"HDR Pilot Sets"^"2"^-1
+2260^"HDR Power"^"2"^-1
+2270^"HDR Protocol Summary"^"2"^-1
+2280^"HDR Reverse Statistics"^"2"^-1
+2410^"HDR RLP Statistics"^"2"^-1
+2415^"HDR Session Configuration"^"2"^-1
+2420^"HDR SCP Custom Config"^"2"^-1
+2430^"HDR Temporal Analyzer"^"2"^-1
+2500^"HDR Enhanced Multi-Flow RLP Forward Statistics"^"8"^-1
+2501^"HDR Enhanced Multi-Flow RLP Forward Throughput"^"8"^-1
+2502^"HDR Enhanced Multi-Flow RLP Reverse Statistics"^"8"^-1
+2503^"HDR Enhanced Multi-Flow RLP Reverse Throughput"^"8"^-1
+2504^"HDR Multi-Flow RLP Forward Statistics"^"8"^-1
+2505^"HDR Multi-Flow RLP Forward Throughput"^"8"^-1
+2506^"HDR Multi-Flow RLP Reverse Statistics"^"8"^-1
+2507^"HDR Multi-Flow RLP Reverse Throughput"^"8"^-1
+2508^"HDR Rev. A DRC-DSC-ARQ Buffer Metrics"^"8"^-1
+2509^"HDR Rev. A Equalizer Metrics"^"8"^-1
+2510^"HDR Rev. A Forward Link Packet Header Info"^"8"^-1
+2511^"HDR Rev. A Forward Link User Packet Throughput"^"8"^-1
+2512^"HDR Rev. A Multi-User Packet Forward Statistics"^"8"^-1
+2513^"HDR Rev. A Multi-User Packet User Statistics"^"8"^-1
+2514^"HDR Rev. A RAB Info"^"8"^-1
+2515^"HDR Rev. A Reverse Link Gain Ratios"^"8"^-1
+2516^"HDR Rev. A Reverse Link Metrics"^"8"^-1
+2517^"HDR Rev. A Reverse Link Packet Info"^"8"^-1
+2518^"HDR Rev. A Reverse Link Packet Status"^"8"^-1
+2519^"HDR Rev. A Reverse Link T2P Statistics"^"8"^-1
+2520^"HDR Rev. A Reverse Link Throughput"^"8"^-1
+2521^"HDR Rev. A Single-User Forward Statistics Summary"^"8"^-1
+2650^"HDR Multi Carrier Air Link Summary"^"9"^-1
+2651^"HDR Multi Carrier DRC-DSC-ARQ Buffer Metrics"^"9"^-1
+2652^"HDR Multi Carrier Equalizer Metrics"^"9"^-1
+2653^"HDR Multi Carrier Finger Data"^"9"^-1
+2654^"HDR Multi Carrier Forward Link Packet Header Info"^"9"^-1
+2655^"HDR Multi Carrier Forward Link User Packet Throughput"^"9"^-1
+2656^"HDR Multi Carrier Pilot Sets"^"9"^-1
+2657^"HDR Multi Carrier Power"^"9"^-1
+2658^"HDR Multi Carrier RAB Update Information"^"9"^-1
+2659^"HDR Multi Carrier Reverse Link Gains"^"9"^-1
+2660^"HDR Multi Carrier Reverse Link Metrics"^"9"^-1
+2661^"HDR Multi Carrier Reverse Link Packet Status"^"9"^-1
+2662^"HDR Multi Carrier Reverse Link Throughput"^"9"^-1
+2663^"HDR Multi Carrier RMAC4 T2P Resource"^"9"^-1
+2664^"HDR Multi Carrier RMAC4 Packet Information"^"9"^-1
+2665^"HDR Multi Carrier Single User Packet Forward Statistics"^"9"^-1
+2725^"HDR Multilink Multi-Flow RLP Forward Statistics"^"9"^-1
+2726^"HDR Multilink Multi-Flow RLP Forward Throughput"^"9"^-1
+2727^"HDR Multilink Multi-Flow RLP Reverse Statistics"^"9"^-1
+2728^"HDR Multilink Multi-Flow RLP Reverse Throughput"^"9"^-1
+2729^"HDR Multilink Multi-Flow RLP RX Processing"^"9"^-1
+3100^"FLO Channel Estimation"^"3"^-1
+3101^"FLO Data Channel Stats"^"3"^-1
+3102^"FLO Data Rate"^"3"^-1
+3103^"FLO FTAP OIS Status"^"3"^-1
+3104^"FLO Packet Error Rate"^"3"^-1
+3105^"FLO RSSI"^"3"^-1
+3106^"FLO Status View"^"3"^-1
+3107^"FLO EV Status View"^"3"^-1
+3108^"FLO UBM2 DSP Channel Estimation"^"3"^-1
+4100^"GNSS Clock Report"^"4"^-1
+4101^"GNSS Diversity RF Status"^"4"^-1
+4102^"GNSS GPS HBW/RXD Measurements"^"4"^-1
+4103^"GNSS Measurements"^"4"^-1
+4104^"GNSS Navigation Database"^"4"^-1
+4105^"GNSS Position Report"^"4"^-1
+4106^"GNSS Primary RF Status"^"4"^-1
+4107^"GNSS Search Strategy Task Allocation"^"4"^-1
+4500^"GPSOne Fix Collection"^"4"^-1
+4505^"GPSOne PDE Information"^"4"^-1
+4510^"GPS Clock/Position"^"4"^-1
+4520^"GPS Measurement"^"4"^-1
+4530^"GPS Server Info"^"4"^-1
+5100^"GPRS 2G/3G Combined Neighboring Cell Information"^"5"^-1
+5110^"GPRS LLC Statistics"^"5"^-1
+5120^"GPRS PSI 1-2-3"^"5"^-1
+5130^"GPRS RLC Statistics"^"5"^-1
+5140^"GPRS SNDCP Statistics"^"5"^-1
+5150^"GPRS Serving Cell Parameters"^"5"^-1
+5160^"GSM 2G/3G Serving And Neighbor Cell Information"^"5"^-1
+5170^"GSM 3G Neighboring Cell Information"^"5"^-1
+5180^"GSM 3G Reject Database"^"5"^-1
+5190^"GSM AMR Information"^"5"^-1
+5200^"GSM Channel Parameters"^"5"^-1
+5205^"GSM Dedicated Mode WCDMA Cell List"^"5"^-1
+5210^"GSM EGPRS Downlink BSN Arrival"^"5"^-1
+5220^"GSM EGPRS Downlink Quality"^"5"^-1
+5230^"GSM EGPRS Uplink BSN Arrival"^"5"^-1
+5240^"GSM EGPRS Uplink Quality"^"5"^-1
+5250^"GSM GPRS Air Interface Summary"^"5"^-1
+5260^"GSM GPRS Information"^"5"^-1
+5270^"GSM GPRS TX Timing"^"5"^-1
+5280^"GSM Power Scan Results"^"5"^-1
+5299^"GSM Random Access Attempts"^"5"^-1
+5300^"GSM Surrounding Cells"^"5"^-1
+5345^"GSM GERAN Burst Metrics Display"^"5"^-1
+5350^"LTE Analog Converter Card Information"^"16"^-1
+5351^"LTE Connected Mode RSRP"^"16"^-1
+5352^"LTE Constellation"^"16"^-1
+5353^"LTE Frequency Tracking Report"^"16"^-1
+5354^"LTE Idle Mode RSRP"^"16"^-1
+5401^"LTE LL1 CER Rx-Tx Pair"^"15"^-1
+5402^"LTE LL1 Frequency Tracking Loop"^"15"^-1
+5403^"LTE LL1 PUSCH PHY Throughput"^"15"^-1
+5404^"LTE LL1 Time Tracking Loop"^"15"^-1
+5405^"LTE LL1 Timing Advance Display"^"15"^-1
+5416^"LTE Mac Config"^"17"^-1
+5417^"LTE MAC UL Throughput"^"17"^-1
+5428^"LTE ML1 Acquisition,PBCH,Serving Measurements"^"14"^-1
+5429^"LTE ML1 Cell Timing vs LTE RSRP"^"14"^-1
+5430^"LTE ML1 Connected Mode RSRP RSRQ SNR Display"^"14"^-1
+5433^"LTE ML1 Connected Mode Serving Cell Signal"^"14"^-1
+5435^"LTE ML1 DL Throughput and BLER"^"14"^-1
+5436^"LTE ML1 Real Time RSRP"^"14"^-1
+5437^"LTE ML1 Serving Cell Measurements Display"^"14"^-1
+5438^"LTE ML1 Uplink HARQ Info"^"14"^-1
+5440^"LTE ML1 Uplink Tx Display"^"14"^-1
+5501^"LTE NAS EMM State Change Plot"^"21"^-1
+5550^"LTE PDCP Config"^"19"^-1
+5551^"LTE PDCD SN Screen"^"19"^-1
+5552^"LTE PDCP Throughput"^"19"^-1
+5560^"LTE PDSCH Decoder Statistics"^"16"^-1
+5561^"LTE PDSCH Physical Throughput"^"16"^-1
+5562^"LTE PRACH UE TX Power Profile"^"16"^-1
+5563^"LTE PSC CIR Information"^"16"^-1
+5564^"LTE PSC Peak Information"^"16"^-1
+5565^"LTE PUCCH UE TX Power Profile"^"16"^-1
+5566^"LTE PUSCH UE TX Power Profile/Physical Throughput"^"16"^-1
+5567^"LTE Rank Display"^"16"^-1
+5600^"LTE RLC Config"^"18"^-1
+5601^"LTE RLC Statistcs Screen"^"18"^-1
+5602^"LTE RLC Throughput Graph"^"18"^-1
+5603^"LTE RLC SN Screen"^"18"^-1
+5611^"LTE RRC Mobility Graph"^"20"^-1
+5612^"LTE RRC State Change Plot"^"20"^-1
+5613^"LTE RRC/NAS Status Screen"^"20"^-1
+5630^"LTE SINR Display"^"16"^-1
+5631^"LTE SSC Correlation Result"^"16"^-1
+5632^"LTE Time Tracking Report"^"16"^-1
+5633^"LTE Time Tracking Report PDP Display"^"16"^-1
+5634^"LTE TPC Command Display"^"14"^-1
+5635^"LTE UL MAC Buffer Level"^"17"^-1
+6000^"Sensor Measurement"^"4"^-1
+6100^"UMTS Cell Reselection"^"6"^-1
+6110^"UMTS Vocoder Statistics"^"6"^-1
+7100^"WCDMA Active Set PSC Strength"^"7"^-1
+7110^"WCDMA BLER"^"7"^-1
+7120^"WCDMA BLER Cumulative"^"7"^-1
+7130^"WCDMA BLER Total"^"7"^-1
+7135^"WCDMA Capacity/Quality Measurements"^"7"^-1
+7140^"WCDMA CM GSM Measurement"^"7"^-1
+7143^"WCDMA EUL E-DCH Active Set Statistics"^"7"^-1
+7144^"WCDMA EUL E-TFCI Usage"^"7"^-1
+7145^"WCDMA EUL L1 DL Configuration"^"7"^-1
+7146^"WCDMA EUL L1 UL Configuration"^"7"^-1
+7147^"WCDMA EUL Link Measurements"^"7"^-1
+7148^"WCDMA EUL Link Statistics"^"7"^-1
+7149^"WCDMA EUL MAC Configuration"^"7"^-1
+7150^"WCDMA HSDPA Decoding Statistics"^"7"^-1
+7160^"WCDMA HSDPA Link Statistics"^"7"^-1
+7170^"WCDMA HSDPA Physical Channels"^"7"^-1
+7180^"WCDMA Layer 1"^"7"^-1
+7190^"WCDMA MAC Parameters"^"7"^-1
+7195^"WCDMA MAC-ehs Reassembly"^"7"^-1
+7200^"WCDMA NAS Mobility Management"^"7"^-1
+7210^"WCDMA NAS QoS"^"7"^-1
+7220^"WCDMA Physical Channels"^"7"^-1
+7225^"WCDMA Pilot Scanner"^"7"^-1
+7230^"WCDMA Power"^"7"^-1
+7240^"WCDMA Power Control"^"7"^-1
+7245^"WCDMA QDSP6 MIPS/All-Wait"^"7"^-1
+7250^"WCDMA RLC AM Channel Stats"^"7"^-1
+7260^"WCDMA RLC Downlink AM Channel Parameters"^"7"^-1
+7270^"WCDMA RLC Downlink TM Channel Parameters"^"7"^-1
+7280^"WCDMA RLC Downlink UM Channel Parameters"^"7"^-1
+7290^"WCDMA RLC Uplink AM Channel Parameters"^"7"^-1
+7300^"WCDMA RLC Uplink TM Channel Parameters"^"7"^-1
+7310^"WCDMA RLC Uplink UM Channel Parameters"^"7"^-1
+7320^"WCDMA RRC Status"^"7"^-1
+7330^"WCDMA Radio Bearer Rate"^"7"^-1
+7338^"WCDMA TCXO Shutdown Counters"^"7"^-1
+7340^"WCDMA TFCS Uplink"^"7"^-1
+7350^"WCDMA Temporal Analyzer"^"7"^-1
+7500^"WLAN Configuration"^"0"^-1
+7501^"WLAN Data Rate"^"0"^-1
+7502^"WLAN PER"^"0"^-1
+7503^"WLAN Signal Strength"^"0"^-1
+7504^"WLAN System Manager State"^"0"^-1

@@ -1,0 +1,22 @@
+0^"Common"^-1^-1
+1^"CDMA"^-1^-1
+2^"CDMA 1xEV"^-1^-1
+3^"MediaFLO"^-1^-1
+4^"GPS"^-1^-1
+5^"GSM"^-1^-1
+6^"UMTS"^-1^-1
+7^"WCDMA"^-1^-1
+8^"CDMA 1xEV Rev. A"^-1^2
+9^"CDMA 1xEV Rev. B"^-1^2
+10^"LTE"^-1^-1
+11^"Broadcast"^-1^-1
+12^"Broadcast Per-Frame Views"^-1^11
+13^"Broadcast Per-Symbol Views"^-1^11
+14^"Management Layer 1"^-1^10
+15^"Lower Layer 1"^-1^10
+16^"Espresso"^-1^10
+17^"MAC Layer"^-1^10
+18^"RLC Layer"^-1^10
+19^"PDCP Layer"^-1^10
+20^"RRC Layer"^-1^10
+21^"NAS Layer"^-1^10

@@ -1,0 +1,5916 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Multi Carrier Reverse Link Metrics" />
+   <meta name="DMViewWidth" content="1000" />
+   <meta name="DMViewHeight" content="525" />
+   <title>HDR Multi Carrier Reverse Link Metrics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />  
+
+   <style type="text/css">
+      td.Carrier1 
+      {
+         background-color: #FFDDDD;
+      }
+
+      td.Carrier2
+      {
+         background-color: #FFFFDD;
+      }
+
+      td.Carrier3
+      {
+         background-color: #DDDDFF;
+      }
+   </style>
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+<table id="SelectTable">
+   <tr>
+      <td class="noborder" width="25px"></td>
+      <td class="noborder"><input id="CheckboxCarrier1" type="checkbox" checked="checked" onclick="ToggleCarrier(1, this.checked)" /></td>
+      <td class="noborder" style="text-align:left; font-weight:bold">Carrier 1</td>
+      <td class="noborder" width="10px"></td>
+      <td class="noborder"><input id="CheckboxCarrier2" type="checkbox" checked="checked" onclick="ToggleCarrier(2, this.checked)" /></td>
+      <td class="noborder" style="text-align:left; font-weight:bold">Carrier 2</td>
+      <td class="noborder" width="10px"></td>
+      <td class="noborder"><input id="CheckboxCarrier3" type="checkbox" checked="checked" onclick="ToggleCarrier(3, this.checked)" /></td>
+      <td class="noborder" style="text-align:left; font-weight:bold">Carrier 3</td>
+      <td class="noborder" width="10px"></td>
+      <td class="noborder" style="text-align:left">(Note: Statistics only include enabled carriers)</td>
+   </tr>
+</table>
+<br />
+<table width="100%" id="DataTable">
+   <tr>
+      <td width="1%" class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 0, 44 );" /></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14 style="text-align:left; font-weight:bold">Carrier 1</td>
+   </tr>
+   <tr>
+      <td width="1%" class="noborder"></td>
+      <td width="1%" class="noborder"></td>
+      <th width="7%" style="cursor : pointer" 
+         onclick="SetDataTableDisplay( 1, 43 );">View Full</th>
+      <th width="7%">PS 1 <br /> (128)</th>
+      <th width="7%">PS 2 <br /> (256)</th>
+      <th width="7%">PS 3 <br /> (512)</th>
+      <th width="7%">PS 4 <br /> (768)</th>
+      <th width="7%">PS 5 <br /> (1024)</th>
+      <th width="7%">PS 6 <br /> (1536)</th>
+      <th width="7%">PS 7 <br /> (2048)</th>
+      <th width="7%">PS 8 <br /> (3072)</th>
+      <th width="7%">PS 9 <br /> (4096)</th>
+      <th width="7%">PS 10 <br /> (6144)</th>
+      <th width="7%">PS 11 <br /> (8192)</th>
+      <th width="7%">PS 12 <br /> (12288)</th>
+      <th width="7%">Total </th>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 1, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 1, 3 );">HiCap SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 5, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 5, 3 );">HiCap SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 9, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 9, 3 );">HiCap SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 13, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 13, 3 );">HiCap SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 17, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 17, 3 );">HiCap PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 21, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 21, 3 );">LoLat SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 25, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 25, 3 );">LoLat SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 29, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 29, 3 );">LoLat SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 33, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 33, 3 );">LoLat SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 37, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 37, 3 );">LoLat PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 41, 2 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 1 + 41, 2 );">Packets Sent</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr height="10px">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14></td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 46, 44 );" /></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14 style="text-align:left; font-weight:bold">Carrier 2</td>
+   </tr>
+   <tr>
+      <td width="1%" class="noborder"></td>
+      <td width="1%" class="noborder"></td>
+      <th width="7%" style="cursor : pointer" 
+         onclick="SetDataTableDisplay( 47, 43 );">View Full</th>
+      <th width="7%">PS 1 <br /> (128)</th>
+      <th width="7%">PS 2 <br /> (256)</th>
+      <th width="7%">PS 3 <br /> (512)</th>
+      <th width="7%">PS 4 <br /> (768)</th>
+      <th width="7%">PS 5 <br /> (1024)</th>
+      <th width="7%">PS 6 <br /> (1536)</th>
+      <th width="7%">PS 7 <br /> (2048)</th>
+      <th width="7%">PS 8 <br /> (3072)</th>
+      <th width="7%">PS 9 <br /> (4096)</th>
+      <th width="7%">PS 10 <br /> (6144)</th>
+      <th width="7%">PS 11 <br /> (8192)</th>
+      <th width="7%">PS 12 <br /> (12288)</th>
+      <th width="7%">Total </th>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 1, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 1, 3 );">HiCap SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 5, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 5, 3 );">HiCap SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 9, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 9, 3 );">HiCap SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 13, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 13, 3 );">HiCap SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 17, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 17, 3 );">HiCap PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 21, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 21, 3 );">LoLat SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 25, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 25, 3 );">LoLat SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 29, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 29, 3 );">LoLat SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 33, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 33, 3 );">LoLat SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 37, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 37, 3 );">LoLat PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 41, 2 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 47 + 41, 2 );">Packets Sent</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr height="10px">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14></td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 92, 44 );" /></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14 style="text-align:left; font-weight:bold">Carrier 3</td>
+   </tr>
+   <tr>
+      <td width="1%" class="noborder"></td>
+      <td width="1%" class="noborder"></td>
+      <th width="7%" style="cursor : pointer" 
+         onclick="SetDataTableDisplay( 93, 43 );">View Full</th>
+      <th width="7%">PS 1 <br /> (128)</th>
+      <th width="7%">PS 2 <br /> (256)</th>
+      <th width="7%">PS 3 <br /> (512)</th>
+      <th width="7%">PS 4 <br /> (768)</th>
+      <th width="7%">PS 5 <br /> (1024)</th>
+      <th width="7%">PS 6 <br /> (1536)</th>
+      <th width="7%">PS 7 <br /> (2048)</th>
+      <th width="7%">PS 8 <br /> (3072)</th>
+      <th width="7%">PS 9 <br /> (4096)</th>
+      <th width="7%">PS 10 <br /> (6144)</th>
+      <th width="7%">PS 11 <br /> (8192)</th>
+      <th width="7%">PS 12 <br /> (12288)</th>
+      <th width="7%">Total </th>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 1, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 1, 3 );">HiCap SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 5, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 5, 3 );">HiCap SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 9, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 9, 3 );">HiCap SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 13, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 13, 3 );">HiCap SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 17, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 17, 3 );">HiCap PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 21, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 21, 3 );">LoLat SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 25, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 25, 3 );">LoLat SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 29, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 29, 3 );">LoLat SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 33, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 33, 3 );">LoLat SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 37, 3 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 37, 3 );">LoLat PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 41, 2 );" /></td>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 93 + 41, 2 );">Packets Sent</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr height="10px">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14></td>
+   </tr>
+   <tr>
+      <td width="1%" class="noborder"></td>
+      <td width="1%" class="noborder"></td>
+      <th width="7%" style="cursor : pointer" 
+         onclick="SetDataTableDisplay( 138, 70 );">View Full</th>
+      <th width="7%">PS 1 <br /> (128)</th>
+      <th width="7%">PS 2 <br /> (256)</th>
+      <th width="7%">PS 3 <br /> (512)</th>
+      <th width="7%">PS 4 <br /> (768)</th>
+      <th width="7%">PS 5 <br /> (1024)</th>
+      <th width="7%">PS 6 <br /> (1536)</th>
+      <th width="7%">PS 7 <br /> (2048)</th>
+      <th width="7%">PS 8 <br /> (3072)</th>
+      <th width="7%">PS 9 <br /> (4096)</th>
+      <th width="7%">PS 10 <br /> (6144)</th>
+      <th width="7%">PS 11 <br /> (8192)</th>
+      <th width="7%">PS 12 <br /> (12288)</th>
+      <th width="7%">Total </th>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 1, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 1, 9 );">Good Packets</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 2, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic"
+         onclick="ToggleIndividuals( 2, 138 + 2, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 5, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 5, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 8, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 8, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 11, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 11, 9 );">Avg. Packet Termination</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 12, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 12, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 15, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 15, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 18, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 18, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 21, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 21, 9 );">PER (%)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 22, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 22, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 25, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 25, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 28, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 28, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 31, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 31, 9 );">Total Packet TX Time (ms)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 32, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 32, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 35, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 35, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 38, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 38, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 41, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 41, 9 );">Transmitted Throughput (kbps)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 42, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 42, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 45, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 45, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 48, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 48, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 51, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 51, 9 );">Overall Throughput (kbps)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 52, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 52, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 55, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 55, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 58, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 58, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder">
+         <img src="Collapse.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 61, 9 );" /></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 138 + 61, 9 );">Percentage of Packets Sent (%)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 62, 2 );" /></td>
+      <td class="Carrier1" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 62, 2 );">Carrier 1</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">HiCap</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1">LoLat</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+      <td class="Carrier1">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 65, 2 );" /></td>
+      <td class="Carrier2" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 65, 2 );">Carrier 2</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">HiCap</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2">LoLat</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+      <td class="Carrier2">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 138 + 68, 2 );" /></td>
+      <td class="Carrier3" style="cursor : pointer; font-style:italic" 
+         onclick="ToggleIndividuals( 2, 138 + 68, 2 );">Carrier 3</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">HiCap</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3">LoLat</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+      <td class="Carrier3">-</td>
+   </tr>
+   <tr height="10px">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14></td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="SetDataTableDisplay( 210, 24 );">View Full</th>
+      <th colspan="5">Total</th>
+      <th colspan="4">HiCap</th>
+      <th colspan="4">LoLat</th>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211, 3 );">Total PER (%)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="5">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="5">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="5">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 4, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 4, 3 );">Total Instantaneous PER (%)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="5">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="5">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="5">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 8, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 8, 3 );">Total Transmitted Throughput (kbps)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>   
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="5">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="5">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="5">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 12, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 12, 3 );">Total Overall Throughput (kbps)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="5">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="5">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="5">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 16, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 16, 3 );">Total Instantaneous Throughput (kbps)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="5">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="5">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="5">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 20, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 211 + 20, 3 );">Average Latency (ms)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="5">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="5">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="4">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="5">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="4">-</td>
+   </tr>
+   <tr height="10px">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="noborder" colspan=14></td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <th style="cursor : pointer" 
+         onclick="SetDataTableDisplay( 236, 12 );">View Full</th>
+      <th colspan="4">Total</th>
+      <th colspan="3">Interlace 0</th>
+      <th colspan="3">Interlace 1</th>
+      <th colspan="3">Interlace 2</th>
+   </tr>   
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 237, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 237, 3 );">Total Packets Sent</th>
+      <td colspan="4">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="3">-</td>
+      <td class="Carrier1" colspan="3">-</td>
+      <td class="Carrier1" colspan="3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="3">-</td>
+      <td class="Carrier2" colspan="3">-</td>
+      <td class="Carrier2" colspan="3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="3">-</td>
+      <td class="Carrier3" colspan="3">-</td>
+      <td class="Carrier3" colspan="3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 237 + 4, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 237 + 4, 3 );">Unexpected PARQ NAKs</th>
+      <td colspan="4">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="Carrier1" colspan="3">-</td>
+      <td class="Carrier1" colspan="3">-</td>
+      <td class="Carrier1" colspan="3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="Carrier2" colspan="3">-</td>
+      <td class="Carrier2" colspan="3">-</td>
+      <td class="Carrier2" colspan="3">-</td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="Carrier3" colspan="3">-</td>
+      <td class="Carrier3" colspan="3">-</td>
+      <td class="Carrier3" colspan="3">-</td>
+   </tr>
+   <tr>
+      <td class="noborder"></td>
+      <td class="noborder">
+         <img src="Expand.gif" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 237 + 8, 3 );" /></td>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 237 + 8, 3 );">HARQ-PARQ Mismatch Rate (%)</th>
+      <td colspan="4">-</td>
+      <td colspan="9"><input type="button" value="Reset" onclick="ResetStats();"></td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier1" style="font-style:italic">Carrier 1</td>
+      <td class="Carrier1" colspan="4">-</td>
+      <td class="noborder" colspan="9"></td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier2" style="font-style:italic">Carrier 2</td>
+      <td class="Carrier2" colspan="4">-</td>
+      <td class="noborder" colspan="9"></td>
+   </tr>
+   <tr style="display : none">
+      <td class="noborder"></td>
+      <td class="noborder"></td>
+      <td class="Carrier3" style="font-style:italic">Carrier 3</td>
+      <td class="Carrier3" colspan="4">-</td>
+      <td class="noborder" colspan="9"></td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle              = 0xFFFFFFFF;
+var gMainTickID         = 0;
+
+var TIMEOUT_MS          = 500;
+var UPDATE_MS           = 1000;
+var RESET_TRAFFIC_REQ   = "CDMA 1xEV/Reset Reverse Stats Request";
+
+var PrevIndex           = -1;
+
+// Row offsets
+var R1 = 139;
+var R2 = 211;
+var R3 = 237;
+var R0Count = 45;
+var R1Count = 69;
+var R2Count = 23;
+var R3Count = 12;
+
+// Column offset
+var CO = 2;
+
+// Maximum parameter values, not including a total
+var CARRIER_MAX = 3;
+var PS_MAX = 12;
+var HILO_MAX = 2;
+var INTERLACE_MAX = 3;
+
+// Store number of different carriers
+var gCarrierCount = 0;
+
+// Store carrier, indexed from oldest to newest (0 to 2)
+var gCarrierOldest = new Array();
+
+// Store current Carrier ID on each carrier 1, 2, 3
+var gCarrierID = new Array();
+
+var gPrevHiCapPARQNaks           = new Array();
+var gPrevLoLatPARQNaks           = new Array();
+var gPrevHiCapTotalPacketsSent   = new Array();
+var gPrevLoLatTotalPacketsSent   = new Array();
+
+var gPrevHiCapScaledGoodPackets  = new Array();
+var gPrevLoLatScaledGoodPackets  = new Array();
+var gPrevTotalTime               = new Array();
+
+// Enumerations
+var gPSTotals                    = new Array();
+var PS_GOOD_PACKETS              = 0;
+var PS_AVG_PKT_TERMINATION_NUM   = 1;
+var PS_PACKETS_SENT              = 2;
+var PS_PER_NUM                   = 3;
+var PS_PKT_TX_TIME               = 4;
+var PS_TX_THROUGHPUT_NUM         = 5;
+var PS_OVERALL_THROUGHPUT        = 6;
+var PS_END                       = 7;
+
+var gHiLoTotals                  = new Array();
+var HILO_PER_NUM                 = 0;
+var HILO_PER_DEN                 = 1;
+var HILO_INST_PER_NUM            = 2;
+var HILO_INST_PER_DEN            = 3;
+var HILO_TX_THROUGHPUT_NUM       = 4;
+var HILO_TX_THROUGHPUT_DEN       = 5;
+var HILO_OV_THROUGHPUT_NUM       = 6;
+var HILO_OV_THROUGHPUT_DEN       = 7;
+var HILO_INST_THROUGHPUT_NUM     = 8;
+var HILO_INST_THROUGHPUT_DEN     = 9;
+var HILO_LATENCY_NUM             = 10;
+var HILO_LATENCY_DEN             = 11;
+var HILO_END                     = 12;
+
+var gMismatchTotals              = new Array();
+
+for (var c = 0; c < CARRIER_MAX; c++)
+{
+   gCarrierOldest[c] = c;
+   gCarrierID[c] = -1;
+
+   gPrevHiCapPARQNaks[c]          = 0;
+   gPrevLoLatPARQNaks[c]          = 0;
+   gPrevHiCapTotalPacketsSent[c]  = 0;
+   gPrevLoLatTotalPacketsSent[c]  = 0;
+
+   gPrevHiCapScaledGoodPackets[c] = 0;
+   gPrevLoLatScaledGoodPackets[c] = 0;
+   gPrevTotalTime[c]              = 0;
+}
+
+// For all carriers, plus a total
+for (var c = 0; c < CARRIER_MAX + 1; c++)
+{
+   gPSTotals[c] = new Array();
+   gHiLoTotals[c] = new Array();
+   gMismatchTotals[c] = new Array();
+   
+   for (var ps = 1; ps <= PS_MAX + 1; ps++)
+   {
+      gPSTotals[c][ps] = new Array();
+      for (var j = 0; j < PS_END; j++)
+      {
+         gPSTotals[c][ps][j] = 0;
+      }
+   }
+   
+   for (var i = 0; i < HILO_MAX + 1; i++)
+   {
+      gHiLoTotals[c][i] = new Array();
+      for (var j = 0; j < HILO_END; j++)
+      {
+         gHiLoTotals[c][i][j] = 0;
+      }
+   }
+   
+   for (var i = 0; i <= 1; i++)
+   {
+      gMismatchTotals[c][i] = 0;
+   }
+}
+
+var BIT_PS = new Array();
+BIT_PS[1] = 128;
+BIT_PS[2] = 256;
+BIT_PS[3] = 512;
+BIT_PS[4] = 768;
+BIT_PS[5] = 1024;
+BIT_PS[6] = 1536;
+BIT_PS[7] = 2048;
+BIT_PS[8] = 3072;
+BIT_PS[9] = 4096;
+BIT_PS[10] = 6144;
+BIT_PS[11] = 8192;
+BIT_PS[12] = 12288;
+
+function SafeDivide( Num, Den )
+{
+   var Result = "-";
+   if (isNaN( Num ) == false && isNaN( Den ) == false && Den != 0)
+   {
+      Result = Num / Den;
+   }
+   return Result;
+}
+
+function SafeAdd( X, Y )
+{
+   var Result = "-";
+   if (isNaN( X ) == true && isNaN( Y ) == true)
+   {
+      // Both values invalid
+      return Result;
+   }
+
+   if (isNaN( X ) == true)
+   {
+      // X invalid, so use Y
+      return Y;
+   }
+   
+   if (isNaN( Y ) == true)
+   {
+      // Y invalid, so use X
+      return X;
+   }
+
+   // Add X and Y
+   Result = X + Y
+   return Result;
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x129F );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+
+   // Initialize hidden mask (show row if mask == 0)
+   // Bit 0: Carrier Hide/Show
+   // Bit 1: First Expand/Collapse Column
+   // Bit 2: Second Expand/Collapse Column
+   var CurRows = DataTable.rows.length;
+   for (var r = 0; r < CurRows; r++)
+   {
+      if (DataTable.rows[r].cells.length <= CO)
+      {
+         // Skip spacing row
+         continue;
+      }
+   
+      if (DataTable.rows[r].style.display == "none")
+      {
+         // Hide row because of second collapse column
+         DataTable.rows[r].cells[CO].hiddenMask = 4;
+      }
+      else
+      {
+         DataTable.rows[r].cells[CO].hiddenMask = 0;
+      }
+   }
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process all received logs
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetItemFields();
+         if (Fields != null)
+         {
+            UpdateDisplay( Fields );
+         }
+      }
+   }   
+   
+   PrevIndex = CurrIndex;
+}
+
+
+// Show or hide constituent rows under the given base row
+function ToggleIndividuals( Level, BaseIdx, RowCount )
+{  
+   var CurRows = DataTable.rows.length;
+   if (BaseIdx + RowCount >= CurRows)
+   {
+      return;
+   }
+   
+   var IndicatorImg = DataTable.rows[BaseIdx].cells[Level - 1].getElementsByTagName('img');
+   if (IndicatorImg.length == 0)
+   {
+      return;
+   }
+      
+   var hiddenBit = Math.pow(2, Level);
+   for (var r = BaseIdx + RowCount; r > BaseIdx; r--)
+   {
+      var hiddenMask = DataTable.rows[r].cells[CO].hiddenMask;
+      var hidden = hiddenMask & hiddenBit;
+      
+      if (hidden == 0)
+      {
+         // Set hidden bit
+         hiddenMask = hiddenMask | hiddenBit;
+      }
+      else
+      {
+         // Remove hidden bit
+         hiddenMask = hiddenMask & (0xF - hiddenBit);
+      }
+      
+      DataTable.rows[r].cells[CO].hiddenMask = hiddenMask; 
+      if (hiddenMask == 0)
+      {
+         // Show row
+         DataTable.rows[r].style.display = "";
+         if (r == BaseIdx + 1)
+         {
+            IndicatorImg[0].src = "Collapse.gif";
+         }
+      }
+      else
+      {
+         // Hide row
+         DataTable.rows[r].style.display = "none";
+         if (r == BaseIdx + 1)
+         {
+            IndicatorImg[0].src = "Expand.gif";
+         }
+      }   
+   }
+   
+   DataTable.refresh();
+}
+
+// Show or hide all rows
+function SetDataTableDisplay( BaseIdx, RowCount )
+{
+   var CurRows = DataTable.rows.length;
+   if (BaseIdx + RowCount >= CurRows)
+   {
+      return;
+   }
+   
+   var IndicatorSrc = new Array();
+   IndicatorSrc[0] = "Collapse.gif";
+   IndicatorSrc[1] = "Expand.gif";
+   
+   var Str = "View Compact";
+   var IndicatorIdx = 0;
+   var desiredMask = 0;
+   if (DataTable.rows[BaseIdx].cells[CO].innerText == "View Compact")
+   {
+      Str = "View Full";
+      IndicatorIdx = 1;
+      desiredMask = 4;
+   }
+
+   
+   DataTable.rows[BaseIdx].cells[CO].innerText = Str;
+
+   for (var r = BaseIdx + RowCount; r > BaseIdx; r--)
+   {
+      var bHiddenCarrier = (DataTable.rows[r].cells[CO].hiddenMask & 1 != 0);
+      
+      var hiddenMask = desiredMask;
+      if (bHiddenCarrier == true)
+      {
+         // Hidden carrier, add bit to mask
+         hiddenMask = desiredMask | 1;
+      }
+      
+      var DataDisplay = "";
+      if (hiddenMask != 0)
+      {
+         DataDisplay = "none";
+      }
+      
+      if (DataTable.rows[r].cells[CO].style.cursor == "pointer")
+      {
+         // Adjust expandable rows
+         for (var i = 0; i <= 1; i++)
+         {
+            var IndicatorImg = DataTable.rows[r].cells[i].getElementsByTagName('img');
+            if (IndicatorImg.length > 0)
+            {
+               if (i == 0)
+               {
+                  // Highest Level Category - set to collapse indicator for all cases
+                  IndicatorImg[0].src = IndicatorSrc[0];
+               }
+               else
+               {
+                  // Sublevel Category - only hidden when carrier hidden
+                  if (bHiddenCarrier == true)
+                  {
+                     DataTable.rows[r].cells[CO].hiddenMask = 1;
+                     DataTable.rows[r].style.display = "none";
+                  }
+                  else
+                  {
+                     DataTable.rows[r].cells[CO].hiddenMask = 0;
+                     DataTable.rows[r].style.display = "";
+                  }
+                  
+                  // Set indicator according to expand/collapse request
+                  IndicatorImg[0].src = IndicatorSrc[IndicatorIdx];
+               }
+               break;
+            }
+         }
+      }
+      else
+      {
+         // Set mask for non-expandable rows
+         DataTable.rows[r].cells[CO].hiddenMask = hiddenMask;
+         DataTable.rows[r].style.display = DataDisplay;
+      }
+      
+   }
+
+   DataTable.refresh();
+}
+
+// Update Display
+function UpdateDisplay( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+     
+   // Get version
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+      
+   if (FieldCount < 6 + 3 * (24 * 6 + 1))
+   {
+      return;
+   }
+
+   // Get Carrier ID
+   var CarrierID = Fields.GetFieldValue( 3 );
+   if (CarrierID == 0xFF)
+   {
+      // Ignore this Carrier ID
+      return;
+   }
+
+   // Get Channel Number
+   var ChannelNumber = Fields.GetFieldValue( 4 );
+
+   // Get Band Class
+   var BandClass = Fields.GetFieldValueText( 5 );
+   
+   var fi = 6;
+   var rHigh = 2;
+   var rLow = 22;
+   var Value = 0;
+   var RowTotal = new Array();
+
+   var HiCapTotal = new Array();
+   var LoLatTotal = new Array();
+
+   var InterlacePacketsSent = new Array();
+   var TotalUnexpected = 0;
+
+   var HiCapValue = 0;
+   var LoLatValue = 0;
+
+   var HiCapTotalPacketsSent = 0;
+   var LoLatTotalPacketsSent = 0;
+
+   var HiCapTotalTermination = 0;
+   var LoLatTotalTermination = 0;
+
+   var HiCapScaledGoodPackets = 0;
+   var LoLatScaledGoodPackets = 0;
+
+   var HiCapSumGoodPackets = 0;
+   var LoLatSumGoodPackets = 0;
+
+   var HiCapSumTxTime = 0;
+   var LoLatSumTxTime = 0;
+
+   var HiCapPARQNaks = 0;
+   var LoLatPARQNaks = 0;
+
+   // Current Carrier (indexed from 0)
+   var CC = -1;
+   
+   var bExist = false;
+   for (var c = 0; c < CARRIER_MAX; c++)
+   {
+      if (CarrierID == gCarrierID[c])
+      {
+         bExist = true;
+         CC = c;
+         break;
+      }
+   }
+   
+   if (bExist == true)
+   {
+      for (var c = 0; c < CARRIER_MAX; c++)
+      {
+         if (CC == gCarrierOldest[c])
+         {
+            for (var j = c; j < 2; j++)
+            {
+               gCarrierOldest[j] = gCarrierOldest[j + 1];
+            }
+         
+            break;
+         }
+      }
+   }
+   else
+   {
+      if (gCarrierCount < CARRIER_MAX)
+      {
+         gCarrierCount++;
+      }
+      
+      CC = gCarrierOldest[0];
+      gCarrierID[CC] = CarrierID;
+      for (var c = 0; c < CARRIER_MAX - 1; c++)
+      {
+         gCarrierOldest[c] = gCarrierOldest[c + 1];
+      }
+
+      // Reset carrier's previous data
+      gPrevHiCapPARQNaks[CC]          = 0;
+      gPrevLoLatPARQNaks[CC]          = 0;
+      gPrevHiCapTotalPacketsSent[CC]  = 0;
+      gPrevLoLatTotalPacketsSent[CC]  = 0;
+
+      gPrevHiCapScaledGoodPackets[CC] = 0;
+      gPrevLoLatScaledGoodPackets[CC] = 0;
+      gPrevTotalTime[CC]              = 0;
+   }
+
+   gCarrierOldest[2] = CC;
+
+   // Reset carrier totals
+   for (var ps = 1; ps <= PS_MAX + 1; ps++)
+   {
+      for (var j = 0; j < PS_END; j++)
+      {
+         gPSTotals[CC][ps][j] = 0;
+      }
+   }
+
+   // Reset HiCap, LoLat totals
+   for (var i = 0; i < HILO_MAX + 1; i++)
+   {
+      for (var j = 0; j < HILO_END; j++)
+      {
+         gHiLoTotals[CC][i][j] = 0;
+      }
+   }
+   
+   // Reset Mismatch totals
+   for (var i = 0; i <= 1; i++)
+   {
+      gMismatchTotals[3][i] = 0;
+   }
+
+   // Row offset
+   var R0 = 46 * CC;
+
+   // Carrier offset
+   var CrO = 3 * CC;
+
+   // Display carrier information
+   DataTable.rows[R0].cells[CO].innerText = "Carrier " + (CC + 1) + " (Carrier ID: " + CarrierID + ", Channel Number: " + ChannelNumber + ", Band Class: " + BandClass + ")";
+
+   // Get total time from sequence number
+   var TotalTime = Fields.GetFieldValue( 1 );
+
+   for (var ps = 1; ps <= PS_MAX; ps++)
+   {
+      HiCapTotal[ps] = new Array();
+      LoLatTotal[ps] = new Array();
+
+      for (var f = 0; f < 6; f++)
+      {
+         HiCapTotal[ps][f] = 0;
+         LoLatTotal[ps][f] = 0;
+      }
+   }
+
+   for (var i = 0; i < INTERLACE_MAX; i++)
+   {
+      InterlacePacketsSent[i] = 0;
+   }
+
+   for (var i = 0; i < DataTable.rows.length; i++)
+   {
+      RowTotal[i] = 0;
+   }
+
+   // Get values for each interlace
+   for (var i = 0; i < INTERLACE_MAX; i++)
+   {
+      for (var ps = 1; ps <= PS_MAX; ps++)
+      {
+         for (var f = 0; f < 6; f++)
+         {
+            Value = Fields.GetFieldValue( fi++ );
+            HiCapTotal[ps][f] += Value;
+            if (f < 4)
+            {
+               // SP ACKs
+               InterlacePacketsSent[i] += Value;
+               DataTable.rows[R0 + 4 * f + i + rHigh + 1].cells[ps + CO].innerText = Value;
+               RowTotal[R0 + 4 * f + i + rHigh + 1] += Value;
+            }
+
+            if (f == 4)
+            {
+               // PARQ Naks
+               InterlacePacketsSent[i] += Value;
+               HiCapPARQNaks += Value;
+               DataTable.rows[R0 + 4 * f + i + rHigh + 1].cells[ps + CO].innerText = Value;
+               RowTotal[R0 + 4 * f + i + rHigh + 1] += Value;
+            }
+
+         }
+      }
+      for (var ps = 1; ps <= PS_MAX; ps++)
+      {
+         for (var f = 0; f < 6; f++)
+         {
+            Value = Fields.GetFieldValue( fi++ );
+            LoLatTotal[ps][f] += Value;
+            if (f < 4)
+            {
+               // SP ACKs
+               InterlacePacketsSent[i] += Value;
+               DataTable.rows[R0 + 4 * f + i + rLow + 1].cells[ps + CO].innerText = Value;
+               RowTotal[R0 + 4 * f + i + rLow + 1] += Value;
+            }
+
+            if (f == 4)
+            {
+               // PARQ Naks
+               InterlacePacketsSent[i] += Value;
+               LoLatPARQNaks += Value;
+               DataTable.rows[R0 + 4 * f + i + rLow + 1].cells[ps + CO].innerText = Value;
+               RowTotal[R0 + 4 * f + i + rLow + 1] += Value;
+            }
+
+         }
+      }
+
+      // Unexpected PARQ Naks
+      Value = Fields.GetFieldValue( fi++ );
+      DataTable.rows[R3 + CC + 5].cells[i+2 + CO].innerText = Value;
+
+      TotalUnexpected += Value;
+   }
+
+
+   // Populate table
+   for (var ps = 1; ps <= PS_MAX; ps++)
+   {
+      var HiCapPacketsSent = 0;
+      var LoLatPacketsSent = 0;
+      
+      for (var f = 0; f < 5; f++)
+      {
+         DataTable.rows[R0 + 4 * f + rHigh].cells[ps + CO].innerText = HiCapTotal[ps][f];
+         RowTotal[R0 + 4 * f + rHigh] += HiCapTotal[ps][f];
+
+         DataTable.rows[R0 + 4 * f + rLow].cells[ps + CO].innerText = LoLatTotal[ps][f];
+         RowTotal[R0 + 4 * f + rLow] += LoLatTotal[ps][f];
+
+         HiCapPacketsSent += HiCapTotal[ps][f];
+         LoLatPacketsSent += LoLatTotal[ps][f];
+      }
+      
+      // Packets Sent
+      DataTable.rows[R0 + 42].cells[ps + CO].innerText = HiCapPacketsSent + LoLatPacketsSent;
+      RowTotal[R0 + 42] += HiCapPacketsSent + LoLatPacketsSent;
+
+      DataTable.rows[R0 + 42 + 1].cells[ps + CO].innerText = HiCapPacketsSent;
+      RowTotal[R0 + 42 + 1] += HiCapPacketsSent;
+      HiCapTotalPacketsSent += HiCapPacketsSent;
+
+      DataTable.rows[R0 + 42 + 2].cells[ps + CO].innerText = LoLatPacketsSent;
+      RowTotal[R0 + 42 + 2] += LoLatPacketsSent;
+      LoLatTotalPacketsSent += LoLatPacketsSent;
+
+      gPSTotals[CC][ps][PS_PACKETS_SENT] = HiCapPacketsSent + LoLatPacketsSent;
+
+      // PER = PARQ Naks / Packets Sent
+      Value = SafeDivide( HiCapTotal[ps][4], HiCapPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 22] += Value * 100;
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 22].cells[ps + CO].innerText = Value;
+
+      Value = SafeDivide( LoLatTotal[ps][4], LoLatPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 23] += Value * 100;
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 23].cells[ps + CO].innerText = Value;
+
+      Value = SafeDivide( HiCapTotal[ps][4] + LoLatTotal[ps][4], 
+                          HiCapPacketsSent + LoLatPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 21] += Value * 100;
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 21].cells[ps + CO].innerText = Value;
+      gPSTotals[CC][ps][PS_PER_NUM] = HiCapTotal[ps][4] + LoLatTotal[ps][4];
+
+      // Total Packet Tx Time = (SP0 + 2*SP1 + 3*SP2 + 4*(SP3 + PARQNaks)) * 2 / 300
+      var HiCapTxTime = (HiCapTotal[ps][0] + 
+                         2 * HiCapTotal[ps][1] + 
+                         3 * HiCapTotal[ps][2] + 
+                         4 * (HiCapTotal[ps][3] + HiCapTotal[ps][4])) * 2 / 300;
+      DataTable.rows[R1 + CrO + 32].cells[ps + CO].innerText = (HiCapTxTime * 1000).toFixed( 0 );
+      RowTotal[R1 + CrO + 32] += HiCapTxTime * 1000;
+
+      var LoLatTxTime = (LoLatTotal[ps][0] + 
+                         2 * LoLatTotal[ps][1] + 
+                         3 * LoLatTotal[ps][2] + 
+                         4 * (LoLatTotal[ps][3] + LoLatTotal[ps][4])) * 2 / 300;
+      DataTable.rows[R1 + CrO + 33].cells[ps + CO].innerText = (LoLatTxTime * 1000).toFixed( 0 );
+      RowTotal[R1 + CrO + 33] += LoLatTxTime * 1000;
+
+      Value = HiCapTxTime + LoLatTxTime;
+      DataTable.rows[R1 + CrO + 31].cells[ps + CO].innerText = (Value * 1000).toFixed( 0 );
+      RowTotal[R1 + CrO + 31] += Value * 1000;
+      gPSTotals[CC][ps][PS_PKT_TX_TIME] = Value * 1000;
+      gPSTotals[CC][13][PS_PKT_TX_TIME] += Value * 1000;
+
+      // Avg. Packet Termination
+      var HiCapNum = HiCapTotal[ps][0] + 
+                     2 * HiCapTotal[ps][1] + 
+                     3 * HiCapTotal[ps][2] + 
+                     4 * HiCapTotal[ps][3];
+      HiCapTotalTermination += HiCapNum;
+
+      HiCapValue = SafeDivide( HiCapNum, HiCapPacketsSent );
+      if (isNaN( HiCapValue ) == false)
+      {
+         RowTotal[R1 + CrO + 12] += HiCapValue;
+         HiCapValue = HiCapValue.toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 12].cells[ps + CO].innerText = HiCapValue;
+      var LoLatNum = LoLatTotal[ps][0] + 
+                     2 * LoLatTotal[ps][1] + 
+                     3 * LoLatTotal[ps][2] + 
+                     4 * LoLatTotal[ps][3];
+      LoLatTotalTermination += LoLatNum;
+
+
+      LoLatValue = SafeDivide( LoLatNum, LoLatPacketsSent );
+      if (isNaN( LoLatValue ) == false)
+      {
+         RowTotal[R1 + CrO + 13] += LoLatValue;
+         LoLatValue = LoLatValue.toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 13].cells[ps + CO].innerText = LoLatValue;
+
+      Value = SafeDivide( HiCapNum + LoLatNum, 
+                          HiCapPacketsSent + LoLatPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 11] += Value;
+         Value = Value.toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 11].cells[ps + CO].innerText = Value;
+      gPSTotals[CC][ps][PS_AVG_PKT_TERMINATION_NUM] = HiCapNum + LoLatNum;
+      
+      // Calculation for Total Transmitted Throughput
+      HiCapSumTxTime += HiCapTxTime;
+      LoLatSumTxTime += LoLatTxTime;
+
+      // Good Packets
+      var HiCapGoodPackets = HiCapTotal[ps][0] + HiCapTotal[ps][1] + 
+                             HiCapTotal[ps][2] + HiCapTotal[ps][3];
+      DataTable.rows[R1 + CrO + 2].cells[ps + CO].innerText = HiCapGoodPackets;
+      RowTotal[R1 + CrO + 2] += HiCapGoodPackets;
+
+      var LoLatGoodPackets = LoLatTotal[ps][0] + LoLatTotal[ps][1] + 
+                             LoLatTotal[ps][2] + LoLatTotal[ps][3];
+      DataTable.rows[R1 + CrO + 3].cells[ps + CO].innerText = LoLatGoodPackets;
+      RowTotal[R1 + CrO + 3] += LoLatGoodPackets;
+
+      Value = SafeAdd( HiCapGoodPackets, LoLatGoodPackets );
+      DataTable.rows[R1 + CrO + 1].cells[ps + CO].innerText = Value;
+      RowTotal[R1 + CrO + 1] += Value;
+      gPSTotals[CC][ps][PS_GOOD_PACKETS] = Value;
+
+      // Calculation for Total RL Throughputs
+      HiCapScaledGoodPackets += HiCapGoodPackets * BIT_PS[ps];
+      LoLatScaledGoodPackets += LoLatGoodPackets * BIT_PS[ps];
+
+      // Calculation for Average RL Latency
+      HiCapSumGoodPackets += HiCapGoodPackets;
+      LoLatSumGoodPackets += LoLatGoodPackets;
+
+      // Transmitted Throughput
+      Value = SafeDivide( HiCapGoodPackets * BIT_PS[ps], HiCapTxTime );
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 42] += Value / 1000;
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 42].cells[ps + CO].innerText = Value;
+
+      Value = SafeDivide( LoLatGoodPackets * BIT_PS[ps], LoLatTxTime );
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 43] += Value / 1000;
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 43].cells[ps + CO].innerText = Value;
+
+      Value = SafeDivide( HiCapGoodPackets * BIT_PS[ps] + LoLatGoodPackets * BIT_PS[ps], 
+                          HiCapTxTime + LoLatTxTime );
+      gPSTotals[CC][ps][PS_TX_THROUGHPUT_NUM] = HiCapGoodPackets * BIT_PS[ps] + LoLatGoodPackets * BIT_PS[ps];
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 41] += Value / 1000;
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 41].cells[ps + CO].innerText = Value;
+
+      // Overall Throughput
+      HiCapValue = SafeDivide( HiCapGoodPackets * BIT_PS[ps], TotalTime );
+      Value = HiCapValue;
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 52] += Value / 1000;
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 52].cells[ps + CO].innerText = Value;
+
+      LoLatValue = SafeDivide( LoLatGoodPackets * BIT_PS[ps], TotalTime );
+      Value = LoLatValue;
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 53] += Value / 1000;
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 53].cells[ps + CO].innerText = Value;
+      
+      Value = SafeAdd( HiCapValue, LoLatValue );
+      gPSTotals[CC][ps][PS_OVERALL_THROUGHPUT] = Value;
+      if (isNaN( Value ) == false)
+      {
+         RowTotal[R1 + CrO + 51] += Value / 1000;
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + CrO + 51].cells[ps + CO].innerText = Value;
+   }
+   
+   // Percentage of Packets Sent
+   for (var ps = 1; ps <= PS_MAX; ps++)
+   {
+      for (var i = 0; i < 3; i++)
+      {
+         // Calculate value from 'Packets Sent' data
+         if (RowTotal[R0 + 42] == 0)
+         {
+            // Denominator = 0
+            Value = "-";
+         }
+         else
+         {
+            Value = DataTable.rows[R0 + 42 + i].cells[ps + CO].innerText;
+            Value /= RowTotal[R0 + 42];
+            Value *= 100;
+
+            RowTotal[R1 + CrO + 61 + i] += Value;
+            Value = Value.toFixed( 2 );
+         }
+      
+   
+         DataTable.rows[R1 + CrO + 61 + i].cells[ps + CO].innerText = Value;
+      }
+   }
+
+   // Print total column for ACK/NAK tables
+   for (var i = R0 + 2; i <= R0 + 44; i++)
+   {
+      Value = RowTotal[i];
+      DataTable.rows[i].cells[13 + CO].innerText = Value;
+   }
+   
+   // Print total column for PS statistics table
+   for (var i = R1 + CrO + 1; i <= R1 + 70; i += 10)
+   {
+      for (var j = 0; j < 3; j++)
+      {
+         Value = RowTotal[i + j];
+         
+         // Average Packet Termination
+         if (i + j == R1 + CrO + 11)
+         {
+            Value = SafeDivide( HiCapTotalTermination + LoLatTotalTermination, 
+                                HiCapTotalPacketsSent + LoLatTotalPacketsSent );
+         }
+         if (i + j == R1 + CrO + 12)
+         {
+            Value = SafeDivide( HiCapTotalTermination, HiCapTotalPacketsSent );
+         }
+         if (i + j == R1 + CrO + 13)
+         {
+            Value = SafeDivide( LoLatTotalTermination, LoLatTotalPacketsSent );
+         }
+
+         // Total PER
+         if (i + j == R1 + CrO + 21)
+         {
+            Value = SafeDivide( HiCapPARQNaks + LoLatPARQNaks, 
+                                HiCapTotalPacketsSent + LoLatTotalPacketsSent );
+            gHiLoTotals[CC][0][HILO_PER_NUM] = HiCapPARQNaks + LoLatPARQNaks;
+            gHiLoTotals[CC][0][HILO_PER_DEN] = HiCapTotalPacketsSent + LoLatTotalPacketsSent;
+         }
+         if (i + j == R1 + CrO + 22)
+         {
+            Value = SafeDivide( HiCapPARQNaks, HiCapTotalPacketsSent );
+            gHiLoTotals[CC][1][HILO_PER_NUM] = HiCapPARQNaks;
+            gHiLoTotals[CC][1][HILO_PER_DEN] = HiCapTotalPacketsSent;
+         }
+         if (i + j == R1 + CrO + 23)
+         {
+            Value = SafeDivide( LoLatPARQNaks, LoLatTotalPacketsSent );
+            gHiLoTotals[CC][2][HILO_PER_NUM] = LoLatPARQNaks;
+            gHiLoTotals[CC][2][HILO_PER_DEN] = LoLatTotalPacketsSent;
+         }
+
+         // Total Transmitted Throughput
+         if (i + j == R1 + CrO + 41)
+         {
+            Value = SafeDivide( HiCapScaledGoodPackets + LoLatScaledGoodPackets, 
+                                HiCapSumTxTime + LoLatSumTxTime );
+            gHiLoTotals[CC][0][HILO_TX_THROUGHPUT_NUM] = HiCapScaledGoodPackets + LoLatScaledGoodPackets;
+            gHiLoTotals[CC][0][HILO_TX_THROUGHPUT_DEN] = HiCapSumTxTime + LoLatSumTxTime;
+         }
+         if (i + j == R1 + CrO + 42)
+         {
+            Value = SafeDivide( HiCapScaledGoodPackets, HiCapSumTxTime );
+            gHiLoTotals[CC][1][HILO_TX_THROUGHPUT_NUM] = HiCapScaledGoodPackets;
+            gHiLoTotals[CC][1][HILO_TX_THROUGHPUT_DEN] = HiCapSumTxTime;
+         }
+         if (i + j == R1 + CrO + 43)
+         {
+            Value = SafeDivide( LoLatScaledGoodPackets, LoLatSumTxTime );
+            gHiLoTotals[CC][2][HILO_TX_THROUGHPUT_NUM] = LoLatScaledGoodPackets;
+            gHiLoTotals[CC][2][HILO_TX_THROUGHPUT_DEN] = LoLatSumTxTime;
+         }
+
+         // Adjust value as necessary
+         if (isNaN( Value ) == false)
+         {
+            if (i + j >= R1 + CrO + 21 && i + j <= R1 + CrO + 23)
+            {
+               // Total PER
+               Value *= 100;
+            }
+            else if (i + j >= R1 + CrO + 41 && i + j <= R1 + CrO + 43)
+            {
+               // Total Transmitted Throughput
+               Value /= 1000;
+            }
+
+            if (i + j >= R1 + CrO + 31 && i + j <= R1 + CrO + 33)
+            {
+               // Total Packet TX Time
+               Value = Value.toFixed( 0 );
+            }
+            else if (i + j >= R1 + CrO + 11)
+            {
+               // Average Packet Termination (+ others)
+               Value = Value.toFixed( 2 );
+            }
+         }
+
+         DataTable.rows[i + j].cells[13 + CO].innerText = Value;
+      }
+   }
+   
+   var TotalInterlacePacketsSent = 0;
+   for (var i = 0; i < INTERLACE_MAX; i++)
+   {
+      // Total Packets Sent by Interlace
+      DataTable.rows[R3 + CC + 1].cells[i+2 + CO].innerText = InterlacePacketsSent[i];
+      TotalInterlacePacketsSent += InterlacePacketsSent[i];
+   }
+
+   DataTable.rows[R3 + CC + 1].cells[1 + CO].innerText = TotalInterlacePacketsSent;
+   
+   // Total Unexpected PARQ-NAKs
+   DataTable.rows[R3 + CC + 5].cells[1 + CO].innerText = TotalUnexpected;
+
+   // Calculate HARQ-PARQ Mismatch Rate
+   gMismatchTotals[CC][0] = TotalUnexpected;
+   gMismatchTotals[CC][1] = TotalInterlacePacketsSent;
+   Value = SafeDivide( TotalUnexpected, TotalInterlacePacketsSent );
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 100).toFixed( 2 );
+   }
+   DataTable.rows[R3 + CC + 9].cells[1 + CO].innerText = Value;
+
+   // Total PER
+   DataTable.rows[R2 + CC + 1].cells[2 + CO].innerText = DataTable.rows[R1 + CrO + 22].cells[13 + CO].innerText;
+   DataTable.rows[R2 + CC + 1].cells[3 + CO].innerText = DataTable.rows[R1 + CrO + 23].cells[13 + CO].innerText;
+   DataTable.rows[R2 + CC + 1].cells[1 + CO].innerText = DataTable.rows[R1 + CrO + 21].cells[13 + CO].innerText;
+
+   // Total Instantaneous PER
+   Value = SafeDivide( HiCapPARQNaks - gPrevHiCapPARQNaks[CC], 
+                       HiCapTotalPacketsSent - gPrevHiCapTotalPacketsSent[CC] );
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 100).toFixed( 2 );
+   }
+   else
+   {
+      Value = "0.00";
+   }
+   DataTable.rows[R2 + CC + 5].cells[2 + CO].innerText = Value;
+   gHiLoTotals[CC][1][HILO_INST_PER_NUM] = HiCapPARQNaks - gPrevHiCapPARQNaks[CC];
+   gHiLoTotals[CC][1][HILO_INST_PER_DEN] = HiCapTotalPacketsSent - gPrevHiCapTotalPacketsSent[CC];
+
+
+   Value = SafeDivide( LoLatPARQNaks - gPrevLoLatPARQNaks[CC], 
+                       LoLatTotalPacketsSent - gPrevLoLatTotalPacketsSent[CC] );
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 100).toFixed( 2 );
+   }
+   else
+   {
+      Value = "0.00";
+   }
+   DataTable.rows[R2 + CC + 5].cells[3 + CO].innerText = Value;
+   gHiLoTotals[CC][2][HILO_INST_PER_NUM] = LoLatPARQNaks - gPrevLoLatPARQNaks[CC];
+   gHiLoTotals[CC][2][HILO_INST_PER_DEN] = LoLatTotalPacketsSent - gPrevLoLatTotalPacketsSent[CC];
+
+
+   Value = SafeDivide( HiCapPARQNaks + LoLatPARQNaks - 
+                       gPrevHiCapPARQNaks[CC] - gPrevLoLatPARQNaks[CC], 
+                       HiCapTotalPacketsSent + LoLatTotalPacketsSent - 
+                       gPrevHiCapTotalPacketsSent[CC] - gPrevLoLatTotalPacketsSent[CC] );
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 100).toFixed( 2 );
+   }
+   else
+   {
+      Value = "0.00";
+   }
+   DataTable.rows[R2 + CC + 5].cells[1 + CO].innerText = Value;
+   gHiLoTotals[CC][0][HILO_INST_PER_NUM] = HiCapPARQNaks + LoLatPARQNaks - 
+                                            gPrevHiCapPARQNaks[CC] - gPrevLoLatPARQNaks[CC];
+   gHiLoTotals[CC][0][HILO_INST_PER_DEN] = HiCapTotalPacketsSent + LoLatTotalPacketsSent - 
+                                            gPrevHiCapTotalPacketsSent[CC] - gPrevLoLatTotalPacketsSent[CC];
+
+   gPrevHiCapPARQNaks[CC] = HiCapPARQNaks;
+   gPrevLoLatPARQNaks[CC] = LoLatPARQNaks;
+   gPrevHiCapTotalPacketsSent[CC] = HiCapTotalPacketsSent;
+   gPrevLoLatTotalPacketsSent[CC] = LoLatTotalPacketsSent;
+   
+   // Total Transmitted Throughput
+   DataTable.rows[R2 + CC + 9].cells[2 + CO].innerText = DataTable.rows[R1 + CrO + 42].cells[13 + CO].innerText;
+   DataTable.rows[R2 + CC + 9].cells[3 + CO].innerText = DataTable.rows[R1 + CrO + 43].cells[13 + CO].innerText;
+   DataTable.rows[R2 + CC + 9].cells[1 + CO].innerText = DataTable.rows[R1 + CrO + 41].cells[13 + CO].innerText;
+
+   // Total Overall Throughput
+   Value = SafeDivide( HiCapScaledGoodPackets, TotalTime );
+   gHiLoTotals[CC][1][HILO_OV_THROUGHPUT_NUM] = HiCapScaledGoodPackets;
+   gHiLoTotals[CC][1][HILO_OV_THROUGHPUT_DEN] = TotalTime;
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value / 1000).toFixed( 2 );
+   }
+   DataTable.rows[R2 + CC + 13].cells[2 + CO].innerText = Value;
+
+   Value = SafeDivide( LoLatScaledGoodPackets, TotalTime );
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value / 1000).toFixed( 2 );
+   }
+   DataTable.rows[R2 + CC + 13].cells[3 + CO].innerText = Value;
+   gHiLoTotals[CC][2][HILO_OV_THROUGHPUT_NUM] = LoLatScaledGoodPackets;
+   gHiLoTotals[CC][2][HILO_OV_THROUGHPUT_DEN] = TotalTime;
+
+   Value = SafeDivide( HiCapScaledGoodPackets + LoLatScaledGoodPackets, 
+                       TotalTime );
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value / 1000).toFixed( 2 );
+   }
+   DataTable.rows[R2 + CC + 13].cells[1 + CO].innerText = Value;
+   gHiLoTotals[CC][0][HILO_OV_THROUGHPUT_NUM] = HiCapScaledGoodPackets + LoLatScaledGoodPackets;
+   gHiLoTotals[CC][0][HILO_OV_THROUGHPUT_DEN] = TotalTime;
+
+   // Total Instantaneous Throughput
+   Value = SafeDivide( HiCapScaledGoodPackets - gPrevHiCapScaledGoodPackets[CC], 
+                       TotalTime - gPrevTotalTime[CC] );
+   gHiLoTotals[CC][1][HILO_INST_THROUGHPUT_NUM] = HiCapScaledGoodPackets - gPrevHiCapScaledGoodPackets[CC];
+   gHiLoTotals[CC][1][HILO_INST_THROUGHPUT_DEN] = TotalTime - gPrevTotalTime[CC];
+
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value / 1000).toFixed( 2 );
+   }
+   DataTable.rows[R2 + CC + 17].cells[2 + CO].innerText = Value;
+
+   Value = SafeDivide( LoLatScaledGoodPackets - gPrevLoLatScaledGoodPackets[CC],
+                       TotalTime - gPrevTotalTime[CC] );
+   gHiLoTotals[CC][2][HILO_INST_THROUGHPUT_NUM] = LoLatScaledGoodPackets - gPrevLoLatScaledGoodPackets[CC];
+   gHiLoTotals[CC][2][HILO_INST_THROUGHPUT_DEN] = TotalTime - gPrevTotalTime[CC];
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value / 1000).toFixed( 2 );
+   }
+   DataTable.rows[R2 + CC + 17].cells[3 + CO].innerText = Value;
+
+   Value = SafeDivide( HiCapScaledGoodPackets + LoLatScaledGoodPackets -
+                       gPrevHiCapScaledGoodPackets[CC] - gPrevLoLatScaledGoodPackets[CC], 
+                       TotalTime - gPrevTotalTime[CC] );
+   gHiLoTotals[CC][0][HILO_INST_THROUGHPUT_NUM] = HiCapScaledGoodPackets + LoLatScaledGoodPackets -
+                                                 gPrevHiCapScaledGoodPackets[CC] - gPrevLoLatScaledGoodPackets[CC];
+   gHiLoTotals[CC][0][HILO_INST_THROUGHPUT_DEN] = TotalTime - gPrevTotalTime[CC];
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value / 1000).toFixed( 2 );
+   }
+   DataTable.rows[R2 + CC + 17].cells[1 + CO].innerText = Value;
+
+   gPrevHiCapScaledGoodPackets[CC]   = HiCapScaledGoodPackets;
+   gPrevLoLatScaledGoodPackets[CC]   = LoLatScaledGoodPackets;
+   gPrevTotalTime[CC]                = TotalTime;
+
+   // Average Latency
+   Value = SafeDivide( HiCapSumTxTime, HiCapSumGoodPackets );
+   gHiLoTotals[CC][1][HILO_LATENCY_NUM] = HiCapSumTxTime;
+   gHiLoTotals[CC][1][HILO_LATENCY_DEN] = HiCapSumGoodPackets;
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 1000).toFixed( 4 );
+   }
+   DataTable.rows[R2 + CC + 21].cells[2 + CO].innerText = Value;
+
+   Value = SafeDivide( LoLatSumTxTime, LoLatSumGoodPackets );
+   gHiLoTotals[CC][2][HILO_LATENCY_NUM] = LoLatSumTxTime;
+   gHiLoTotals[CC][2][HILO_LATENCY_DEN] = LoLatSumGoodPackets;
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 1000).toFixed( 4 );
+   }
+   DataTable.rows[R2 + CC + 21].cells[3 + CO].innerText = Value;
+
+   Value = SafeDivide( HiCapSumTxTime + LoLatSumTxTime,
+                       HiCapSumGoodPackets + LoLatSumGoodPackets );
+   gHiLoTotals[CC][0][HILO_LATENCY_NUM] = HiCapSumTxTime + LoLatSumTxTime;
+   gHiLoTotals[CC][0][HILO_LATENCY_DEN] = HiCapSumGoodPackets + LoLatSumGoodPackets;
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 1000).toFixed( 4 );
+   }
+   DataTable.rows[R2 + CC + 21].cells[1 + CO].innerText = Value;
+   
+   PopulateCarrierTotals();
+}
+
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_TRAFFIC_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+
+   gCarrierCount = 0;
+   for (var c = 0; c < CARRIER_MAX; c++)
+   {
+      gCarrierOldest[c] = c;
+      gCarrierID[c] = -1;
+
+      gPrevHiCapPARQNaks[c]          = 0;
+      gPrevLoLatPARQNaks[c]          = 0;
+      gPrevHiCapTotalPacketsSent[c]  = 0;
+      gPrevLoLatTotalPacketsSent[c]  = 0;
+
+      gPrevHiCapScaledGoodPackets[c] = 0;
+      gPrevLoLatScaledGoodPackets[c] = 0;
+      gPrevTotalTime[c]              = 0;
+   }
+
+   // For all carriers, plus a total
+   for (var c = 0; c < CARRIER_MAX + 1; c++)
+   {
+      for (var ps = 1; ps <= PS_MAX + 1; ps++)
+      {
+         for (var j = 0; j < PS_END; j++)
+         {
+            gPSTotals[c][ps][j] = 0;
+         }
+      }
+      
+      for (var i = 0; i < HILO_MAX + 1; i++)
+      {
+         for (var j = 0; j < HILO_END; j++)
+         {
+            gHiLoTotals[c][i][j] = 0;
+         }
+      }
+      
+      for (var i = 0; i <= 1; i++)
+      {
+         gMismatchTotals[c][i] = 0;
+      }
+   }
+   
+   var r = 0;
+   var i = 0;
+
+   for (var c = 0; c < CARRIER_MAX; c++)
+   {   
+      var R0 = (R0Count + 1) * c;
+
+      // Display carrier information
+      DataTable.rows[R0].cells[CO].innerText = "Carrier " + (c + 1);
+
+      for (var ps = 1; ps <= PS_MAX + 1; ps++)
+      {
+         for (r = R0 + 2; r < R0 + R0Count; r++)
+         {
+            DataTable.rows[r].cells[ps + CO].innerText = "-";
+         }
+      }
+   }
+ 
+   for (var ps = 1; ps <= PS_MAX + 1; ps++)
+   {
+      for (r = R1; r <= R1 + R1Count; r++)
+      {
+         DataTable.rows[r].cells[ps + CO].innerText = "-";
+      }
+   }
+
+   for (i = 1; i <= HILO_MAX + 1; i++)
+   {
+      for (r = R2; r <= R2 + R2Count; r++)
+      {
+         DataTable.rows[r].cells[i + CO].innerText = "-";
+      }
+   }
+
+   for (i = 1; i <= INTERLACE_MAX + 1; i++)
+   {
+      for (r = R3; r < R3 + R3Count; r++)
+      {
+         // Process multiple columns except for HARQ-PARQ Mismatch
+         if (r < R3 + 8 || i == 1)
+         {
+            DataTable.rows[r].cells[i + CO].innerText = "-";
+         } 
+      }
+   }
+}
+
+function ToggleCarrierRow(r, bChecked)
+{
+   var hiddenMask = DataTable.rows[r].cells[CO].hiddenMask;
+   var hiddenBit = 1;
+   
+   if (bChecked == false)
+   {
+      // Set hidden bit
+      hiddenMask = hiddenMask | hiddenBit;
+   }
+   else
+   {
+      // Remove hidden bit
+      hiddenMask = hiddenMask & (0xF - hiddenBit);
+   }
+   
+   DataTable.rows[r].cells[CO].hiddenMask = hiddenMask; 
+   if (hiddenMask == 0)
+   {
+      // Show row
+      DataTable.rows[r].style.display = "";
+   }
+   else
+   {
+      // Hide row
+      DataTable.rows[r].style.display = "none";
+   }   
+}
+
+function ToggleCarrier( Carrier, bChecked )
+{
+   var R0 = (R0Count + 1) * (Carrier - 1);
+   for (var r = R0 + R0Count; r >= R0; r--)
+   {
+      var hiddenMask = DataTable.rows[r].cells[CO].hiddenMask;
+      var hiddenBit = 1;
+      
+      if (bChecked == false)
+      {
+         // Set hidden bit
+         hiddenMask = hiddenMask | hiddenBit;
+      }
+      else
+      {
+         // Remove hidden bit
+         hiddenMask = hiddenMask & (0xF - hiddenBit);
+      }
+      
+      DataTable.rows[r].cells[CO].hiddenMask = hiddenMask; 
+      if (hiddenMask == 0)
+      {
+         // Show row
+         DataTable.rows[r].style.display = "";
+      }
+      else
+      {
+         // Hide row
+         DataTable.rows[r].style.display = "none";
+      }   
+   }
+   
+   for (var r = R1; r <= R1 + R1Count; r++)
+   {
+      var m = r % 10;
+      if (m < (Carrier - 1) * 3 || m >= (Carrier - 1) * 3 + 3)
+      {
+         // Skip other carriers
+         continue;
+      }
+      ToggleCarrierRow(r, bChecked); 
+   }
+   
+   for (var r = R2 + Carrier; r <= R2 + R2Count; r += 4)
+   {
+      ToggleCarrierRow(r, bChecked);
+   }
+
+   for (var r = R3 + Carrier; r <= R3 + R3Count; r += 4)
+   {
+      ToggleCarrierRow(r, bChecked);
+   }
+
+   PopulateCarrierTotals();
+   
+   DataTable.refresh();
+}
+
+function PopulateCarrierTotals()
+{
+   var TotalPacketsSent = new Array();
+   var ParqNaks = new Array();
+   var Value = 0;
+
+   // Reset carrier totals
+   for (var ps = 1; ps <= PS_MAX + 1; ps++)
+   {
+      for (var j = 0; j < PS_END; j++)
+      {
+         gPSTotals[3][ps][j] = 0;
+      }
+   }
+   
+   // Reset HiCap, LoLat totals
+   for (var i = 0; i < HILO_MAX + 1; i++)
+   {
+      for (var j = 0; j < HILO_END; j++)
+      {
+         gHiLoTotals[3][i][j] = 0;
+      }
+   }
+
+   // Interlace totals
+   for (var i = 0; i < INTERLACE_MAX + 1; i++)
+   {
+      TotalPacketsSent[i] = 0;
+      ParqNaks[i] = 0;
+   }
+
+   var CarrierCount = 0;
+   for (var c = 0; c < gCarrierCount; c++)
+   {
+      var hiddenMask = DataTable.rows[R1 + 1 + c * 3].cells[CO].hiddenMask;
+      if (hiddenMask & 1 != 0)
+      {
+         // Carrier is hidden, skip
+         continue;
+      }
+      
+      CarrierCount++;
+      for (var ps = 1; ps <= PS_MAX; ps++)
+      {
+         for (var j = 0; j < PS_END; j++)
+         {
+            if (j == PS_PKT_TX_TIME)
+            {
+               // Store maximum value among carriers
+               if (gPSTotals[3][ps][j] < gPSTotals[c][ps][j])
+               {
+                  gPSTotals[3][ps][j] = gPSTotals[c][ps][j];
+               }
+
+               if (ps == PS_MAX)
+               {
+                  // Store maximum value among carriers
+                  if (gPSTotals[3][13][j] < gPSTotals[c][13][j])
+                  {
+                     gPSTotals[3][13][j] = gPSTotals[c][13][j];
+                  }
+               }
+            }
+            else
+            {
+               // Sum carrier values
+               gPSTotals[3][ps][j] = SafeAdd( gPSTotals[3][ps][j], gPSTotals[c][ps][j] );
+
+               // Add also to total PS for all carriers
+               gPSTotals[3][13][j] = SafeAdd( gPSTotals[3][13][j], gPSTotals[c][ps][j] );
+            }         
+         }
+      }
+      
+      
+      
+      // HiCap, LoLat data
+      for (var i = 0; i < HILO_MAX + 1; i++)
+      {
+         for (var j = 0; j < HILO_END; j++)
+         {
+            if (j == HILO_TX_THROUGHPUT_DEN)
+            {
+               // Store maximum value among carriers
+               if (gHiLoTotals[3][i][j] < gHiLoTotals[c][i][j])
+               {  
+                  gHiLoTotals[3][i][j] = gHiLoTotals[c][i][j];
+               }
+            }
+            else
+            {
+               // Sum carrier values
+               gHiLoTotals[3][i][j] = SafeAdd( gHiLoTotals[3][i][j], gHiLoTotals[c][i][j] );
+            }
+         }
+      }
+      
+      // Interlace Data
+      for (var i = 0; i < INTERLACE_MAX + 1; i++)
+      {
+         Value = DataTable.rows[R3 + 1 + c].cells[CO + 1 + i].innerText;
+         if (isNaN( Value ) == false)
+         {
+            // Force to number by multiplying by 1
+            
+            // Total Packets Sent
+            TotalPacketsSent[i] += Value * 1;
+         }
+         
+         Value = DataTable.rows[R3 + 5 + c].cells[CO + 1 + i].innerText;
+         if (isNaN( Value ) == false)
+         {
+            // Force to number by multiplying by 1
+            
+            // Unexpected PARQ NAKs
+            ParqNaks[i] += Value * 1;
+         }
+      }
+      
+      for (i = 0; i <= 1; i++)
+      {
+         gMismatchTotals[3][i] = SafeAdd( gMismatchTotals[3][i], gMismatchTotals[c][i] );
+      }
+
+   }
+   
+   for (var ps = 1; ps <= PS_MAX + 1; ps++)
+   {
+      // Good Packets
+      DataTable.rows[R1].cells[CO + ps].innerText = gPSTotals[3][ps][PS_GOOD_PACKETS];
+      
+      // Avg Packet Termination
+      Value = SafeDivide( gPSTotals[3][ps][PS_AVG_PKT_TERMINATION_NUM], 
+                          gPSTotals[3][ps][PS_PACKETS_SENT] );
+      
+      if (isNaN( Value ) == false)
+      {
+         Value = Value.toFixed( 2 );
+      }
+      DataTable.rows[R1 + 10].cells[CO + ps].innerText = Value;
+
+      // PER
+      Value = SafeDivide( gPSTotals[3][ps][PS_PER_NUM], 
+                          gPSTotals[3][ps][PS_PACKETS_SENT] );
+      
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R1 + 20].cells[CO + ps].innerText = Value;
+
+      // Total Packet TX Time
+      Value = gPSTotals[3][ps][PS_PKT_TX_TIME];
+      Value = Value.toFixed( 0 );
+      DataTable.rows[R1 + 30].cells[CO + ps].innerText = Value;
+      
+      // Transmitted Throughput
+      Value = SafeDivide( gPSTotals[3][ps][PS_TX_THROUGHPUT_NUM], gPSTotals[3][ps][PS_PKT_TX_TIME]);
+      if (isNaN( Value ) == false)
+      {
+         Value = Value.toFixed( 2 );
+      }
+      DataTable.rows[R1 + 40].cells[CO + ps].innerText = Value;
+      
+      // Overall Throughput
+      Value = gPSTotals[3][ps][PS_OVERALL_THROUGHPUT];
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R1 + 50].cells[CO + ps].innerText = Value;
+
+      // Percentage of Packets Sent = PS Packets Sent / Total Packets Sent
+      Value = gPSTotals[3][ps][PS_PACKETS_SENT];
+      Value = SafeDivide( Value, gPSTotals[3][13][PS_PACKETS_SENT] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R1 + 60].cells[CO + ps].innerText = Value;
+   }  
+
+   // HiCap, LoLat data
+   for (var i = 0; i < HILO_MAX + 1; i++)
+   {
+      // Total PER
+      Value = SafeDivide( gHiLoTotals[3][i][HILO_PER_NUM], 
+                          gHiLoTotals[3][i][HILO_PER_DEN] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R2].cells[CO + 1 + i].innerText = Value;
+      
+      // Total Instantaneous PER
+      Value = SafeDivide( gHiLoTotals[3][i][HILO_INST_PER_NUM], 
+                          gHiLoTotals[3][i][HILO_INST_PER_DEN] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 4].cells[CO + 1 + i].innerText = Value;
+      
+      // Total Transmitted Throughput
+      Value = SafeDivide( gHiLoTotals[3][i][HILO_TX_THROUGHPUT_NUM], 
+                          gHiLoTotals[3][i][HILO_TX_THROUGHPUT_DEN] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 8].cells[CO + 1 + i].innerText = Value;
+      
+      // Total Overall Throughput
+      // Use average of denominator
+      gHiLoTotals[3][i][HILO_OV_THROUGHPUT_DEN] = SafeDivide( gHiLoTotals[3][i][HILO_OV_THROUGHPUT_DEN],
+                                                              CarrierCount );
+                                                              
+      Value = SafeDivide( gHiLoTotals[3][i][HILO_OV_THROUGHPUT_NUM], 
+                          gHiLoTotals[3][i][HILO_OV_THROUGHPUT_DEN] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 12].cells[CO + 1 + i].innerText = Value;
+      
+      // Total Instantaneous Throughput
+      // Use average of denominator
+      gHiLoTotals[3][i][HILO_INST_THROUGHPUT_DEN] = SafeDivide( gHiLoTotals[3][i][HILO_INST_THROUGHPUT_DEN],
+                                                                CarrierCount );
+                                                              
+      Value = SafeDivide( gHiLoTotals[3][i][HILO_INST_THROUGHPUT_NUM], 
+                          gHiLoTotals[3][i][HILO_INST_THROUGHPUT_DEN] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 16].cells[CO + 1 + i].innerText = Value;
+      
+      // Average Latency
+      Value = SafeDivide( gHiLoTotals[3][i][HILO_LATENCY_NUM], 
+                          gHiLoTotals[3][i][HILO_LATENCY_DEN] );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 1000).toFixed( 4 );
+      }
+      DataTable.rows[R2 + 20].cells[CO + 1 + i].innerText = Value;
+      
+   }
+
+   // Interlace data
+   for (var i = 0; i < INTERLACE_MAX + 1; i++)
+   {
+      // Total Packets Sent
+      DataTable.rows[R3].cells[CO + 1 + i].innerText = TotalPacketsSent[i];
+
+      // Unexpected PARQ NAKs
+      DataTable.rows[R3 + 4].cells[CO + 1 + i].innerText = ParqNaks[i];
+   }
+
+   // HARQ-PARQ Mismatch Rate
+   Value = SafeDivide( gMismatchTotals[3][0], 
+                       gMismatchTotals[3][1] );
+   
+   if (isNaN( Value ) == false)
+   {
+      Value = (Value * 100).toFixed( 2 );
+   }
+   DataTable.rows[R3 + 8].cells[CO + 1].innerText = Value;
+}
+
+</script>
+</body>
+</html>

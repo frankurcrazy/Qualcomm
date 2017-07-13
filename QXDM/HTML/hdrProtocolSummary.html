@@ -1,0 +1,686 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Protocol Summary" />
+   <meta name="DMViewWidth" content="900" />
+   <meta name="DMViewHeight" content="700" />
+
+   <title>HDR Protocol Summary</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" cellpadding="2">
+   <tr>
+      <td width="33%" valign="top" class="noborder">
+      
+         <table width="100%" id="StateTable">
+            <colgroup span="2">
+               <col width="40%" />
+               <col width="60%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">State</th>
+            </tr>
+            <tr>
+               <td>AT</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>Session</td>               
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>ALMP</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Initialization</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Idle</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Connected</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Route Update</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Overhead Message</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Hybrid Mode</td>
+               <td>-</td>
+            </tr>            
+         </table> 
+         
+      </td>
+      <td width="34%" valign="top" class="noborder">
+       
+         <table width="100%" id="ConnectionTable">         
+            <colgroup span="2">
+               <col width="40%" />
+               <col width="60%" />
+            </colgroup>
+
+            <tr>
+               <th colspan="2">Connection</th>
+            </tr>
+            <tr>               
+               <td>Average Duration</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Successes</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Failures</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Attempts</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th colspan="2">Last Attempt</th>
+            </tr>            
+            <tr>
+               <td>Status</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>Outcome</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Duration</td>
+               <td>-</td>
+            </tr>            
+            <tr>               
+               <td>Transaction ID</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Sector ID</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Color Code</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>PN</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>ASP Changes</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th colspan="2">Last Release</th>
+            </tr>
+            <tr>
+               <td>Reason</td>
+               <td>-</td>
+            </tr>  
+            <tr>     
+               <th colspan="2"><input type="button" value="Reset" onclick="ResetConnect();"></th>
+            </tr>
+            <tr>              
+         </table>
+         
+      </td>      
+      <td width="33%" valign="top" class="noborder">
+       
+         <table width="100%" id="SessionTable">
+            <colgroup span="2">
+               <col width="40%" />
+               <col width="60%" />
+            </colgroup>
+
+            <tr>
+               <th colspan="2">Session</th>
+            </tr>
+            <tr>               
+               <td>Average Duration</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Successes</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Failures</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Attempts</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th colspan="2">Last Attempt</th>
+            </tr>            
+            <tr>               
+               <td>Result</td>
+               <td>-</td>
+            </tr>
+             <tr>               
+               <td>Duration</td>
+               <td>-</td>
+            </tr>            
+            <tr>               
+               <td>RATI</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>UATI</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Color Code</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>PN</td>
+               <td>-</td>
+            </tr>            
+            <tr>           
+               <th colspan="2"><input type="button" value="Reset" onclick="ResetSession();"></th>
+            </tr>
+         </table>
+                  
+      </td>
+   </tr>
+</table>
+
+<table width="100%" id="StatsTable">
+   <colgroup span="4">
+      <col width="35%" />
+      <col width="15%" />
+      <col width="35%" />
+      <col width="15%" />
+   </colgroup>
+   
+   <tr>
+      <th colspan="4">Statistics</th>
+   </tr>
+   <tr>
+      <th colspan="2">Connection Failures</th>
+      <th colspan="2">Connection Releases</th>
+   </tr>
+   <tr>
+      <td>Denied - General</td>
+      <td>-</td>
+      <td>AN Connection Close</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Denied - Network Busy</td>
+      <td>-</td>
+      <td>AT Connection Close</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Denied - Authentication/Billing</td>
+      <td>-</td>
+      <td>System Lost</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Max Access Probes</td>
+      <td>-</td>
+      <td>Not Preferred</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>System Lost</td>
+      <td>-</td>
+      <td>Redirect</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Not Preferred</td>
+      <td>-</td>
+      <td>Power Down Received</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Redirect</td>
+      <td>-</td>
+      <td>Offline Received</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Connection Setup Timeout</td>
+      <td>-</td>
+      <td>NAM Change Received</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Power Down Received</td>
+      <td>-</td>
+      <td>Page Message Received</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Offline Received</td>
+      <td>-</td>
+      <td>Unspecified</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>NAM Change Received</td>
+      <td>-</td>
+      <th colspan="2"><input type="button" value="Reset" onclick="ResetStats();"></th>
+   </tr>
+</table>            
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 500;
+var LOG_ON_DEMAND_REQ = "Log On Demand Request";
+var RESET_CONN_REQ    = "CDMA 1xEV/Reset Connection Attempts Request";
+var RESET_SESS_REQ    = "CDMA 1xEV/Reset Session Attempts Request";
+
+// Connection/session duration averages
+var gConnDurationCount = 0;
+var gSessDurationCount = 0;
+var gConnDurationTotal = 0;
+var gSessDurationTotal = 0;
+
+// Connection stats
+var gFailures         = new Array( 11 );
+var gReleases         = new Array( 10 );
+
+var gMainTickID       = 0;
+var PrevIndex         = -1;
+        
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs     
+   clientObject.AddLog( 0x106E );
+   clientObject.AddLog( 0x1071 );
+   clientObject.AddLog( 0x107E );
+   clientObject.AddLog( 0x1088 );
+   
+   clientObject.CommitConfig();
+   
+   // Initialize stats
+   var i;
+   var sz;
+
+   sz = gFailures.length;
+   for (i = 0; i < sz; i++)
+   {
+      gFailures[i] = 0;
+   }
+   
+   sz = gReleases.length;
+   for (i = 0; i < sz; i++)
+   {
+      gReleases[i] = 0;
+   }   
+   
+   // Request state immediately
+   IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, "0x107E", 1, TIMEOUT_MS, 1, 1 );
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process new logs in our client view
+function ProcessLogs()
+{
+   // NOTE: Since we are doing stats we have to process 
+   // all items in our client - we don't expect much in
+   // the way of traffic so this should not pose a CPu
+   // utilization issue
+   var LogCode106E = "[0x106E]";
+   var LogCode1071 = "[0x1071]";
+   var LogCode107E = "[0x107E]";
+   var LogCode1088 = "[0x1088]";
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case LogCode106E:         
+            ProcessConnAttempt( ItemFields );
+            break;
+         
+         case LogCode1071:        
+            ProcessConnRelease( ItemFields );         
+            break;
+   
+         case LogCode107E:    
+            ProcessState( ItemFields );            
+            break; 
+                      
+         case LogCode1088:
+            ProcessSession( ItemFields );
+            break;
+      }     
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function ProcessConnAttempt( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 12)
+   {
+      return;
+   }
+   
+   // Update average duration
+   var FieldVal = Fields.GetFieldValue( 4 );
+   
+   gConnDurationTotal += FieldVal;
+   gConnDurationCount++;
+   
+   var Avg = gConnDurationTotal / gConnDurationCount;
+   ConnectionTable.rows[1].cells[1].innerText = Avg;
+   
+   // Success count
+   FieldVal = Fields.GetFieldValueText( 5 );
+   ConnectionTable.rows[2].cells[1].innerText = FieldVal;
+
+   // Failure count
+   FieldVal = Fields.GetFieldValueText( 6 );
+   ConnectionTable.rows[3].cells[1].innerText = FieldVal;
+
+   // Attempt count
+   FieldVal = Fields.GetFieldValueText( 7 );
+   ConnectionTable.rows[4].cells[1].innerText = FieldVal;
+   
+   // Status
+   FieldVal = Fields.GetFieldValueText( 3 );
+   ConnectionTable.rows[6].cells[1].innerText = FieldVal;  
+
+   // Outcome
+   FieldVal = Fields.GetFieldValueText( 2 );
+   ConnectionTable.rows[7].cells[1].innerText = FieldVal;  
+
+   // Duration
+   FieldVal = Fields.GetFieldValueText( 4 );
+   ConnectionTable.rows[8].cells[1].innerText = FieldVal;     
+   
+   // Transaction ID
+   FieldVal = Fields.GetFieldValueText( 0 );
+   ConnectionTable.rows[9].cells[1].innerText = FieldVal; 
+   
+   // Sector ID
+   FieldVal = Fields.GetFieldValueText( 9 );
+   ConnectionTable.rows[10].cells[1].innerText = FieldVal;    
+   
+   // Color code
+   FieldVal = Fields.GetFieldValueText( 10 );
+   ConnectionTable.rows[11].cells[1].innerText = FieldVal;
+
+   // PN
+   FieldVal = Fields.GetFieldValueText( 8 );
+   ConnectionTable.rows[12].cells[1].innerText = FieldVal;
+   
+   // NumHo!
+   FieldVal = Fields.GetFieldValueText( 11 );
+   ConnectionTable.rows[13].cells[1].innerText = FieldVal;   
+   
+   // Update counter
+   var FieldVal = Fields.GetFieldValue( 2 );
+   if (FieldVal < gFailures.length)
+   {
+      var tmp = gFailures[FieldVal] + 1;
+      gFailures[FieldVal] = tmp; 
+      
+      StatsTable.rows[FieldVal + 2].cells[1].innerText = tmp;
+   }  
+}
+
+function ProcessConnRelease( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+   
+   // Update counter
+   var FieldVal = Fields.GetFieldValue( 0 );
+   if (FieldVal < gReleases.length)
+   {
+      var tmp = gReleases[FieldVal] + 1;
+      gReleases[FieldVal] = tmp; 
+      
+      StatsTable.rows[FieldVal + 2].cells[3].innerText = tmp;
+   }
+   
+   FieldVal = Fields.GetFieldValueText( 0 );
+   ConnectionTable.rows[15].cells[1].innerText = FieldVal;
+}
+
+function ProcessState( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 9)
+   {
+      return;
+   }
+   
+   var FieldVal;
+   for (var f = 0; f < 9; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      StateTable.rows[f + 1].cells[1].innerText = FieldVal;
+   }
+}
+
+function ProcessSession( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 25)
+   {
+      return;
+   }
+   
+   // Update average duration
+   var FieldVal = Fields.GetFieldValue( 3 );
+   
+   gSessDurationTotal += FieldVal;
+   gSessDurationCount++;
+   
+   var Avg = gSessDurationTotal / gSessDurationCount;
+   SessionTable.rows[1].cells[1].innerText = Avg;
+   
+   // Success count
+   FieldVal = Fields.GetFieldValueText( 4 );
+   SessionTable.rows[2].cells[1].innerText = FieldVal;
+
+   // Failure count
+   FieldVal = Fields.GetFieldValueText( 5 );
+   SessionTable.rows[3].cells[1].innerText = FieldVal;
+
+   // Attempt count
+   FieldVal = Fields.GetFieldValueText( 6 );
+   SessionTable.rows[4].cells[1].innerText = FieldVal;
+   
+   // Result
+   FieldVal = Fields.GetFieldValueText( 1 );
+   SessionTable.rows[6].cells[1].innerText = FieldVal;  
+   
+   // Duration
+   FieldVal = Fields.GetFieldValueText( 3 );
+   SessionTable.rows[7].cells[1].innerText = FieldVal;     
+   
+   // RATI
+   FieldVal = Fields.GetFieldValueText( 2 );
+   SessionTable.rows[8].cells[1].innerText = FieldVal; 
+   
+   // UATI - make the big UATI string 
+   var UATI = "0x";
+   var Tmp;
+   for (var u = 9; u < 25; u++)
+   {
+      Tmp = Fields.GetFieldValueText( u );           
+      UATI += Tmp.substr( 2, 2 );
+   }
+   
+   SessionTable.rows[9].cells[1].innerText = UATI; 
+   
+   // Color code
+   FieldVal = Fields.GetFieldValueText( 8 );
+   SessionTable.rows[10].cells[1].innerText = FieldVal; 
+   
+   // PN
+   FieldVal = Fields.GetFieldValueText( 7 );
+   SessionTable.rows[11].cells[1].innerText = FieldVal; 
+}
+
+function ResetConnect()
+{
+   IQXDM2.RequestItem( RESET_CONN_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+
+   gConnDurationTotal = 0;
+   gConnDurationCount = 0;
+   
+   for (var r = 1; r < 5; r++)
+   {
+      ConnectionTable.rows[r].cells[1].innerText = "-";
+   }
+}
+
+function ResetSession()
+{
+   IQXDM2.RequestItem( RESET_SESS_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+
+   gSessDurationTotal = 0;
+   gSessDurationCount = 0;
+   
+   for (var r = 1; r < 5; r++)
+   {
+      SessionTable.rows[r].cells[1].innerText = "-";
+   }
+}
+
+function ResetStats()
+{
+   var i;
+   var sz;
+
+   sz = gFailures.length;
+   for (i = 0; i < sz; i++)
+   {
+      gFailures[i] = 0;
+      StatsTable.rows[i + 2].cells[1].innerText = "-";
+   }
+   
+   sz = gReleases.length;
+   for (i = 0; i < sz; i++)
+   {
+      gReleases[i] = 0;
+      StatsTable.rows[i + 2].cells[3].innerText = "-";
+   }
+}
+
+</script>
+
+</body>
+</html>  

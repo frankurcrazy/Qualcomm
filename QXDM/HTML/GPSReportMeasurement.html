@@ -1,0 +1,634 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPS Measurement" />
+   <meta name="DMViewWidth" content="1200" />
+   <meta name="DMViewHeight" content="280" />
+
+   <title>GPS Measurement</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+   <table width="25%" id="FCountTable">
+      <colgroup span="2">
+         <col width="40%" />
+         <col width="60%" />
+      </colgroup>
+      <tr>
+         <th>F Count</th>
+         <td>-</td>
+      </tr>
+   </table>
+   <br />
+
+   <table width="100%" id="AAGPSMeasTable" style="display : none">
+      <colgroup span="18">
+         <col width="3%" />
+         <col width="12%" />
+         <col width="3%" />
+         <col width="3%" />
+         <col width="3%" />
+         <col width="6%" />
+         <col width="3%" />
+         <col width="3%" />
+         <col width="4%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="7%" />
+         <col width="7%" />
+         <col width="6%" />
+         <col width="10%" />
+         <col width="6%" />
+      </colgroup>
+
+      <tr>
+         <th>Sv</th>
+         <th>C</th>
+         <th>Ht</th>
+         <th>Elv</th>
+         <th>Azi</th>
+         <th>Stat</th>
+         <th>Gd</th>
+         <th>Bd</th>
+         <th>Snr</th>
+         <th>CNo</th>
+         <th>Latency</th>
+         <th>Pre</th>
+         <th>Post</th>
+         <th>Ms</th>
+         <th>SubMs</th>
+         <th>TUnc</th>
+         <th>Speed</th>
+         <th>SpdUnc</th>
+      </tr>
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </table>
+
+   <table width="100%" id="GPSMeasTable">
+      <colgroup span="17">
+         <col width="4%" />
+         <col width="12%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="6%" />
+         <col width="3%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="5%" />
+         <col width="5%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="6%" />
+         <col width="9%" />
+      </colgroup>
+
+      <tr>
+         <th>Sv</th>
+         <th>C</th>
+         <th>Elv</th>
+         <th>Azi</th>
+         <th>Stat</th>
+         <th>Gd</th>
+         <th>ObsCnt</th>
+         <th>CNo</th>
+         <th>Latency</th>
+         <th>Pre</th>
+         <th>Post</th>
+         <th>Ms</th>
+         <th>SubMs</th>
+         <th>TUnc</th>
+         <th>Speed</th>
+         <th>SpdUnc</th>
+         <th>CSlipCnt</th>
+      </tr>
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle        = 0xFFFFFFFF;
+var UPDATE_MS     = 1000;
+var PrevIndex     = -1;
+var gMainTickID   = 0;
+var gAAGPSDisplay = false;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   ClientObject.AddLog( 0x7005 );
+   ClientObject.AddLog( 0x701F );
+
+   ClientObject.AddLog( 0x1371 );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client - we only update based on the last item
+// since the user cannot discern anything faster than our update
+// interval
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields != null)
+      {
+         var ItemKey = Item.GetItemKeyText();
+         if (ItemKey == "[0x7005]" || ItemKey == "[0x701F]")
+         {
+            if (gAAGPSDisplay == false)
+            {
+               // Hide the GPS table
+               GPSMeasTable.style.display = "none";
+
+               // Show the AAGPS table
+               gAAGPSDisplay = true;
+               AAGPSMeasTable.style.display = "";
+            }
+
+            PopulateAAGPSTable( Fields, ItemKey );
+         }
+         else
+         {
+            if (gAAGPSDisplay == true)
+            {
+               // Hide the AAGPS table
+               gAAGPSDisplay = false;
+               AAGPSMeasTable.style.display = "none";
+
+               // Show the GPS table
+               GPSMeasTable.style.display = "";
+            }
+
+            PopulateGPSTable( Fields );
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function PopulateAAGPSTable( Fields, ItemKey )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+
+   // FCount
+   var Fcount = Fields.GetFieldValueText( 0 );
+   FCountTable.rows[0].cells[1].innerText = Fcount;
+
+   var NumSVs;
+   var Column = 0;
+   var DataIndex;
+
+   // Grab number of rows in existing table
+   var CurRows = AAGPSMeasTable.rows.length - 1;
+
+   // Grab number of SVs and process
+   if (ItemKey == "[0x7005]")
+   {
+      NumSVs = 13;
+      DataIndex = 1;
+   }
+   else
+   {
+      // Number Of SVs
+      NumSVs = Fields.GetFieldValueText( 4 );
+      DataIndex = 5;
+   }
+
+   var r = 0;
+   var Row = 0;
+   var TableRow;
+   var TableCell;
+
+   for (r = 0; r < NumSVs; r++)
+   {
+      // SV ID
+      var SVID = Fields.GetFieldValue( DataIndex++ );
+      if (SVID == 0)
+      {
+         DataIndex += 35;
+      }
+      else
+      {
+         if (Row >= CurRows)
+         {
+            TableRow = AAGPSMeasTable.insertRow();
+            for (var c = 0; c < 18; c++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         Column++;
+
+         // Health Summary
+         var Health = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         var Azimuth;
+         var Elevation;
+
+         // Elevation and Azimuth
+         var EleAzimuth = Fields.GetFieldValue( DataIndex + Column );
+         if (EleAzimuth == -128)
+         {
+            // Elevation
+            Elevation = "-";
+
+            // Azimuth
+            Azimuth = "-";
+
+            Column += 2;
+         }
+         else
+         {
+            // Elevation
+            Elevation = ( EleAzimuth * 180 / 256 );
+            Elevation = Precision( Elevation, 0, false );
+            Column++;
+
+            // Azimuth
+            Azimuth = Fields.GetFieldValue( DataIndex + Column );
+            Azimuth = ( Azimuth * 360 / 256 );
+            Azimuth = Precision( Azimuth, 0, false );
+            Column++;
+         }
+
+         // Signal Noise Ratio
+         var SNR = Fields.GetFieldValueText( DataIndex + Column++ );
+         SNR = ( SNR / 10 );
+
+         if (SNR > 99.9)
+         {
+            SNR = 99.9;
+         }
+
+         // Carrier Noise
+         var CNoise = Fields.GetFieldValue( DataIndex + Column++ );
+         CNoise = ( CNoise / 10 );
+
+         if (CNoise > 99.9)
+         {
+            CNoise = 99.9;
+         }
+
+         // Latency
+         var Latency = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Pre-Detection Integration 
+         var PreInt = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Post-Detection Integration
+         var PostInt = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Millisecond Measurement
+         var Ms = Fields.GetFieldValue( DataIndex + Column++ );
+
+         // Fractional Millisecond Measurement
+         var SubMs = Fields.GetFieldValue( DataIndex + Column++ );
+         SubMs = SubMs * (1.0 / 16777216.0);
+
+         // SV Time Uncertainty
+         var TimeUnc = Fields.GetFieldValueText( DataIndex + Column );
+         DataIndex++;
+
+         var Mantissa = Fields.GetFieldValueText( DataIndex + Column++ );
+         TimeUnc = ( Mantissa * ( Math.pow( 2.0, TimeUnc ) ) );
+         TimeUnc = ( TimeUnc / ( Math.pow( 10, 6 ) ) );
+
+         if (TimeUnc >= 1000.0)
+         {
+            TimeUnc = 999.99;
+         }
+
+         // SV Speed 
+         var Speed = Fields.GetFieldValueText( DataIndex + Column++ );
+         Speed = Speed * 0.01; 
+         DataIndex++;
+
+         // SV Speed Uncertainty
+         var SpeedUnc = Fields.GetFieldValueText( DataIndex + Column++ );
+         SpeedUnc = ( SpeedUnc / 10 );
+
+         DataIndex += 14;
+
+         // Status
+         var Status = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Channel Measurement Status
+         var MeasStatus = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Good Observations
+         var GoodObs = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Total Observations
+         var TotalObs = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         AAGPSMeasTable.rows[Row + 1].cells[0].innerText = SVID;
+         AAGPSMeasTable.rows[Row + 1].cells[1].innerText = MeasStatus;
+         AAGPSMeasTable.rows[Row + 1].cells[2].innerText = Health;
+         AAGPSMeasTable.rows[Row + 1].cells[3].innerText = Elevation;
+         AAGPSMeasTable.rows[Row + 1].cells[4].innerText = Azimuth;
+         AAGPSMeasTable.rows[Row + 1].cells[5].innerText = Status;
+         AAGPSMeasTable.rows[Row + 1].cells[6].innerText = GoodObs;
+         AAGPSMeasTable.rows[Row + 1].cells[7].innerText = TotalObs;
+         AAGPSMeasTable.rows[Row + 1].cells[8].innerText = SNR.toFixed( 1 );
+         AAGPSMeasTable.rows[Row + 1].cells[9].innerText = CNoise.toFixed( 1 );
+         AAGPSMeasTable.rows[Row + 1].cells[10].innerText = Latency;
+         AAGPSMeasTable.rows[Row + 1].cells[11].innerText = PreInt;
+         AAGPSMeasTable.rows[Row + 1].cells[12].innerText = PostInt;
+         AAGPSMeasTable.rows[Row + 1].cells[13].innerText = Ms;
+         AAGPSMeasTable.rows[Row + 1].cells[14].innerText = SubMs.toFixed( 7 );
+         AAGPSMeasTable.rows[Row + 1].cells[15].innerText = TimeUnc;
+         AAGPSMeasTable.rows[Row + 1].cells[16].innerText = Speed.toFixed( 2 );
+         AAGPSMeasTable.rows[Row + 1].cells[17].innerText = SpeedUnc;
+
+         DataIndex += 19;
+         Column = 0;
+         Row++;
+      }
+   }
+
+   // Delete excess rows
+   DeleteExcessRows( AAGPSMeasTable, 1, CurRows + 1, Row, true );
+}
+
+function PopulateGPSTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 9)
+   {
+      return;
+   }
+
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 1 && Version != 2)
+   {
+      return;
+   }
+
+   // FCount
+   var Fcount = Fields.GetFieldValueText( 1 );
+   FCountTable.rows[0].cells[1].innerText = Fcount;
+
+   var NumSVs;
+   var Column = 0;
+   var DataIndex;
+
+   // Grab number of rows in existing table
+   var CurRows = GPSMeasTable.rows.length - 1;
+
+   // Grab number of SVs and process
+   NumSVs = Fields.GetFieldValueText( 8 );
+   DataIndex = 9;
+
+   var r = 0;
+   var Row = 0;
+   var TableRow;
+   var TableCell;
+
+   for (r = 0; r < NumSVs; r++)
+   {
+      // SV ID
+      var SVID = Fields.GetFieldValue( DataIndex );
+      if (SVID == 0)
+      {
+         if (Version == 1)
+         {
+            DataIndex += 37;
+         }
+         else
+         {
+            DataIndex += 38;
+         }
+      }
+      else
+      {
+         if (Row >= CurRows)
+         {
+            TableRow = GPSMeasTable.insertRow();
+            for (var c = 0; c < 17; c++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         Column++;
+
+         // Observation State
+         var ObsState = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Total Observations
+         var TotalObs = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Good Observations
+         var GoodObs = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         Column++;
+
+         // Carrier Noise
+         var CNoise = Fields.GetFieldValueText( DataIndex + Column++ );
+         CNoise /= 100;
+
+         // Latency
+         var Latency = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Pre-Detection Integration 
+         var PreInt = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Post-Detections
+         var PostInt = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Unfiltered Measurement - Integral
+         var Ms = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Unfiltered Measurement - Fraction
+         var SubMs = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Unfiltered Time Uncertainty
+         var TimeUnc = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Unfiltered Speed
+         var Speed = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         // Unfiltered Speed Uncertainty
+         var SpeedUnc = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         DataIndex += 15;
+
+         // Channel Measurement Status
+         var MeasStatus = Fields.GetFieldValueText( DataIndex + Column++ );
+
+         DataIndex += 1;
+
+         // Direction Valid
+         var bValid = (Fields.GetFieldValue( DataIndex + Column ) == 1);
+
+         DataIndex += 2;
+
+         var Azimuth = "-";
+         var Elevation = "-";
+
+         if (bValid == true)
+         {
+            // Azimuth
+            Azimuth = Fields.GetFieldValue( DataIndex + Column++ );
+            Azimuth = ( Azimuth * 180 / Math.PI );
+            Azimuth = Precision( Azimuth, 0, false );
+
+            // Elevation
+            Elevation = Fields.GetFieldValue( DataIndex + Column );
+            Elevation = ( Elevation * 180 / Math.PI );
+            Elevation = Precision( Elevation, 0, false );
+         }
+
+         var CycleSlipCount;
+         if (Version == 2)
+         {
+            CycleSlipCount = Fields.GetFieldValue( DataIndex + 3);
+            DataIndex += 20;
+         }
+         else if (Version == 1)
+         {
+            CycleSlipCount = "-";
+            DataIndex += 19;
+         }
+
+         GPSMeasTable.rows[Row + 1].cells[0].innerText = SVID;
+         GPSMeasTable.rows[Row + 1].cells[1].innerText = ObsState;
+         GPSMeasTable.rows[Row + 1].cells[2].innerText = Elevation;
+         GPSMeasTable.rows[Row + 1].cells[3].innerText = Azimuth;
+         GPSMeasTable.rows[Row + 1].cells[4].innerText = MeasStatus;
+         GPSMeasTable.rows[Row + 1].cells[5].innerText = GoodObs;
+         GPSMeasTable.rows[Row + 1].cells[6].innerText = TotalObs;
+         GPSMeasTable.rows[Row + 1].cells[7].innerText = CNoise;
+         GPSMeasTable.rows[Row + 1].cells[8].innerText = Latency;
+         GPSMeasTable.rows[Row + 1].cells[9].innerText = PreInt;
+         GPSMeasTable.rows[Row + 1].cells[10].innerText = PostInt;
+         GPSMeasTable.rows[Row + 1].cells[11].innerText = Ms;
+         GPSMeasTable.rows[Row + 1].cells[12].innerText = SubMs;
+         GPSMeasTable.rows[Row + 1].cells[13].innerText = TimeUnc;
+         GPSMeasTable.rows[Row + 1].cells[14].innerText = Speed;
+         GPSMeasTable.rows[Row + 1].cells[15].innerText = SpeedUnc;
+         GPSMeasTable.rows[Row + 1].cells[16].innerText = CycleSlipCount;
+
+         Column = 0;
+         Row++;
+      }
+   }
+
+   // Delete excess rows
+   DeleteExcessRows( GPSMeasTable, 1, CurRows + 1, Row, true );
+}
+
+</script>
+</body>
+</html>

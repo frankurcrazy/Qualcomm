@@ -1,0 +1,260 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <title>HDR DIP Switches</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR DIP Switches" />
+   <meta name="DMViewWidth" content="250" />
+   <meta name="DMViewHeight" content="250" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%">
+   <tr><td class="noborder" id="Response">&nbsp;</td></tr>
+</table>
+
+<input type="checkbox" id="DIP1" />Disable 40s Sleep<br />
+<input type="checkbox" id="DIP2" />Disable Sleep<br />
+<input type="checkbox" id="DIP3" />Disable Reverse Power Control<br />
+<input type="checkbox" id="DIP4" />Disable Throttling<br />
+<input type="checkbox" id="DIP5" />Disable Early Termination<br />
+<input type="checkbox" id="DIP6" />Enable RL Rate Inertia<br />
+<input type="checkbox" id="DIP7" />Enable Antenna 1 Test Mode<br />
+<input type="checkbox" id="DIP8" />Enable Dedicated Data Transfer Mode<br />
+
+<br />
+<input type="button" onclick="ReadDIPSwitches()" value="Read" style="width: 50px"/>
+<input type="button" onclick="SetDIPSwitches()" value="Set" style="width: 50px"/>
+<input type="button" onclick="ClearAllDIPSwitches()" value="Clear All" style="width: 80px" />
+
+<script type="text/jscript">
+
+var IQXDM2;
+var TIMEOUT_MS   = 500;
+var Handle       = 0xFFFFFFFF;
+
+// Constants
+var NUM_SWITCHES        = 8;
+var SVR_STATE_CONNECTED = 2;
+var ITEM_TYPE_SUBSYS_RX = 9;
+var HDR_DIP_SW_REQ      = "CDMA 1xEV/DIP Switch Request";
+
+var Timer = "";
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Read DIP switches
+   ReadDIPSwitches();
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Read DIP switches
+function ReadDIPSwitches()
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = " &nbsp; ";
+   Response.innerHTML = Txt;
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return bOK; 
+   }
+
+   // Send out the request
+   var ReqID = IQXDM2.ClientRequestItem( Handle,
+                                         HDR_DIP_SW_REQ,
+                                         "3",
+                                         true,
+                                         TIMEOUT_MS,
+                                         1,
+                                         1 );
+                                         
+   if (ReqID == 0)
+   {                                     
+      Txt = "Error scheduling request";
+      Response.innerHTML = Txt;
+      return bOK;
+   }
+   else
+   {
+      // Setup a one-time timer to process the above
+      window.setTimeout( "Process()", 2000 );
+      bOK = true;
+   }
+
+   return bOK;
+}
+
+// Set DIP switches from GUI
+function SetDIPSwitches()
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = " &nbsp; ";
+   Response.innerHTML = Txt;
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return bOK; 
+   }
+   
+   var formCol = document.body.getElementsByTagName("INPUT");
+   var forms = formCol.length;
+   var f;
+   
+   var sw;
+   for (sw = 1; sw <= NUM_SWITCHES; sw++)
+   {
+      var Check = 0;
+      var Control = "DIP" + sw;
+      
+      for (f = 0; f < forms; f++)
+      {
+         if (formCol[f].id == Control)
+         {
+            if (formCol[f].checked == true)
+            {
+               Check = 1;
+            }
+            
+            break;
+         }
+      }
+ 
+      var Args = Check + " " + sw;
+      IQXDM2.RequestItem( HDR_DIP_SW_REQ,
+                          Args,
+                          true,
+                          TIMEOUT_MS,
+                          1,
+                          1 );
+   }
+
+   bOK = ReadDIPSwitches();
+   return bOK;
+}
+
+// Clear all DIP switches
+function ClearAllDIPSwitches()
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = " &nbsp; ";
+   Response.innerHTML = Txt;
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return bOK; 
+   }
+   
+   IQXDM2.RequestItem( HDR_DIP_SW_REQ,
+                       "2",
+                       true,
+                       TIMEOUT_MS,
+                       1,
+                       1 );
+ 
+   bOK = ReadDIPSwitches();
+   return bOK;
+}
+
+// Process all items in the client config
+function Process()
+{
+   var Txt = " &nbsp; ";
+   Response.innerHTML = Txt;
+
+   // Make sure there is a response (should be 0 - request, 1 - response)
+   var Count = IQXDM2.GetClientItemCount( Handle );
+   if (Count < 2)
+   {
+      Response.innerHTML = "Timeout";
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, 1 );
+   if (Item == null)
+   {
+      Response.innerHTML = "Unable to access item";
+      return;
+   }
+
+   // Interested only in subsystem dispatch responses
+   ItemType = Item.GetItemType();
+   if (ItemType != ITEM_TYPE_SUBSYS_RX)
+   {
+      Response.innerHTML = "Invalid item type";
+      return;
+   }
+
+   var formCol = document.body.getElementsByTagName("INPUT");
+   var forms = formCol.length;
+   var f;
+      
+   var sw;
+   for (sw = 1; sw <= NUM_SWITCHES; sw++)
+   {
+      var Check = Item.GetItemFieldValue( 2, 1, 16 + sw, false );
+      var Control = "DIP" + sw;
+      
+      for (f = 0; f < forms; f++)
+      {
+         if (formCol[f].id == Control)
+         {
+            formCol[f].checked = Check;
+            break;
+         }
+      }
+   }
+      
+   // Clear the client view
+   IQXDM2.ClearClientItems( Handle );
+}
+
+</script>
+</body>
+</html>

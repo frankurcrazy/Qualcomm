@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+		<meta content="True" name="vs_showGrid">
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<meta content="Broadcast ISDB-T Performance" name="DMViewName">
+		<meta content="1400" name="DMViewWidth">
+		<meta content="1000" name="DMViewHeight">
+		<script src="BroadcastBaseView.js" type="text/jscript"></script>
+		<script src="BroadcastGUIBaseFunctions.js" type="text/jscript"></script>
+		<script src="BroadcastEFS2Interface.js" type="text/jscript"></script>
+		<iframe src="BroadcastGUIFront.html" width="1400" height="1000" frameborder="0" id="gui_front">
+		</iframe>
+	</head>
+	<body dir="ltr" bgColor="white" onload="Register()" onunload="Unregister()">
+		<script type="text/jscript">
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+ 
+function InitGuiSpecificView()
+{
+
+	gui_front.ExchangePointers(this);
+	userType = "Customer" ; 
+	SelectPhyOnly() ; 
+	gui_front.TestSetupControl[TestType].checked = true;
+
+	DisableAdvancedOptions(); 
+} 
+///////////////////////////////////////////////////////////////
+function DisableAdvancedOptions()
+{
+	gui_front.PowerUpButton.style.display                   ="none" ; 
+	gui_front.PowerDownButton.style.display                 ="none" ; 
+	gui_front.AcquireButton.style.display                   ="none" ; 
+	gui_front.StopDSPButton.style.display                   ="none" ; 
+	gui_front.FreqAndTimeTable.style.display                ="none" ; 
+	gui_front.DCTable.style.display                         ="none" ; 
+	
+	/*
+	gui_front.ZeroPayloadTestResultTable.style.display      ="none" ; 
+	gui_front.ZeroPayloadTestSetupTable.style.display       ="none" ; 
+	gui_front.StartZeroPayloadTestButton.style.display      ="none" ; 
+
+	gui_front.UserTestsDIV.style.display                    ="none" ; 
+	*/
+	gui_front.AdcLevel.style.display                        ="none" ; 
+    gui_front.StartRecordTSIFPacketsButton.style.display    ="none" ; 
+    gui_front.StopMovieButton.style.display                 ="none" ; 
+    gui_front.PlayMovieButton.style.display                 ="none" ; 
+    gui_front.analog_JD_mode.style.display                  ="none" ; 
+  
+    gui_front.channel_estimation_alg.style.display          ="none" ; 
+    gui_front.channel_estimation_alg_.style.display         ="none" ; 
+    gui_front.chord_tabel.style.display                    ="none" ; 
+  gui_front.analog_jd_table.style.display                    ="none" ; 
+}
+///////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+		</script>
+		<div></div>
+	</body>
+</html>

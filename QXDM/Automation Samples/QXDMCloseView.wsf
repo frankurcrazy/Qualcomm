@@ -1,0 +1,127 @@
+<job id="QXDM CloseView Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMCloseView.wsf
+
+// This example demonstrates the usage of the QXDM automation
+// interface method CloseView
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Open/close QXDM views
+function ManipulateViews()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create the view first
+   RC = QXDM.CreateView( "Item View", "" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Item View\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Item View\' successfully created";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Display item view to user
+   WScript.sleep( 3000 );
+
+   // Close the item view
+   RC = QXDM.CloseView( "Item View", "" );
+   if (RC == false)
+   {
+      Txt = "Cannot close view \'Item View\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Item View\' successfully closed";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Create the view which supports multiple instances and
+   // tag this view as "Client View"
+   RC = QXDM.CreateView( "Filtered View", "Client View" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Filtered View {Client View}\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Filtered View {Client View}\' successfully created";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Display filtered view to user
+   WScript.sleep( 3000 );
+
+   // Close the filtered view
+   RC = QXDM.CloseView( "Filtered View", "Client View" );
+   if (RC == false)
+   {
+      Txt = "Cannot close view \'Filtered View {Client View}\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'Filtered View {Client View}\' successfully closed";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Open/close QXDM views
+   ManipulateViews();
+}
+
+Execute();
+
+</script>
+</job>

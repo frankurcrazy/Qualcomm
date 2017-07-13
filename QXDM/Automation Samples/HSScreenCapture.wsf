@@ -1,0 +1,393 @@
+<job id="QXDM Automation Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript HSScreenCapture.wsf <Port Number>
+
+// This example demonstrates capturing the handset screen
+// to a bitmap file by using QXDM and QPST automation
+
+// Global variables
+var QXDM;
+var QXDM2;
+var ReqHandle = 0xFFFFFFFF;
+
+// COM port to be used for communication with the phone by QXDM
+var PortNumber = "";
+
+// Process the arguments - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript HSScreenCapture.wsf <COM Port Number>\n"
+            + "Eg:     CScript HSScreenCapture.wsf 5\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 1)
+   {
+      WScript.StdOut.WriteLine( Help );
+
+      return RC;
+   }
+
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Register the QXDM client
+function RegisterClient()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create a client
+   ReqHandle = QXDM2.RegisterQueueClient( 256 );
+   if (ReqHandle != 0xFFFFFFFF)
+   {
+      Txt = "Registered as QXDM client";
+      WScript.StdOut.WriteLine( Txt );
+
+      // Get a configuration object
+      var clientObject = QXDM2.ConfigureClientByKeys( ReqHandle );
+      if (clientObject != null)
+      {
+         // Register for subsystem dispatch response (delayed only):
+         //   "Handset/Display Capture Immediate/Delayed Response"
+         clientObject.AddSubsysResponse( 16, 2 );
+         clientObject.SetSubsysV2DelayedResponsesOnly( true );
+         clientObject.CommitConfig();
+
+         Txt = "Registered for Handset/Display Capture Delayed Response";
+         WScript.StdOut.WriteLine( Txt );
+
+         // Success
+         RC = true;
+      }
+      else
+      {
+         Txt = "Failed to get client interface";
+         WScript.StdOut.WriteLine( Txt );
+      }
+   }
+   else
+   {
+      Txt = "Unable to register as QXDM client";
+      WScript.StdOut.WriteLine( Txt );
+   }
+
+   return RC;
+}
+
+// Unregister the QXDM client
+function UnregisterClient()
+{
+   // Assume failure
+   var RC = false;
+
+   if (ReqHandle != 0xFFFFFFFF)
+   {
+      QXDM2.UnregisterClient( ReqHandle );
+      RC = true;
+   }
+
+   return RC;
+}
+
+// Ask the display to capture to a file, then download the file from
+// the target using QPST
+function SaveDisplay( DisplayID, H, W, FileName )
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Make sure the client is clear
+   var Cleared = QXDM2.ClearClientItems( ReqHandle );
+   if (Cleared == false)
+   {
+      Txt = "Unable to clear client";
+      WScript.StdOut.WriteLine( Txt );
+      return RC; 
+   }
+
+   // Send the request, wait for the immediate response
+   var Name = "Handset/Display Capture Delayed Request";
+   var Args = DisplayID + " 0 0 " + H + " " + W + " HS.bmp";
+   var Item = SendRequestAndReturnResponse( Name, Args, 18 );
+   if (Item == null)
+   {
+      return RC;
+   }
+
+   var Secs;
+   var Items;
+
+   // Wait for the delayed response
+   for (Secs = 0; Secs < 5; Secs++)
+   {
+      // Sleep for 1s
+      WScript.sleep( 1000 );
+
+      // How many items do we have?
+      Items = QXDM2.GetClientItemCount( ReqHandle );
+      if (Items > 0)
+      {
+         break;
+      }
+   }
+
+   if (Items == 0)
+   {
+      Txt = "No Handset/Display Get Parameters Delayed Response received";
+      WScript.StdOut.WriteLine( Txt );
+      return RC;
+   }
+
+   Item = QXDM2.GetClientItem( ReqHandle, 0 );
+   if (Item == null)
+   {
+      Txt = "Unable to access Handset/Display Get Parameters Delayed Response";
+      WScript.StdOut.WriteLine( Txt );
+      return RC;
+   }
+
+   DumpItemDetails( Item, 18 );
+
+   // Parse out the status (UINT32, 32 bits, from bit offset [header] 32)
+   var Status = GetSubsysV2ErrorCode( Item );
+   if (Status != 0)
+   {
+      Txt = "Handset subsystem error returned: " + Status;
+      WScript.StdOut.WriteLine( Txt );
+      return RC;
+   }
+
+   // The screen capture file is now in EFS, to get it from EFS to the
+   // PC we make use of QPST automation 
+   var QPST = new ActiveXObject( "QPSTAtmnServer.Application" );
+   if (QPST == null)
+   {
+      Txt = "Error interfacting to QPST";
+      WScript.StdOut.WriteLine( Txt );
+      return RC; 
+   }
+
+   var PortName = "COM" + PortNumber;
+   var QPSTPort = QPST.GetPort( PortName );
+   if (QPSTPort == null)
+   {
+      Txt = "Error obtaining port from QPST";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC;
+   }
+
+   var QPSTEFS = QPSTPort.EFS;
+   if (QPSTEFS == null)
+   {
+      Txt = "QPST does not support a required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC;
+   }
+
+   try
+   {
+      QPSTEFS.CopyPhoneToPC( "HS.bmp", FileName );
+
+      Txt = "Downloaded temporary screen capture file from EFS to:\n";
+      Txt += FileName;
+      WScript.StdOut.WriteLine( Txt );
+   }
+   catch (Err)
+   {
+      Txt = "Error downloading screen capture from EFS";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC;
+   }
+
+   try
+   {
+      QPSTEFS.Delete( "HS.bmp" );
+
+      Txt = "Deleted temporary screen capture file from EFS";
+      WScript.StdOut.WriteLine( Txt );
+   }
+   catch (Err)
+   {
+      Txt = "Error deleting temporary EFS file";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC; 
+   }
+
+   QPST.Quit();
+   RC = true;
+   return RC;
+}
+
+// Obtain display capture parameters and then capture the display
+function CaptureDisplay( FileName )
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   var Name = "Handset/Display Get Parameters Request";
+   var Args = "0";
+   var Item = SendRequestAndReturnResponse( Name, Args, 18 );
+   if (Item == null)
+   {
+      return RC;
+   }
+
+   // Process the response obtaining the display dimensions
+   var DisplayHeight = 0;
+   var DisplayWidth = 0;
+   var Index = 0;
+
+   var ItemFields = Item.GetItemFields();
+   if (ItemFields != null)
+   {
+      // Should be four fields
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount >= 4)
+      {
+         // As seen in the Item Tester/DB Editor we want the
+         // first two fields
+         DisplayHeight = ItemFields.GetFieldValue( 0 );
+         DisplayWidth = ItemFields.GetFieldValue( 1 );
+      }
+   }
+
+   if (DisplayHeight == 0 || DisplayWidth == 0)
+   {
+      Txt = "Unable to obtain valid display height/width";
+      WScript.StdOut.WriteLine( Txt );
+      return RC;
+   }
+
+   RC = SaveDisplay( 0, DisplayHeight, DisplayWidth, FileName );
+   return RC; 
+}
+
+// Main body of script
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Generate a file name for screen capture file
+   var FileName = GenerateFileName( "", ".bmp" );
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Register client
+   RC = RegisterClient();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Connect to our desired port
+   RC = Connect( PortNumber );
+   if (RC == false)
+   {
+      UnregisterClient();
+      return;
+   }
+
+   // Do the screen capture
+   CaptureDisplay( FileName );
+
+   // Cleanup
+   Disconnect();
+   UnregisterClient();
+}
+
+Execute();
+
+</script>
+</job>

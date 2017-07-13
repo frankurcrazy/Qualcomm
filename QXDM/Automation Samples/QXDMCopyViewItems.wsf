@@ -1,0 +1,115 @@
+<job id="QXDM CopyViewItems Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMCopyViewItems.wsf
+
+// This example demonstrates the usage of the QXDM automation
+// interface method CopyViewItems
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Copy all items from "Command Output" view to an item store file
+function CopyViewItems()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create the view first
+   RC = QXDM.CreateView( "Command Output", "" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Command Output\' view";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   // Get file name from script folder path
+   var FileName = GenerateFileName( "", ".isf" );
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Add and item to item store that will end up in the output view
+   Txt = "Test string";
+   QXDM.QXDMTextOut( Txt );
+
+   // Copy all items from command output
+   RC = QXDM.CopyViewItems( "Command Output", FileName );
+   if (RC == false)
+   {
+      Txt = "Unable to copy items";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "Items copied to item store file:\n";
+   WScript.StdOut.WriteLine( Txt + FileName );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Copy all items from "Command Output"
+   // view to an item store file
+   CopyViewItems();
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,163 @@
+<job id="QXDM ClientConfig Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMClientConfig.wsf
+
+// This script demostrates usage of the ClientConfig automation
+// interface methods:
+//    AddDIAGRequest
+//    AddDIAGResponse
+//    AddSubsysRequest
+//    AddSubsysResponse
+//    AddEvent
+//    AddLog
+//    AddMessage
+//    AddString
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Add items to the client
+function AddItems()
+{
+   // Constants
+   var VERSION_INFO          = 0;
+   var EFS2_HELLO_CMD        = 19;
+   var EFS2_HELLO_SUB_CMD    = 0;
+   var EVENT_DROP_ID         = 256;
+   var GEN_TEMPORAL_ANALYZER = 0x1019;
+   var MSG_ID_AAGPS          = 24;
+   var MSG_LVL_HIGH          = 2;
+   var MSG_LVL_ERROR         = 3;
+   var MSG_LVL_FATAL         = 4;
+   var ERROR                 = 2;
+   var AUTOMATION            = 3;
+   var CONNECTION_STATE      = 4;
+
+   var Txt = "";
+
+   // Get a QXDM client
+   var Handle = QXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to register a client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Client = QXDM2.ConfigureClientByKeys( Handle );
+   if (Client == null)
+   {
+      Txt = "Unable to configure client by keys";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+
+   // Register for DIAG request/response
+   Client.AddDIAGRequest( VERSION_INFO );
+   Client.AddDIAGResponse( VERSION_INFO );
+
+   // Register for subsystem dispatch request/response
+   Client.AddSubsysRequest( EFS2_HELLO_CMD, EFS2_HELLO_SUB_CMD );
+   Client.AddSubsysResponse( EFS2_HELLO_CMD, EFS2_HELLO_SUB_CMD );
+
+   // Register for event
+   Client.AddEvent( EVENT_DROP_ID );
+
+   // Register for log
+   Client.AddLog( GEN_TEMPORAL_ANALYZER );
+
+   // Register for debug messages
+   Client.AddMessage( MSG_ID_AAGPS, MSG_LVL_HIGH );
+   Client.AddMessage( MSG_ID_AAGPS, MSG_LVL_ERROR );
+   Client.AddMessage( MSG_ID_AAGPS, MSG_LVL_FATAL );
+
+   // Register for strings
+   Client.AddString( ERROR );
+   Client.AddString( AUTOMATION );
+   Client.AddString( CONNECTION_STATE );
+
+   Client.CommitConfig();
+
+   Txt = "Client configured for the following:\n"
+       + "   0       Version Information Request\n"
+       + "   0       Version Information Response\n"
+       + "   [19, 0] EFS2/Hello Request\n"
+       + "   [19, 0] EFS2/Hello Response\n"
+       + "   256     EVENT_DROP_ID\n"
+       + "   0x1019  General Temporal Analyzer\n"
+       + "   [24, 2] AAGPS/High\n"
+       + "   [24, 3] AAGPS/Error\n"
+       + "   [24, 4] AAGPS/Fatal\n"
+       + "   2       Error string\n"
+       + "   3       Automation string\n"
+       + "   4       Connection state string";
+   WScript.StdOut.WriteLine( Txt );
+
+   QXDM2.UnregisterClient( Handle );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Add items to the client
+   AddItems();
+}
+
+Execute();
+
+</script>
+</job>

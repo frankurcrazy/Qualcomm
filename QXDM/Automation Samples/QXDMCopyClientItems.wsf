@@ -1,0 +1,151 @@
+<job id="QXDM CopyClientItems Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMCopyClientItems.wsf
+
+// This script demostrates usage of the QXDM2 automation
+// interface method CopyClientItems
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Copy all/subset of items from client view to an item store file
+function CopyClientItems()
+{
+   var Txt = "";
+
+   // Get file name from script folder path
+   var FileName = GenerateFileName( "", ".isf" );
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Register a QXDM client
+   var Handle = QXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to create client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Client = QXDM2.ConfigureClientByKeys( Handle );
+   if (Client == null)
+   {
+      Txt = "Unable to configure client by keys";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+
+   // Register for strings
+   Client.AddItem( ITEM_TYPE_STRING );
+   Client.CommitConfig();
+
+   Txt = "Adding five strings to item store";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Add strings to QXDM item store
+   var Str = "";
+   for (var i = 0; i < 5; i++)
+   {
+      Str = "Test String " + i;
+      QXDM.QXDMTextOut( Str );
+   }
+
+   // Copy all items from client view
+   var RC = QXDM2.CopyClientItems( Handle, FileName, 0, 0xFFFFFFFF );
+   if (RC == false)
+   {
+      Txt = "Unable to copy client items";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+
+   Txt = "All client items copied to ISF to:\n" + FileName;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Copy items from the client (overwrites ISF created above)
+   RC = QXDM2.CopyClientItems( Handle, FileName, 0, 4 );
+   if (RC == false)
+   {
+      Txt = "Unable to copy client items";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+
+   Txt = "Client items (0 - 4) copied to ISF:\n" + FileName;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Unregister the client
+   QXDM2.UnregisterClient( Handle );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Copy items from client view to an item store file
+   CopyClientItems();
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,137 @@
+<job id="QXDM GetClientItem Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMGetClientItem.wsf
+
+// This script demostrates usage of the QXDM2 automation
+// interface method GetClientItem
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Demonstrate getting a client item
+function GetClientItem()
+{
+   var Txt = "";
+
+   // Register a QXDM client
+   var Handle = QXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to create client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Client = QXDM2.ConfigureClientByKeys( Handle );
+   if (Client == null)
+   {
+      Txt = "Unable to configure client by keys";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+
+   // Register for strings
+   Client.AddItem( ITEM_TYPE_STRING );
+   Client.CommitConfig();
+
+   Txt = "Adding five strings to item store";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Add strings to QXDM item store
+   var Str = "";
+   for (var i = 0; i < 5; i++)
+   { 
+      Str = "Test String " + i;
+      QXDM.QXDMTextOut( Str );
+   }
+
+   var Item = QXDM2.GetClientItem( Handle, 3 );
+   if (Item == null)
+   {
+      Txt = "Unable to retrieve client item #3";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( Handle );
+      return;
+   }
+   
+   Txt = "Client item #3:";
+   WScript.StdOut.WriteLine( Txt );
+  
+   var ItemTS =  Item.GetItemTimestampText( false, true );
+   var ItemName = Item.GetItemName();
+   var ItemSummary = Item.GetItemSummary();
+
+   var Txt = "   " + ItemTS + ", " + ItemName + ", " + ItemSummary;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Unregister the client
+   QXDM2.UnregisterClient( Handle );
+}
+
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Demonstrate getting a client item
+   GetClientItem()
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,883 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GSM Channel Parameters" />
+   <meta name="DMViewWidth" content="900" />
+   <meta name="DMViewHeight" content="640" />
+
+   <title>GSM Channel Parameters</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<body onload="Register()" onunload="Unregister()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td width="32%" valign="top" class="noborder">
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Cell Selection Parameters</th>
+            </tr>
+            <tbody id="BodyCellSelectionParameters">
+               <tr>
+                  <td>Cell Reselect Hysteresis</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Maximum TX Power Level</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Minimum RX Signal Level</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Power Offset</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Power Offset Valid</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>New Establishment Cause Indicator</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Additional Reselect Parameter Indicator</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Cell Reselect Parameter Indicator</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Cell Bar Qualify</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Cell Reselection Offset</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Temporary Offset</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Penalty Time</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <br />
+
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Cell Information</th>
+            </tr>
+            <tbody id="BodyCellInformation">
+               <tr>
+                  <td>Base Channel Number</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Base Station Identity Code</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Cell ID</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>LAI - Cell</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Cell Selection Priority</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>NCC Permitted</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Cell Options</th>
+            </tr>
+            <tbody id="BodyCellOptions">
+               <tr>
+                  <td>Power Control Indicator</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Discontinuous TX</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Radio Link Timeout</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+ 
+      <td width="32%" valign="top" class="noborder">
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Control Channel Description</th>
+            </tr>
+            <tbody id="BodyControlChannelDescription">
+               <tr>
+                  <td>IMSI Attach-Detach Allowed</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Blocks Reserved Access Grant</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Physical Channels Supporting CCCH</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>CCCH/SDCCH Channel Combination Flag</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Paging Messages MultiFrames</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>T3212 Timeout</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+               
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">RACH Control Parameters</th>
+            </tr>
+            <tbody id="BodyRACHControlParameters">
+               <tr>
+                  <td>Maximum ReTX</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>ReTX Interval</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Reestablishment Allowed</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Cell Bar Access</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Access Control Class</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Paging Parameters</th>
+            </tr>
+            <tbody id="BodyPagingParameters">
+               <tr>
+                  <td>Paging Multiframes</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Paging Block Index</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Paging Data Valid</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>All Paging Blocks</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Paging Mode</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>CCCH Group</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Paging Group</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Power Average Frequency</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+      
+      <td width="36%" valign="top" class="noborder">
+         <table width="100%">
+            <colgroup span="3">
+               <col width="50%" />
+               <col width="25%" />
+               <col width="25%" />
+            </colgroup>
+            <tr>
+               <th colspan="3">Channel Config</th>
+            </tr>
+            <tbody id="BodyChannelConfig">
+               <tr>
+                  <td>Dedicated Channels</td>
+                  <td colspan="2">-</td>
+               </tr>
+               <tr>
+                  <td>Discontinuous TX Indicator</td>
+                  <td colspan="2">-</td>
+               </tr>
+               <tr>
+                  <td>Power Level</td>
+                  <td colspan="2">-</td>
+               </tr>
+               <tr>
+                  <td>Starting Time</td>
+                  <td colspan="2">-</td>
+               </tr>
+               <tr>
+                  <td>Ciphering Flag</td>
+                  <td colspan="2">-</td>
+               </tr>
+               <tr>
+                  <td>Ciphering Algorithm</td>
+                  <td colspan="2">-</td>
+               </tr>
+               <tr>
+                  <th>Parameter</th>
+                  <th>After</th>
+                  <th>Before</th>
+               </tr>
+               
+               <tr>
+                  <td>Mode</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Channel Type</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Subchannel Number</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Timeslot Number</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Training Sequence Code</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Hopping Flag</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Mobile Allocation Index Offset</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Hopping Sequence Number</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Frequency Count</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         
+         <table width="100%">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">GPRS Indicators</th>
+            </tr>
+            <tbody id="BodyGPRSIndicators">
+               <tr>
+                  <td>RA Color</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>Sl13 Position</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         
+         <table width="100%">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">AMR Information</th>
+            </tr>
+            <tbody id="BodyAMRInformation">
+               <tr>
+                  <td>DL AMR</td>
+                  <td>-</td>
+               </tr>
+               <tr>
+                  <td>UL AMR</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle = 0xFFFFFFFF;
+var UPDATE_MS = 500;
+
+var log506F = "[0x506F]";
+var log5079 = "[0x5079]";
+var log5130 = "[0x5130]";
+var log5131 = "[0x5131]";
+var log5132 = "[0x5132]";
+var log5133 = "[0x5133]";
+var log5134 = "[0x5134]";
+var log5135 = "[0x5135]";
+var log51F4 = "[0x51F4]";
+
+var log5A6F = "[0x5A6F]";
+var log5A79 = "[0x5A79]";
+var log5B30 = "[0x5B30]";
+var log5B31 = "[0x5B31]";
+var log5B32 = "[0x5B32]";
+var log5B33 = "[0x5B33]";
+var log5B34 = "[0x5B34]";
+var log5B35 = "[0x5B35]";
+
+var PrevIndex = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+// Register the client, configure the client, initialiaze display objects
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br /Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.      
+   clientObject.AddLog( 0x506F );
+   clientObject.AddLog( 0x5079 );
+   clientObject.AddLog( 0x5130 );
+   clientObject.AddLog( 0x5131 );
+   clientObject.AddLog( 0x5132 );
+   clientObject.AddLog( 0x5133 );
+   clientObject.AddLog( 0x5134 );
+   clientObject.AddLog( 0x5135 );
+   clientObject.AddLog( 0x51F4 );
+   
+   clientObject.CommitConfig();   
+*/
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+// Periodic update of the display
+function ProcessLogs()
+{
+   // Keep track if populate attempt succeeds
+   var b506F = false;   
+   var b5079 = false;   
+   var b5130 = false;   
+   var b5131 = false;
+   var b5132 = false;
+   var b5133 = false;
+   var b5134 = false;
+   var b5135 = false;
+   var b51F4 = false;
+         
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }            
+
+      var bOK = false;
+      var bTabs = false;
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case log506F:
+         case log5A6F:
+         {
+            if (b506F == false)
+            {
+               if (ItemKey == log5A6F)
+               {
+                  bTabs = true;
+               }
+               
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyPagingParameters, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b506F = true;               
+               }
+            }
+         }
+         break;  
+         
+         case log5079:
+         case log5A79:
+         {
+            if (b5079 == false)
+            {
+               if (ItemKey == log5A79)
+               {
+                  bTabs = true;
+               }
+            
+               bOK = PopulateAMRTable( Fields, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b5079 = true;               
+               }
+            }
+         }
+         break;  
+         
+         case log5130:
+         case log5B30:
+         {
+            if (b5130 == false)
+            {
+               if (ItemKey == log5B30)
+               {
+                  bTabs = true;
+               }
+            
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyCellSelectionParameters, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b5130 = true;
+               }
+            }
+         }
+         break;        
+
+         case log5131:
+         case log5B31:
+         {
+            if (b5131 == false)
+            {
+               if (ItemKey == log5B31)
+               {
+                  bTabs = true;
+               }
+           
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyRACHControlParameters, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b5131 = true;
+               }
+            }
+         }
+         break;        
+
+         case log5132:
+         case log5B32:
+         {
+            if (b5132 == false)
+            {
+               if (ItemKey == log5B32)
+               {
+                  bTabs = true;
+               }
+           
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyControlChannelDescription, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b5132 = true;
+               }
+            }
+         }
+         break;        
+
+         case log5133:
+         case log5B33:
+         {
+            if (b5133 == false)
+            {
+               if (ItemKey == log5B33)
+               {
+                  bTabs = true;
+               }
+           
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyCellOptions, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b5133 = true;
+               }
+            }
+         }
+         break;        
+
+         case log5134:
+         case log5B34:
+         {
+            if (b5134 == false)
+            {
+               if (ItemKey == log5B34)
+               {
+                  bTabs = true;
+               }
+           
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyCellInformation, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b5134 = true;
+               }
+            }
+         }
+         break;        
+
+         case log5135:
+         case log5B35:
+         {
+            if (b5135 == false)
+            {
+               if (ItemKey == log5B35)
+               {
+                  bTabs = true;
+               }
+           
+               bOK = PopulateChannelConfigTable( Fields, bTabs );
+               if (bOK == true)
+               {
+                  b5135 = true;
+               }
+            }
+         }
+         break;        
+
+         case log51F4:
+         {
+            if (b51F4 == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyGPRSIndicators, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  b51F4 = true;
+               }
+            }
+         }
+         break;        
+
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateChannelConfigTable( Fields, bTabs )
+{
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return;
+      }
+   }
+   
+   if (FieldCount < 17 + t)
+   {
+      return;
+   }
+      
+   var FieldVal = Fields.GetFieldValueText( 0  + t);   
+   BodyChannelConfig.rows[0].cells[1].innerText = FieldVal;    
+   
+   FieldVal = Fields.GetFieldValueText( 1 + t );   
+   BodyChannelConfig.rows[1].cells[1].innerText = FieldVal;
+   
+   FieldVal = Fields.GetFieldValueText( 2 + t );   
+   BodyChannelConfig.rows[2].cells[1].innerText = FieldVal;   
+
+   // Only add starting time if it is valid
+   FieldVal = Fields.GetFieldValue( 3 + t );
+   if (FieldVal == 1)
+   {
+      FieldVal = Fields.GetFieldValueText( 4 + t );
+      BodyChannelConfig.rows[3].cells[1].innerText = FieldVal;
+   }
+   else
+   {
+      BodyChannelConfig.rows[3].cells[1].innerText = "-";
+   }
+   
+   FieldVal = Fields.GetFieldValueText( 5 + t );   
+   BodyChannelConfig.rows[4].cells[1].innerText = FieldVal;
+   
+   FieldVal = Fields.GetFieldValueText( 6 + t );   
+   BodyChannelConfig.rows[5].cells[1].innerText = FieldVal;
+   
+   // After channel mode
+   FieldVal = Fields.GetFieldValueText( 7 + t );   
+   BodyChannelConfig.rows[7].cells[1].innerText = FieldVal;
+
+   // Before channel mode
+   FieldVal = Fields.GetFieldValueText( 8 + t );   
+   BodyChannelConfig.rows[7].cells[2].innerText = FieldVal;
+   
+   // Is the before channel info present?
+   var bBefore = false;
+   if (FieldCount > 17 && Fields.GetFieldValue( 17 + t ) == 1)
+   {
+      if (FieldCount > 25)
+      {
+         bBefore = true;
+      }
+   }
+   
+   // Fill in after/before channel config
+   for (var fi = 9; fi <= 16; fi++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + t );   
+      BodyChannelConfig.rows[fi - 1].cells[1].innerText = FieldVal;
+      
+      if (bBefore == true)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + 9 + t );
+         BodyChannelConfig.rows[fi - 1].cells[2].innerText = FieldVal;
+      }
+      else
+      {
+         BodyChannelConfig.rows[fi - 1].cells[2].innerText = "-";
+      }
+   }
+}
+
+function PopulateAMRTable( Fields, bTabs )
+{
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (Fields.GetFieldCount() < 1)
+      {
+         return;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return;
+      }
+   }
+   
+   var FieldVal = GetTextFromName( Fields, "Codec Mode" );
+   BodyAMRInformation.rows[0].cells[1].innerText = FieldVal;
+
+   var UL_AMR = new Array( 8 );
+   UL_AMR[0] = "4.75 kbps";
+   UL_AMR[1] = "5.15 kbps";
+   UL_AMR[2] = "5.90 kbps";
+   UL_AMR[3] = "6.70 kbps";
+   UL_AMR[4] = "7.40 kbps";
+   UL_AMR[5] = "7.95 kbps";
+   UL_AMR[6] = "10.20 kbps";
+   UL_AMR[7] = "12.20 kbps";
+
+   // Determine UL AMR from UL ACS and UL ICM. Each bit in the UL ACS 
+   // represents the rates defined in by UL_AMR. If a bit is 1 in UL ACS, then
+   // it is part of the AMR set. UL ICM then determines the AMR among the set
+   var ulacs = GetValueFromName( Fields, "UL Active Codec Set" );
+   var uicm = GetValueFromName( Fields, "AMR Status.Initial Codec Mode UL" );
+   
+   FieldVal = " ";
+   var counter = 0;
+   for (var i = 0; i < 8; i++)
+   {
+      var bitmask = 1 << i;
+      var bit = ulacs & bitmask;
+      if (bit != 0)
+      {
+         if (counter == uicm)
+         {
+            FieldVal = UL_AMR[i];
+            break;
+         }
+         
+         counter++;
+      }
+   }
+      
+   BodyAMRInformation.rows[1].cells[1].innerText = FieldVal;
+}
+
+</script>
+
+</body>
+</html>

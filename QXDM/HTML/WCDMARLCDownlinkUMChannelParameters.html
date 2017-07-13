@@ -1,0 +1,166 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA RLC Downlink UM Channel Parameters" />
+   <meta name="DMViewWidth" content="400" />
+   <meta name="DMViewHeight" content="150" />
+
+   <title>WCDMA RLC Downlink UM Channel Parameters</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%">
+   <colgroup span="4">
+      <col width="25%" />
+      <col width="25%" />
+      <col width="25%" />
+      <col width="25%" />
+   </colgroup>
+   <tr>
+      <th>ID</th>
+      <th>Type</th>
+      <th>LI Size</th>
+      <th>HFN</th>
+   </tr>
+   <tbody id="OutTableBody">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+// Register the Client, Configure the Client, Initialiaze display Objects
+function Register()
+{   
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   ClientObject.AddLog( 0x4121 );
+   ClientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLog()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process log 0x4121 in the client view
+function ProcessLog()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         PopulateTable( Fields );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the Channel Parameters table
+function PopulateTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+
+   var FieldVal;
+   var DataIndex = 1;
+   var RO = 0;
+   
+   var CurRows = OutTableBody.rows.length;
+   var Channels = Fields.GetFieldValue( 0 );   
+   ManageRows( OutTableBody, RO, CurRows, Channels, 4, true );
+   
+   for (var ch = 0; ch < Channels; ch++)
+   { 
+      // Type
+      FieldVal = Fields.GetFieldValueText( DataIndex++ );
+      OutTableBody.rows[ch + RO].cells[1].innerText = FieldVal;
+      
+      // ID
+      FieldVal = Fields.GetFieldValueText( DataIndex++ );
+      OutTableBody.rows[ch + RO].cells[0].innerText = FieldVal;
+      
+      // Length indicator size
+      FieldVal = Fields.GetFieldValueText( DataIndex++ );
+      OutTableBody.rows[ch + RO].cells[2].innerText = FieldVal;
+      
+      // HFN
+      FieldVal = Fields.GetFieldValueText( DataIndex++ );
+      OutTableBody.rows[ch + RO].cells[3].innerText = FieldVal;
+   }
+}
+
+</script>
+
+</body>
+</html>

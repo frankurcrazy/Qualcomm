@@ -1,0 +1,1338 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Broadcast RT Watch Dog</title>
+		<meta content="True" name="vs_showGrid">
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<meta content="Broadcast RT Watch Dog" name="DMViewName">
+		<meta content="1300" name="DMViewWidth">
+		<meta content="850" name="DMViewHeight">
+		<style type="text/css"> .isdb-label { font-size: 10pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-label { font-size: 10pt; color: #000066; font-family: Arial; background-color: #ffcc99; text-align: left; }
+	.isdb-matrix-label { font-size: 10pt; color: #000066; font-family: Arial; background-color: #ffcc99; text-align: center; padding-left: 5px; }
+	.isdb-table-value { font-size: 10pt; color: #000066; font-family: Arial; text-align: right; }
+	.isdb-matrix-value { font-size: 10pt; color: #000066; font-family: Arial; text-align: right; }
+	.isdb-title { font-weight: bolder; font-size: 12pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-title { font-weight: bolder; font-size: 11pt; color: #000066; font-family: Arial; background-color: #ffffff; text-align: left; }
+	.isdb-button { font-weight: bolder; font-size: 10pt; color: white; font-family: Arial; background-color: navy; }
+		</style>
+		<script src="BroadcastBaseView.js" type="text/jscript"></script>
+	</head>
+	<body dir="ltr" bgColor="white" onload="Register()" onunload="Unregister()">
+		<div style="WIDTH: 1298px; POSITION: relative; HEIGHT: 888px" ms_positioning="GridLayout">
+			<div language="javascript" id="DIV3" dir="ltr" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; Z-INDEX: 100; LEFT: 0px; BORDER-LEFT: navy thin inset; WIDTH: 1294px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 0px; HEIGHT: 884px"
+				noWrap ms_positioning="GridLayout">&nbsp;
+				<DIV language="javascript" id="test_state" style="PADDING-LEFT: 50px; FONT-SIZE: 14pt; Z-INDEX: 102; LEFT: 488px; WIDTH: 756px; COLOR: white; DIRECTION: ltr; PADDING-TOP: 5px; FONT-FAMILY: Arial; POSITION: absolute; TOP: 8px; HEIGHT: 24px; BACKGROUND-COLOR: #00c400; TEXT-ALIGN: center"
+					value="No Error Detected"></DIV>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<OBJECT id="log_book" style="WIDTH: 97.44%; HEIGHT: 86.46%" height="86.46%" width="97.44%"
+					classid="clsid:1791C036-8981-492A-BD28-F2331BC9B7C7" viewastext>
+					<PARAM NAME="DataViewZHorz" VALUE="0">
+					<PARAM NAME="DataViewZVert" VALUE="0">
+					<PARAM NAME="XYAxesReverse" VALUE="0">
+					<PARAM NAME="OuterMarginLeft" VALUE="5">
+					<PARAM NAME="OuterMarginTop" VALUE="5">
+					<PARAM NAME="OuterMarginRight" VALUE="5">
+					<PARAM NAME="OuterMarginBottom" VALUE="5">
+					<PARAM NAME="PrintOrientation" VALUE="1">
+					<PARAM NAME="PrintMarginLeft" VALUE="1">
+					<PARAM NAME="PrintMarginTop" VALUE="1">
+					<PARAM NAME="PrintMarginRight" VALUE="1">
+					<PARAM NAME="PrintMarginBottom" VALUE="1">
+					<PARAM NAME="PrintShowDialog" VALUE="-1">
+					<PARAM NAME="UpdateFrameRate" VALUE="30">
+					<PARAM NAME="BackGroundColor" VALUE="16777215">
+					<PARAM NAME="BorderStyle" VALUE="2">
+					<PARAM NAME="AutoFrameRate" VALUE="-1">
+					<PARAM NAME="HintsShow" VALUE="-1">
+					<PARAM NAME="HintsPause" VALUE="500">
+					<PARAM NAME="HintsHidePause" VALUE="2500">
+					<PARAM NAME="TitleVisible" VALUE="-1">
+					<PARAM NAME="TitleText" VALUE="Untitled">
+					<PARAM NAME="TitleMargin" VALUE="0">
+					<PARAM NAME="TitleFont" VALUE="Arial">
+					<PARAM NAME="TitleFontColor" VALUE="16777215">
+					<PARAM NAME="UserCanEditObjects" VALUE="-1">
+					<PARAM NAME="LogFileName" VALUE="">
+					<PARAM NAME="LogBufferSize" VALUE="0">
+					<PARAM NAME="OptionSaveAllProperties" VALUE="0">
+					<PARAM NAME="HintsFont" VALUE="MS Sans Serif">
+					<PARAM NAME="HintsFontColor" VALUE="2147483656">
+					<PARAM NAME="AnnotationDefaultFont" VALUE="MS Sans Serif">
+					<PARAM NAME="AnnotationDefaultFontColor" VALUE="16777215">
+					<PARAM NAME="AnnotationDefaultBrushStlye" VALUE="0">
+					<PARAM NAME="AnnotationDefaultBrushColor" VALUE="16777215">
+					<PARAM NAME="AnnotationDefaultPenStlye" VALUE="0">
+					<PARAM NAME="AnnotationDefaultPenColor" VALUE="16777215">
+					<PARAM NAME="AnnotationDefaultPenWidth" VALUE="1">
+					<PARAM NAME="Width" VALUE="1260">
+					<PARAM NAME="Height" VALUE="764">
+					<PARAM NAME="UserCanAddRemoveChannels" VALUE="0">
+					<PARAM NAME="Visible" VALUE="0">
+					<PARAM NAME="Enabled" VALUE="-1">
+					<PARAM NAME="EditorFormStyle" VALUE="0">
+					<PARAM NAME="CopyToClipBoardFormat" VALUE="0">
+					<PARAM NAME="PrintDocumentName" VALUE="Untitled">
+					<PARAM NAME="PrinterName" VALUE="">
+					<PARAM NAME="ClipAnnotationsToAxes" VALUE="-1">
+					<PARAM NAME="BackGroundGradientEnabled" VALUE="0">
+					<PARAM NAME="BackGroundGradientDirection" VALUE="0">
+					<PARAM NAME="BackGroundGradientStartColor" VALUE="16711680">
+					<PARAM NAME="BackGroundGradientStopColor" VALUE="0">
+					<PARAM NAME="DataFileColumnSeparator" VALUE="0">
+					<PARAM NAME="DataFileFormat" VALUE="0">
+					<PARAM NAME="AnnotationDefaultReference" VALUE="0">
+					<PARAM NAME="AnnotationDefaultReferencePositionX" VALUE="2">
+					<PARAM NAME="AnnotationDefaultReferencePositionY" VALUE="2">
+					<PARAM NAME="AnnotationDefaultReferenceSizeX" VALUE="2">
+					<PARAM NAME="AnnotationDefaultReferenceSizeY" VALUE="2">
+					<PARAM NAME="ChannelCount" VALUE="1">
+					<PARAM NAME="XAxisCount" VALUE="1">
+					<PARAM NAME="YAxisCount" VALUE="1">
+					<PARAM NAME="ToolBarCount" VALUE="1">
+					<PARAM NAME="LegendCount" VALUE="1">
+					<PARAM NAME="DataViewCount" VALUE="1">
+					<PARAM NAME="DataCursorCount" VALUE="1">
+					<PARAM NAME="LimitCount" VALUE="0">
+					<PARAM NAME="LabelCount" VALUE="1">
+					<PARAM NAME="TableCount" VALUE="1">
+					<PARAM NAME="TranslationCount" VALUE="0">
+					<PARAM NAME="ToolBar0.Name" VALUE="Toolbar 1">
+					<PARAM NAME="ToolBar0.Visible" VALUE="0">
+					<PARAM NAME="ToolBar0.Enabled" VALUE="1">
+					<PARAM NAME="ToolBar0.Layer" VALUE="100">
+					<PARAM NAME="ToolBar0.PopupEnabled" VALUE="1">
+					<PARAM NAME="ToolBar0.CanFocus" VALUE="1">
+					<PARAM NAME="ToolBar0.Horizontal" VALUE="1">
+					<PARAM NAME="ToolBar0.ZOrder" VALUE="0">
+					<PARAM NAME="ToolBar0.StartPercent" VALUE="0">
+					<PARAM NAME="ToolBar0.StopPercent" VALUE="100">
+					<PARAM NAME="ToolBar0.ShowResumeButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowPauseButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowAxesModeButtons" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowZoomInOutButtons" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowSelectButton" VALUE="0">
+					<PARAM NAME="ToolBar0.ShowZoomBoxButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowCursorButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowEditButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowCopyButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowSaveButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowPrintButton" VALUE="1">
+					<PARAM NAME="ToolBar0.ShowPreviewButton" VALUE="0">
+					<PARAM NAME="ToolBar0.ZoomInOutFactor" VALUE="2">
+					<PARAM NAME="ToolBar0.FlatBorder" VALUE="0">
+					<PARAM NAME="ToolBar0.FlatButtons" VALUE="0">
+					<PARAM NAME="ToolBar0.SmallButtons" VALUE="0">
+					<PARAM NAME="Legend0.Name" VALUE="Legend 1">
+					<PARAM NAME="Legend0.Visible" VALUE="0">
+					<PARAM NAME="Legend0.Enabled" VALUE="0">
+					<PARAM NAME="Legend0.Layer" VALUE="100">
+					<PARAM NAME="Legend0.PopupEnabled" VALUE="1">
+					<PARAM NAME="Legend0.CanFocus" VALUE="1">
+					<PARAM NAME="Legend0.Horizontal" VALUE="0">
+					<PARAM NAME="Legend0.ZOrder" VALUE="2">
+					<PARAM NAME="Legend0.StartPercent" VALUE="0">
+					<PARAM NAME="Legend0.StopPercent" VALUE="100">
+					<PARAM NAME="Legend0.MarginLeft" VALUE="1">
+					<PARAM NAME="Legend0.MarginTop" VALUE="1">
+					<PARAM NAME="Legend0.MarginRight" VALUE="1">
+					<PARAM NAME="Legend0.MarginBottom" VALUE="1">
+					<PARAM NAME="Legend0.BackGroundColor" VALUE="8421504">
+					<PARAM NAME="Legend0.BackGroundTransparent" VALUE="1">
+					<PARAM NAME="Legend0.SelectedItemBackGroundColor" VALUE="65535">
+					<PARAM NAME="Legend0.SelectedItemFont.Charset" VALUE="1">
+					<PARAM NAME="Legend0.SelectedItemFont.Color" VALUE="0">
+					<PARAM NAME="Legend0.SelectedItemFont.Height" VALUE="-11">
+					<PARAM NAME="Legend0.SelectedItemFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="Legend0.SelectedItemFont.Pitch" VALUE="0">
+					<PARAM NAME="Legend0.SelectedItemFont.Style" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnLine" VALUE="1">
+					<PARAM NAME="Legend0.ShowColumnMarker" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnXAxisTitle" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnYAxisTitle" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnXValue" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnYValue" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnYMax" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnYMin" VALUE="0">
+					<PARAM NAME="Legend0.ShowColumnYMean" VALUE="0">
+					<PARAM NAME="Legend0.CaptionColumnTitle" VALUE="Title">
+					<PARAM NAME="Legend0.CaptionColumnXAxisTitle" VALUE="X-Axis">
+					<PARAM NAME="Legend0.CaptionColumnYAxisTitle" VALUE="Y-Axis">
+					<PARAM NAME="Legend0.CaptionColumnXValue" VALUE="X">
+					<PARAM NAME="Legend0.CaptionColumnYValue" VALUE="Y">
+					<PARAM NAME="Legend0.CaptionColumnYMax" VALUE="Y-Max">
+					<PARAM NAME="Legend0.CaptionColumnYMin" VALUE="Y-Min">
+					<PARAM NAME="Legend0.CaptionColumnYMean" VALUE="Y-Mean">
+					<PARAM NAME="Legend0.Font.Charset" VALUE="1">
+					<PARAM NAME="Legend0.Font.Color" VALUE="16777215">
+					<PARAM NAME="Legend0.Font.Height" VALUE="-11">
+					<PARAM NAME="Legend0.Font.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="Legend0.Font.Pitch" VALUE="0">
+					<PARAM NAME="Legend0.Font.Style" VALUE="0">
+					<PARAM NAME="Legend0.ColumnSpacing" VALUE="0.5">
+					<PARAM NAME="Legend0.RowSpacing" VALUE="0.25">
+					<PARAM NAME="Legend0.WrapColDesiredCount" VALUE="1">
+					<PARAM NAME="Legend0.WrapColAutoCountEnabled" VALUE="0">
+					<PARAM NAME="Legend0.WrapColAutoCountMax" VALUE="100">
+					<PARAM NAME="Legend0.WrapColSpacingMin" VALUE="2">
+					<PARAM NAME="Legend0.WrapColSpacingAuto" VALUE="1">
+					<PARAM NAME="Legend0.WrapRowDesiredCount" VALUE="5">
+					<PARAM NAME="Legend0.WrapRowAutoCountEnabled" VALUE="1">
+					<PARAM NAME="Legend0.WrapRowAutoCountMax" VALUE="100">
+					<PARAM NAME="Legend0.WrapRowSpacingMin" VALUE="0.25">
+					<PARAM NAME="Legend0.WrapRowSpacingAuto" VALUE="0">
+					<PARAM NAME="Legend0.ColumnTitlesVisible" VALUE="0">
+					<PARAM NAME="Legend0.ColumnTitlesFont.Charset" VALUE="1">
+					<PARAM NAME="Legend0.ColumnTitlesFont.Color" VALUE="16776960">
+					<PARAM NAME="Legend0.ColumnTitlesFont.Height" VALUE="-11">
+					<PARAM NAME="Legend0.ColumnTitlesFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="Legend0.ColumnTitlesFont.Pitch" VALUE="0">
+					<PARAM NAME="Legend0.ColumnTitlesFont.Style" VALUE="1">
+					<PARAM NAME="Legend0.ChannelNameMaxWidth" VALUE="0">
+					<PARAM NAME="Legend0.ChannelNameColorStyle" VALUE="0">
+					<PARAM NAME="Legend0.LineColumnWidth" VALUE="13">
+					<PARAM NAME="Legend0.LineColumnHeight" VALUE="3">
+					<PARAM NAME="XAxis0.Name" VALUE="X-Axis 1">
+					<PARAM NAME="XAxis0.Visible" VALUE="0">
+					<PARAM NAME="XAxis0.Enabled" VALUE="0">
+					<PARAM NAME="XAxis0.Layer" VALUE="100">
+					<PARAM NAME="XAxis0.PopupEnabled" VALUE="1">
+					<PARAM NAME="XAxis0.CanFocus" VALUE="1">
+					<PARAM NAME="XAxis0.Horizontal" VALUE="1">
+					<PARAM NAME="XAxis0.ZOrder" VALUE="0">
+					<PARAM NAME="XAxis0.StartPercent" VALUE="0">
+					<PARAM NAME="XAxis0.StopPercent" VALUE="100">
+					<PARAM NAME="XAxis0.Min" VALUE="0">
+					<PARAM NAME="XAxis0.Span" VALUE="100">
+					<PARAM NAME="XAxis0.DesiredStart" VALUE="0">
+					<PARAM NAME="XAxis0.DesiredIncrement" VALUE="0">
+					<PARAM NAME="XAxis0.ReverseScale" VALUE="0">
+					<PARAM NAME="XAxis0.InnerMargin" VALUE="5">
+					<PARAM NAME="XAxis0.OuterMargin" VALUE="5">
+					<PARAM NAME="XAxis0.Title" VALUE="X-Axis 1">
+					<PARAM NAME="XAxis0.TitleMargin" VALUE="0.25">
+					<PARAM NAME="XAxis0.TitleFont.Charset" VALUE="1">
+					<PARAM NAME="XAxis0.TitleFont.Color" VALUE="16777215">
+					<PARAM NAME="XAxis0.TitleFont.Height" VALUE="-13">
+					<PARAM NAME="XAxis0.TitleFont.Name" VALUE="Arial">
+					<PARAM NAME="XAxis0.TitleFont.Pitch" VALUE="0">
+					<PARAM NAME="XAxis0.TitleFont.Style" VALUE="1">
+					<PARAM NAME="XAxis0.TitleShow" VALUE="0">
+					<PARAM NAME="XAxis0.TitleRotated" VALUE="0">
+					<PARAM NAME="XAxis0.MajorLength" VALUE="7">
+					<PARAM NAME="XAxis0.MinorLength" VALUE="3">
+					<PARAM NAME="XAxis0.MinorCount" VALUE="1">
+					<PARAM NAME="XAxis0.LabelsVisible" VALUE="0">
+					<PARAM NAME="XAxis0.LabelsMargin" VALUE="0.25">
+					<PARAM NAME="XAxis0.LabelsFont.Charset" VALUE="1">
+					<PARAM NAME="XAxis0.LabelsFont.Color" VALUE="16777215">
+					<PARAM NAME="XAxis0.LabelsFont.Height" VALUE="-11">
+					<PARAM NAME="XAxis0.LabelsFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="XAxis0.LabelsFont.Pitch" VALUE="0">
+					<PARAM NAME="XAxis0.LabelsFont.Style" VALUE="0">
+					<PARAM NAME="XAxis0.LabelSeparation" VALUE="2">
+					<PARAM NAME="XAxis0.LabelsRotation" VALUE="0">
+					<PARAM NAME="XAxis0.LabelsPrecision" VALUE="3">
+					<PARAM NAME="XAxis0.LabelsPrecisionStyle" VALUE="0">
+					<PARAM NAME="XAxis0.LabelsFormatStyle" VALUE="0">
+					<PARAM NAME="XAxis0.DateTimeFormat" VALUE="hh:nn:ss">
+					<PARAM NAME="XAxis0.LabelsMinLength" VALUE="5">
+					<PARAM NAME="XAxis0.LabelsMinLengthAutoAdjust" VALUE="0">
+					<PARAM NAME="XAxis0.ScaleLineShow" VALUE="1">
+					<PARAM NAME="XAxis0.ScaleLinesShow" VALUE="1">
+					<PARAM NAME="XAxis0.ScaleLinesColor" VALUE="16777215">
+					<PARAM NAME="XAxis0.StackingEndsMargin" VALUE="0.5">
+					<PARAM NAME="XAxis0.ScaleType" VALUE="0">
+					<PARAM NAME="XAxis0.TrackingEnabled" VALUE="1">
+					<PARAM NAME="XAxis0.TrackingStyle" VALUE="3">
+					<PARAM NAME="XAxis0.TrackingIncrementStyle" VALUE="0">
+					<PARAM NAME="XAxis0.TrackingAlignFirstStyle" VALUE="2">
+					<PARAM NAME="XAxis0.TrackingScrollCompressMax" VALUE="0">
+					<PARAM NAME="XAxis0.TrackingSpanMinimum" VALUE="0">
+					<PARAM NAME="XAxis0.TrackingMaxMargin" VALUE="0">
+					<PARAM NAME="XAxis0.TrackingMinMargin" VALUE="0">
+					<PARAM NAME="XAxis0.CursorUseDefaultFormat" VALUE="1">
+					<PARAM NAME="XAxis0.CursorFormatStyle" VALUE="0">
+					<PARAM NAME="XAxis0.CursorDateTimeFormat" VALUE="hh:nn:ss">
+					<PARAM NAME="XAxis0.CursorPrecisionStyle" VALUE="0">
+					<PARAM NAME="XAxis0.CursorPrecision" VALUE="3">
+					<PARAM NAME="XAxis0.CursorMinLength" VALUE="5">
+					<PARAM NAME="XAxis0.CursorMinLengthAutoAdjust" VALUE="0">
+					<PARAM NAME="XAxis0.LegendUseDefaultFormat" VALUE="1">
+					<PARAM NAME="XAxis0.LegendFormatStyle" VALUE="0">
+					<PARAM NAME="XAxis0.LegendDateTimeFormat" VALUE="hh:nn:ss">
+					<PARAM NAME="XAxis0.LegendPrecisionStyle" VALUE="0">
+					<PARAM NAME="XAxis0.LegendPrecision" VALUE="3">
+					<PARAM NAME="XAxis0.LegendMinLength" VALUE="5">
+					<PARAM NAME="XAxis0.LegendMinLengthAutoAdjust" VALUE="0">
+					<PARAM NAME="XAxis0.CursorScaler" VALUE="1">
+					<PARAM NAME="XAxis0.ScrollMinMaxEnabled" VALUE="0">
+					<PARAM NAME="XAxis0.ScrollMax" VALUE="100">
+					<PARAM NAME="XAxis0.ScrollMin" VALUE="0">
+					<PARAM NAME="XAxis0.RestoreValuesOnResume" VALUE="1">
+					<PARAM NAME="XAxis0.MasterUIInput" VALUE="0">
+					<PARAM NAME="XAxis0.CartesianStyle" VALUE="0">
+					<PARAM NAME="XAxis0.CartesianChildRefAxisName" VALUE="<None>">
+					<PARAM NAME="XAxis0.CartesianChildRefValue" VALUE="0">
+					<PARAM NAME="XAxis0.AlignRefAxisName" VALUE="<None>">
+					<PARAM NAME="XAxis0.GridLinesVisible" VALUE="0">
+					<PARAM NAME="XAxis0.ForceStacking" VALUE="0">
+					<PARAM NAME="YAxis0.Name" VALUE="Y-Axis 1">
+					<PARAM NAME="YAxis0.Visible" VALUE="0">
+					<PARAM NAME="YAxis0.Enabled" VALUE="1">
+					<PARAM NAME="YAxis0.Layer" VALUE="100">
+					<PARAM NAME="YAxis0.PopupEnabled" VALUE="1">
+					<PARAM NAME="YAxis0.CanFocus" VALUE="1">
+					<PARAM NAME="YAxis0.Horizontal" VALUE="0">
+					<PARAM NAME="YAxis0.ZOrder" VALUE="0">
+					<PARAM NAME="YAxis0.StartPercent" VALUE="0">
+					<PARAM NAME="YAxis0.StopPercent" VALUE="100">
+					<PARAM NAME="YAxis0.Min" VALUE="0">
+					<PARAM NAME="YAxis0.Span" VALUE="100">
+					<PARAM NAME="YAxis0.DesiredStart" VALUE="0">
+					<PARAM NAME="YAxis0.DesiredIncrement" VALUE="0">
+					<PARAM NAME="YAxis0.ReverseScale" VALUE="0">
+					<PARAM NAME="YAxis0.InnerMargin" VALUE="5">
+					<PARAM NAME="YAxis0.OuterMargin" VALUE="5">
+					<PARAM NAME="YAxis0.Title" VALUE="Y-Axis 1">
+					<PARAM NAME="YAxis0.TitleMargin" VALUE="0.25">
+					<PARAM NAME="YAxis0.TitleFont.Charset" VALUE="1">
+					<PARAM NAME="YAxis0.TitleFont.Color" VALUE="16777215">
+					<PARAM NAME="YAxis0.TitleFont.Height" VALUE="-13">
+					<PARAM NAME="YAxis0.TitleFont.Name" VALUE="Arial">
+					<PARAM NAME="YAxis0.TitleFont.Pitch" VALUE="0">
+					<PARAM NAME="YAxis0.TitleFont.Style" VALUE="1">
+					<PARAM NAME="YAxis0.TitleShow" VALUE="0">
+					<PARAM NAME="YAxis0.TitleRotated" VALUE="0">
+					<PARAM NAME="YAxis0.MajorLength" VALUE="7">
+					<PARAM NAME="YAxis0.MinorLength" VALUE="3">
+					<PARAM NAME="YAxis0.MinorCount" VALUE="1">
+					<PARAM NAME="YAxis0.LabelsVisible" VALUE="1">
+					<PARAM NAME="YAxis0.LabelsMargin" VALUE="0.25">
+					<PARAM NAME="YAxis0.LabelsFont.Charset" VALUE="1">
+					<PARAM NAME="YAxis0.LabelsFont.Color" VALUE="16777215">
+					<PARAM NAME="YAxis0.LabelsFont.Height" VALUE="-11">
+					<PARAM NAME="YAxis0.LabelsFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="YAxis0.LabelsFont.Pitch" VALUE="0">
+					<PARAM NAME="YAxis0.LabelsFont.Style" VALUE="0">
+					<PARAM NAME="YAxis0.LabelSeparation" VALUE="2">
+					<PARAM NAME="YAxis0.LabelsRotation" VALUE="0">
+					<PARAM NAME="YAxis0.LabelsPrecision" VALUE="3">
+					<PARAM NAME="YAxis0.LabelsPrecisionStyle" VALUE="0">
+					<PARAM NAME="YAxis0.LabelsFormatStyle" VALUE="0">
+					<PARAM NAME="YAxis0.DateTimeFormat" VALUE="hh:nn:ss">
+					<PARAM NAME="YAxis0.LabelsMinLength" VALUE="5">
+					<PARAM NAME="YAxis0.LabelsMinLengthAutoAdjust" VALUE="0">
+					<PARAM NAME="YAxis0.ScaleLineShow" VALUE="1">
+					<PARAM NAME="YAxis0.ScaleLinesShow" VALUE="1">
+					<PARAM NAME="YAxis0.ScaleLinesColor" VALUE="16777215">
+					<PARAM NAME="YAxis0.StackingEndsMargin" VALUE="0.5">
+					<PARAM NAME="YAxis0.ScaleType" VALUE="0">
+					<PARAM NAME="YAxis0.TrackingEnabled" VALUE="1">
+					<PARAM NAME="YAxis0.TrackingStyle" VALUE="0">
+					<PARAM NAME="YAxis0.TrackingIncrementStyle" VALUE="0">
+					<PARAM NAME="YAxis0.TrackingAlignFirstStyle" VALUE="3">
+					<PARAM NAME="YAxis0.TrackingScrollCompressMax" VALUE="0">
+					<PARAM NAME="YAxis0.TrackingSpanMinimum" VALUE="0">
+					<PARAM NAME="YAxis0.TrackingMaxMargin" VALUE="0">
+					<PARAM NAME="YAxis0.TrackingMinMargin" VALUE="0">
+					<PARAM NAME="YAxis0.CursorUseDefaultFormat" VALUE="1">
+					<PARAM NAME="YAxis0.CursorFormatStyle" VALUE="0">
+					<PARAM NAME="YAxis0.CursorDateTimeFormat" VALUE="hh:nn:ss">
+					<PARAM NAME="YAxis0.CursorPrecisionStyle" VALUE="0">
+					<PARAM NAME="YAxis0.CursorPrecision" VALUE="3">
+					<PARAM NAME="YAxis0.CursorMinLength" VALUE="5">
+					<PARAM NAME="YAxis0.CursorMinLengthAutoAdjust" VALUE="0">
+					<PARAM NAME="YAxis0.LegendUseDefaultFormat" VALUE="1">
+					<PARAM NAME="YAxis0.LegendFormatStyle" VALUE="0">
+					<PARAM NAME="YAxis0.LegendDateTimeFormat" VALUE="hh:nn:ss">
+					<PARAM NAME="YAxis0.LegendPrecisionStyle" VALUE="0">
+					<PARAM NAME="YAxis0.LegendPrecision" VALUE="3">
+					<PARAM NAME="YAxis0.LegendMinLength" VALUE="5">
+					<PARAM NAME="YAxis0.LegendMinLengthAutoAdjust" VALUE="0">
+					<PARAM NAME="YAxis0.CursorScaler" VALUE="1">
+					<PARAM NAME="YAxis0.ScrollMinMaxEnabled" VALUE="0">
+					<PARAM NAME="YAxis0.ScrollMax" VALUE="100">
+					<PARAM NAME="YAxis0.ScrollMin" VALUE="0">
+					<PARAM NAME="YAxis0.RestoreValuesOnResume" VALUE="1">
+					<PARAM NAME="YAxis0.MasterUIInput" VALUE="0">
+					<PARAM NAME="YAxis0.CartesianStyle" VALUE="0">
+					<PARAM NAME="YAxis0.CartesianChildRefAxisName" VALUE="<None>">
+					<PARAM NAME="YAxis0.CartesianChildRefValue" VALUE="0">
+					<PARAM NAME="YAxis0.AlignRefAxisName" VALUE="<None>">
+					<PARAM NAME="YAxis0.GridLinesVisible" VALUE="1">
+					<PARAM NAME="YAxis0.ForceStacking" VALUE="0">
+					<PARAM NAME="DataView0.Name" VALUE="Data View 1">
+					<PARAM NAME="DataView0.Visible" VALUE="0">
+					<PARAM NAME="DataView0.Enabled" VALUE="0">
+					<PARAM NAME="DataView0.Layer" VALUE="0">
+					<PARAM NAME="DataView0.PopupEnabled" VALUE="1">
+					<PARAM NAME="DataView0.CanFocus" VALUE="1">
+					<PARAM NAME="DataView0.Horizontal" VALUE="0">
+					<PARAM NAME="DataView0.ZOrder" VALUE="0">
+					<PARAM NAME="DataView0.StartPercent" VALUE="0">
+					<PARAM NAME="DataView0.StopPercent" VALUE="100">
+					<PARAM NAME="DataView0.Title" VALUE="">
+					<PARAM NAME="DataView0.BackgroundTransparent" VALUE="1">
+					<PARAM NAME="DataView0.BackgroundColor" VALUE="8421376">
+					<PARAM NAME="DataView0.GridXAxisName" VALUE="X-Axis 1">
+					<PARAM NAME="DataView0.GridYAxisName" VALUE="Y-Axis 1">
+					<PARAM NAME="DataView0.GridShow" VALUE="0">
+					<PARAM NAME="DataView0.GridLineColor" VALUE="32768">
+					<PARAM NAME="DataView0.GridLineShowLeft" VALUE="1">
+					<PARAM NAME="DataView0.GridLineShowRight" VALUE="1">
+					<PARAM NAME="DataView0.GridLineShowTop" VALUE="1">
+					<PARAM NAME="DataView0.GridLineShowBottom" VALUE="1">
+					<PARAM NAME="DataView0.GridLineShowXMajors" VALUE="1">
+					<PARAM NAME="DataView0.GridLineShowXMinors" VALUE="0">
+					<PARAM NAME="DataView0.GridLineShowYMajors" VALUE="1">
+					<PARAM NAME="DataView0.GridLineShowYMinors" VALUE="0">
+					<PARAM NAME="DataView0.GridLineMajorStyle" VALUE="0">
+					<PARAM NAME="DataView0.GridLineMinorStyle" VALUE="0">
+					<PARAM NAME="DataView0.GridLineXMajorCustom" VALUE="0">
+					<PARAM NAME="DataView0.GridLineXMajorColor" VALUE="32768">
+					<PARAM NAME="DataView0.GridLineXMajorWidth" VALUE="0">
+					<PARAM NAME="DataView0.GridLineXMajorStyle" VALUE="0">
+					<PARAM NAME="DataView0.GridLineXMinorCustom" VALUE="0">
+					<PARAM NAME="DataView0.GridLineXMinorColor" VALUE="32768">
+					<PARAM NAME="DataView0.GridLineXMinorWidth" VALUE="0">
+					<PARAM NAME="DataView0.GridLineXMinorStyle" VALUE="0">
+					<PARAM NAME="DataView0.GridLineYMajorCustom" VALUE="0">
+					<PARAM NAME="DataView0.GridLineYMajorColor" VALUE="32768">
+					<PARAM NAME="DataView0.GridLineYMajorWidth" VALUE="0">
+					<PARAM NAME="DataView0.GridLineYMajorStyle" VALUE="0">
+					<PARAM NAME="DataView0.GridLineYMinorCustom" VALUE="0">
+					<PARAM NAME="DataView0.GridLineYMinorColor" VALUE="32768">
+					<PARAM NAME="DataView0.GridLineYMinorWidth" VALUE="0">
+					<PARAM NAME="DataView0.GridLineYMinorStyle" VALUE="0">
+					<PARAM NAME="DataView0.AxesControlEnabled" VALUE="0">
+					<PARAM NAME="DataView0.AxesControlMouseStyle" VALUE="2">
+					<PARAM NAME="DataView0.AxesControlWheelStyle" VALUE="0">
+					<PARAM NAME="Channel0.Name" VALUE="Channel 1">
+					<PARAM NAME="Channel0.Visible" VALUE="1">
+					<PARAM NAME="Channel0.Enabled" VALUE="1">
+					<PARAM NAME="Channel0.Layer" VALUE="100">
+					<PARAM NAME="Channel0.PopupEnabled" VALUE="1">
+					<PARAM NAME="Channel0.CanFocus" VALUE="1">
+					<PARAM NAME="Channel0.TitleText" VALUE="Channel 1">
+					<PARAM NAME="Channel0.VisibleInLegend" VALUE="0">
+					<PARAM NAME="Channel0.ClipToAxes" VALUE="0">
+					<PARAM NAME="Channel0.ShowDataPointHints" VALUE="0">
+					<PARAM NAME="Channel0.UserCanMoveDataPoints" VALUE="0">
+					<PARAM NAME="Channel0.UserCanMoveDataPointsStyle" VALUE="0">
+					<PARAM NAME="Channel0.RingBufferSize" VALUE="0">
+					<PARAM NAME="Channel0.TraceVisible" VALUE="1">
+					<PARAM NAME="Channel0.Color" VALUE="255">
+					<PARAM NAME="Channel0.TraceLineStyle" VALUE="0">
+					<PARAM NAME="Channel0.TraceLineWidth" VALUE="1">
+					<PARAM NAME="Channel0.MarkersAllowIndividual" VALUE="0">
+					<PARAM NAME="Channel0.MarkersPenUseChannelColor" VALUE="1">
+					<PARAM NAME="Channel0.MarkersBrushUseChannelColor" VALUE="1">
+					<PARAM NAME="Channel0.MarkersTurnOffLimit" VALUE="0">
+					<PARAM NAME="Channel0.MarkersVisible" VALUE="0">
+					<PARAM NAME="Channel0.MarkersSize" VALUE="3">
+					<PARAM NAME="Channel0.MarkersStyle" VALUE="0">
+					<PARAM NAME="Channel0.MarkersPenColor" VALUE="255">
+					<PARAM NAME="Channel0.MarkersPenStyle" VALUE="0">
+					<PARAM NAME="Channel0.MarkersPenWidth" VALUE="0">
+					<PARAM NAME="Channel0.MarkersBrushColor" VALUE="255">
+					<PARAM NAME="Channel0.MarkersBrushStyle" VALUE="0">
+					<PARAM NAME="Channel0.MarkersFont.Charset" VALUE="1">
+					<PARAM NAME="Channel0.MarkersFont.Color" VALUE="16777215">
+					<PARAM NAME="Channel0.MarkersFont.Height" VALUE="-11">
+					<PARAM NAME="Channel0.MarkersFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="Channel0.MarkersFont.Pitch" VALUE="0">
+					<PARAM NAME="Channel0.MarkersFont.Style" VALUE="1">
+					<PARAM NAME="Channel0.XAxisName" VALUE="X-Axis 1">
+					<PARAM NAME="Channel0.YAxisName" VALUE="Y-Axis 1">
+					<PARAM NAME="Channel0.XAxisTrackingEnabled" VALUE="1">
+					<PARAM NAME="Channel0.YAxisTrackingEnabled" VALUE="1">
+					<PARAM NAME="Channel0.LogFileName" VALUE="">
+					<PARAM NAME="Channel0.LogBufferSize" VALUE="0">
+					<PARAM NAME="Channel0.DataStyle" VALUE="0">
+					<PARAM NAME="Channel0.Tag" VALUE="0">
+					<PARAM NAME="Channel0.FastDrawEnabled" VALUE="1">
+					<PARAM NAME="Channel0.AllowOutOfOrderXValues" VALUE="1">
+					<PARAM NAME="Channel0.DrawOutOfOrderXValues" VALUE="0">
+					<PARAM NAME="Channel0.ResetStartTimeOnFirstDataPoint" VALUE="0">
+					<PARAM NAME="Channel0.InterpolationStyle" VALUE="0">
+					<PARAM NAME="Channel0.FillEnabled" VALUE="0">
+					<PARAM NAME="Channel0.FillReference" VALUE="0">
+					<PARAM NAME="Channel0.FillStyle" VALUE="0">
+					<PARAM NAME="Channel0.FillColor" VALUE="0">
+					<PARAM NAME="Channel0.FillUseChannelColor" VALUE="1">
+					<PARAM NAME="Channel0.DigitalEnabled" VALUE="0">
+					<PARAM NAME="Channel0.DigitalReferenceStyle" VALUE="0">
+					<PARAM NAME="Channel0.DigitalReferenceLow" VALUE="10">
+					<PARAM NAME="Channel0.DigitalReferenceHigh" VALUE="90">
+					<PARAM NAME="Channel0.HighLowStyle" VALUE="0">
+					<PARAM NAME="Channel0.HighLowEnabled" VALUE="0">
+					<PARAM NAME="Channel0.HighLowBarColor" VALUE="16776960">
+					<PARAM NAME="Channel0.HighLowBarWidth" VALUE="0.5">
+					<PARAM NAME="Channel0.HighLowOpenShow" VALUE="1">
+					<PARAM NAME="Channel0.HighLowOpenColor" VALUE="65280">
+					<PARAM NAME="Channel0.HighLowOpenWidth" VALUE="1">
+					<PARAM NAME="Channel0.HighLowOpenHeight" VALUE="1">
+					<PARAM NAME="Channel0.HighLowCloseShow" VALUE="1">
+					<PARAM NAME="Channel0.HighLowCloseColor" VALUE="255">
+					<PARAM NAME="Channel0.HighLowCloseWidth" VALUE="1">
+					<PARAM NAME="Channel0.HighLowCloseHeight" VALUE="1">
+					<PARAM NAME="Channel0.HighLowShadowColor" VALUE="8421504">
+					<PARAM NAME="Channel0.HighLowBullishColor" VALUE="16777215">
+					<PARAM NAME="Channel0.HighLowBearishColor" VALUE="8421504">
+					<PARAM NAME="Channel0.BarEnabled" VALUE="0">
+					<PARAM NAME="Channel0.BarPenUseChannelColor" VALUE="1">
+					<PARAM NAME="Channel0.BarBrushUseChannelColor" VALUE="1">
+					<PARAM NAME="Channel0.BarReference" VALUE="0">
+					<PARAM NAME="Channel0.BarWidth" VALUE="5">
+					<PARAM NAME="Channel0.BarPenColor" VALUE="255">
+					<PARAM NAME="Channel0.BarPenWidth" VALUE="0">
+					<PARAM NAME="Channel0.BarPenStyle" VALUE="0">
+					<PARAM NAME="Channel0.BarBrushColor" VALUE="255">
+					<PARAM NAME="Channel0.BarBrushStyle" VALUE="0">
+					<PARAM NAME="Channel0.OPCGroupName" VALUE="">
+					<PARAM NAME="Channel0.OPCComputerName" VALUE="Local">
+					<PARAM NAME="Channel0.OPCServerName" VALUE="">
+					<PARAM NAME="Channel0.OPCItemName" VALUE="">
+					<PARAM NAME="Channel0.OPCUpdateRate" VALUE="500">
+					<PARAM NAME="Channel0.OPCScalar" VALUE="0">
+					<PARAM NAME="Channel0.OPCOffset" VALUE="0">
+					<PARAM NAME="Channel0.OPCAutoConnect" VALUE="1">
+					<PARAM NAME="Channel0.OPCXValueSource" VALUE="0">
+					<PARAM NAME="DataCursor0.Name" VALUE="Cursor 1">
+					<PARAM NAME="DataCursor0.Visible" VALUE="0">
+					<PARAM NAME="DataCursor0.Enabled" VALUE="1">
+					<PARAM NAME="DataCursor0.Layer" VALUE="100">
+					<PARAM NAME="DataCursor0.PopupEnabled" VALUE="1">
+					<PARAM NAME="DataCursor0.CanFocus" VALUE="1">
+					<PARAM NAME="DataCursor0.ChannelName" VALUE="Channel 1">
+					<PARAM NAME="DataCursor0.ChannelAllowAll" VALUE="1">
+					<PARAM NAME="DataCursor0.ChannelShowAllInLegend" VALUE="0">
+					<PARAM NAME="DataCursor0.Style" VALUE="0">
+					<PARAM NAME="DataCursor0.Font.Charset" VALUE="1">
+					<PARAM NAME="DataCursor0.Font.Color" VALUE="0">
+					<PARAM NAME="DataCursor0.Font.Height" VALUE="-11">
+					<PARAM NAME="DataCursor0.Font.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="DataCursor0.Font.Pitch" VALUE="0">
+					<PARAM NAME="DataCursor0.Font.Style" VALUE="0">
+					<PARAM NAME="DataCursor0.Color" VALUE="65535">
+					<PARAM NAME="DataCursor0.UseChannelColor" VALUE="1">
+					<PARAM NAME="DataCursor0.HintShow" VALUE="1">
+					<PARAM NAME="DataCursor0.HintHideOnRelease" VALUE="0">
+					<PARAM NAME="DataCursor0.HintOrientationSide" VALUE="0">
+					<PARAM NAME="DataCursor0.HintPosition" VALUE="50">
+					<PARAM NAME="DataCursor0.Pointer1Position" VALUE="50">
+					<PARAM NAME="DataCursor0.Pointer2Position" VALUE="60">
+					<PARAM NAME="DataCursor0.PointerPenWidth" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuUserCanChangeOptions" VALUE="1">
+					<PARAM NAME="DataCursor0.SnapToDataPoint" VALUE="0">
+					<PARAM NAME="DataCursor0.UseCachedInerpolatedData" VALUE="0">
+					<PARAM NAME="DataCursor0.MenuItemVisibleValueXY" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuItemVisibleValueX" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuItemVisibleValueY" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuItemVisibleDeltaX" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuItemVisibleDeltaY" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuItemVisibleInverseDeltaX" VALUE="1">
+					<PARAM NAME="DataCursor0.MenuItemCaptionValueXY" VALUE="Value X-Y">
+					<PARAM NAME="DataCursor0.MenuItemCaptionValueX" VALUE="Value X">
+					<PARAM NAME="DataCursor0.MenuItemCaptionValueY" VALUE="Value Y">
+					<PARAM NAME="DataCursor0.MenuItemCaptionDeltaX" VALUE="Period">
+					<PARAM NAME="DataCursor0.MenuItemCaptionDeltaY" VALUE="Peak-Peak">
+					<PARAM NAME="DataCursor0.MenuItemCaptionInverseDeltaX" VALUE="Frequency">
+					<PARAM NAME="Label0.Name" VALUE="Title">
+					<PARAM NAME="Label0.Visible" VALUE="1">
+					<PARAM NAME="Label0.Enabled" VALUE="1">
+					<PARAM NAME="Label0.Layer" VALUE="100">
+					<PARAM NAME="Label0.PopupEnabled" VALUE="1">
+					<PARAM NAME="Label0.CanFocus" VALUE="1">
+					<PARAM NAME="Label0.Horizontal" VALUE="1">
+					<PARAM NAME="Label0.ZOrder" VALUE="2">
+					<PARAM NAME="Label0.StartPercent" VALUE="0">
+					<PARAM NAME="Label0.StopPercent" VALUE="100">
+					<PARAM NAME="Label0.MarginLeft" VALUE="0">
+					<PARAM NAME="Label0.MarginTop" VALUE="0">
+					<PARAM NAME="Label0.MarginRight" VALUE="0">
+					<PARAM NAME="Label0.MarginBottom" VALUE="0">
+					<PARAM NAME="Label0.Caption" VALUE="Untitled">
+					<PARAM NAME="Label0.Alignment" VALUE="0">
+					<PARAM NAME="Label0.Font.Charset" VALUE="1">
+					<PARAM NAME="Label0.Font.Color" VALUE="16777215">
+					<PARAM NAME="Label0.Font.Height" VALUE="-19">
+					<PARAM NAME="Label0.Font.Name" VALUE="Arial">
+					<PARAM NAME="Label0.Font.Pitch" VALUE="0">
+					<PARAM NAME="Label0.Font.Style" VALUE="1">
+					<PARAM NAME="Table0.Name" VALUE="Table 1">
+					<PARAM NAME="Table0.Visible" VALUE="1">
+					<PARAM NAME="Table0.Enabled" VALUE="1">
+					<PARAM NAME="Table0.Layer" VALUE="100">
+					<PARAM NAME="Table0.PopupEnabled" VALUE="1">
+					<PARAM NAME="Table0.CanFocus" VALUE="1">
+					<PARAM NAME="Table0.Horizontal" VALUE="0">
+					<PARAM NAME="Table0.ZOrder" VALUE="0">
+					<PARAM NAME="Table0.StartPercent" VALUE="0">
+					<PARAM NAME="Table0.StopPercent" VALUE="100">
+					<PARAM NAME="Table0.MarginLeft" VALUE="1">
+					<PARAM NAME="Table0.MarginTop" VALUE="1">
+					<PARAM NAME="Table0.MarginRight" VALUE="1">
+					<PARAM NAME="Table0.MarginBottom" VALUE="1">
+					<PARAM NAME="Table0.GridBackGroundColor" VALUE="8421504">
+					<PARAM NAME="Table0.GridBackGroundTransparent" VALUE="0">
+					<PARAM NAME="Table0.GridLinesColor" VALUE="16777215">
+					<PARAM NAME="Table0.GridLinesShow" VALUE="1">
+					<PARAM NAME="Table0.DataFont.Charset" VALUE="1">
+					<PARAM NAME="Table0.DataFont.Color" VALUE="16777215">
+					<PARAM NAME="Table0.DataFont.Height" VALUE="-11">
+					<PARAM NAME="Table0.DataFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="Table0.DataFont.Pitch" VALUE="0">
+					<PARAM NAME="Table0.DataFont.Style" VALUE="1">
+					<PARAM NAME="Table0.ColumnSpacing" VALUE="2">
+					<PARAM NAME="Table0.RowSpacing" VALUE="0.5">
+					<PARAM NAME="Table0.RowsMax" VALUE="0">
+					<PARAM NAME="Table0.ColumnTitlesVisible" VALUE="1">
+					<PARAM NAME="Table0.ColumnTitlesFont.Charset" VALUE="1">
+					<PARAM NAME="Table0.ColumnTitlesFont.Color" VALUE="16776960">
+					<PARAM NAME="Table0.ColumnTitlesFont.Height" VALUE="-11">
+					<PARAM NAME="Table0.ColumnTitlesFont.Name" VALUE="MS Sans Serif">
+					<PARAM NAME="Table0.ColumnTitlesFont.Pitch" VALUE="0">
+					<PARAM NAME="Table0.ColumnTitlesFont.Style" VALUE="1">
+				</OBJECT>
+			</div>
+			<INPUT class="isdb-button" id="RefreshLog" style="Z-INDEX: 103; LEFT: 32px; WIDTH: 110px; BOTTOM: 46px; POSITION: absolute; TOP: 8px; HEIGHT: 32px"
+				onclick="onClickRefreshLog()" type="button" value="Refresh Log">
+			<TABLE language="javascript" style="Z-INDEX: 102; LEFT: 152px; WIDTH: 326px; POSITION: absolute; TOP: 8px; HEIGHT: 32px"
+				cellSpacing="1" cellPadding="1" align="center" border="1">
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 1%">Open Time</TD>
+					<TD class="isdb-matrix-value" id="open_time_title" style="WIDTH: 3.45%"></TD>
+				</TR>
+			</TABLE>
+			<TABLE language="javascript" id="Table1" style="Z-INDEX: 104; LEFT: 496px; WIDTH: 230px; POSITION: absolute; TOP: 48px; HEIGHT: 66px"
+				cellSpacing="1" cellPadding="1" align="center" border="1">
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 6.75%;  TEXT-ALIGN: left">Total # of 
+						Recovery</TD>
+					<TD class="isdb-matrix-value" style="WIDTH: 3.45%" id="tot_num_of_recovery">0</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 6.75%;  TEXT-ALIGN: left">Total # of 
+						Re-Acquisition</TD>
+					<TD class="isdb-matrix-value" style="WIDTH: 3.45%" id="tot_num_of_reAcq">0</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 6.75%;  TEXT-ALIGN: left">Total # of 
+						QTV Errors</TD>
+					<TD class="isdb-matrix-value" style="WIDTH: 3.45%" id="tot_num_of_qtv_err">0</TD>
+				</TR>
+			</TABLE>
+			<TABLE language="javascript" id="Table2" style="Z-INDEX: 105; LEFT: 744px; WIDTH: 187px; POSITION: absolute; TOP: 48px; HEIGHT: 66px"
+				cellSpacing="1" cellPadding="1" align="center" border="1">
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 6.15%;  TEXT-ALIGN: left">Good View (%)</TD>
+					<TD class="isdb-matrix-value" id="good_view" style="WIDTH: 3.45%">100</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 6.15%"></TD>
+					<TD class="isdb-matrix-value" style="WIDTH: 3.45%">0</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 6.15%"></TD>
+					<TD class="isdb-matrix-value" style="WIDTH: 3.45%">0</TD>
+				</TR>
+			</TABLE>
+			<TABLE language="javascript" id="Table3" style="Z-INDEX: 106; LEFT: 152px; WIDTH: 326px; POSITION: absolute; TOP: 40px; HEIGHT: 32px"
+				cellSpacing="1" cellPadding="1" align="center" border="1">
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 1.66%">Build ID</TD>
+					<TD class="isdb-matrix-value" id="build_id" style="WIDTH: 3.45%">---</TD>
+				</TR>
+			</TABLE>
+		</div>
+		<embed id="sound1" src="beep.wav" width="0" height="0" enablejavascript="true" autostart="false">
+		<script type="text/jscript">
+//////////  GLOBALS  ///////////////
+
+var open_time = -1; 
+var curr_time = -1 ; 
+var last_entry_time  = new Date() ; 
+var bad_view_counter_ms = 0 ; 
+
+var time_idx = 0 ; 
+var SNR_idx = 1
+var RSSI_idx = 2; 
+var JD_idx = 3 ; 
+var VBER_idx = 4 ;
+var RS_idx = 5 ; 
+var ESR_idx = 6 ;
+var L1_idx  = 7 ; 
+var L3_idx  = 8 ; 
+var AVS_idx = 9 ; 
+var FPS_idx = 10 ; 
+var prev_esr_err_sec = 0;
+var curr_entry_idx = -1 ; 
+function UnRegisterSpecificPerView() { }
+RawDataContainer.NumRSTrashPkts_prev = 0 ; 
+  ////////////////////////////////////////////////////////////////////////
+function RegisterSpecificViewItems() 
+{
+	ClientObject.ClearConfig();
+	ClientObject.AddEvent(EVENT_MBP_RF_ANALOG_JD_MODE_CHANGE) ; 
+
+	/// L1 Items : 
+	ClientObject.AddLog( UBM_L1_LOG_STATUS_C) ; 
+	ClientObject.AddEvent(EVENT_STATE_CHANGE) ; 
+	ClientObject.AddEvent(EVENT_ACQ_DONE_STATUS) ; 
+	ClientObject.AddEvent(EVENT_DTV_L1_BAD_FRAME_RECEIVED) ; 
+	ClientObject.AddEvent(EVENT_DTV_L1_TMCC_FAILURE) ; 
+	ClientObject.AddEvent(EVENT_DTV_L1_RECOVERY_STATUS) ; 
+	ClientObject.AddEvent(EVENT_DTV_L1_MODEM_FAILURE) ; 
+
+	/// L3 Items : 
+	ClientObject.AddEvent(EVENT_DTV_ISDB_TRAFFIC_LOST) ;
+	ClientObject.AddEvent(EVENT_DTV_ISDB_PES_BUFFER_OVERFLOW) ;
+	ClientObject.AddEvent(EVENT_DTV_ISDB_PES_BUFFER_UNDERFLOW) ; 
+	ClientObject.AddLog( UBM_DTV_ISDBT_BUFFERING) ; 
+
+    ClientObject.AddDiagResponse( BUILD_ID_ITEM_ID ); // sw version 
+
+	// QTV 
+	Register_QTV_AV_Quality_Items();  
+
+	//ClientObject.AddSubsysResponse(44, 240 ); // ubm response  
+	ClientObject.CommitConfig();
+
+	//#ask_For_L1_state() ;
+	SendRequest( BUILD_ID_REQ, "" );
+	open_time = new Date() ; 
+	
+	Update_Window_title(1);
+	 RefreshGUI(); 
+
+} // close function RegisterSpecificViewItems
+ ////////////////////////////////////////////////////////////////////////
+  function  RefreshGUI() 
+  {
+  open_time_title.innerText = open_time; 
+  build_id.innerText  = CRM_Build ; 
+   }
+   
+  ////////////////////////////////////////////////////////////////////////
+function ProcessEvents( Item )
+{
+  if (!is_init_time_passed()) { return ; }
+
+	switch(GetItemID(Item))
+	{
+		case  EVENT_DTV_ISDB_TRAFFIC_LOST : 
+		{
+		Update_Window_title(0);
+		Update_Front_page( "TRAFFIC LOST" , L3_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		break ; 
+		}
+        case EVENT_DTV_ISDB_PES_BUFFER_OVERFLOW : 
+        {
+				Update_Window_title(0);
+				Update_Front_page( "BUFFER OVERFLOW" , L3_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		break ; 
+		}
+        
+       case EVENT_DTV_ISDB_PES_BUFFER_UNDERFLOW: 
+       {
+		
+		//var buf_type = (Item.GetItemFields()).GetFieldValue(0)
+		//if(buf_type != 2 ) { // Audio or video , but not subtitles
+		//	Update_Front_page( "BUFFER UNDERFLOW" , L3_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		//}
+		break ; 
+		}
+		
+		 case EVENT_QTV_CLIP_STARTED: 
+       {
+		
+		    Process_EVENT_QTV_CLIP_STARTED(Item);
+		    break ; 
+		}
+		
+		case EVENT_DTV_L1_BAD_FRAME_RECEIVED: 
+       {
+       
+		//Update_Front_page( "BAD_FRAME_RECEIVED" , L1_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		break ; 
+		}
+		
+		case EVENT_DTV_L1_TMCC_FAILURE: 
+       {
+		Update_Front_page( "TMCC_FAIL" , L1_idx  ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		break ; 
+		}
+		
+		case EVENT_DTV_L1_RECOVERY_STATUS: 
+       {
+		tot_num_of_recovery.innerHTML = str2num(tot_num_of_recovery.innerHTML)+1 ;  
+		Update_Window_title(0);
+		Update_Front_page( "RECOVERY" , L1_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		break ; 
+		}
+		case EVENT_DTV_L1_MODEM_FAILURE: 
+       {
+	//	Update_Front_page( "MODEM_FAIL" , L1_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		break ; 
+		}
+
+		
+		
+		
+		case  EVENT_MBP_RF_ANALOG_JD_MODE_CHANGE : 
+		{
+		var JD_mode_n_src  = getRawDataFrom_JD_MODE_CHANGE(Item );
+		Update_Front_page( "change mode" , JD_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		
+		break ; 
+		}
+	case  EVENT_ACQ_DONE_STATUS : 
+		{
+		
+		 curr_entry_idx++ ; log_book.Table(0).AddRow() ; 
+		printLine(curr_entry_idx,"--------");
+		
+		curr_entry_idx++ ; log_book.Table(0).AddRow() ; 
+		
+		last_entry_time = new Date() ;
+		log_book.Table(0).Data(time_idx, curr_entry_idx) = get_Time_str(last_entry_time);  
+		log_book.Table(0).Data(1, curr_entry_idx) = "Re-" ;  
+		log_book.Table(0).Data(2, curr_entry_idx) = "Old Params:" ;  
+		log_book.Table(0).Data(3, curr_entry_idx) = "mode" + RawDataContainer.mode ;
+		log_book.Table(0).Data(4, curr_entry_idx) = "Guard:" + RawDataContainer.guard ;
+		log_book.Table(0).Data(5, curr_entry_idx) = RawDataContainer.modulation_type ;
+		log_book.Table(0).Data(6, curr_entry_idx) = "Rate:"+RawDataContainer.code_rate_str ; 
+		
+		 getRawDataFromEvent(  Item , "ACQ_DONE_STATUS"  ) ; 
+		 
+		curr_entry_idx++ ;  log_book.Table(0).AddRow()
+		log_book.Table(0).Data(time_idx, curr_entry_idx) = get_Time_str(last_entry_time) ;  
+		log_book.Table(0).Data(1, curr_entry_idx) = "Acquisition" ;  
+		log_book.Table(0).Data(2, curr_entry_idx) = "New Params:" ;  
+		log_book.Table(0).Data(3, curr_entry_idx) = "mode" + RawDataContainer.mode ;
+		log_book.Table(0).Data(4, curr_entry_idx) = "Guard:" + RawDataContainer.guard ;
+		log_book.Table(0).Data(5, curr_entry_idx) = RawDataContainer.modulation_type ;
+		log_book.Table(0).Data(6, curr_entry_idx) = "Rate:"+RawDataContainer.code_rate_str ; 
+		curr_entry_idx++ ; log_book.Table(0).AddRow()
+		
+		printLine(curr_entry_idx ,"--------" );
+     
+   	open_time = new Date() ; // reset the timer because after acq it will take a couple of sec for the system to stabilize
+	bad_view_counter_ms = 0 ; 	
+		tot_num_of_reAcq.innerHTML = str2num(tot_num_of_reAcq.innerHTML)+1 ; 
+		break ; 
+		}
+	
+	}// close switch
+
+
+}// close function 
+///////////////////////////////////////////////////////////////////////
+function printLine( entry_idx,charLine )
+{	
+	for ( var k = 0 ; k < num_of_col ; k++)
+	{
+		log_book.Table(0).Data(k, entry_idx) = charLine ;  
+	}
+		
+}
+
+///////////////////////////////////////////////////////////////////////
+function ProcessLogs( Item  ) 
+{
+   	if (!is_init_time_passed()) { return ; }
+   
+   
+   	if (GetItemID(Item) == UBM_DTV_ISDBT_BUFFERING)
+   	{
+		if ( AV_underflow_happend  )
+		{
+			Update_Front_page( "X" , L3_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		}
+	   
+		if (  AV_overflow_happend )
+		{
+			Update_Front_page( "X" , L3_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		}
+	   return ; 
+   }
+   
+   	if (GetItemID(Item) == UBM_L1_LOG_STATUS_C)
+   	{
+       
+        RawDataContainer.StatusSubPktReady = false;
+        getRawDataFRomSubPktID(Item, STATUS_SBPKT_ID);
+        getRawDataFRomSubPktID(Item, SIGNAL_QUALITY_SBPKT_ID);
+        getRawDataFRomSubPktID(Item, TRACKING_LOOP_SBPKT_ID);
+        if (RawDataContainer.StatusSubPktReady == true) 
+        {
+            StatusGraphData = ProcessStatusData();
+            if (!StatusGraphData.statusGraphDataIsReady){  return ;   }
+        }
+    
+		if (RawDataContainer.status_rssi < -95 )
+		{
+		Update_Front_page( RawDataContainer.status_rssi , RSSI_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		}
+    
+    
+        if ( RawDataContainer.NumRSTrashPkts_prev != RawDataContainer.NumRSTrashPkts )
+        {
+		 Update_Window_title(0);
+		 Update_Front_page( StatusGraphData.RsPer.toExponential(2) , RS_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		 L1_reset_counters();
+		 RawDataContainer.NumRSTrashPkts_prev = RawDataContainer.NumRSTrashPkts;
+        } 
+        
+        
+        if ( StatusGraphData.AverageViterbiBer >  1e-2 )
+        {
+		 Update_Front_page( StatusGraphData.AverageViterbiBer.toExponential(2) , VBER_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		 L1_reset_counters();
+        }
+        
+        
+         if ( prev_esr_err_sec != str2num(RawDataContainer.ESR_Erroneous_Seconds)  )
+        {//debugger; 
+		Update_Window_title(0);
+		 Update_Front_page( StatusGraphData.ESR.toFixed(2) , ESR_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		 L1_reset_counters();
+		 prev_esr_err_sec = str2num(RawDataContainer.ESR_Erroneous_Seconds);
+        }
+         
+          if ( RawDataContainer.SNR_Estimation  < 5   )
+        {
+		 Update_Window_title(0);
+		 Update_Front_page( RawDataContainer.SNR_Estimation.toFixed(2) , SNR_idx ,  Item.GetItemSpecificTimestampText(0,0) ) ; 
+		 L1_reset_counters();
+        }
+         
+	return ; 
+    } // close case name is status
+   	   
+
+   if(  GetItemID(Item) == LOG_QTV_Frame_Render_Information )
+   {
+     
+    if (!EVENT_QTV_CLIP_STARTED_received) 
+	{
+	    Process_EVENT_QTV_CLIP_STARTED(Item); 
+	    return ; 
+	}
+	
+	getRawDataFromQTV_Frame_render_info( Item  ) ; 
+   checkFPS_ts=	Item.GetItemSpecificTimestampText(0,0);
+    /*
+     if (QTV_DeltaT_between_Frames > 1.1 * 1/desired_fps  || QTV_DeltaT_between_Frames <  0.9 * 1/desired_fps )
+     {
+		 Update_Window_title(0);
+		 Update_Front_page( (1/QTV_DeltaT_between_Frames).toFixed(2) , FPS_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		 init_qtv_fps_array();
+		 tot_num_of_qtv_err.innerHTML = str2num(tot_num_of_qtv_err.innerHTML)+1 ; 
+		 bad_view_counter_ms += 1/desired_fps ; 
+		 displayTOV() ; 
+     }
+     */
+     return ; 
+   }// close case QTV fps
+   
+   if(  GetItemID(Item) == LOG_QTV_Audio_Video_Sync )
+   {
+     getRawDataFromQTV_AV_Sync( Item  ) ; 
+     if (Math.abs(QTV_lag_lead_AV_Sync) > 100   ) 
+     {
+		 Update_Window_title(0);
+		 Update_Front_page( QTV_lag_lead_AV_Sync , AVS_idx ,  Item.GetItemSpecificTimestampText(0,0)) ; 
+		 tot_num_of_qtv_err.innerHTML = str2num(tot_num_of_qtv_err.innerHTML)+1 ;
+		 bad_view_counter_ms += 10 ;  // there are 100 AVsync logs every sec, means 1 log each 10 ms 
+        displayTOV() ; 
+     }
+     return ; 
+   }// close case QTV fps
+    
+}// close function ProcessLogs
+/////////////////////////////////////////////////////////////////////////////////////////////
+function ProcessMessages( Item ){ }        
+function ProcessStrings( Item ){ }             
+
+function ProcessSubsystemRequests( Item ){}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessSubsystemResponses( Item )
+{ 
+ //CommonSubSysResponseHandler(Item) ; 
+
+//	if (curr_state_num != TRAFFIC_STATE   && is_init_time_passed( )
+//	{
+//		alert("Broadcast system is not in Traffic... ")
+//	}
+
+}
+/////////////////////////////////////////////////////////////////////////////////////        
+ function displayTOV()
+ {
+	var total_ms = ( new Date() ).getTime()  - open_time.getTime(); 
+	good_view.innerHTML = (100* ( 1 - bad_view_counter_ms / total_ms)).toFixed(4);
+ }   
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+function Update_Window_title(val)
+{
+	if (val == 1)
+	{
+		test_state.innerText = "No Error Detected";
+		test_state.style.backgroundColor = 'green';
+	}else{
+		test_state.innerText = "Error Detected";
+		test_state.style.backgroundColor = 'red';
+	}
+
+}
+///////////////////////////////////////////////////////////////////////////////////// 
+    
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// Initialize the Table 
+function InitDisplay()   
+{
+    if ( firstOnloadHappend ) 
+    {
+        return ; 
+    }else{
+        firstOnloadHappend = true ; 
+    }
+ 
+ log_book.RemoveAllChannels();
+log_book.ClearAllData();
+log_book.AddTable();
+	
+    log_book.Table(0).GridBackGroundColor = WHITE ;
+	log_book.Table(0).GridLinesColor = BLACK ; 
+	log_book.Table(0).RowSpacing = 1.5 ; 
+	log_book.Table(0).ColumnSpacing = 3
+	log_book.Table(0).ColumnTitlesFontColor = BLUE ; 
+	log_book.Table(0).ColumnTitlesFont.Size = 11.2 ; 
+	log_book.Table(0).DataFontColor = GREEN; 
+	log_book.Table(0).DataFont.Size = 9 ; 
+	
+	log_book.Table(0).AddColumn("Time\\Parameter")	
+	
+	log_book.Table(0).AddColumn("SNR");	
+	log_book.Table(0).AddColumn("RSSI");	
+	log_book.Table(0).AddColumn("JD");	
+	log_book.Table(0).AddColumn("VBER");	
+	log_book.Table(0).AddColumn("RS");
+	log_book.Table(0).AddColumn("ESR");
+	log_book.Table(0).AddColumn("L1");	
+	log_book.Table(0).AddColumn("L3");	
+	log_book.Table(0).AddColumn("QTV A/V Sync");
+	log_book.Table(0).AddColumn("QTV FPS");
+
+	num_of_col = log_book.Table(0).ColumnCount ; 
+	log_book.Table(0).AddRow();
+	log_book.Table(0).AddRow();
+	ResetSummaryCounters() ;
+	printSummaryRow() ; 
+	
+	//setInterval ( "displayTOV()", 10*1000 ); // once in a minute, the application update TOV because more times passed without problems
+}// close function initializeDisplay
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function printSummaryRow() 
+{
+	printLine(curr_entry_idx+1,"--------");
+	log_book.Table(0).Data(time_idx, curr_entry_idx+2) = "Summary:"
+	log_book.Table(0).Data(SNR_idx, curr_entry_idx+2) = tot_SNR_fails ; 
+	log_book.Table(0).Data(RSSI_idx, curr_entry_idx+2) = tot_RSSI_fails ; 
+	log_book.Table(0).Data(JD_idx, curr_entry_idx+2) = tot_JD_fails ; 
+	log_book.Table(0).Data(VBER_idx, curr_entry_idx+2) = tot_VBER_fails ; 
+	log_book.Table(0).Data(RS_idx, curr_entry_idx+2) = tot_RS_fails ; 
+	log_book.Table(0).Data(ESR_idx, curr_entry_idx+2) = tot_ESR_fails ; 
+	log_book.Table(0).Data(L1_idx, curr_entry_idx+2) = tot_L1_fails ; 
+	log_book.Table(0).Data(L3_idx, curr_entry_idx+2) = tot_L3_fails ; 
+	log_book.Table(0).Data(AVS_idx, curr_entry_idx+2) = tot_AVS_fails ; 
+	log_book.Table(0).Data(FPS_idx, curr_entry_idx+2) = tot_FPs_fails ; 
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function is_there_open_entry_on_this_time()
+{
+ curr_time = new Date() ; 
+ 
+ if ( time_stamps_are_very_close(last_entry_time,curr_time)  )
+ {
+	return true; 
+ }else{
+	 return false ; 
+ }
+ 
+}// close function 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////
+function is_init_time_passed()
+{
+	 curr_time = new Date() ; 
+
+	if (curr_time.getTime() > open_time.getTime() + 1000*15) // + 10 sec == 10000 ms
+	{
+		return true ; 
+	}else{
+		return false ; 
+	}
+}
+
+
+function time_stamps_are_very_close(d1,d2) 
+{
+	if (d2.getTime() - d1.getTime() < 1000*7 ) // 7 sec
+	{
+		return true; 
+	}else{
+		return false; 
+	}
+
+
+}
+//////////////////////////////////////////////////////////////////////
+function Update_Front_page( element_val , element_idx ,qxdmTS )
+{
+	if (!is_there_open_entry_on_this_time())
+	{ 
+		curr_entry_idx++ ;  log_book.Table(0).AddRow(); 
+		last_entry_time = new Date() ;
+		log_book.Table(0).Data(time_idx, curr_entry_idx) =  get_Time_str(last_entry_time) +  " ("+ qxdmTS +")" ; 
+		 //beep(sound1); 
+	}
+
+	log_book.Table(0).Data(element_idx  , curr_entry_idx) = element_val ; 
+	
+	updateSummaryCounters(element_idx) ; 
+	printSummaryRow();
+
+	
+}// close function Update_Front_page
+////////////////////////////////////////////////////////
+function updateSummaryCounters(element_idx) 
+{
+	switch (element_idx)
+	{
+		case  SNR_idx:
+		{
+			tot_SNR_fails++ ;
+			break;  
+		}
+		case RSSI_idx :
+		{
+			tot_RSSI_fails++ ;
+			break;  
+		}
+		
+		case JD_idx :
+		{
+			tot_JD_fails++ ;
+			break;  
+		}
+		
+		case VBER_idx :
+		{
+			tot_VBER_fails++ ;
+			break;  
+		}
+		
+		case RS_idx :
+		{
+			tot_RS_fails++ ;
+			break;  
+		}
+		
+		case ESR_idx :
+		{
+			tot_ESR_fails++ ;
+			break;  
+		}
+		
+		case L1_idx :
+		{
+			tot_L1_fails++ ;
+			break;  
+		}
+		
+		case  L3_idx:
+		{
+			tot_L3_fails++ ;
+			break;  
+		}
+		
+		case AVS_idx :
+		{
+			tot_AVS_fails++ ;
+			break;  
+		}
+		
+		case FPS_idx :
+		{
+			tot_FPs_fails++ ;
+			break;  
+		}
+		
+	}// close switch
+
+}// close function 
+
+
+
+
+////////////////////////////////////////////////////
+function ResetSummaryCounters() 
+{
+	tot_SNR_fails=0 ; 
+	tot_RSSI_fails=0 ; 
+	tot_JD_fails =0; 
+	tot_VBER_fails =0; 
+	tot_RS_fails =0; 
+	tot_ESR_fails =0; 
+	tot_L1_fails =0; 
+	tot_L3_fails =0; 
+	tot_AVS_fails =0; 
+	tot_FPs_fails =0;
+} 
+/////////////////////////////////////////////////////
+function get_Time_str(d)
+{
+
+var h=d.getHours();
+var m=d.getMinutes();
+var s=d.getSeconds();
+// add a zero in front of numbers<10
+m=Padd_Digits(m);
+s=Padd_Digits(s);
+return h+":"+m+":"+s
+}
+
+function Padd_Digits(i)
+{
+if (i<10)
+  {
+  i="0" + i;
+  }
+return i;
+}
+
+function onClickRefreshLog()
+{
+
+window.location.reload(true); 
+//Unregister();
+//Register(); 
+}
+
+
+function CheckFrameRenderRate()
+{
+
+	if (Math.abs(cnt_fps - desired_fps*2)  > 0.15 * desired_fps*2 ) // 15% deviation
+	{
+		 Update_Window_title(0);
+		 Update_Front_page( cnt_fps/2 , FPS_idx , checkFPS_ts  ) ; 
+		 tot_num_of_qtv_err.innerHTML = str2num(tot_num_of_qtv_err.innerHTML)+1 ; 
+		 bad_view_counter_ms += 2000 ; 
+		 displayTOV() ; 
+		
+	}
+cnt_fps= 0 ; 
+}
+
+
+//////////////////////////////////////////////////////////////////////
+
+		</script>
+	</body>
+</html>

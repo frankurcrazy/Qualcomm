@@ -1,0 +1,561 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Active Set Information" />
+   <meta name="DMViewWidth" content="850" />
+   <meta name="DMViewHeight" content="400" />
+
+   <title>HDR Fingers</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="OldSchoolTable">
+   <colgroup span="5">
+      <col width="10%" />
+      <col width="30%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   
+   <tr>
+      <th colspan="5">General Info</th>
+   </tr>   
+   
+   <tr>
+      <th colspan="2">Center Channel</th>
+      <th colspan="2">Band Class</th>
+      <th>RF Mode</th>
+   </tr>
+   
+   <tr>
+      <td colspan="2">-</td>
+      <td colspan="2">-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <th colspan="5">Supplemental Channel Info</th>
+   </tr>   
+
+   <tr>
+      <th colspan="2">F-SCH Rate</th>
+      <th colspan="2">R-SCH Rate</th>      
+      <th>R-SCH Walsh ID</th>
+   </tr>
+   
+   <tr>
+      <td colspan="2">-</td>
+      <td colspan="2">-</td>
+      <td>-</td>
+   </tr>   
+   
+   <tr>
+      <th colspan="5">Pilot Info</th>
+   </tr>      
+
+   <tr>
+      <th>Pilot PN</th>
+      <th>Record Type</th>
+      <th>FCH<br />Channel Code<br />QOF Mask ID</th>
+      <th>DCCH<br />Channel Code<br />QOF Mask ID</th>
+      <th>SCH<br />Channel Code<br />QOF Mask ID</th>
+   </tr>
+
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<table width="100%" id="NewSchoolTable">
+   <colgroup span="6">
+      <col width="16%" />
+      <col width="20%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+   </colgroup>
+   
+   <tr>
+      <th colspan="6">General Info</th>
+   </tr>   
+   
+   <tr>
+      <th>Center Channel</th>
+      <th colspan="2">Band Class</th>
+      <th>RF Mode</th>
+      <th colspan="2">Assigned Channels</th>
+   </tr>
+   
+   <tr>
+      <td>-</td>
+      <td colspan="2">-</td>
+      <td>-</td>
+      <td colspan="2">-</td>
+   </tr>
+   
+   <tr>
+      <th colspan="6">Pilot Info</th>
+   </tr>      
+
+   <tr>
+      <th>Pilot PN</th>
+      <th>Record Type</th>
+      <th>FCH<br />Channel Code<br />QOF Mask ID</th>
+      <th>DCCH<br />Channel Code<br />QOF Mask ID</th>      
+      <th>TD<br />Mode<br />Power</th>
+      <th>AUX<br />Walsh ID<br />QOF Mask ID</th>
+   </tr>
+</table>     
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 1000;
+var NA_STR         = "N/A"
+
+var PrevIndex      = -1;
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x1093 );
+   clientObject.AddLog( 0x10C6 );
+   clientObject.CommitConfig();
+      
+   // Make sure the old school table is visible
+   OldSchoolTable.style.display = "block";
+   NewSchoolTable.style.display = "none";
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process the last received log for this period
+function ProcessLogs()
+{
+   var OldLog = "[0x1093]";
+   var NewLog = "[0x10C6]";
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         var ItemKey = Item.GetItemKeyText();
+         switch (ItemKey)
+         { 
+            case OldLog:
+               UpdateOldSchoolTable( Fields );
+               break;
+               
+            case NewLog:
+               UpdateNewSchoolTable( Fields );
+               break;
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Update the old 0x1093 log code based active set table
+function UpdateOldSchoolTable( Fields )
+{  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 74)
+   {
+      return;
+   }
+   
+   // Make sure the old school table is visible
+   OldSchoolTable.style.display = "block";
+   NewSchoolTable.style.display = "none";
+   
+   // Center frequency channel
+   var FieldVal = Fields.GetFieldValueText( 2 );   
+   OldSchoolTable.rows[2].cells[0].innerText = FieldVal;
+   
+   // Band class
+   FieldVal = Fields.GetFieldValueText( 1 );   
+   OldSchoolTable.rows[2].cells[1].innerText = FieldVal;
+      
+   // RF mode
+   FieldVal = Fields.GetFieldValueText( 0 );   
+   OldSchoolTable.rows[2].cells[2].innerText = FieldVal; 
+   
+   // F-SCH rate
+   FieldVal = Fields.GetFieldValueText( 70 );
+   OldSchoolTable.rows[5].cells[0].innerText = FieldVal; 
+   
+   // Is the R-SCH active?
+   FieldVal = Fields.GetFieldValue( 71 );
+   if (FieldVal == 1)
+   {   
+      // R-SCH rate
+      FieldVal = Fields.GetFieldValueText( 72 );
+      OldSchoolTable.rows[5].cells[1].innerText = FieldVal; 
+      
+      // R-SCH walsh ID
+      FieldVal = Fields.GetFieldValueText( 73 );
+      OldSchoolTable.rows[5].cells[2].innerText = FieldVal;
+   }
+   else
+   {
+      // Nope
+      OldSchoolTable.rows[5].cells[1].innerText = NA_STR; 
+      OldSchoolTable.rows[5].cells[2].innerText = NA_STR; 
+   } 
+      
+   var p = 0;
+   var r = 8;
+   var fi = 4;
+   var ch = 0;
+      
+   // Grab number of valid pilots and update
+   var Pilots = Fields.GetFieldValue( 3 ); 
+   for (p = 0; p < Pilots; p++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );   
+      OldSchoolTable.rows[r].cells[0].innerText = FieldVal;
+      fi++;
+            
+      // Pilot record type
+      FieldVal = Fields.GetFieldValueText( fi );   
+      OldSchoolTable.rows[r].cells[1].innerText = FieldVal;
+      fi++;
+      
+      // FCH, DCCH, SCH channels
+      for (ch = 0; ch < 3; ch++)
+      {
+         FieldVal = Fields.GetFieldValue( fi );
+         fi++;
+         
+         // Is the channel active?
+         if (FieldVal == 1)
+         {              
+            // Channel code
+            FieldVal = Fields.GetFieldValueText( fi );
+            fi++;
+            
+            FieldVal += "/"
+            
+            // QOF mask
+            FieldVal += Fields.GetFieldValueText( fi );
+            fi++;
+            
+            OldSchoolTable.rows[r].cells[2 + ch].innerText = FieldVal;
+         }
+         else
+         {
+            fi += 2;
+            OldSchoolTable.rows[r].cells[2 + ch].innerText = NA_STR;
+         }
+      }
+
+      r++;
+   }
+   
+   // The rest are not applicable
+   for (p = Pilots; p < 6; p++)
+   {
+      OldSchoolTable.rows[r].cells[0].innerText = NA_STR;
+      OldSchoolTable.rows[r].cells[1].innerText = NA_STR;
+      OldSchoolTable.rows[r].cells[2].innerText = NA_STR;
+      OldSchoolTable.rows[r].cells[3].innerText = NA_STR;
+      OldSchoolTable.rows[r].cells[4].innerText = NA_STR;
+      
+      r++;
+   }
+}
+
+// Update the new 0x10C6 log code based active set table
+function UpdateNewSchoolTable( Fields )
+{  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 8)
+   {
+      return;
+   }
+   
+   // Make sure the new school table is visible
+   NewSchoolTable.style.display = "block";
+   OldSchoolTable.style.display = "none";
+   
+   // Center frequency channel
+   var FieldVal = Fields.GetFieldValueText( 2 );   
+   NewSchoolTable.rows[2].cells[0].innerText = FieldVal;
+   
+   // Band class
+   FieldVal = Fields.GetFieldValueText( 1 );   
+   NewSchoolTable.rows[2].cells[1].innerText = FieldVal;
+      
+   // RF mode
+   FieldVal = Fields.GetFieldValueText( 0 );   
+   NewSchoolTable.rows[2].cells[2].innerText = FieldVal; 
+   
+   // Active channels
+   var fch = Fields.GetFieldValue( 3 ); 
+   var dcch = Fields.GetFieldValue( 4 ); 
+   var scch = Fields.GetFieldValue( 5 ); 
+   
+   FieldVal = "";
+   if (fch != 0)
+   {
+      FieldVal += "FCH ";
+   }
+   
+   if (dcch != 0)
+   {
+      FieldVal += "DCCH ";
+   }
+   
+   if (scch > 0)
+   {
+      FieldVal += "SCCH [";
+      FieldVal += scch;
+      FieldVal += "]";
+   }
+   
+   if (FieldVal.length == 0)
+   {
+      FieldVal = "None";
+   }
+
+   NewSchoolTable.rows[2].cells[3].innerText = FieldVal;
+   
+   var p = 0;
+   var r = 5;
+   var RecordType;
+   var FieldName;
+   
+   var TableRow;
+   var TableCell;
+   var CurRows = NewSchoolTable.rows.length;
+         
+   // Grab number of valid pilots and update
+   var Pilots = Fields.GetFieldValue( 7 ); 
+   for (p = 0; p < Pilots; p++)
+   {
+      // New row?
+      if (r >= CurRows)
+      {
+         TableRow = NewSchoolTable.insertRow();
+         TableCell = TableRow.insertCell();
+         TableCell = TableRow.insertCell();
+         TableCell = TableRow.insertCell();
+         TableCell = TableRow.insertCell();
+         TableCell = TableRow.insertCell();
+         TableCell = TableRow.insertCell();
+      }
+   
+      // Pilot PN
+      FieldName = "Records[" + p + "].Pilot PN";
+      FieldVal = GetTextFromName( Fields, FieldName );
+      NewSchoolTable.rows[r].cells[0].innerText = FieldVal;
+      
+      // Pilot record type (value)
+      FieldName = "Records[" + p + "].Pilot Record Type";
+      RecordType = GetValueFromName( Fields, FieldName );
+      
+      // Record type (text)
+      FieldVal = GetTextFromName( Fields, FieldName );
+      NewSchoolTable.rows[r].cells[1].innerText = FieldVal;
+      
+      // FCH?
+      if (fch != 0)
+      {  
+         // Code channel
+         FieldName = "Records[" + p + "].FCH.Code Channel";
+         FieldVal = GetTextFromName( Fields, FieldName );
+         
+         FieldVal += "/";
+         
+         // QOF Mask ID
+         FieldName = "Records[" + p + "].FCH.QOF Mask ID";
+         FieldVal += GetTextFromName( Fields, FieldName );
+         
+         NewSchoolTable.rows[r].cells[2].innerText = FieldVal;
+      }
+      else
+      {
+         NewSchoolTable.rows[r].cells[2].innerText = NA_STR;
+      }
+      
+      // DCCH?
+      if (dcch != 0)
+      {  
+         // Code channel
+         FieldName = "Records[" + p + "].DCCH.Code Channel";
+         FieldVal = GetTextFromName( Fields, FieldName );
+         
+         FieldVal += "/";
+         
+         // QOF Mask ID
+         FieldName = "Records[" + p + "].DCCH.QOF Mask ID";
+         FieldVal += GetTextFromName( Fields, FieldName );
+         
+         NewSchoolTable.rows[r].cells[3].innerText = FieldVal;
+      }
+      else
+      {
+         NewSchoolTable.rows[r].cells[3].innerText = NA_STR;
+      }
+      
+      // Transmit diversity
+      if (RecordType == 0 || RecordType == 2)
+      {
+         // TD mode
+         FieldName = "Records[" + p + "].Transmit Diversity Mode";
+         FieldVal = GetTextFromName( Fields, FieldName );
+
+         FieldVal += "/";
+
+         // TD power
+         FieldName = "Records[" + p + "].Transmit Diversity Power Level";
+         FieldVal += GetTextFromName( Fields, FieldName );
+         
+         NewSchoolTable.rows[r].cells[4].innerText = FieldVal;
+      }
+      else
+      {
+         NewSchoolTable.rows[r].cells[4].innerText = NA_STR;
+      }
+      
+      // Auxiliary?
+      if (RecordType == 1 || RecordType == 2)
+      {
+         // Aux walsh code
+         FieldName = "Records[" + p + "].Auxiliary Pilot Walsh Code";
+         FieldVal = GetTextFromName( Fields, FieldName );
+
+         FieldVal += "/";
+
+         // Aux QOF index
+         FieldName = "Records[" + p + "].Auxiliary Pilot QOF Index";
+         FieldVal += GetTextFromName( Fields, FieldName );
+         
+         NewSchoolTable.rows[r].cells[5].innerText = FieldVal;
+      }
+      else
+      {
+         NewSchoolTable.rows[r].cells[5].innerText = NA_STR;
+      }
+      
+      r++;
+   }
+   
+   // Delete unused rows
+   for (p = CurRows - 1; p >= r; p--)
+   {
+      NewSchoolTable.deleteRow( p );
+   }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!-- This file represents the display for data stored in XML. -->
+<html>
+<head>
+   <title>Glossary List</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Glossary List" />
+   <meta name="DMViewWidth" content="400" />
+   <meta name="DMViewHeight" content="400" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+   <style type="text/css">     
+      th
+      {
+         padding-left : 3;
+         padding-right : 3;
+         background-color: #bbbbbb;
+         font-size: 12pt;
+      }   
+      th1
+      {
+         text-align : center;
+         padding-left : 3;
+         padding-right : 3;
+         background-color: #bbbbbb;
+         font-size: 12pt;
+      }
+      td
+      {
+         text-align : left;
+         padding-left : 3;
+         padding-right : 3;
+         font-size: 10pt;
+      }
+      td.shaded
+      {
+         text-align : center;
+         padding-left : 3;
+         padding-right : 3;  
+         background-color: #bbbbbb;
+         font-size: 10pt;
+      }
+   </style>
+
+   <script type="text/javascript"> 
+
+	function loadXMLDoc(dname) 
+	{
+	   try //Internet Explorer
+	   {
+	      xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+      }
+	   catch(e)
+      {
+         try //Firefox, Mozilla, Opera, etc.
+         {
+            xmlDoc=document.implementation.createDocument("","",null);
+         }
+         catch(e) {alert(e.message)}
+      }
+      try 
+      {
+         xmlDoc.async=false;
+         if (xmlDoc.load(dname))
+		 {
+			return(xmlDoc);
+		 }
+		 else
+		 {
+			 return (null);
+		 }
+      }
+      catch(e) {alert(e.message)}
+      return (null);
+   }
+   </script>
+
+</head>
+<body>
+
+   <script type="text/javascript"> 
+
+   // Load xml file name and store it in fname
+   var xmlDoc=loadXMLDoc("FileName.xml");
+   var fname = "";
+   var fpath = "../Glossary/";
+
+   // Do we have a FileName.xml?
+   if (null != xmlDoc)
+   {
+      fname = xmlDoc.getElementsByTagName("NAME")[0].childNodes[0].nodeValue;
+      
+      // load xml file and display
+      xmlDoc=loadXMLDoc(fpath+fname);
+   }
+    
+   // Can't find the corresponding xml file to the display
+   // Load the default one. 
+   if ( xmlDoc == null ) 
+   {
+      xmlDoc = loadXMLDoc("../Glossary/Default.xml");
+      fname = "Default.xml";
+   }
+
+   if (xmlDoc != null)
+   {
+      // Find display name by extracting ".xml" from fname
+      var flen = fname.length;
+      var dname = fname.substr(0, flen - 4);
+      
+      // Create the html title and table in JS
+      var htitle;
+   
+      htitle = "<div class=\"label-left\"> <h2> Glossary - "
+      
+      if ( "" == dname )
+      {
+         htitle += "Default View";
+      }
+      else
+      {
+         htitle += dname;
+      }
+      htitle += "</h2></div>";
+      htitle += "<table width=\"100%\" id=\"CurrentTable\">";
+      htitle += "<col width=\"150px\" />";
+         htitle += "<tr>";
+            htitle += "<th align=\"center\">Term</th>";
+            htitle += "<th align=\"left\">Description</th>";
+         htitle += "</tr>";
+      
+      document.write (htitle);
+   
+      var fields = new Array();
+   
+      term = xmlDoc.getElementsByTagName("TERM");
+      desc = xmlDoc.getElementsByTagName("DESCRIPTION");
+
+      for ( k = 0; k < term.length; ++k) 
+      {
+         field = "<tr>";
+         field += "<td class=\"shaded\"><strong>";
+         field += term[k].childNodes[0].nodeValue;
+         field += "</strong></tb>   <td>";
+         field += desc[k].childNodes[0].nodeValue;
+         field += "</td>";
+         field += "</tr>";
+
+         fields[k] = field;
+      }      
+      displayFields (fields.sort());
+
+   }
+   // Display fields
+   function displayFields (fields)
+   {
+      for ( i = 0;  i < fields.length; i++ )      
+      {           
+         document.write (fields[i]);
+      }
+      
+      // End of the table
+      document.write ( "</table>" );      
+   }   
+
+   </script>
+    
+</body>
+</html>

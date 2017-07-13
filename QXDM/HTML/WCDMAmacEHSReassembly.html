@@ -1,0 +1,352 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA MAC-ehs Reassembly" />
+   <meta name="DMViewWidth" content="900" />
+   <meta name="DMViewHeight" content="400" />
+
+   <title>WCDMA MAC-ehs Reassembly</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+<table width="34%" id="HeadTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>Active MAC</th>
+      <td>-</td>
+   </tr>
+</table>
+<br />
+<table width="100%" id="MACTable">
+   <colgroup span="6">
+      <col width="17%" />
+      <col width="17%" />
+      <col width="17%" />
+      <col width="17%" />
+      <col width="16%" />
+      <col width="16%" />
+   </colgroup>
+   <tr>
+      <th colspan="2">ID</th>
+      <th colspan="4">Type Count</th>
+   </tr>
+   <tr>
+      <th>LC ID</th>
+      <th>Queue ID</th>
+      <th>Complete</th>
+      <th>Partial Start</th>
+      <th>Partial Middle</th>
+      <th>Partial End</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table> 
+<input type="button" value="Reset" onclick="ResetMACTable()" />
+<br />
+<br />
+<table width="34%" id="PDUTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th colspan="2">RLC PDU Size Statistics</th>
+   </tr>
+   <tr>
+      <th>RLC PDU Size</th>
+      <th>Count</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table> 
+<input type="button" value="Reset" onclick="ResetPDUTable()" />
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+var RO             = 2;
+
+// Row index for given row ID
+var gMacIDs = new Array();
+var gPduIDs = new Array();
+
+function ResetMACTable()
+{
+   gMacIDs = new Array();
+
+   var Rows = MACTable.rows.length;
+   var Cols = MACTable.rows[RO].cells.length;
+
+   for (var r = Rows - 1; r > RO; r--)
+   {
+      MACTable.deleteRow( r );
+   }
+
+   for (var c = 0; c < Cols; c++)
+   {
+      MACTable.rows[RO].cells[c].innerText = "-";
+   }
+}
+
+function ResetPDUTable()
+{
+   gPduIDs = new Array();
+
+   var Rows = PDUTable.rows.length;
+   var Cols = PDUTable.rows[RO].cells.length;
+
+   for (var r = Rows - 1; r > RO; r--)
+   {
+      PDUTable.deleteRow( r );
+   }
+
+   for (var c = 0; c < Cols; c++)
+   {
+      PDUTable.rows[RO].cells[c].innerText = "-";
+   }
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x421E );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   // Process all logs
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetConfiguredItemFields( "", true, true );
+         if (Fields != null)
+         {
+            PopulateTable( Fields );
+         }
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0 || FieldCount < 3)
+   {
+      return;
+   }
+   
+   var PDUCount = Fields.GetFieldValue( 2 );
+   if (PDUCount == 0 || FieldCount < 3 + PDUCount * 8)
+   {
+      return;
+   }
+   
+   var ActiveMac = Fields.GetFieldValueText( 1 );
+   HeadTable.rows[0].cells[1].innerText = ActiveMac;
+   
+   var Rows = MACTable.rows.length;
+
+   var fi = 3;
+   
+   for (var i = 0; i < PDUCount; i++)
+   {
+      if (FieldCount < fi + 8)
+      {
+         return;
+      }
+     
+      var QueueID = Fields.GetFieldValue( fi + 4);
+      var LcID = Fields.GetFieldValue( fi + 5);
+      var Type = Fields.GetFieldValue( fi + 6);
+      var Size = Fields.GetFieldValue( fi + 7);
+      
+      // Populate MAC table
+      // Generate ID assuming LcID is 4 bits
+      var ID = (QueueID << 4) + LcID;
+      var row = GetRowIndex( ID, gMacIDs, MACTable );
+
+      MACTable.rows[row].cells[0].innerText = LcID;
+      MACTable.rows[row].cells[1].innerText = QueueID;
+      
+      var Count;
+      if (Type < 4)
+      {
+         // Force count to a number
+         Count = MACTable.rows[row].cells[2 + Type].innerText * 1;
+         MACTable.rows[row].cells[2 + Type].innerText = SafeAdd(Count, 1);
+      }
+      
+      // Populate PDU table
+      ID = Size;
+      row = GetRowIndex( ID, gPduIDs, PDUTable );
+
+      PDUTable.rows[row].cells[0].innerText = Size;
+      
+      // Force count to a number
+      Count = PDUTable.rows[row].cells[1].innerText * 1;
+      PDUTable.rows[row].cells[1].innerText = SafeAdd(Count, 1);
+
+      fi += 8;
+   }
+}
+
+// Return row index to update for row ID
+// else return -1 (create new row)
+function GetRowIndex( ID, RowIDs, DataTable )
+{
+   var row = -1;
+
+   var ExistingID;
+   for (ExistingID in RowIDs)
+   {
+      if (ExistingID == ID)
+      {
+         row = RowIDs[ID];
+         break;
+      }
+   }
+
+   var TableRow;
+   var TableCell;
+
+   if (row == -1)
+   {
+      // Create new row for new row ID?
+      row = DataTable.rows.length;
+      if (row == RO + 1 && DataTable.rows[RO].cells[0].innerText == "-")
+      {
+         // Use the placeholder
+         row--;
+      }
+      else
+      {
+         TableRow = DataTable.insertRow(row);
+         var Cols = DataTable.rows[RO].cells.length;
+         for (var c = 0; c < Cols; c++)
+         {
+            TableCell = TableRow.insertCell();
+            TableCell.innerText = "-";
+         }
+      }
+
+      RowIDs[ID] = row;
+   }
+
+   return row;
+}
+
+function SafeAdd( X, Y )
+{
+   var Result = "-";
+   if (isNaN( X ) == true && isNaN( Y ) == true)
+   {
+      // Both values invalid
+      return Result;
+   }
+
+   if (isNaN( X ) == true)
+   {
+      // X invalid, so use Y
+      return Y;
+   }
+   
+   if (isNaN( Y ) == true)
+   {
+      // Y invalid, so use X
+      return X;
+   }
+
+   // Add X and Y
+   Result = X + Y
+   return Result;
+}
+</script>
+</body>
+</html>

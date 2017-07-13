@@ -1,0 +1,730 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="CDMA QPCH Information" />
+   <meta name="DMViewWidth" content="380" />
+   <meta name="DMViewHeight" content="420" />
+   <title>CDMA QPCH Information</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label-left">Common Information</div>
+<table id="RateTable">
+   <colgroup span="2">
+      <col width="150" />
+      <col width="180" />
+   </colgroup>
+   <tr>
+      <th>Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Slot</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Transfer Reason</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label-left">Config Information</div>
+<table id="ConfigTable">
+   <colgroup span="3">
+      <col width="150" />
+      <col width="90" />
+      <col width="90" />
+   </colgroup>
+   <tr>
+      <th>Pilot PN</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>PI Walsh Code</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <th>PI Power Level</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>BI Walsh Code</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>BI Power Level</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>CCI Walsh Code</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>CCI Power Level</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label-left">Indicator Information</div>
+<table id="IndicatorTable">
+   <colgroup span="3">
+      <col width="150" />
+      <col width="90" />
+      <col width="90" />
+   </colgroup>
+   <tr>
+      <th>Type</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <th>Status</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>THI Threshold</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>THB Threshold</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Indicator Position</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>I Channel Amplitude</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Q Channel Amplitude</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Common Pilot Energy</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Diversity Pilot Energy</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+var LogCode1030    = "[0x1030]";
+var LogCode10BC    = "[0x10BC]";
+var LogCode119F    = "[0x119F]";
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   clientObject.AddLog( 0x119F );
+   clientObject.AddLog( 0x10BC );
+   clientObject.AddLog( 0x1030 );
+
+   clientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   PrevIndex = CurrIndex;
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var ItemFields = Item.GetItemFields();
+   if (ItemFields == null)
+   {
+      return;
+   }
+
+   var FieldCount = ItemFields.GetFieldCount();
+   if (FieldCount == 0)
+   {
+      return;
+   }
+
+   var ItemKey = Item.GetItemKeyText();
+   switch (ItemKey)
+   {
+      case LogCode1030:
+      {
+         Populate1030Info( ItemFields );
+      }
+      break;
+
+      case LogCode10BC:
+      {
+         Populate10BCInfo( ItemFields );
+      }
+      break;
+
+      case LogCode119F:
+      {
+         Populate119FInfo( ItemFields );
+      }
+      break;
+   }
+}
+
+// Compute energy value
+function ComputeEnergy( Val )
+{
+   var result = "N/A";
+   if (Val > 0)
+   {
+      var inDB = 10 * Math.LOG10E * Math.log( (Val/1152) );
+
+      // Keep 2 decimal places
+      result = inDB.toFixed( 2 );
+   }
+   
+   return result;
+}
+
+// Populate display from log 0x119F
+function Populate119FInfo( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 4)
+   {
+      return;
+   }
+
+   // Get number of sub packets
+   var SubpacketCount = Fields.GetFieldValue( 1 );
+
+   var FieldIndex = 3;
+   for (var s = 0; s < SubpacketCount; s++)
+   {
+      FieldIndex = Fields.GetFieldIndexFromByID( 21003, FieldIndex, false );
+      if (FieldIndex == 0xFFFFFFFF)
+      {
+         break;
+      }
+
+      // Only interested in QPCH information
+      var ID = Fields.GetFieldValue( FieldIndex++ );
+      if (ID != 9)
+      {
+         continue;
+      }
+
+      // Skip version/size
+      FieldIndex += 2;
+
+      // Add slot
+      var FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      RateTable.rows[1].cells[1].innerText = FieldVal;
+
+      // Add transfer reason
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      RateTable.rows[2].cells[1].innerText = FieldVal;
+
+      // Add rate
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      RateTable.rows[0].cells[1].innerText = FieldVal;
+
+      var ConfigCount = Fields.GetFieldValue( FieldIndex++ );
+      var IndicatorCount = Fields.GetFieldValue( FieldIndex++ );
+
+      // Skip reserved field
+      FieldIndex++;
+
+      var Cols = ConfigTable.rows[0].cells.length;
+      for (var c = 1; c <= ConfigCount; c++)
+      {
+         if (c >= Cols)
+         {
+            var Rows = ConfigTable.rows.length;
+            for (var r = 0; r < Rows; r++)
+            {
+               ConfigTable.rows[r].insertCell();
+               ConfigTable.rows[r].cells[Cols].width = 90;
+            }
+
+            Cols++;
+         }
+         
+         FieldIndex = Populate119FConfig( Fields, FieldIndex, c );
+      }
+
+      // Remove excess columns
+      RemoveColumns( ConfigTable, ConfigCount );
+
+      var Cols = IndicatorTable.rows[0].cells.length;
+      for (var i = 1; i <= IndicatorCount; i++)
+      {
+         if (i < Cols)
+         {
+            FieldIndex = Populate119FIndicator( Fields, FieldIndex, i );
+         }
+         else
+         {
+            var Rows = IndicatorTable.rows.length;
+            for (var r = 0; r < Rows; r++)
+            {
+               IndicatorTable.rows[r].insertCell();
+               IndicatorTable.rows[r].cells[Cols].width = 90;
+            }
+
+            FieldIndex = PopulateIndicator( Fields, FieldIndex, Cols );
+            Cols++;
+         }
+      }
+
+      // Remove excess columns
+      RemoveColumns( IndicatorTable, IndicatorCount );
+   }
+}
+
+// Config info of log 0x119F
+function Populate119FConfig( Fields, FieldIndex, Col )
+{
+   // Pilot PN index
+   var FieldVal = Fields.GetFieldValue( FieldIndex++ );
+   ConfigTable.rows[0].cells[Col].innerText = FieldVal;
+
+   // PI walsh code
+   FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+   ConfigTable.rows[1].cells[Col].innerText = FieldVal;
+
+   // PI power level
+   FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+   ConfigTable.rows[2].cells[Col].innerText = FieldVal;
+
+   // BI supported? 
+   if (Fields.GetFieldValue( FieldIndex++ ) == 1)
+   {
+      // BI walsh code
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      ConfigTable.rows[3].cells[Col].innerText = FieldVal;
+
+      // BI power level
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      ConfigTable.rows[4].cells[Col].innerText = FieldVal;
+   }
+   else
+   {
+      ConfigTable.rows[3].cells[Col].innerText = "-";
+      ConfigTable.rows[4].cells[Col].innerText = "-";
+      FieldIndex += 2;
+   }
+
+   // CCI supported? 
+   if (Fields.GetFieldValue( FieldIndex++ ) == 1)
+   {
+      // CCI walsh code
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      ConfigTable.rows[5].cells[Col].innerText = FieldVal;
+
+      // CCI power level
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      ConfigTable.rows[6].cells[Col].innerText = FieldVal;
+   }
+   else
+   {
+      ConfigTable.rows[5].cells[Col].innerText = "-";
+      ConfigTable.rows[6].cells[Col].innerText = "-";
+      FieldIndex += 2;
+   }
+
+   // Skip trailing reserved field
+   FieldIndex++;
+   return FieldIndex;
+}
+
+// Indicator info of log 0x119F
+function Populate119FIndicator( Fields, FieldIndex, Col )
+{
+   // Status
+   var FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+   IndicatorTable.rows[1].cells[Col].innerText = FieldVal;
+
+   // Type
+   FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+   IndicatorTable.rows[0].cells[Col].innerText = FieldVal;
+
+   for (var f = 2; f < 7; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[f].cells[Col].innerText = FieldVal;
+   }
+
+   // Common pilot energy
+   FieldVal = ComputeEnergy( Fields.GetFieldValue( FieldIndex++ ) );
+   IndicatorTable.rows[7].cells[Col].innerText = FieldVal;
+
+   // Diversity pilot energy
+   FieldVal = ComputeEnergy( Fields.GetFieldValue( FieldIndex++ ) );
+   IndicatorTable.rows[8].cells[Col].innerText = FieldVal;
+
+   FieldIndex++;
+   return FieldIndex;
+}
+
+// Populate display from log 0x10BC
+function Populate10BCInfo( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 19)
+   {
+      return;
+   }
+
+   // Clear out config table
+   RemoveColumns( ConfigTable, 0 );
+
+   // Paging indicators rate
+   FieldVal = Fields.GetFieldValueText( 2 );
+   RateTable.rows[0].cells[1].innerText = FieldVal;
+
+   // Slot number
+   var FieldVal = Fields.GetFieldValueText( 1 );
+   RateTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Transfer reason
+   FieldVal = Fields.GetFieldValueText( 3 );
+   RateTable.rows[2].cells[1].innerText = FieldVal;
+
+   // Pilot PN index
+   var FieldVal = Fields.GetFieldValue( 0 );
+   ConfigTable.rows[0].cells[1].innerText = FieldVal;
+
+   // PI walsh code
+   FieldVal = Fields.GetFieldValueText( 4 );
+   ConfigTable.rows[1].cells[1].innerText = FieldVal;
+
+   // PI power level
+   FieldVal = Fields.GetFieldValueText( 5 );
+   ConfigTable.rows[2].cells[1].innerText = FieldVal;
+
+   var pTHB = Fields.GetFieldValueText( 6 );
+   var pTHI = Fields.GetFieldValueText( 7 );
+   var bTHB = "-";
+   var bTHI = "-";
+   var cTHB = "-";
+   var cTHI = "-";
+
+   // BI supported? 
+   if (Fields.GetFieldValue( 8 ) == 1)
+   {
+      // BI walsh code
+      FieldVal = Fields.GetFieldValueText( 9 );
+      ConfigTable.rows[3].cells[1].innerText = FieldVal;
+
+      // BI power level
+      FieldVal = Fields.GetFieldValueText( 10 );
+      ConfigTable.rows[4].cells[1].innerText = FieldVal;
+
+      bTHB = Fields.GetFieldValueText( 11 );
+      bTHI = Fields.GetFieldValueText( 12 );
+   }
+
+   // CCI supported? 
+   if (Fields.GetFieldValue( 13 ) == 1)
+   {
+      // CCI walsh code
+      FieldVal = Fields.GetFieldValueText( 14 );
+      ConfigTable.rows[5].cells[1].innerText = FieldVal;
+
+      // CCI power level
+      FieldVal = Fields.GetFieldValueText( 15 );
+      ConfigTable.rows[6].cells[1].innerText = FieldVal;
+      
+      cTHB = Fields.GetFieldValueText( 16 );
+      cTHI = Fields.GetFieldValueText( 17 );
+   }
+
+   var FieldIndex = 19;
+   var Cols = IndicatorTable.rows[0].cells.length;
+   var IndicatorCount = Fields.GetFieldValueText( 18 );
+   for (var i = 1; i <= IndicatorCount; i++)
+   {
+      if (i >= Cols)
+      {
+         var Rows = IndicatorTable.rows.length;
+         for (var r = 0; r < Rows; r++)
+         {
+            IndicatorTable.rows[r].insertCell();
+            IndicatorTable.rows[r].cells[Cols].width = 90;
+         }
+
+         Cols++;
+      }
+
+      // Status
+      var FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[1].cells[i].innerText = FieldVal;
+
+      // Type
+      FieldVal = Fields.GetFieldValueText( FieldIndex );
+      IndicatorTable.rows[0].cells[i].innerText = FieldVal;
+
+      FieldVal = Fields.GetFieldValue( FieldIndex++ );
+      switch (FieldVal)
+      {
+         // Paging indicator #1, #2
+         case 0:
+         case 1:
+            IndicatorTable.rows[2].cells[i].innerText = pTHI;
+            IndicatorTable.rows[3].cells[i].innerText = pTHB;
+            break;
+
+         // Configuration change indicator #1, #2
+         case 2:
+         case 3:
+            IndicatorTable.rows[2].cells[i].innerText = cTHI;
+            IndicatorTable.rows[3].cells[i].innerText = cTHB;
+            break;
+
+         // Broadcast indicator #1, #2
+         case 4:
+         case 5:
+            IndicatorTable.rows[2].cells[i].innerText = bTHI;
+            IndicatorTable.rows[3].cells[i].innerText = bTHB;
+            break;
+
+         default:
+            IndicatorTable.rows[2].cells[i].innerText = "?";
+            IndicatorTable.rows[3].cells[i].innerText = "?";
+            break;
+      }
+
+      // Indicator position
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[4].cells[i].innerText = FieldVal;
+
+      // I channel indicator energy
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[5].cells[i].innerText = FieldVal;
+
+      // Q channel indicator energy
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[6].cells[i].innerText = FieldVal;
+
+      // Common pilot energy
+      FieldVal = ComputeEnergy( Fields.GetFieldValue( FieldIndex++ ) );
+      IndicatorTable.rows[7].cells[i].innerText = FieldVal;
+
+      // Diversity pilot energy
+      FieldVal = ComputeEnergy( Fields.GetFieldValue( FieldIndex++ ) );
+      IndicatorTable.rows[8].cells[i].innerText = FieldVal;
+   }
+
+   // Remove excess columns
+   RemoveColumns( IndicatorTable, IndicatorCount );
+}
+
+// Populate display from log 0x1030
+function Populate1030Info( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 7)
+   {
+      return;
+   }
+
+   // Bit rate
+   var FieldVal = Fields.GetFieldValueText( 1 );
+   RateTable.rows[0].cells[1].innerText = FieldVal;
+
+   // Slot/transfer reason not part of this log
+   RateTable.rows[1].cells[1].innerText = "-";
+   RateTable.rows[2].cells[1].innerText = "-";
+
+   // Clear out config table
+   RemoveColumns( ConfigTable, 0 );
+
+   // Pilot PN index
+   var FieldVal = Fields.GetFieldValue( 2 );
+   ConfigTable.rows[0].cells[1].innerText = FieldVal;
+
+   // PI walsh code
+   FieldVal = Fields.GetFieldValueText( 0 );
+   ConfigTable.rows[1].cells[1].innerText = FieldVal;
+
+   // PI power level
+   FieldVal = Fields.GetFieldValueText( 3 );
+   ConfigTable.rows[2].cells[1].innerText = FieldVal;
+
+   var pTHB = Fields.GetFieldValueText( 5 );
+   var pTHI = Fields.GetFieldValueText( 4 );
+
+   var FieldIndex = 7;
+   var Cols = IndicatorTable.rows[0].cells.length;
+   var IndicatorCount = Fields.GetFieldValueText( 6 );
+   for (var i = 1; i <= IndicatorCount; i++)
+   {
+      if (i >= Cols)
+      {
+         var Rows = IndicatorTable.rows.length;
+         for (var r = 0; r < Rows; r++)
+         {
+            IndicatorTable.rows[r].insertCell();
+            IndicatorTable.rows[r].cells[Cols].width = 100;
+         }
+
+         Cols++;
+      }
+      
+      // Status
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[1].cells[i].innerText = FieldVal;
+
+      // Type
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[0].cells[i].innerText = FieldVal;
+
+      // THI/THB shared
+      IndicatorTable.rows[2].cells[i].innerText = pTHI;
+      IndicatorTable.rows[3].cells[i].innerText = pTHB;
+
+      // Indicator position
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[4].cells[i].innerText = FieldVal;
+
+      // I channel indicator energy
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[5].cells[i].innerText = FieldVal;
+
+      // Q channel indicator energy
+      FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+      IndicatorTable.rows[6].cells[i].innerText = FieldVal;
+
+      // Common pilot energy
+      FieldVal = ComputeEnergy( Fields.GetFieldValue( FieldIndex++ ) );
+      IndicatorTable.rows[7].cells[i].innerText = FieldVal;
+
+      // Diversity pilot energy
+      FieldVal = ComputeEnergy( Fields.GetFieldValue( FieldIndex++ ) );
+      IndicatorTable.rows[8].cells[i].innerText = FieldVal;
+   }
+
+   // Remove excess columns
+   RemoveColumns( IndicatorTable, IndicatorCount );
+}
+
+// Remove excess columns from the given table
+function RemoveColumns( TableName, DesiredCols )
+{
+   var Cols = TableName.rows[0].cells.length;
+   var Rows = TableName.rows.length;
+
+   var cell;
+   for (var r = 0; r < Rows; r++)
+   {
+      for (var c = Cols - 1; c > DesiredCols; c--)
+      {
+         // The first column consists of the headers
+         if (c > 0)
+         {
+            cell = TableName.rows[r].cells[c];
+            if (c == 1 || c == 2)
+            {
+               // We always want the table to have two data columns
+               cell.innerText = "-";
+            }
+            else
+            {
+               TableName.rows[r].removeChild( cell );
+            }
+         }
+      }
+   }
+}
+
+</script>
+
+</body>
+</html>

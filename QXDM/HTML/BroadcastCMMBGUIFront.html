@@ -1,0 +1,1947 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Broadcast CMMB Control Panel </title>
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<meta content="Broadcast CMMB Control Panel" name="DMViewName">
+		<meta content="925" name="DMViewWidth">
+		<meta content="680" name="DMViewHeight">
+		<style type="text/css"> .isdb-label { font-size: 10pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-label { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; background-color: #ffcc99; text-align: left; }
+	.isdb-table-input-label { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; background-color: #ffffcc; text-align: left; }
+	.isdb-matrix-label { font-size: 10pt; color: #000066; font-family: Arial; width: 25%; background-color: #ffcc99; text-align: left; padding-left: 5px; }
+	.isdb-table-value { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; text-align: right; }
+	.isdb-matrix-value { font-size: 10pt; color: #000066; font-family: Arial; width: 25%; text-align: right; }
+	.isdb-title { font-weight: bolder; font-size: 12pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-title { font-weight: bolder; font-size: 11pt; color: #000066; font-family: Arial; background-color: #ffffff; text-align: left; }
+	.isdb-button { font-weight: bolder; font-size: 10pt; color: white; font-family: Arial; background-color: navy; }
+	.style1 { font-size: 10pt; color: #000066; font-family: Arial; width: 142px; text-align: right; }
+	.style2 { font-size: 10pt; color: #000066; font-family: Arial; width: 137px; background-color: #ffcc99; text-align: left; height: 12pt; }
+	.style3 { font-size: 10pt; color: #000066; font-family: Arial; width: 132px; text-align: right; }
+	.style5 { font-size: 10pt; color: #000066; font-family: Arial; width: 113px; text-align: right; }
+	.style6 { font-size: 10pt; color: #000066; font-family: Arial; width: 109px; background-color: #ffcc99; text-align: left; }
+	.style7 { font-size: 10pt; color: #000066; font-family: Arial; width: 109px; background-color: #ffcc99; text-align: left; height: 12pt; }
+	.style8 { font-size: 10pt; color: #000066; font-family: Arial; width: 72px; background-color: #ffcc99; text-align: left; padding-left: 5px; height: 21px; }
+	.style9 { font-size: 10pt; color: #000066; font-family: Arial; width: 72px; text-align: right; }
+	.style10 { font-size: 10pt; color: #000066; font-family: Arial; width: 57px; background-color: #ffcc99; text-align: left; padding-left: 5px; height: 21px; }
+	.style11 { font-size: 10pt; color: #000066; font-family: Arial; width: 57px; text-align: right; }
+	.style12 { font-size: 10pt; color: #000066; font-family: Arial; width: 53px; background-color: #ffcc99; text-align: left; padding-left: 5px; height: 21px; }
+	.style13 { font-size: 10pt; color: #000066; font-family: Arial; width: 53px; text-align: right; }
+	.style14 { font-size: 10pt; color: #000066; font-family: Arial; width: 255px; background-color: #ffcc99; text-align: left; }
+	.style15 { font-size: 10pt; color: #000066; font-family: Arial; width: 255px; background-color: #ffcc99; text-align: left; height: 22px; }
+	.style16 { font-size: 10pt; color: #000066; font-family: Arial; width: 255px; background-color: #ffcc99; text-align: left; height: 17px; }
+	.style17 { font-size: 10pt; color: #000066; font-family: Arial; width: 255px; background-color: #ffcc99; text-align: left; height: 12px; }
+	.style18 { font-size: 10pt; color: #000066; font-family: Arial; width: 255px; background-color: #ffcc99; text-align: left; height: 16px; }
+	.style19 { font-size: 10pt; color: #000066; font-family: Arial; width: 129px; background-color: #ffcc99; text-align: left; height: 12pt; }
+		</style>
+		<script src="BroadcastBaseView.js" type="text/jscript"></script>
+	</head>
+	<body dir="ltr" style="BACKGROUND-COLOR: #ffffff" onload="Register()" onunload="Unregister()">
+		<DIV language="javascript" id="phone_state" style="PADDING-LEFT: 50px; FONT-SIZE: 10pt; WIDTH: 846px; COLOR: white; DIRECTION: ltr; PADDING-TOP: 5px; FONT-FAMILY: Arial; HEIGHT: 16px; BACKGROUND-COLOR: #00c400; TEXT-ALIGN: center"
+			value="phone"></DIV>
+		<p style="WIDTH: 872px"></p>
+		<div style="LEFT: -3px; WIDTH: 1001px; POSITION: relative; TOP: -42px; HEIGHT: 583px"
+			ms_positioning="GridLayout">
+			<div language="javascript" id="DIV4" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; MARGIN-TOP: 0px; FONT-WEIGHT: bold; Z-INDEX: 101; LEFT: 513px; BORDER-LEFT: navy thin inset; WIDTH: 484px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 10px; HEIGHT: 565px"
+				ms_positioning="GridLayout">&nbsp;
+				<div language="javascript" class="isdb-title" id="FrequencyDIV" style="DISPLAY: inline; Z-INDEX: 101; LEFT: 16px; WIDTH: 152px; POSITION: absolute; TOP: 254px; HEIGHT: 19px"
+					ms_positioning="FlowLayout">Frequency:</div>
+				<select id="ChannelNumberSelectDDL" style="Z-INDEX: 102; LEFT: 15px; WIDTH: 232px; POSITION: absolute; TOP: 288px">
+					<option selected></option>
+				</select>&nbsp; <input class="isdb-button" id="ActivateButton" style="Z-INDEX: 106; LEFT: 16px; WIDTH: 96px; COLOR: white; POSITION: absolute; TOP: 476px; HEIGHT: 35px; BACKGROUND-COLOR: green"
+					onclick="onclickActivateButton();" type="button" value="Activate"> <input class="isdb-button" id="DeActivateButton" style="Z-INDEX: 103; LEFT: 14px; WIDTH: 95px; COLOR: white; POSITION: absolute; TOP: 520px; HEIGHT: 31px; BACKGROUND-COLOR: red"
+					onclick="onclickDeActivateButton();" type="button" value="De-Activate" name="DeActivateButton">
+				<input class="isdb-button" id="TuneButton" style="Z-INDEX: 104; LEFT: 124px; WIDTH: 98px; COLOR: white; POSITION: absolute; TOP: 477px; HEIGHT: 34px; BACKGROUND-COLOR: green"
+					onclick="onclickTuneButton();" type="button" value="Tune" name="TuneButton">
+				<input class="isdb-button" id="SelectServiceButton" style="Z-INDEX: 105; LEFT: 230px; WIDTH: 125px; COLOR: white; POSITION: absolute; TOP: 479px; HEIGHT: 32px; BACKGROUND-COLOR: green"
+					onclick="onclickSelectServiceButton();" type="button" value="Select Service">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<INPUT class="isdb-button" id="DeSelectServiceButton" style="Z-INDEX: 110; LEFT: 231px; WIDTH: 123px; COLOR: white; POSITION: absolute; TOP: 525px; HEIGHT: 30px; BACKGROUND-COLOR: red"
+					onclick="onclickDeSelectService();" type="button" value="De-Select Service">
+				&nbsp;&nbsp;&nbsp;
+				<SELECT language="javascript" id="SelectServiceDDL" style="Z-INDEX: 107; LEFT: 152px; WIDTH: 208px; POSITION: absolute; TOP: 360px"
+					onclick="onclickDDLServices();">
+					<OPTION selected></OPTION>
+				</SELECT>&nbsp;
+				<DIV language="javascript" class="isdb-title" id="DIV1" style="DISPLAY: inline; Z-INDEX: 108; LEFT: 16px; WIDTH: 152px; POSITION: absolute; TOP: 326px; HEIGHT: 19px"
+					ms_positioning="FlowLayout">Service to Select :</DIV>
+				<INPUT language="javascript" class="isdb-table-value" id="selectServiceInputWindow" style="DISPLAY: inline; Z-INDEX: 109; LEFT: 152px; WIDTH: 104px; POSITION: absolute; TOP: 392px; HEIGHT: 16px"
+					onclick="onclickManualServiceWin();" type="text" size="1" name="Text2" ms_positioning="FlowLayout">
+				<INPUT class="isdb-button" id="StartRecordButton" style="Z-INDEX: 111; RIGHT: 265px; LEFT: 8px; WIDTH: 93px; COLOR: white; POSITION: absolute; TOP: 160px; HEIGHT: 34px; BACKGROUND-COLOR: blue"
+					onclick="onclickStartRecordButton();" type="button" value="Start Record"> <INPUT class="isdb-button" id="StopRecordButton" style="Z-INDEX: 112; LEFT: 120px; WIDTH: 97px; COLOR: white; POSITION: absolute; TOP: 160px; HEIGHT: 35px; BACKGROUND-COLOR: blue"
+					onclick="onclickStopRecordButton();" type="button" value="Stop Record">
+				<TABLE id="RecordTSIFPacketsTable" style="Z-INDEX: 117; LEFT: 8px; WIDTH: 228px; POSITION: absolute; TOP: 88px; HEIGHT: 56px"
+					cellSpacing="1" cellPadding="1" width="228" border="1">
+					<TR>
+						<TD class="isdb-table-title" colSpan="2">Record mfs</TD>
+					</TR>
+					<TR>
+						<TD class="isdb-table-input-label" style="WIDTH: 56.58%; HEIGHT: 30px" bgColor="#ffffff"
+							text-align="left">Number Of sec</TD>
+						<TD style="HEIGHT: 30px"><INPUT class="isdb-table-value" id="gui_numOfsec" style="DISPLAY: inline; WIDTH: 84px; HEIGHT: 19px"
+								type="text" size="10" value="60" name="Text3" ms_positioning="FlowLayout"></TD>
+					</TR>
+				</TABLE>
+				<DIV language="javascript" class="isdb-title" id="DIV1" style="DISPLAY: inline; Z-INDEX: 113; LEFT: 48px; WIDTH: 72px; POSITION: absolute; TOP: 392px; HEIGHT: 19px"
+					ms_positioning="FlowLayout">Manual :</DIV>
+				<DIV language="javascript" class="isdb-title" id="DIV1" style="DISPLAY: inline; Z-INDEX: 114; LEFT: 48px; WIDTH: 96px; POSITION: absolute; TOP: 360px; HEIGHT: 19px"
+					ms_positioning="FlowLayout">From List:</DIV>
+				<INPUT language="javascript" id="radio_select_service_from_list" style="Z-INDEX: 115; LEFT: 8px; WIDTH: 32px; POSITION: absolute; TOP: 360px; HEIGHT: 20px"
+					type="radio" name="service_select_type"> <INPUT language="javascript" id="radio_select_service_manual" style="Z-INDEX: 116; LEFT: 8px; WIDTH: 32px; POSITION: absolute; TOP: 392px; HEIGHT: 20px"
+					type="radio" name="service_select_type">
+			</div>
+			<DIV language="javascript" id="DIV3" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; Z-INDEX: 103; LEFT: 8px; BORDER-LEFT: navy thin inset; WIDTH: 496px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 8px; HEIGHT: 275px"
+				ms_positioning="GridLayout">&nbsp;
+				<TABLE id="VideoParamsTable" style="Z-INDEX: 100; LEFT: 9px; WIDTH: 264px; POSITION: absolute; TOP: 128px; HEIGHT: 105px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" colSpan="4">Video Decoder Frame Errors</TD>
+					</TR>
+					<TR>
+						<TD class="isdb-matrix-label" style="HEIGHT: 21px"></TD>
+						<TD class="style8">Buffer Size[K]</TD>
+						<TD class="style10">Underflow</TD>
+						<TD class="style12">OverFlow</TD>
+					</TR>
+					<TR>
+						<TD class="isdb-matrix-label">Audio</TD>
+						<TD class="style9" id="gui_audio_buf_size">---</TD>
+						<TD class="style11" id="gui_audio_underflow">0</TD>
+						<TD class="style13" id="gui_audio_overflow">0</TD>
+					</TR>
+					<TR>
+						<TD class="isdb-matrix-label">Video</TD>
+						<TD class="style9" id="gui_video_buf_size">---</TD>
+						<TD class="style11" id="gui_video_underflow">0</TD>
+						<TD class="style13" id="gui_video_overflow">0</TD>
+					</TR>
+				</TABLE>
+				<TABLE id="AcquisitionTable" style="Z-INDEX: 101; LEFT: 8px; WIDTH: 264px; POSITION: absolute; TOP: 16px; HEIGHT: 88px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" colSpan="2" rowSpan="1">Physical Layer Parameters</TD>
+					</TR>
+					<TR>
+						<TD class="style6">Frequency [MHz]</TD>
+						<TD class="style5" id="gui_freq">---</TD>
+					</TR>
+					<TR>
+						<TD class="style7">Selected Services</TD>
+						<TD class="style5" id="gui_service">---</TD>
+					</TR>
+				</TABLE>
+				<TABLE id="ProgressTable" style="Z-INDEX: 102; LEFT: 280px; WIDTH: 210px; POSITION: absolute; TOP: 14px; HEIGHT: 32px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">Progress</TD>
+					</TR>
+					<TR>
+						<TD class="style19">State
+						</TD>
+						<TD class="style3" id="l1_state_txt_">---</TD>
+					</TR>
+				</TABLE>
+				<TABLE id="Table2" style="Z-INDEX: 104; LEFT: 280px; MARGIN-BOTTOM: 0px; WIDTH: 211px; POSITION: absolute; TOP: 144px; HEIGHT: 68px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">Signal Quality</TD>
+					</TR>
+					<TR>
+						<TD class="style2">Is Synced</TD>
+						<TD class="style1" id="gui_Is_Synced">--</TD>
+					</TR>
+					<TR>
+						<TD class="style2">RSSI [dBm]</TD>
+						<TD class="style1" id="gui_RSSI">---</TD>
+					</TR>
+					<TR>
+						<TD class="style2">LDPC Error Rate</TD>
+						<TD class="style1" id="gui_LDPC_Err_rate">---</TD>
+					</TR>
+				</TABLE>
+				<DIV language="javascript" class="isdb-label" id="DIV5" style="BORDER-RIGHT: white 1px solid; BORDER-TOP: white 1px solid; MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 105; LEFT: 5px; BORDER-LEFT: white 1px solid; WIDTH: 88px; BORDER-BOTTOM: white 1px solid; POSITION: absolute; TOP: 240px; HEIGHT: 28px; BACKGROUND-COLOR: activeborder"
+					ms_positioning="FlowLayout"><FONT color="gray" size="4">Message:</FONT>
+				</DIV>
+				<INPUT class="isdb-table-value" id="user_msg" style="Z-INDEX: 106; LEFT: 110px; WIDTH: 375px; POSITION: absolute; TOP: 240px; HEIGHT: 22px; TEXT-ALIGN: left"
+					type="text" size="65">
+				<TABLE id="Table3" style="Z-INDEX: 107; LEFT: 280px; WIDTH: 210px; POSITION: absolute; TOP: 64px; HEIGHT: 32px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">QTV</TD>
+					</TR>
+					<TR>
+						<TD class="style19">Frames / Sec&nbsp;&nbsp;</TD>
+						<TD class="style3" id="QTV_fps">---</TD>
+					</TR>
+					<TR>
+						<TD class="style19">A/V Sync</TD>
+						<TD class="style3"  id="QTV_avs">--</TD>
+					</TR>
+				</TABLE>
+			</DIV>
+			<DIV language="javascript" id="cfgMgrSectionArea" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; MARGIN-TOP: 0px; FONT-WEIGHT: bold; Z-INDEX: 104; LEFT: 8px; BORDER-LEFT: navy thin inset; WIDTH: 496px; DIRECTION: ltr; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 288px; HEIGHT: 289px"
+				ms_positioning="GridLayout">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				&nbsp;&nbsp;
+				<TABLE id="cfg_table" style="Z-INDEX: 100; LEFT: 8px; WIDTH: 362px; POSITION: absolute; TOP: 40px; HEIGHT: 168px"
+					height="168" cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="style14">Use HW Emulator</TD>
+						<TD class="isdb-matrix-value"><INPUT id="gui_use_hardware_emulator" style="WIDTH: 28px; HEIGHT: 15px" type="checkbox"></TD>
+					</TR>
+					<TR>
+						<TD class="style15">CMMB Vendor</TD>
+						<TD class="isdb-matrix-value" id="modulation" style="HEIGHT: 22px"><SELECT id="gui_cmmb_vendor" style="WIDTH: 115px; HEIGHT: 21px">
+								<OPTION selected></OPTION>
+							</SELECT></TD>
+					</TR>
+					<TR>
+						<TD class="style16">Channel Acquisition Time Out</TD>
+						<TD class="isdb-matrix-value" style="HEIGHT: 17px"><INPUT class="isdb-table-value" id="gui_channel_acquisition_timeout" style="WIDTH: 97.4%; HEIGHT: 15px"
+								size="14"></TD>
+					</TR>
+					<TR>
+						<TD class="style14">Track List Acquisition Time Out</TD>
+						<TD class="isdb-matrix-value"><INPUT class="isdb-table-value" id="gui_track_list_acquisition_timeout" style="WIDTH: 97.4%; HEIGHT: 15px"
+								size="14"></TD>
+					</TR>
+					<TR>
+						<TD class="style17">video buffer size</TD>
+						<TD class="isdb-matrix-value" style="HEIGHT: 12px"><INPUT class="isdb-table-value" id="gui_video_buffer_size" style="WIDTH: 97.4%; HEIGHT: 15px"
+								size="14"></TD>
+					</TR>
+					<TR>
+						<TD class="style18">audio buffer size</TD>
+						<TD class="isdb-matrix-value" style="HEIGHT: 16px"><INPUT class="isdb-table-value" id="gui_audio_buffer_size" style="WIDTH: 97.4%; HEIGHT: 15px"
+								size="14"></TD>
+					</TR>
+					<TR>
+						<TD class="style14">media ready watermark</TD>
+						<TD class="isdb-matrix-value"><INPUT class="isdb-table-value" id="gui_media_ready_watermark" style="WIDTH: 97.4%; HEIGHT: 15px"
+								size="14"></TD>
+					</TR>
+					<TR>
+						<TD class="style14">signal strength polling period [ms]</TD>
+						<TD class="isdb-matrix-value"><INPUT class="isdb-table-value" id="gui_signal_strength_polling_period" style="WIDTH: 97.4%; HEIGHT: 15px"
+								size="14"></TD>
+					</TR>
+					<TR>
+						<TD class="style14">CAS Type</TD>
+						<TD class="isdb-matrix-value"><SELECT id="gui_CAS_Type" style="WIDTH: 115px; HEIGHT: 21px" name="D1">
+								<OPTION selected></OPTION>
+							</SELECT></TD>
+					</TR>
+				</TABLE>
+				<INPUT class="isdb-button" id="buttonUpdateConfig" style="Z-INDEX: 102; LEFT: 370px; WIDTH: 113px; POSITION: absolute; TOP: 248px; HEIGHT: 27px"
+					onclick="onClickUpdateConfig()" type="button" value="Update Config" name="buttonUpdateConfig">
+				<INPUT class="isdb-button" id="buttonGetConfig" style="Z-INDEX: 104; LEFT: 373px; WIDTH: 110px; BOTTOM: 46px; POSITION: absolute; TOP: 213px; HEIGHT: 26px"
+					onclick="onClickGetConfig()" type="button" value="Get Config" name="buttonGetConfig">
+				<DIV language="javascript" class="isdb-label" id="DIV5" style="BORDER-RIGHT: gray 1px solid; BORDER-TOP: gray 1px solid; MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 105; LEFT: 8px; BORDER-LEFT: gray 1px solid; WIDTH: 376px; BORDER-BOTTOM: gray 1px solid; POSITION: absolute; TOP: 8px; HEIGHT: 24px; BACKGROUND-COLOR: appworkspace"
+					ms_positioning="FlowLayout">
+					<P style="WIDTH: 350px"><FONT color="#ffffff" size="4">Configuration Manager</FONT></P>
+				</DIV>
+			</DIV>
+			<TABLE id="Table1" style="Z-INDEX: 118; LEFT: 520px; WIDTH: 256px; POSITION: absolute; TOP: 24px; HEIGHT: 50px"
+				cellSpacing="1" cellPadding="1" border="1">
+				<TR>
+					<TD class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">Versions</TD>
+				</TR>
+				<TR>
+					<TD style="FONT-SIZE: 10pt; WIDTH: 62px; COLOR: #000066; FONT-FAMILY: Arial; BACKGROUND-COLOR: #ffcc99; TEXT-ALIGN: left">Build 
+						ID
+					</TD>
+					<TD style="FONT-SIZE: 10pt; COLOR: #000066; FONT-FAMILY: Arial; TEXT-ALIGN: right" id="build_id">---</TD>
+				</TR>
+			</TABLE>
+		</div>
+		<embed id="sound1" src="beep.wav" width="0" height="0" enablejavascript="true" autostart="false">
+			<script type="text/jscript">
+var error_color = 'orange' ; 
+var state = 101 ; 	
+////////////////
+// CONSTANTS //
+///////////////
+StatesNamesEnum
+var StatesNamesEnum = new Array("NOT ACTIVATED","<->" , "ACTIVATED","<->","TUNED" ,"<->","STREAMING");
+var DEACTIVATED = 0 ; 
+var ACTIVATED = 2 ; 
+var TUNED = 4 ; 
+var STREAMING = 6 ; 
+
+var  Vendors_Array = new Array("telepath", "innofidei");
+var CAS_Type_array = new Array("largecard", "SMD", "smallcard");
+////////////////
+// GLOBALS //
+///////////////
+var gRequestIDs  = new Array;
+var log_items        = new Array();
+var event_handlers   = new Array();
+var subsys_responses = new Array();
+var qtv_api_response_handlers = new Array();
+
+var firstOnloadHappend = false ; 
+var lastItemProcessed = -1;                   
+
+/* Frequency and Test status */
+
+/* QTV Variables */
+var qtv_sequence_number = 1;
+var qtv_handle = 0;
+
+
+var active_services = new Array() ; 
+
+var ValidFrequencies = new Array();
+var ValidChannelNum = new Array();
+
+var BY_LIST_FREQS = 0 ; 
+var SCANED_FREQS = 1; 
+
+// todo to make the HTML in array so it will be in loop 
+// currently i dont know how to do it and i dont have time to invastigate it
+//roeec
+function onClickUpdateConfig() 
+{
+var cfgItemValue =-1; 
+
+cfgItemValue = (gui_use_hardware_emulator.checked == true ? "true": "false");
+setCfgItem(CmmbCfgItemsArray[0] ,cfgItemValue ) 
+
+cfgItemValue = Vendors_Array[gui_cmmb_vendor.selectedIndex] ; 
+setCfgItem(CmmbCfgItemsArray[1] ,cfgItemValue ) 
+
+cfgItemValue = gui_channel_acquisition_timeout.value ; 
+setCfgItem(CmmbCfgItemsArray[2] ,cfgItemValue ) 
+
+cfgItemValue = gui_track_list_acquisition_timeout.value ; 
+setCfgItem(CmmbCfgItemsArray[3] ,cfgItemValue ) 
+
+cfgItemValue =gui_video_buffer_size.value ; 
+setCfgItem(CmmbCfgItemsArray[4] ,cfgItemValue ) 
+
+cfgItemValue = gui_audio_buffer_size.value ; 
+setCfgItem(CmmbCfgItemsArray[5] ,cfgItemValue ) 
+
+cfgItemValue = gui_media_ready_watermark.value ; 
+setCfgItem(CmmbCfgItemsArray[6] ,cfgItemValue ) 
+
+cfgItemValue = gui_signal_strength_polling_period.value ; 
+setCfgItem(CmmbCfgItemsArray[7] ,cfgItemValue ) 
+
+cfgItemValue = CAS_Type_array[gui_CAS_Type.selectedIndex] ;
+setCfgItem(CmmbCfgItemsArray[8] ,cfgItemValue ) 
+
+
+}// close function 
+
+
+function onClickGetConfig() 
+{
+GetCmmbConfiguration();
+}
+///////////////////////////////////////////////////////////////////////////////
+function populateVendorsOptions()
+{
+
+gui_cmmb_vendor.innerHTML = "";
+    for (var i = 0; i < Vendors_Array.length; i++) {
+        var new_name = document.createElement("OPTION");
+        new_name.text = Vendors_Array[i];
+        new_name.value = Vendors_Array[i];
+        gui_cmmb_vendor.add(new_name);
+    }
+
+ gui_CAS_Type.innerHTML = "";
+    for (var i = 0; i < CAS_Type_array.length; i++) {
+        var new_name = document.createElement("OPTION");
+        new_name.text  = CAS_Type_array[i];
+        new_name.value = CAS_Type_array[i];
+        gui_CAS_Type.add(new_name);
+    }
+
+
+}
+///////////////////////////////////////////////////////////////////////////////
+
+function onclickActivateButton()
+{
+	//DisableButton(ActivateButton);
+	Activate() ; 	
+}
+
+///////////////////////////////
+function onclickDeActivateButton()
+{
+	//DisableButton(DeActivateButton); 	
+	DeActivate();
+	
+}
+
+/////////////////////////////////////
+
+function onclickTuneButton()
+{
+//	DisableButton(TuneButton) ;  
+	var  freq = GetCurrentFrequencyFromGui() ;
+	Tune(freq);
+	 
+	
+}
+	
+/////////////////////////////////////////////////////////////////////////
+function onclickSelectServiceButton()
+{
+
+		var  service = GetCurrentServiceFromGui() ;
+		
+		if (service =="" ||  service == undefined || service == -1 )
+		{
+		alert("The provided service is not applicable")
+		}else{
+		SelectService(service) ; 
+		}
+		
+		
+}// close function DeSelectService()
+
+function onclickDeSelectService()
+{
+	//	DisableButton(DeSelectServiceButton);
+		var  service = GetCurrentServiceFromGui() ;
+		
+		if (service =="" ||  service == undefined || service == -1 )
+		{
+		    alert("The provided service is not applicable")
+		}else{
+		
+		    DeSelectService(service) ; 
+		}
+}// close function DeSelectService()
+
+ /////////////////////////////////////////////////////////////////////////  
+function  UnRegisterSpecificPerView() 
+{
+
+}
+////////////////////////////////////////////////////////////////
+function RegisterSpecificViewItems()
+{
+	 
+	ClientObject.ClearConfig();
+
+	for( var i=0; i< 5 ; i++ )
+	{
+	    ClientObject.AddString( i );
+	}
+
+	RegisterToAllCMMBItems();
+Register_QTV_AV_Quality_Items(); 
+	ClientObject.AddMessage(31 , 9 ); // DTV/TSP/IF  for the record TSIF command
+	ClientObject.AddDiagResponse( BUILD_ID_ITEM_ID ); // sw version 
+	ClientObject.CommitConfig();
+	
+   SendRequest( BUILD_ID_REQ, "" );
+	GetCmmbConfiguration();
+   
+desired_fps = CMMB_CHINA_FPS ; 
+	
+}// close function 
+ 
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+function GetCmmbConfiguration()
+{
+	for ( var i = 0 ; i < CmmbCfgItemsArray.length  ; i++ )
+	{
+		getCfgItem(CmmbCfgItemsArray[i]) ; 
+	}
+}
+
+function getCfgItem(cfgItemName) 
+{
+	cmmb_diag_cfg(CMMB_CFG_GET , cfgItemName , "");
+}
+
+function setCfgItem(cfgItemName ,cfgItemValue ) 
+{
+	cmmb_diag_cfg(CMMB_CFG_SET , cfgItemName , cfgItemValue);
+}
+
+//////////////////////////////////////////////////////////////////////////
+function InitDisplay()    
+{
+	 if ( firstOnloadHappend ) 
+    {
+	  return  ; 
+    }else{
+	  firstOnloadHappend = true; 
+    }
+	
+	//ResetGuiTables();
+	radio_select_service_from_list.checked = true;  
+	populateVendorsOptions();
+	SelectFreqSetupType( BY_LIST_FREQS );
+	RefreshGUI() ; 
+}
+///////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////
+function disableAllPanel()
+{
+	//DisableRadios();
+	//DisableControlButtons();
+}
+//////////////////////////////////////////////////////////////////////////
+function EnableAllPanel()
+{
+	//EnableRadios();
+	//EnableControlButtos();
+}
+
+ 
+//////////////////////////////////////////////////////////////////////////
+function SelectFreqSetupType( value )
+{
+	FreqSetupType = value;
+
+	ChannelNumberSelectDDL.innerHTML="";     
+	
+	switch (FreqSetupType )
+	{
+		case BY_LIST_FREQS :  
+		{
+			//DisableButton(ScanButton) ;
+			break ;  
+		}
+		case SCANED_FREQS :  
+		{
+			//EnableButton(ScanButton, 'navy');
+			break ;  
+		}
+	}
+
+PopulateAvailableFrequency();
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+function GetFreqFromCMMBChannelNumber( ch_num )
+{
+  if (ch_num== 0)
+  {
+	alert("Frequency was not detected... \nPlease Perform 'SCAN' or choose 'All Channels'");
+	return 0 ;
+  }
+ var freq 
+ var start_freq = 474;
+	if (ch_num <=24)
+	{
+	 freq = start_freq + (ch_num - 13) *  8 ;
+	}else{
+	 freq = start_freq + (ch_num - 13) *  8 + 40  ;
+
+	}
+  return( freq );
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+function GetCurrentFrequencyFromGui()
+{
+   var freq = GetFreqFromCMMBChannelNumber( ChannelNumberSelectDDL.value ); 
+   
+   return freq;
+}// close function GetCurrentFrequencyFromGui
+
+
+function GetCurrentServiceFromGui()
+{
+var svc = -1 ; 
+    
+    if (radio_select_service_from_list.checked )
+    {  
+     svc =  SelectServiceDDL.value	 ; 
+    }else if (radio_select_service_manual)
+    {
+     svc  = selectServiceInputWindow.value ; 
+    }
+   
+ return svc; 
+   
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ /////////////////////////////////////////////////////////////////////////////////////
+function DisableControlButtons()
+{
+	DisableButton(ActivateButton) ; 
+	DisableButton(DeActivateButton) ; 
+	DisableButton(TuneButton) ; 
+	DisableButton(DeSelectServiceButton); 
+}	
+/////////////////////////////////////////////////////////////////////////////////////
+function EnableControlButtos()
+{
+	EnableButton(ActivateButton , 'green'); 
+	EnableButton(DeActivateButton, 'red'); 
+	EnableButton(TuneButton, 'green'); 
+	EnableButton(DeSelectServiceButton, 'red'); 
+}	
+/////////////////////////////////////////////////////////////////////////////////////
+function StartScanTest()
+{
+	phy_test_is_running = true ; 
+	DisableButton(ResetCountersButton);
+	
+	DisableButton(StartTestButton)  ;
+	DisableButton(StopTestButton) ;  
+	DisableButton(ScanButton) ; 
+	DisableRadios() ; 
+	DisableControlButtons();
+
+	onclickResetCounters();
+	
+	RawDataContainer.Acq_status = "FAIL" ; 
+	ValidFrequencies = new Array();
+	ValidChannelNum = new Array();
+
+	//TestRunningStatus.innerText = "Frequency Scan Started";
+
+	//Save the test type so when scan is complete, we can go back to it 
+	OldTestType = TestType;
+	TestType = SCAN_TEST_TYPE; 
+
+	
+	if (curr_state_num == 0 )
+	{
+		L1_Activate() ; 
+	}else
+	{
+		DeActivate();
+	}
+	
+	// Create and then open the scan file 
+	//EFS2_Create_New_URL_File( isdb_scan_file, "isdb://scan", QTV_Open_URL, isdb_scan_file );
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ScanComplete()
+{
+phy_test_is_running = false ; 
+  //TestRunningStatus.innerText = "Frequency Scan Complete";
+
+  // Restore the test type and read the scan results directory 
+  TestType = OldTestType;
+  
+    EnableButton(ResetCountersButton, 'navy' );
+	EnableButton(ScanButton ,'navy') ; 
+	EnableRadios()  ;
+
+  PopulateAvailableFrequency();
+
+
+  ResetCountersDisplay();
+
+  qtv_stop_playback_required = true;
+
+}
+/////////////////////////////////////////////////////////////////////////////////////
+*/
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessEvents( Item )
+{
+
+  var event_ID  = GetItemID(Item) ; 
+ 
+    var Fields               = Item.GetItemFields();
+	if (Fields == null) {return ;   }
+	ItemTs = Item.GetItemSpecificTimestamp2()
+	var  idx=1; 
+	
+ switch (event_ID )
+ {
+ 
+ case   EVENT_DTV_CMMB_API_CALL_ACTIVATE : 
+ {
+ user_msg.innerText = "Activate cmd called";
+ state = 1 ; 
+ 
+ break ; 
+ }
+ 
+ case  EVENT_DTV_CMMB_API_CALL_DEACTIVATE : 
+ {
+  user_msg.innerText = "De-Activate cmd called";
+ state = 1 ; 
+ 
+ break ; 
+ }
+ case  EVENT_DTV_CMMB_API_CALL_TUNE : 
+ {
+  user_msg.innerText = "Tune cmd called";
+ state = 3 ; 
+ 
+ break ; 
+ }
+ case   EVENT_DTV_CMMB_API_CALL_SELECT_SERVICE : 
+ { 
+  var service = Fields.GetFieldValue(1) ; 
+  user_msg.innerText = "Select Service cmd called with Service number : " + service ;
+  state = 5 ; 
+ 
+ 
+ break ; 
+ }
+
+  case  EVENT_DTV_CMMB_API_CALL_DESELECT_SERVICE : 
+ {
+  
+ var service = Fields.GetFieldValue(1) ; 
+  user_msg.innerText = "De-Select Service cmd called for service  " + service;
+ 
+ if (state == STREAMING)
+ {
+  state = 5 ; 
+ }
+
+ 
+ break ; 
+ }
+ 
+ case  EVENT_DTV_CMMB_API_NOTIFICATION_ACTIVATE: 
+ {
+	var  resultCode = Fields.GetFieldValue( 1);
+	
+	if (resultCode == SUCCEEDED)
+	{
+		user_msg.innerText = "Activation Succeeded  ";
+		state = ACTIVATED ; 
+		user_msg.style.backgroundColor = 'white';
+	}else{
+		user_msg.innerText = " Activation Failed , Reason :" + cmd_api_ctrl_return_code_enum[ resultCode ]  ; 
+		state = DEACTIVATED; 
+		user_msg.style.backgroundColor =error_color  ; 
+	}
+ 
+	GetCmmbConfiguration() ; 
+
+ break ; 
+ }
+  case  EVENT_DTV_CMMB_API_NOTIFICATION_DEACTIVATE : 
+ {
+ var  resultCode = Fields.GetFieldValue( 1);
+ 
+ if (resultCode == SUCCEEDED)
+ {
+  user_msg.innerText = "De-Activation Succeeded  ";
+ state = DEACTIVATED; 
+ user_msg.style.backgroundColor = 'white';
+ }else{
+ user_msg.innerText = "De Activation Failed . Reason :" + cmd_api_ctrl_return_code_enum[ resultCode ]  ; 
+	state = ACTIVATED ;
+	user_msg.style.backgroundColor =error_color  ; 
+ }
+ 
+ break ; 
+ }
+
+  case   EVENT_DTV_CMMB_API_NOTIFICATION_TUNE: 
+ {
+ 
+ frequency = Fields.GetFieldValue( 1 );
+ resultCode = Fields.GetFieldValue( 2  );
+ if (resultCode == SUCCEEDED)
+ {
+	user_msg.innerText = "Tune to " +frequency+"  Succeeded  ";
+	state = TUNED ;
+	gui_freq.innerText = frequency; 
+	user_msg.style.backgroundColor = 'white';
+ }else{
+	user_msg.innerText = "Tune to " +frequency+" Failed . Reason :" + cmd_api_ctrl_return_code_enum[ resultCode ]  ; 
+	gui_freq.innerText = "NA"; 
+	user_msg.style.backgroundColor =error_color  ; 
+	
+	if( resultCode == 3 )
+	{
+	state = DEACTIVATED;
+	}else{
+	state = ACTIVATED ;
+	}
+	
+ }
+ 
+ break ; 
+ }
+  case   EVENT_DTV_CMMB_API_NOTIFICATION_SELECT_SERVICE: 
+ {
+
+ serviceID = Fields.GetFieldValue( 1 );
+ resultCode = Fields.GetFieldValue( 2  );
+
+	if (resultCode == 0)
+	{
+		user_msg.innerText = "Select Service " + serviceID+ " Succeeded  ";
+		state = STREAMING ;
+		
+		AddToList(active_services ,serviceID ) 
+		gui_service.innerText = getAllListValues(active_services) ;  
+		
+		
+		user_msg.style.backgroundColor = 'white';
+	}else{
+		user_msg.innerText = "Select Service " + serviceID+ " Failed . Reason :" + cmd_api_ctrl_return_code_enum[ resultCode ]  ; 
+		user_msg.style.backgroundColor =error_color  ; 
+		if( resultCode == 3 )
+	    {
+	        state = DEACTIVATED;
+	    }
+	} 
+ break ; 
+ }
+ case  EVENT_DTV_CMMB_API_NOTIFICATION_DESELECT_SERVICE : 
+ {
+    //debugger; 
+    var serviceID = Fields.GetFieldValue( 1 );
+    var  resultCode = Fields.GetFieldValue( 2);
+ 
+     if (resultCode == SUCCEEDED)
+     {
+         user_msg.innerText = "De-Select Service " + serviceID  + " Succeeded  ";
+         user_msg.style.backgroundColor = 'white';
+         RemoveFromList(active_services ,serviceID ) ; 
+         gui_service.innerText = getAllListValues(active_services) ;  
+         if(isEmpty(active_services))
+         {
+          state = TUNED ; 
+         }else{
+          state = STREAMING ; 
+         }
+         
+     }else{
+       user_msg.innerText = "De-Select Service " + serviceID  + "  Failed.  Reason :" + cmd_api_ctrl_return_code_enum[ resultCode ]  ; 
+       user_msg.style.backgroundColor =error_color  ; 
+       }
+ 
+ break ; 
+ }
+ 
+ case  EVENT_DTV_CMMB_API_NOTIFICATION_TABLE_UPDATE : 
+ {
+ user_msg.innerText = "Table Update  ";
+ 
+ 
+ break ; 
+ }
+ 
+ 
+ 
+ case   EVENT_DTV_CMMB_API_NOTIFICATION_SIGNAL_PARAMETERS: 
+ {
+   getRawDataFromCmmbEventSignalParams( Item  );  
+   populateSignalParams();
+ 
+ 
+ 
+ break ; 
+ }
+ case   EVENT_DTV_CMMB_API_NOTIFICATION_AUTHORIZATION_FAILURE: 
+ {
+ user_msg.innerText = "Authorization Failure  ";
+ 
+ break ; 
+ }
+ 
+ case EVENT_DTV_CMMB_API_NOTIFICATION_REGISTER_FOR_CONTROL_NOTIFICATIONS_COMPLETE :
+ {
+ 
+ break;
+ }
+ 
+ case EVENT_DTV_CMMB_API_NOTIFICATION_CA_CARD_NUMBER :
+ {
+ user_msg.innerText = "Notification CA Card Number  ";
+ break;
+ }
+ 
+ case EVENT_DTV_CMMB_API_NOTIFICATION_CAS_VERSION :
+ {
+ user_msg.innerText = "Notification CAS Version  ";
+ break;
+ }
+ 
+ 
+ case  EVENT_DTV_CMMB_API_NOTIFICATION_EMERGENCY_BROADCASTING_TRIGGER : 
+ {
+  user_msg.innerText = "Emergency Broadcasting Trigger  ";
+
+ 
+ break ; 
+ }
+ case  EVENT_DTV_CMMB_API_NOTIFICATION_EMERGENCY_BROADCASTING_MESSAGE : 
+ {
+  user_msg.innerText = "Emergency Broadcasting MSG  ";
+
+ 
+ break ; 
+ }
+ case  EVENT_DTV_CMMB_CAS_INITIALIZED : 
+ {
+  user_msg.innerText = "CAS Initialized  ";
+
+ 
+ break ; 
+ }
+ case EVENT_DTV_CMMB_CAS_EMM_RECEIVED_AND_PROCESSED  : 
+ {
+  user_msg.innerText = "EMM Received and processed ";
+
+ 
+ break ; 
+ }
+ case EVENT_DTV_CMMB_CAS_ECM_RECEIVED_AND_PROCESSED  : 
+ {
+  user_msg.innerText = "CAS ECM Received and processed ";
+ 
+ break ; 
+ }
+
+ 
+ case EVENT_QTV_CLIP_STARTED:
+ {
+ 
+  Process_EVENT_QTV_CLIP_STARTED();
+ break; 
+ }
+ 
+ case EVENT_QTV_CLIP_ENDED:
+ {
+   Process_EVENT_QTV_CLIP_ENDED() ;
+ break; 
+  }
+ 
+ 
+ }// close case
+   RefreshGUI();
+}// close function process events
+
+ function populateSignalParams()
+ {
+	gui_Is_Synced.innerText     =  IsSync ; 
+	gui_RSSI.innerText          =  SignalStrengthInDbm ; 
+	    if (SignalStrengthInDbm > -90 )
+	    {
+	        gui_RSSI.style.backgroundColor = 'white';
+	    }else if (SignalStrengthInDbm <= -90  && SignalStrengthInDbm > -100)
+	    {
+	        gui_RSSI.style.backgroundColor = 'yellow';
+	    }else{
+	      gui_RSSI.style.backgroundColor = 'red';
+	    }
+	
+	gui_LDPC_Err_rate.innerText = LDPCErrorRate + "%" ; 
+	    if (LDPCErrorRate > 1  && LDPCErrorRate <= 5)
+	    {
+	       gui_LDPC_Err_rate.style.backgroundColor = 'yellow';
+	    }else if (LDPCErrorRate > 5)
+	    {
+	        gui_LDPC_Err_rate.style.backgroundColor = 'red';
+	    }else{
+	       gui_LDPC_Err_rate.style.backgroundColor = 'white';
+	    }
+	
+	
+ }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+// Process outgoing commands
+function ProcessSubsystemRequests( Item )
+{
+   /*
+   var Fields = Item.GetItemFields();
+    if (Fields == null) {return ;   }
+   */
+}
+/////////////////////////////////////////////////////////////////////////////////////
+// Process response/state string client
+function ProcessSubsystemResponses( Item )
+{
+ // debugger; 
+    var Fields = Item.GetItemFields();
+    if (Fields == null) {return ;   }
+  var item_name = Item.GetItemName();
+
+
+if (item_name  ==  "CMMB response" )
+{
+    var subSysID= Fields.GetFieldValue( 0 );
+
+    switch (subSysID)
+    {
+        case  CMMB_cfg:
+	    {
+	        UpdaeCfgManagerTable(Fields) ; 
+             break ; 
+        }
+        
+        case  CMMB_ctrl:
+	    {
+	        ProcessCmdResponse(Fields);
+	        break ; 
+        }
+
+    } // close switch 
+}// close if
+
+}// close function
+
+///////////////////////////////////////////////////
+function ProcessCmdResponse(Fields)
+{
+
+var cmd_id =  Fields.GetFieldValue( 1 );
+
+switch (cmd_id)
+{
+case CMD_CMMB_ACTIVATE :
+{
+	state = 1 ; 
+	break; 
+}
+
+case CMD_CMMB_DEACTIVATE :
+{
+    state = DEACTIVATED; 
+	break; 
+}
+case CMD_CMMB_TUNE :
+{
+    state = 5 ; 	
+	break; 
+}
+case CMD_CMMB_SELECT_SERVICE :
+{
+	state = 5 ; 
+	break; 
+}
+
+case CMD_CMMB_DE_SELECT_SERVICE :
+{
+	state = 5 ; 
+	break; 
+}
+
+
+case CMD_CMMB_START_RECORDING :
+{
+//	state = 5 ; 
+	break; 
+}
+
+case CMD_CMMB_STOP_RECORDING :
+{
+//	state = 5 ; 
+
+	break; 
+}
+
+
+}// close switch
+RefreshGUI();
+
+} // close function 
+/////////////////////////////////////////////////////////////////////////////////////
+function UpdaeCfgManagerTable(Fields)
+{
+var paramName = Fields.GetFieldValue( 2 );
+var paramValue = Fields.GetFieldValue( 3 );
+
+switch (paramName)
+{
+    case CmmbCfgItemsArray[0] :
+    {
+    gui_use_hardware_emulator.checked = (paramValue == "true" ? true : false) ; 
+    break; 
+    }
+    
+    case CmmbCfgItemsArray[1] :
+    {
+  
+    gui_cmmb_vendor.selectedIndex = (paramValue == "innofidei" ? 1 : 0) ; 
+    break; 
+    }
+    
+    case CmmbCfgItemsArray[2] :
+    {
+    gui_channel_acquisition_timeout.value = String2Num(paramValue) ; 
+    break; 
+    }
+    case CmmbCfgItemsArray[3] :
+    {
+    gui_track_list_acquisition_timeout.value =  String2Num(paramValue) ; 
+    break; 
+    }
+     case CmmbCfgItemsArray[4] :
+    {
+    gui_video_buffer_size.value = String2Num(paramValue) ; 
+    break; 
+    }
+     case CmmbCfgItemsArray[5] :
+    {
+    gui_audio_buffer_size.value = String2Num(paramValue) ; 
+    break; 
+    }
+     case CmmbCfgItemsArray[6] :
+    {
+    gui_media_ready_watermark.value = String2Num(paramValue) ; 
+    break; 
+    }
+     case CmmbCfgItemsArray[7] :
+    {
+    gui_signal_strength_polling_period.value = String2Num(paramValue) ; 
+    break; 
+    }
+    
+     case CmmbCfgItemsArray[8] :
+    {
+     
+        if ( paramValue == CAS_Type_array[0] )
+        {
+          gui_CAS_Type.selectedIndex =  0 ; 
+        }else if ( paramValue == CAS_Type_array[1] )
+        {
+         gui_CAS_Type.selectedIndex =  1 ; 
+        }else if ( paramValue == CAS_Type_array[2] )
+        {
+         gui_CAS_Type.selectedIndex =  2 ; 
+        }
+   
+    break; 
+    }
+    
+
+}// close switch
+
+}  // close function 
+	
+
+/////////////////////////////////////////////////////////////////////////////////////
+// Process response/state string client
+function ProcessStrings( Item )
+{
+
+   // Check for a state notification
+   var ItemKey = Item.GetItemKeyText();
+
+   if( ItemKey == STATE )
+   {
+      ServerState = IQXDM2.GetServerState();
+   
+		if (ServerState != SVR_STATE_CONNECTED) 
+		{
+			curr_state_num = 101 ; 
+			RefreshGUI();
+			return ; 
+		}  
+		
+		 if (ServerState == SVR_STATE_CONNECTED) 
+		{ 
+		  Register() ; 
+		}  
+
+   }
+
+ 
+}
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessMessages( Item )
+{
+ 
+	if (Item.GetItemSummary() =="    tsif_drv_api.c  00350  tsif_drv_stop successful" )
+	{
+ }
+
+   
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessLogs( Item )
+{
+  var LogID = GetItemID(Item) ; 
+ 
+ switch (LogID)
+ {
+	case LOG_DTV_CMMB_CONTROL_TABLE_UPDATE :
+	{
+		
+		table_type = getRawDataFromCmmbLogCtrlTableUpdate(Item);
+		
+		if (table_type == CMCT || table_type == SMCT  )
+		{
+			PopulateAvailableServices() ; 
+		}
+		
+	break ; 
+	}// 
+	 
+	case  LOG_DTV_CMMB_MEDIA_BUFFERING_STATUS :
+	{
+		getRawDataFromCmmbLogBufferingStatus(Item);
+		populateBufferingStatus();
+	break ; 
+	}// 
+	 
+	 
+	case  LOG_DTV_CMMB_CONTROL_EMERGENCY_BCAST:
+	{
+     // not supported yet
+	break ; 
+	}// 
+	 
+	case LOG_DTV_CMMB_CAS_EMM_ECM :
+	{
+	 // not supported yet
+	break ; 
+	}// 
+	 
+	case  LOG_DTV_CMMB_HW_PERFORMANCE:
+	{
+	 getRawDataFromCmmbEventSignalParams(Item); // HW performance LOG and signal params EVENT are the same
+	populateSignalParams() ; 
+	break ; 
+	}// 
+	 
+	case LOG_DTV_CMMB_ESG_PROGRAM_INDICATION_INFORMATION :
+	{
+ // not supported yet
+	break ; 
+	}// 
+	 case LOG_QTV_Frame_Render_Information :
+   {
+ 
+     if (!EVENT_QTV_CLIP_STARTED_received) 
+	    {
+	    Process_EVENT_QTV_CLIP_STARTED(); 
+	    return ; 
+	    }
+ 
+     getRawDataFromQTV_Frame_render_info( Item  )  ; 
+     break ; 
+    }
+ 
+   case LOG_QTV_Audio_Video_Sync :
+   {
+     if ((avs_cnt++ % 100) == 0 )
+    {
+     getRawDataFromQTV_AV_Sync( Item  ) ; 
+     PopulateQTV_AV_Sync(QTV_avs);
+   }
+    break;
+ }
+ }//close case
+ 
+}// close function ProcessLogs
+
+
+function populateBufferingStatus()
+{
+ if((buf_cnt++ %3) != 0 ) return ; 
+    
+    if (  VideoOverflowCount > str2num(gui_video_overflow.innerText)  )
+    {
+     
+        beep(sound1);
+		gui_video_overflow.style.backgroundColor = 'red';
+    }else{
+       gui_video_overflow.style.backgroundColor = 'white';
+    }
+    gui_video_overflow.innerText = VideoOverflowCount; 
+    
+    
+    if (  VideoUnderflowCount > str2num(gui_video_underflow.innerText ))
+    {
+        beep(sound1);
+        gui_video_underflow.style.backgroundColor = 'red';
+       
+    }else{
+       gui_video_underflow.style.backgroundColor = 'white';
+    }
+     gui_video_underflow.innerText = VideoUnderflowCount ; 
+    
+     
+     if (  AudioOverflowCount >  str2num(gui_audio_overflow.innerText))
+    { 
+     beep(sound1);
+        gui_audio_overflow.style.backgroundColor = 'red';
+      
+    }else{
+       gui_audio_overflow.style.backgroundColor = 'white';
+    }
+     gui_audio_overflow.innerText = AudioOverflowCount ; 
+    
+     if (  AudioUnderflowCount > str2num( gui_audio_underflow.innerText ))
+    {
+        beep(sound1);
+        gui_audio_underflow.style.backgroundColor = 'red';
+       
+    }else{
+       gui_audio_underflow.style.backgroundColor = 'white';
+    }
+	gui_audio_underflow.innerText= AudioUnderflowCount ; 
+	
+	gui_video_buf_size.innerText =  VideoBufferSize / 1000  ; 
+	gui_audio_buf_size.innerText  = AudioBufferSize / 1000 ; 
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+ 
+///////////////////////////////////////////////////////////////
+
+function RefreshGUI() 
+{ 
+	
+	if (curr_state_num <= 100)
+	{
+		phone_state.innerText = "Phone Connected";
+		phone_state.style.backgroundColor = 'green';
+	}else{
+	     phone_state.innerText = "Phone Disconnected";
+         phone_state.style.backgroundColor = 'red';
+	}
+    
+    UpdateStateMachineDisplay();
+
+
+	if (state == DEACTIVATED )
+	{
+	 active_services = new Array() ; 
+	 gui_service.innerText = "NA" ; 
+	 gui_freq.innerText = "NA" ; 
+	}
+  
+  build_id.innerText  = CRM_Build ; 
+
+return ; 
+// Elad wanted state-less GUI
+	
+	if (state == DEACTIVATED )
+	{
+	    cfgMgrSectionArea.disabled = false;  
+	}else{
+	    cfgMgrSectionArea.disabled = true;  
+	}
+	
+	
+		/// ALL Buttons
+	if (state >=100) 
+	{	
+		//disableAllPanel()
+		
+		//return ; 
+	}
+	
+	if (state ==DEACTIVATED) 
+	{	
+		EnableButton(ActivateButton , 'green');
+        DisableButton(DeActivateButton );
+	}else{
+         DisableButton(ActivateButton );
+        EnableButton(DeActivateButton , 'red');
+  }
+
+	if (state == ACTIVATED) 
+	{	
+      EnableButton(TuneButton , 'green');
+	}else{
+	  DisableButton(TuneButton );
+	}
+	
+  if (state ==TUNED) 
+	{	
+         EnableButton(SelectServiceButton , 'green');
+	}else{
+        DisableButton(SelectServiceButton );
+  }
+  
+  if(state == STREAMING )
+  {
+       EnableButton(DeSelectServiceButton , 'red');
+  }else{
+       DisableButton(DeSelectServiceButton );
+  }
+	
+  
+  
+
+}// close function RefreshGUI()
+///////////////////////////////////////////////////////////////
+function UpdateVersionTable()
+{ 
+}
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+function ProcessUnsupportedSubpacket( Item, Offset )
+{
+   /* Do Nothing */
+ 
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessAcqDoneStatusEvent( Item )
+{
+  getRawDataFromEvent(  Item , "ACQ_DONE_STATUS"  ) ; 
+  
+  if (RawDataContainer.Acq_status == "FAIL") {  RawDataContainer.status_rssi = undefined ;} 
+
+   IsReceivedHWVersion = false ;
+  UpdateAcquisitionTable();
+   
+  UpdateVersionTable() ; 
+ 
+  if( isTestScan() )
+  { 
+			UpdateValidScannedFreqs()	;
+			L1_DeSelectService();
+						
+			if (ChannelNum < end_chan )
+			{
+				ChannelNum++ ; 
+				var freq   = GetFreqFromCMMBChannelNumber(  ChannelNum  );
+				if (freq == 0)	{	return ;	}
+				Tune(freq);
+			}
+			else
+			{
+					ScanComplete();
+				    DeActivate();
+			}
+  }// scan case 
+   
+}//close function
+/////////////////////////////////////////////////////////////////////////////////////
+
+function UpdateValidScannedFreqs()
+{
+	
+	if (RawDataContainer.Acq_status	 == "SUCCESS")
+	{
+
+		//ValidFrequencies[ValidFrequencies.length] = (RawDataContainer.frequency_div10 * 10) + 7; // Add 7 MHz for exact frequency
+		ValidFrequencies[ValidFrequencies.length] = ((Math.floor(RawDataContainer.frequency_div10 /1e05)  + 1/7)*1e6).toFixed(0);
+		ValidChannelNum[ValidChannelNum.length] = ChannelNum ; 
+	}
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessQtvApiCommandResponse( Item )
+{
+
+	var Fields = Item.GetItemFields();
+	if (Fields == null) {return ;   }
+
+	var api_cmd = Fields.GetFieldValue( 1 );
+
+	for( var i=0; i<qtv_api_response_handlers.length; i++ )
+	{
+		if( api_cmd == qtv_api_response_handlers[i].api_cmd && 	qtv_api_response_handlers[i].process_function )
+		{
+			qtv_api_response_handlers[i].process_function( Item );
+				break ;
+		}//close if
+	}// close for loop
+}// close function
+/////////////////////////////////////////////////////////////////////////////////////
+function QTV_Framework_Start( )
+{
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++;
+  cmd_str += " 0";  // is replay
+
+  SendRequest( QTV_START_FRAMEWORK, cmd_str );  
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessQtvFrameworkStartResponse( Item )
+{
+ if (video_test_is_running) {
+  Sleep(1500); 
+  QTV_Framework_Init();
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function QTV_Framework_Init( )
+{
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++; // sequence number (uint32)
+  cmd_str += " 0";                  // fragment type (uint8)
+  cmd_str += " 10";                 // payload length (uint16)
+  cmd_str += " 0";                  // reserved (uint16)
+  cmd_str += " 0";                  // time_delta (uint32)
+  cmd_str += " 1";                  // API ID (uint16)
+  cmd_str += " 4";                  // Parameters size (uint16)
+  cmd_str += " 0";                  // priority (uint32) 
+
+  SendRequest( QTV_FRAMEWORK_CMD, cmd_str );
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessQtvFrameworkInitResponse( Item )
+{
+  if (video_test_is_running) {
+  var Fields = Item.GetItemFields();
+  if (Fields == null) {return ;   }
+
+  qtv_handle = Fields.GetFieldValue( 4 );
+   Sleep(2000); 
+  QTV_Register_CB();
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function QTV_Register_CB( )
+{ 
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++; // sequence number (uint32)
+  cmd_str += " 0";                  // fragment type (uint8)
+  cmd_str += " 6";                  // payload length (uint16)
+  cmd_str += " 0";                  // reserved (uint16)
+  cmd_str += " 0";                  // time_delta (uint32)
+  cmd_str += " 2";                  // API ID (uint16)
+
+  SendRequest( QTV_FRAMEWORK_CMD, cmd_str );
+}
+///////////////////////////////////////////////////////////////////
+function ProcessQtvRegisterCbResponse( Item )
+{ 
+	if (video_test_is_running)
+	{
+		QTV_cb_registered = true;
+		EFS2_active = true ; 
+		Sleep(2000); 
+		EFS2_Delete_File( efs2_filename);
+	}
+}
+///////////////////////////////////////////////////////////////////
+function QTV_Open_URL( filename )
+{
+  var filename_str = filename;
+
+  var str_len = filename_str.length + 1;
+  var payload_len = ( str_len );
+  var cmd_len = payload_len + 10;
+
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++; // sequence number (uint32)
+  cmd_str += " 0";                  // fragment type (uint8)
+  cmd_str += " " + cmd_len;         // payload length (uint16)
+  cmd_str += " 0";                  // reserved (uint16)
+  cmd_str += " 0";                  // time_delta (uint32)
+  cmd_str += " 3";                  // API ID (uint16) - Open URN
+  cmd_str += " " + payload_len;     // Parameters size (uint16)
+  cmd_str += " " + filename_str;    // Video URN
+ 
+  SendRequest( QTV_FRAMEWORK_CMD, cmd_str );
+}
+///////////////////////////////////////////////////////////////////
+
+function ProcessQtvOpenUrlResponse( Item )
+{ 
+  /* Do nothing, wait for PMT table acquisition before starting playback */
+
+  //QTV_Stop_Playback();
+  
+}
+///////////////////////////////////////////////////////////////////
+function QTV_Play( )
+{
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++; // sequence number (uint32)
+  cmd_str += " 0";                  // fragment type (uint8)
+  cmd_str += " 16";                 // payload length (uint16)
+  cmd_str += " 0";                  // reserved (uint16)
+  cmd_str += " 0";                  // time_delta (uint32)
+  cmd_str += " 7";                  // API ID (uint16) - Play
+  cmd_str += " 8";                 // Parameters size (uint16)
+  cmd_str += " 0";                  // Start position
+  cmd_str += " -1";                 // End Position
+
+   SendRequest( QTV_FRAMEWORK_CMD, cmd_str );
+}
+/////////////////////////////////////////////////////////////////////////////////////
+
+function ProcessQtvPlayClipResponse( Item )
+{
+  /* Do nothing */
+ 
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function QTV_Stop_Playback( )
+{
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++; // sequence number (uint32)
+  cmd_str += " 0";                  // fragment type (uint8)
+  cmd_str += " 6";                  // payload length (uint16)
+  cmd_str += " 0";                  // reserved (uint16)
+  cmd_str += " 0";                  // time_delta (uint32)
+  cmd_str += " 10";                  // API ID (uint16)
+
+  SendRequest( QTV_FRAMEWORK_CMD, cmd_str );
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessQtvStopPlaybackResponse( Item )
+{
+  if( isTestVideo() )
+  {
+    /* Clear the phone's screen by sending # and END */
+    SendHashKeyPress();
+    SendEndKeyPress();
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function QTV_Framework_Stop( )
+{
+ 
+  var cmd_str = "";
+
+  cmd_str += qtv_sequence_number++;
+
+  SendRequest( QTV_STOP_FRAMEWORK, cmd_str );
+	
+}
+/////////////////////////////////////////////////////////////////////////////////////
+function ProcessQtvFrameworkStopResponse( Item )
+{
+  QTV_cb_registered = false;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+function stopVideoPlayback()
+{
+   video_test_is_running = false; 
+   QTV_Stop_Url() ;
+   QTV_Framework_Stop();
+   
+   L1_DeSelectService() ; 
+   DeActivate() ;
+   RefreshGUI() ;   
+}
+///////////////////////////////////////////////////////////////////////////////////////
+function QTV_Stop_Url()
+{
+  QTV_Stop_Playback();  
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+function ProcessVersionsResponse(Item)
+{
+	getRawDataFromVersionResponse(Item);
+	populateVersionData();
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+function populateVersionData()
+{
+	
+}
+////////////////////////////////
+
+/////////////////////////////////////////////////////////
+function ProcessEfs2UnlinkResponse( Item )
+{
+
+	if (EFS2_active && video_test_is_running)
+	{
+		EFS2_Open_URL_File( );
+	}
+}
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function EFS2_Open_URL_File( )
+{
+  EFS2_Open_File(efs2_filename, "O_CREAT", 0) ; 
+  
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function ProcessEfs2OpenResponse( Item )
+{ 
+	var Fields = Item.GetItemFields();
+	if (Fields == null) {return ;   }
+    
+    var fd = Fields.GetFieldValue(0);
+	
+	if (checkingQTV_CFG_File) 
+	{
+		if (fd == -1 ) {
+			alert("Error, couldent find the file: qtv_config.cfg in folder : /mod/mediaplayer ");
+			return ; 
+		}else{
+			checkingQTV_CFG_File = false; 
+			qtv_sequence_number = 1; 
+			QTV_Framework_Start();   
+		}
+	}
+	
+	if (EFS2_active && video_test_is_running)
+	{
+		efs2_fd = fd ; 
+		EFS2_Write_to_File(efs2_fd, 0, efs2_file_contents) ;
+	}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function ProcessEfs2WriteResponse( Item )
+{ 
+	if (EFS2_active && video_test_is_running)
+	{
+		EFS2_Close_File(efs2_fd );
+	}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+function ProcessEfs2CloseResponse( Item )
+{
+ 
+	if (EFS2_active && video_test_is_running)
+	{
+		EFS2_active = false;
+		QTV_Open_URL( efs2_filename );
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+function SendHashKeyPress( )
+{
+  var cmd_str = "0 35";
+
+  SendRequest( KEYPRESS, cmd_str );
+}
+//////////////////////////////////////////////////////////////////////////
+function SendEndKeyPress( )
+{
+  var cmd_str = "0 81";
+
+  SendRequest( KEYPRESS, cmd_str );
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  function PopulateAvailableFrequency()
+  {
+ ChannelNumberSelectDDL.innerHTML = "";
+
+   if( FreqSetupType == BY_LIST_FREQS )
+   {	
+			var  freqHz;
+
+			for( var i = 13; i <= 48 ; i++ )
+			{		
+			    var new_chan = document.createElement("OPTION");
+				freq_mhz = GetFreqFromCMMBChannelNumber(  i  );
+			    if (freq_mhz == 0)	{	return ;	}
+						  
+				new_chan.text =   "(" + i +") "  +  freq_mhz + " MHz ";
+				new_chan.value =  i ;
+				ChannelNumberSelectDDL.add(new_chan);
+			}
+
+			//ChannelNumberSelectDDL[0].selected = true;
+   }
+   else if( FreqSetupType == SCANED_FREQS && ValidFrequencies.length )
+   {
+		for( var i=0; i<ValidFrequencies.length; i++ )
+		{
+			var new_chan = document.createElement("OPTION");
+
+			var freq_mhz = ValidFrequencies[i] / 1e06;
+
+			new_chan.text =  "(" + ValidChannelNum[i]  + ") " +  freq_mhz + " MHz ";
+			new_chan.value = ValidChannelNum[i];
+
+			ChannelNumberSelectDDL.add(new_chan);
+			
+		}
+   }
+}// close function 
+
+function PopulateAvailableServices()
+{
+//debugger; 
+	SelectServiceDDL.innerHTML = "";
+
+	AddTableToDDL(SMCT_available_services ,SMCT_multiplexFrameId ) ; 
+	AddTableToDDL(CMCT_available_services ,CMCT_multiplexFrameId ) ; 
+}
+
+
+////////////////////////////////////////////////////////////////
+function AddTableToDDL(available_services ,multiplexFrameId ) 
+{ 
+	for( var i = 0; i < available_services.length  ; i++ )
+	{	
+		var new_svc    = document.createElement("OPTION");
+		var svc_num    = available_services[i] ; 
+		var MFID       = multiplexFrameId[i] ; 
+		new_svc.text   = "Service ID :  " + svc_num +  "    [MF ID : " + MFID + "]";
+		new_svc.value  =  svc_num ;
+		SelectServiceDDL.add(new_svc);
+	}
+} // close function 
+//////////////////////////////////////////////////////////////////////////
+
+function UpdateStateMachineDisplay()
+{
+	var BgColor = "" ; 
+	var TxtColor = "" ; 
+	var StateName ="" ; 
+	
+	StateName = StatesNamesEnum[state];
+	
+	switch(state)
+	{
+	case 100 :
+	case 101 :
+	case 102 : 
+			BgColor ='red' ;
+			TxtColor ='white' ; 
+			break ; 
+	case 0: 
+		BgColor  ='red' ;
+		TxtColor ='white' ; 
+		break ; 
+	
+	case 2: 
+		BgColor = 'blue' ;
+		TxtColor ='white' ;  
+		break ; 
+	
+	case 4: 
+	    BgColor = 'yellow' ;
+		TxtColor ='black' ; 
+		break ; 
+	
+	
+	case 1: 
+	case 3: 
+	case 5: 
+		BgColor = 'gray' ;
+		TxtColor ='black' ; 
+		break ;  
+	
+	case 6: 
+		BgColor = 'green' ; 
+		TxtColor ='white' ; 
+	break ; 
+	
+	}// close switch 
+		
+	l1_state_txt_.innerText = StateName;
+	l1_state_txt_.style.color = TxtColor;
+	l1_state_txt_.style.backgroundColor = BgColor;
+}
+
+function Activate()  
+{
+	//debugger;
+	cmmb_diag_cmd(CMD_CMMB_ACTIVATE , "");
+}	
+function onclickStopRecordButton()
+{
+StopRecording(); 
+}
+
+function onclickStartRecordButton()
+{
+var numOfSec = gui_numOfsec.value ;
+StartRecording(numOfSec)  ; 
+}
+
+
+function DeActivate()  
+{
+	cmmb_diag_cmd(CMD_CMMB_DEACTIVATE , "");
+}	
+///////////////////////////////////////////////////////////////////
+function Tune( frequency )
+{
+	cmmb_diag_cmd(CMD_CMMB_TUNE , frequency  ); 
+}
+///////////////////////////////////////////////////////////////////
+
+function SelectService(service)  
+{
+	cmmb_diag_cmd(CMD_CMMB_SELECT_SERVICE , service);
+}	
+
+function DeSelectService(service)  
+{
+	cmmb_diag_cmd(CMD_CMMB_DE_SELECT_SERVICE , service);
+}	
+function StartRecording(numOfSec)  
+{
+	cmmb_diag_cmd(CMD_CMMB_START_RECORDING , numOfSec);
+}	
+
+function StopRecording()  
+{
+	cmmb_diag_cmd(CMD_CMMB_STOP_RECORDING , "");
+}
+
+function onclickManualServiceWin()
+{
+radio_select_service_manual.checked = true ; 
+}
+function onclickDDLServices()
+{
+radio_select_service_from_list.checked = true ; 
+}	
+
+function CheckFrameRenderRate()
+{
+QTV_fps.innerText = cnt_fps/2;
+
+	
+	if (Math.abs(cnt_fps - desired_fps*2)  > 0.1 * desired_fps*2 ) 
+	{
+		QTV_fps.style.backgroundColor = 'red';
+		 beep(sound1);
+
+	}else{
+		QTV_fps.style.backgroundColor = 'white';
+	}
+cnt_fps= 0 ; 
+}	 
+
+
+			</script>
+	</body>
+</html>

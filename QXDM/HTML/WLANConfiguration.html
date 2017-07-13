@@ -1,0 +1,319 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WLAN Configuration" />
+   <meta name="DMViewWidth" content="320" />
+   <meta name="DMViewHeight" content="420" />
+   <title>WLAN Configuration</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">Configuration Parameters</div>
+<table width="100%" id="ConfigTable">
+   <colgroup span="2">
+      <col width="60%" />
+      <col width="40%" />
+   </colgroup>
+   <tr>
+      <th>Listen Interval</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Preamble Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RTS Threshold</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Scan Timing</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Fragment Threshold</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Max TX Power</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RSSI Threshold</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>VCC RSSI Threshold</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>VCC UL MAC Loss Threshold</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label">Acquisition Parameters</div>
+<table width="100%" id="AcquisitionTable">
+   <colgroup span="2">
+      <col width="60%" />
+      <col width="40%" />
+   </colgroup>
+   <tr>
+      <th>Scan Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Authentication Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Encryption Type</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label">Misc Parameters</div>
+<table width="100%" id="MiscTable">
+   <colgroup span="2">
+      <col width="60%" />
+      <col width="40%" />
+   </colgroup>
+   <tr>
+      <th>OEM Module In Use</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Power Save Mode</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>QoS Mode</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>IP Config</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>IP Address</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle      = 0xFFFFFFFF;
+var gMainTickID = 0;
+var UPDATE_MS   = 1000;
+var PrevIndex   = -1;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure WLAN log and event
+   ClientObject.AddLog( 0x13E9 );
+   ClientObject.AddEvent( 1169 );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   var log13E9 = false;
+   var event1169 = false;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Process items newest to oldest exiting when we have processed
+   // one of each type
+   var typesProcessed = 0;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case "[0x13E9]":
+         {
+            if (log13E9 == false)
+            {
+               PopulateConfigLogTable( Fields );
+               typesProcessed++;
+            }
+
+            log13E9 = true;
+         }
+         break;
+
+         case "[01169]":
+         {
+            if (event1169 == false)
+            {
+               PopulateConfigEventTable( Fields );
+               typesProcessed++;
+            }
+
+            event1169 = true;
+         }
+         break;
+      }
+
+      // Processed one of each type ?
+      if (typesProcessed >= 2)
+      {
+         break;
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function PopulateConfigLogTable( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 20)
+   {
+      return;
+   }
+
+   var r, f = 0;
+   var FieldVal;
+   for (r = 0; r < 9; r++)
+   {
+      FieldVal = Fields.GetFieldValueText( f++ );
+      ConfigTable.rows[r].cells[1].innerText = FieldVal;
+   }
+
+   f = 12;
+   for (r = 0; r < 3; r++)
+   {
+      FieldVal = Fields.GetFieldValueText( f++ );
+      AcquisitionTable.rows[r].cells[1].innerText = FieldVal;
+   }
+
+   f = 15;
+   for (r = 0; r < 3; r++)
+   {
+      FieldVal = Fields.GetFieldValueText( f++ );
+      MiscTable.rows[r].cells[1].innerText = FieldVal;
+   }
+
+   // IP Config: Static or DHCP ?
+   FieldVal = Fields.GetFieldValue( f++ );
+   if (FieldVal)
+   {
+      MiscTable.rows[3].cells[1].innerText = "DHCP";
+   }
+   else
+   {
+      MiscTable.rows[3].cells[1].innerText = "Static";
+
+      // Static IP Address
+      FieldVal = Fields.GetFieldValue( f );
+      MiscTable.rows[4].cells[1].innerText = FieldVal;
+   }
+}
+
+function PopulateConfigEventTable( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 4)
+   {
+      return;
+   }
+
+   var f = 2;
+   var DHCPClientEventType = Fields.GetFieldValue( f++ );
+   if (DHCPClientEventType == 3)
+   {
+      var IPAddress = Fields.GetFieldValue( 0 );
+      MiscTable.rows[4].cells[1].innerText = IPAddress;
+   }
+}
+
+</script>
+</body>
+</html>

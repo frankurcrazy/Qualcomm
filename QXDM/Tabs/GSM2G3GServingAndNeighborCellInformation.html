@@ -1,0 +1,904 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GSM 2G/3G Serving And Neighbor Cell Information" />
+   <meta name="DMViewWidth" content="850" />
+   <meta name="DMViewHeight" content="490" />
+
+   <title>GSM 2G/3G Serving And Neighbor Cell Information</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<body onload="Initialize()" onunload="Unregister()">
+<table width="100%" id="OutTable2G">
+   <tr>
+      <th colspan="8">2G Neighboring Cell Information</th>
+   </tr>
+   <tr>
+      <th width="16%">Parameter</th>
+      <th width="12%">Serving Cell</th>
+      <th width="12%">Neighbor 1</th>
+      <th width="12%">Neighbor 2</th>
+      <th width="12%">Neighbor 3</th>
+      <th width="12%">Neighbor 4</th>
+      <th width="12%">Neighbor 5</th>
+      <th width="12%">Neighbor 6</th>
+   </tr>
+   <tr>
+      <th>BCCH Band</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>BCCH ARFCN</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>PBCCH Band</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>PBCCH ARFCN</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>Priority Class</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>Rx Level (dBm)</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>C1</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>C2</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>C31</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>C32</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>5 Second Timer</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>Reselect Status</th>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+   <tr>
+      <th>Recent Selection</th>
+      <td> &nbsp; </td>
+      <td colspan="6" class="shaded"> - </td>
+   </tr>
+   <tr>
+      <th>Serving Cell RA</th>
+      <td class="shaded"> - </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+   </tr>
+</table>
+<br />
+<table width="100%">
+   <tr>
+      <td width="70%" valign="top" class="noborder">
+         <table width="100%" id="OutTable3GResel">
+            <colgroup span="7">
+               <col width="16%" />
+               <col width="14%" />
+               <col width="14%" />
+               <col width="14%" />
+               <col width="14%" />
+               <col width="14%" />
+               <col width="14%" />
+            </colgroup>
+            <tr>
+               <th colspan="7">3G Neighboring Cell Information</th>
+            </tr>
+            <tr>
+               <th>Parameter</th>
+               <th>Neighbor 1</th>
+               <th>Neighbor 2</th>
+               <th>Neighbor 3</th>
+               <th>Neighbor 4</th>
+               <th>Neighbor 5</th>
+               <th>Neighbor 6</th>
+            </tr>
+            <tr>
+               <th>UARFCN</th>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>PSC</th>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>Diversity</th>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>RSCP (dBm)</th>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>5 Second Timer</th>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+               <td> &nbsp; </td>
+            </tr>
+         </table>
+      </td>         
+      <td width="30%" valign="top" class="noborder">
+         <table width="100%" id="OutTable3GParam">
+            <colgroup span="2">
+               <col width="65%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">3G Settings</th>
+            </tr>
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>
+            <tr>
+               <th>QSearch-P</th>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>QSearch-I</th>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>3G Search Prio</th>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>FDD QOffset (dB)</th>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>FDD GPRS QOffset (dB)</th>
+               <td> &nbsp; </td>
+            </tr>
+            <tr>
+               <th>FDD QMin</th>
+               <td> &nbsp; </td>
+            </tr>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<script type="text/jscript">
+
+// Global objects
+var MaxNeighbors2G = 6;
+var MaxNeighbors3G = 6;
+var Serving2G;
+var Neighbors2G;
+var Neighbors3G;
+var MeasParams3G;
+
+var IQXDM2;
+var Handle = 0xFFFFFFFF;
+var gMainTickID = 0;
+var PrevIndex = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+var RO = 2;
+var CO = 1;
+
+var log513A = "[0x513A]";
+var log51FC = "[0x51FC]";
+var log5262 = "[0x5262]";
+var log5263 = "[0x5263]";
+
+// 2G cell info methods
+function TranslateBand( band, arfcn )
+{
+   var band_string = band;
+   switch (band)
+   {
+      case "0":
+         // Determine band based on arfcn
+         if (arfcn >= 512 && arfcn <= 885)
+         {
+            band_string = "DCS";
+         }
+         else
+         {
+            band_string = "GSM 900";
+         }
+         break;
+   }
+   return band_string;
+}
+
+function PopulateCellInfo2G( key, fields, bTabs )
+{
+   var bOK = false;
+
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   // 2G neighbors
+   var index;
+   this.Neighbors = 0;
+
+   if (key == log51FC)
+   {
+      if (fields.GetFieldCount() < 14)
+      {
+         return bOK;
+      }
+
+      // Neighboring 6 Strongest Cells Count
+      var cellCount = fields.GetFieldValue( 13 );
+
+      Serving2G.PopulateGRRMeas( -1, fields );
+      for (index = 0; index < MaxNeighbors2G; ++index)
+      {
+         if (index < Serving2G.Neighbors && index < cellCount)
+         {
+            Neighbors2G[index].PopulateGRRMeas( index, fields, bTabs );
+         }
+         else
+         {
+            Neighbors2G[index].Blank( index + 1 );
+         }
+      }
+   }
+   else if (key == log513A)
+   {
+
+      if (fields.GetFieldCount() < 7)
+      {
+         return bOK;
+      }
+   
+      // Neighbor Cell Count
+      var cellCount = fields.GetFieldValue( 6 );
+
+      Serving2G.Blank( 0 );
+      Serving2G.PopulateRRReport( -1, fields, bTabs );
+      for (index = 0; index < MaxNeighbors2G; ++index)
+      {
+         Neighbors2G[index].Blank( index + 1 );
+         if (index < Serving2G.Neighbors && index < cellCount)
+         {
+            Neighbors2G[index].PopulateRRReport( index, fields, bTabs );
+         }
+      }
+   }
+
+   bOK = true;
+   return bOK;
+}
+
+function BlankCellInfo2G( Column )
+{
+   for (var i = 0; i <= 11; i++)
+   {
+      OutTable2G.rows[RO + i].cells[CO + Column].innerText = " ";
+   }
+
+   if (Column == 0)
+   {
+      // Cell only exists for serving cell
+      OutTable2G.rows[RO + 12].cells[CO + Column].innerText = " ";
+   }
+   else
+   {
+      // Cell only exists for neighbors
+      OutTable2G.rows[RO + 13].cells[CO + Column].innerText = " ";
+   }
+}
+
+function CellInfo2G()
+{
+    this.Populate         = PopulateCellInfo2G;
+    this.PopulateGRRMeas  = PopulateGRRMeas;
+    this.PopulateRRReport = PopulateRRReport;
+    this.Blank            = BlankCellInfo2G;
+}
+
+// 3G cell info methods
+function PopulateCellInfo3G(Neighbor, fields, bTabs)
+{
+   var bOK = false;
+
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   if (fields.GetFieldCount() < 1 + 5 * (Neighbor + 1))
+   {
+      return bOK;
+   }
+
+   var NI = Neighbor + CO;
+   var fi = 1 + 5 * Neighbor;
+
+   // UMTS Carrier Channel Number
+   OutTable3GResel.rows[RO + 0].cells[NI].innerText = fields.GetFieldValueText( fi );
+
+   // Scrambling Code
+   OutTable3GResel.rows[RO + 1].cells[NI].innerText = fields.GetFieldValueText( fi + 1 );
+
+   // Diversity
+   OutTable3GResel.rows[RO + 2].cells[NI].innerText = fields.GetFieldValueText( fi + 2 );
+
+   // RSCP
+   OutTable3GResel.rows[RO + 3].cells[NI].innerText = fields.GetFieldValueText( fi + 3 );
+
+   // Five Second Timer State
+   OutTable3GResel.rows[RO + 4].cells[NI].innerText = fields.GetFieldValueText( fi + 4 );
+
+   bOK = true;
+   return bOK;
+}
+
+function BlankCellInfo3G(Column)
+{
+   for (var i = 0; i <= 4; i++)
+   {
+      OutTable3GResel.rows[RO + i].cells[CO + Column].innerText = " ";
+   }
+}
+
+function CellInfo3G()
+{
+    this.Populate        = PopulateCellInfo3G;
+    this.Populate3GResel = Populate3GResel;
+    this.Blank           = BlankCellInfo3G;
+}
+
+// 3G measurement parameter methods
+function PopulateMeasParams3G( fields, bTabs )
+{
+   var bOK = false;
+
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   if (fields.GetFieldCount() < 7)
+   {
+      return bOK;
+   }
+   
+   // Quality Threshold P - Cell Reselection
+   OutTable3GParam.rows[RO + 0].cells[CO].innerText = fields.GetFieldValueText( 0 );
+   
+   // Quality Threshold I - Cell Reselection
+   OutTable3GParam.rows[RO + 1].cells[CO].innerText = fields.GetFieldValueText( 1 );
+   
+   // 3G Search Priority
+   OutTable3GParam.rows[RO + 2].cells[CO].innerText = fields.GetFieldValueText( 6 );
+   
+   // FDD Qoffset
+   OutTable3GParam.rows[RO + 3].cells[CO].innerText = fields.GetFieldValue( 3 ) * 4 - 32;
+   
+   // FDD GPRS Qoffset
+   OutTable3GParam.rows[RO + 4].cells[CO].innerText = fields.GetFieldValue( 4 ) * 4 - 32;
+   
+   // FDD Qmin
+   OutTable3GParam.rows[RO + 5].cells[CO].innerText = fields.GetFieldValueText( 5 );
+
+   bOK = true;
+   return bOK;
+}
+
+function MeasParams3G()
+{
+   this.Populate = PopulateMeasParams3G;
+}
+
+// Other functions
+function tick()
+{
+   var index;
+   var currIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+
+   if (PrevIndex > currIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item.
+   if (currIndex < 0)
+   {
+      return;
+   }
+
+   // Keep track if populate attempt succeeds.
+   var b2G = false;
+   var b3GResel = false;
+   var b3GParams = false;
+
+   for (var i = currIndex; i > PrevIndex; i--)
+   {
+      var item = IQXDM2.GetClientItem( Handle, i );
+      if (item == null)
+      {
+         break;
+      }
+
+      var fields = item.GetItemFields();
+      if (fields == null)
+      {
+         break;
+      }
+
+      var bOK = false;
+      var bTabs = false;
+      var key = item.GetItemKeyText();
+
+      switch (key)
+      {                  
+         case log51FC:
+         case log513A:
+         {
+            if (b2G == false)
+            {
+               // Call PopulateCellInfo2G
+               bOK = Serving2G.Populate( key, fields, bTabs );
+               if (bOK == true)
+               {
+                  b2G = true;
+               }
+            }
+         }
+         break;
+         
+         case log5263:
+         {
+            if (b3GResel == false)
+            {
+               bOK = Populate3GResel( fields, bTabs );
+               if (bOK == true)
+               {
+                  b3GResel = true;
+               }
+            }
+         }
+         break;
+
+         case log5262:
+         {
+            if (b3GParams == false)
+            {
+               bOK = Populate3GParams( fields, bTabs );
+               if (bOK == true)
+               {
+                  b3GParams = true;
+               }
+            }
+         }
+         break;
+      }
+   }
+   
+   PrevIndex = currIndex;
+}
+
+function PopulateGRRMeas( Neighbor, fields, bTabs )
+{
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var NI = Neighbor + CO + 1;
+   if (Neighbor == -1)
+   {
+      if (fields.GetFieldCount() < 14)
+      {
+         return bOK;
+      }
+   
+      // Serving Cell Recent Reselection
+      OutTable2G.rows[RO+12].cells[NI].innerText = fields.GetFieldValueText( 12 );
+      
+      // Neighboring 6 Strongest Cells Count
+      this.Neighbors = fields.GetFieldValue( 13 );
+      
+      // Serving BCCH ARFCN
+      var bcch_arfcn = fields.GetFieldValue( 0 );
+      
+      // Serving BCCH Band
+      var bcch_band = fields.GetFieldValueText( 1 );
+      
+      OutTable2G.rows[RO+0].cells[NI].innerText = TranslateBand( bcch_band, bcch_arfcn );
+      OutTable2G.rows[RO+1].cells[NI].innerText = bcch_arfcn;
+
+      // Serving PBCCH ARFCN
+      var pbcch_arfcn = fields.GetFieldValue( 2 );
+      
+      // Serving PBCCH Band
+      var pbcch_band = fields.GetFieldValueText( 3 );
+      
+      OutTable2G.rows[RO+2].cells[NI].innerText = TranslateBand( pbcch_band, pbcch_arfcn );
+      OutTable2G.rows[RO+3].cells[NI].innerText = pbcch_arfcn;
+
+      // Serving Priority Class
+      OutTable2G.rows[RO+4].cells[NI].innerText = fields.GetFieldValueText( 4 );
+      
+      // Serving Rx Level Average
+      OutTable2G.rows[RO+5].cells[NI].innerText = fields.GetFieldValue( 5 ) - 110;
+      
+      for (var i = 0; i < 6; i++)
+      {
+         OutTable2G.rows[RO+6+i].cells[NI].innerText = fields.GetFieldValueText( 6 + i );
+      }
+   }
+   else
+   {
+      // Neighbor cell
+      if (fields.GetFieldCount() < 14 + 13 * (Neighbor + 1))
+      {
+         return bOK;
+      }
+   
+      var fi = 14 + 13 * Neighbor;
+      
+      // Serving RA
+      OutTable2G.rows[RO+13].cells[NI].innerText = fields.GetFieldValueText( fi + 12 );
+      this.Neighbors = 0;
+      
+      // Neighbor Cell BCCH ARFCN
+      var bcch_arfcn = fields.GetFieldValue( fi );
+      
+      // Neighbor Cell BCCH Band
+      var bcch_band = fields.GetFieldValueText( fi + 1 );
+      
+      OutTable2G.rows[RO+0].cells[NI].innerText = TranslateBand( bcch_band, bcch_arfcn );
+      OutTable2G.rows[RO+1].cells[NI].innerText = bcch_arfcn;
+      
+      // Neighbor Cell PBCCH ARFCN
+      var pbcch_arfcn = fields.GetFieldValue( fi + 2 );
+      
+      // Neighbor Cell PBCCH Band
+      var pbcch_band = fields.GetFieldValueText( fi + 3 );
+      
+      OutTable2G.rows[RO+2].cells[NI].innerText = TranslateBand( pbcch_band, pbcch_arfcn );
+      OutTable2G.rows[RO+3].cells[NI].innerText = pbcch_arfcn;
+
+      // Hierarchy Cell Structure Priority
+      OutTable2G.rows[RO+4].cells[NI].innerText = fields.GetFieldValueText( fi + 4 );
+      
+      // Neighbor Cell Rx Level Average
+      OutTable2G.rows[RO+5].cells[NI].innerText = fields.GetFieldValueText( fi + 5 ) - 110;
+      
+      for (var i = 0; i < 6; i++)
+      {
+         OutTable2G.rows[RO+6+i].cells[NI].innerText = fields.GetFieldValueText( fi + 6 + i );
+      }
+   }
+   
+   bOK = true;
+   return bOK;
+}
+
+function PopulateRRReport( Neighbor, fields, bTabs )
+{
+   var bOK = false;
+
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var NI = Neighbor + CO + 1;
+
+   if (Neighbor == -1)
+   {
+      // Serving cell
+      if (fields.GetFieldCount() < 7)
+      {
+         return bOK;
+      }
+
+      // Neighbor Cell Count
+      this.Neighbors = fields.GetFieldValue( 6 );
+      
+      // RxLev Subset Average
+      OutTable2G.rows[RO+5].cells[NI].innerText = fields.GetFieldValue( 2 ) - 110;
+      
+      // Serving BCCH ARFCN
+      var bcch_arfcn = fields.GetFieldValue( 0 );
+      
+      // Serving BCCH Band
+      var bcch_band = fields.GetFieldValueText( 1 );
+      
+      OutTable2G.rows[RO+0].cells[NI].innerText = TranslateBand( bcch_band, bcch_arfcn );
+      OutTable2G.rows[RO+1].cells[NI].innerText = bcch_arfcn;
+   }
+   else
+   {
+      // Neighbor cell
+      this.Neighbors = 0;
+
+      if (fields.GetFieldCount() < 7 + 5 * (Neighbor + 1))
+      {
+         return bOK;
+      }
+
+      var fi = 7 + 5 * Neighbor
+      
+      // RxLev Average
+      OutTable2G.rows[RO+5].cells[NI].innerText = fields.GetFieldValue( fi + 2 ) - 110;
+      
+      // BCCH ARFCN
+      var bcch_arfcn = fields.GetFieldValue( fi + 0 );
+      
+      // BCCH Band
+      var bcch_band = fields.GetFieldValueText( fi + 1 );
+      
+      OutTable2G.rows[RO+0].cells[NI].innerText = TranslateBand( bcch_band, bcch_arfcn );
+      OutTable2G.rows[RO+1].cells[NI].innerText = bcch_arfcn;
+   }
+   bOK = true;
+   return bOK;
+}
+
+function Populate3GResel( fields, bTabs )
+{
+   var bOK = false;
+
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   // 3G neighbors
+   if (fields.GetFieldCount() < 1)
+   {
+      return bOK;
+   }
+
+   // Cell Count - UARFCN
+   var cellCount = fields.GetFieldValue( 0 );
+
+   // Call PopulateCellInfo3G
+   for (var index = 0; index < MaxNeighbors3G; ++index)
+   {
+      if (index < cellCount)
+      {  
+          Neighbors3G[index].Populate(index, fields, bTabs);
+      }
+      else
+      {
+         Neighbors3G[index].Blank(index);
+      }
+   }
+
+   bOK = true;
+   return bOK;
+}
+
+function Populate3GParams( fields, bTabs )
+{
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   // 3G measurement parameters
+   MeasParams3G.Populate( fields, bTabs );
+   
+   bOK = true;
+   return bOK;
+}
+
+function Initialize()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // Register a client view
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+      return;
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x513A );
+   clientObject.AddLog( 0x51FC );
+   clientObject.AddLog( 0x5262 );
+   clientObject.AddLog( 0x5263 );
+   clientObject.CommitConfig();
+*/
+   var index;
+
+   Serving2G = new CellInfo2G();
+   Neighbors2G = new Array;
+   Neighbors3G = new Array;
+   MeasParams3G = new MeasParams3G;
+
+   for (index = 0; index < MaxNeighbors2G; ++index)
+   {
+     Neighbors2G[index] = new CellInfo2G();
+   }
+
+   for (index = 0; index < MaxNeighbors3G; ++index)
+   {
+     Neighbors3G[index] = new CellInfo3G();
+   }
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'tick()', 500 );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+</script>
+</body>
+</html>

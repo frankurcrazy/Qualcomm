@@ -1,0 +1,114 @@
+<job id="QXDM ConfigureClientByKeys Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMConfigureClientByKeys.wsf
+
+// This script demostrates usage of the QXDM2 automation
+// interface method ConfigureClientByKeys
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Configure clinet by keys
+function ConfigureClient()
+{
+   var Txt = "";
+
+   // Constants
+   var LogCode = 0x1019;
+   var LogName = "General Temporal Analyzer";
+
+   // Get a QXDM client
+   var ReqHandle = QXDM2.RegisterQueueClient( 256 );
+   if (ReqHandle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to register a client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Client = QXDM2.ConfigureClientByKeys( ReqHandle );
+   if (Client == null)
+   {
+      Txt = "Unable to configure client by keys\n" 
+          + "ConfigureClientByKeys failed";
+      WScript.StdOut.WriteLine( Txt );
+
+      QXDM2.UnregisterClient( ReqHandle );
+      return;
+   }
+
+   // Configure client for log
+   Client.AddLog( LogCode );
+   Client.CommitConfig();
+
+   Txt = "ConfigureClientByKeys succeeded\n" 
+       + "Client configured by keys for:\n" 
+       + "   0x" + LogCode.toString( 16 ) + " " + LogName;
+
+   WScript.StdOut.WriteLine( Txt );
+   QXDM2.UnregisterClient( ReqHandle );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Configure client using "ConfigureClientByKeys"
+   ConfigureClient();
+}
+
+Execute();
+
+</script>
+</job>

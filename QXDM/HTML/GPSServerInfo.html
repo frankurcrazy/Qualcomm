@@ -1,0 +1,372 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPS Server Info" />
+   <meta name="DMViewWidth" content="345" />
+   <meta name="DMViewHeight" content="198" />
+
+   <title>GPS Server Info</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="GPSTable">
+   <colgroup span="3">
+      <col width="20%" />
+      <col width="40%" />
+      <col width="40%" />
+   </colgroup>
+   <tr>
+      <th>GPS Time</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th>Latitude</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Longitude</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Altitude</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Course</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+    <tr>
+      <th>Speed</th>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Satellites</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th>Quality</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th>Validity</th>
+      <td colspan="2">-</td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var gLongNegative  = false;
+
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+var MissedFixes    = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure for GPS items
+   ClientObject.AddItem( 3 );
+
+   // Configure for Mobile View GPS position log 0x12F1
+   ClientObject.AddLog( 0x12F1 );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Get 2's complement of a number
+function TwosComplement( Value, NumBits )
+{
+   var validMask = 0x00000000;
+   gLongNegative = false;
+
+   for (var i = 0 ; i < NumBits ; i++)
+   {
+      validMask |= (0x01 << i);
+   }
+
+   Value &= validMask;
+
+   if (((Value & (0x01 << (NumBits - 1)) ) >> (NumBits - 1)) != 0)
+   {
+      // Negative Value
+      Value |= ~validMask;
+      Value -= 1;
+      Value = ~Value;
+      gLongNegative = true;
+   }
+
+   return Value;
+}
+
+// Process a new GPS item
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      if (++MissedFixes > 9 && GPSTable.rows[8].cells[1].innerText != '-')
+      {
+         GPSTable.rows[8].cells[1].innerHTML = "<b>Stale</b>";
+      }
+      return;
+   }
+
+   PrevIndex = CurrIndex;
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      if (++MissedFixes > 9 && GPSTable.rows[8].cells[1].innerText != '-')
+      {
+         GPSTable.rows[8].cells[1].innerHTML = "<b>Stale</b>";
+      }
+      return;
+   }
+
+   MissedFixes = 0;
+
+   var ItemKey = Item.GetItemKeyText();
+   if (ItemKey == "[0x12F1]")
+   {
+      ProcessMobileViewLogs( Item );
+   }
+   else
+   {
+      ProcessGPSItems( Item );
+   }
+}
+
+// Process GPS color items
+function ProcessGPSItems( Item )
+{
+   var Lat    = Item.GetItemFieldValue( 14, 64, 0, true );
+   var Long   = Item.GetItemFieldValue( 14, 64, 64, true );
+   var Alt    = Item.GetItemFieldValue( 14, 64, 128, true );
+   var Course = Item.GetItemFieldValue( 14, 64, 192, true );
+   var Speed  = Item.GetItemFieldValue( 14, 64, 256, true );
+   var Time   = Item.GetItemFieldValue( 14, 64, 320, true );
+   var Sats   = Item.GetItemFieldValue(  5, 32, 384, true );
+   var Qual   = Item.GetItemFieldValue(  5, 32, 416, true );
+
+   var Text = GPSTimeToString( Time );
+   GPSTable.rows[0].cells[1].innerText = Text;
+
+   Text = Lat.toFixed( 6 ) + " Degrees";
+   GPSTable.rows[1].cells[1].innerText = Text;
+
+   Text = LatOrLongToString( Lat, true );
+   GPSTable.rows[1].cells[2].innerText = Text;
+
+   Text = Long.toFixed( 6 ) + " Degrees";
+   GPSTable.rows[2].cells[1].innerText = Text;
+
+   Text = LatOrLongToString( Long, false );
+   GPSTable.rows[2].cells[2].innerText = Text;
+
+   Text = Alt.toFixed( 2 ) + " Meters";
+   GPSTable.rows[3].cells[1].innerText = Text;
+
+   Alt *= 3.28084;
+   Text = Alt.toFixed( 2 ) + " Feet";
+   GPSTable.rows[3].cells[2].innerText = Text;
+
+   Text = Course.toFixed( 2 ) + " Degrees";
+   GPSTable.rows[4].cells[1].innerText = Text;
+
+   Text = CourseToString( Course );
+   GPSTable.rows[4].cells[2].innerText = Text;
+
+   Speed *= 1.852
+   Text = Speed.toFixed( 2 ) + " KPH";
+   GPSTable.rows[5].cells[1].innerText = Text;
+
+   Speed *= 0.62137;
+   Text = Speed.toFixed( 2 ) + " MPH";
+   GPSTable.rows[5].cells[2].innerText = Text;
+
+   GPSTable.rows[6].cells[1].innerText = Sats;
+
+   Text = QualityToString( Qual );
+   GPSTable.rows[7].cells[1].innerText = Text;
+
+   if (Sats == 0)
+   {
+      GPSTable.rows[8].cells[1].innerText = "Questionable";
+   }
+   else
+   {
+      GPSTable.rows[8].cells[1].innerText = "Valid";
+   }
+}
+
+// Process Mobile View logs
+function ProcessMobileViewLogs( Item )
+{
+   var Fields = Item.GetConfiguredItemFields( "", false, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 9)
+   {
+      return;
+   }
+
+   var Text = "";
+   var Time = Item.GetItemSpecificTimestampText( false, true );
+   GPSTable.rows[0].cells[1].innerText = Time;
+
+   var Lat  = Fields.GetFieldValue( 1 );
+   Lat = Lat * (180 / (Math.pow( 2, 25 )));
+   Text = Lat.toFixed( 6 ) + " Degrees";
+   GPSTable.rows[1].cells[1].innerText = Text;
+
+   Text = LatOrLongToString( Lat, true );
+   GPSTable.rows[1].cells[2].innerText = Text;
+
+   var Long = Fields.GetFieldValue( 2 );
+   Long = TwosComplement( Long, 32 );
+   Long = Long * (180 / (Math.pow( 2, 25 )));
+
+   // Is the angle negative ?
+   if (gLongNegative)
+   {
+      Long *= -1;
+   }
+
+   Text = Long.toFixed( 6 ) + " Degrees";
+   GPSTable.rows[2].cells[1].innerText = Text;
+
+   Text = LatOrLongToString( Long, false );
+   GPSTable.rows[2].cells[2].innerText = Text;
+
+   var AltValid = Fields.GetFieldValue( 4 );
+   if (AltValid)
+   {
+      var Alt  = Fields.GetFieldValue( 9 );
+      Text = Alt.toFixed( 2 ) + " Meters";
+      GPSTable.rows[3].cells[1].innerText = Text;
+
+      Alt *= 3.28084;
+      Text = Alt.toFixed( 2 ) + " Feet";
+      GPSTable.rows[3].cells[2].innerText = Text;
+   }
+   else
+   {
+      GPSTable.rows[3].cells[1].innerText = "Invalid";
+      GPSTable.rows[3].cells[2].innerText = "Invalid";
+   }
+
+   var CourseValid = Fields.GetFieldValue( 5 );
+   if (CourseValid)
+   {
+      var Course = Fields.GetFieldValue( 10 );
+      Course = Course * (360 / (Math.pow( 2, 10 )));
+      Text = Course.toFixed( 2 ) + " Degrees";
+      GPSTable.rows[4].cells[1].innerText = Text;
+
+      Text = CourseToString( Course );
+      GPSTable.rows[4].cells[2].innerText = Text;
+   }
+   else
+   {
+      GPSTable.rows[4].cells[1].innerText = "Invalid";
+      GPSTable.rows[4].cells[2].innerText = "Invalid";
+   }
+
+   // We consider horizontal velocity
+   var SpeedValid = Fields.GetFieldValue( 6 );
+   if (SpeedValid)
+   {
+      var Speed  = Fields.GetFieldValue( 11 );
+      Speed = Speed * 0.25;
+      Speed *= 3.6
+      Text = Speed.toFixed( 2 ) + " KPH";
+      GPSTable.rows[5].cells[1].innerText = Text;
+
+      Speed *= 0.62137;
+      Text = Speed.toFixed( 2 ) + " MPH";
+      GPSTable.rows[5].cells[2].innerText = Text;
+   }
+   else
+   {
+      GPSTable.rows[5].cells[1].innerText = "Invalid";
+      GPSTable.rows[5].cells[2].innerText = "Invalid";
+   }
+
+   // Satellites and Validity are N/A
+   GPSTable.rows[6].cells[1].innerText = "-";
+   GPSTable.rows[8].cells[1].innerText = "-";
+
+   var Qual = Fields.GetFieldValue( 3 );
+   Text = QualityToString( Qual );
+   GPSTable.rows[7].cells[1].innerText = Text;
+}
+
+</script>
+</body>
+</html>

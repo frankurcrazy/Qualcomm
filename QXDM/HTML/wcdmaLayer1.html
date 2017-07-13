@@ -1,0 +1,337 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA Layer 1" />
+   <meta name="DMViewWidth" content="680" />
+   <meta name="DMViewHeight" content="200" />
+   <title>WCDMA Layer 1</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+
+   <tr>
+      <td colspan="2" valign="top" class="noborder">
+         <div class="label">WCDMA Layer 1 State</div>
+         <table width="100%" id="State">
+            <tr>
+               <td class="noborder">-</td>
+            </tr>
+         </table>
+      </td>
+   </tr>
+
+   <tr>
+      <td valign="top" class="noborder">
+         <div class="label">Active Set</div>
+         <table width="100%">
+            <colgroup span="5">
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+               <col width="20%" />
+            </colgroup>
+              
+            <tr>
+               <th>Frequency</th>
+               <th>PSC/SSC</th>
+               <th>Position</th>
+               <th>TPC</th>
+               <th>Diversity</th>
+            </tr>
+            <tbody id="ASetTable" />
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+      
+      <td valign="top" class="noborder">
+         <div class="label">Neighbor Set</div>
+         <table width="100%">
+            <colgroup span="4">
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+            </colgroup>
+         
+            <tr>
+               <th>Frequency</th>
+               <th>PSC</th>
+               <th>Position</th>
+               <th>Diversity</th>
+            </tr>
+            <tbody id="NSetTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td> 
+           
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+         
+   // Configure items
+   clientObject.AddLog( 0x4110 );
+   clientObject.AddLog( 0x4111 );
+   
+   clientObject.AddEvent( 387 ); 
+
+   clientObject.CommitConfig();
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+   
+// Process our client - we only update each type of log based on 
+// the last item since the user cannot discern anything faster than 
+// our update interval
+function ProcessItems()
+{
+   var Log4110  = "[0x4110]";
+   var Log4111  = "[0x4111]";
+   var Event387 = "[00387]"; 
+       
+   var bLog4110 = false;
+   var bLog4111 = false;
+   var bEvent = false;
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {   
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetItemFields();
+         if (Fields != null)
+         {
+            var ItemKey = Item.GetItemKeyText();
+            switch (ItemKey)
+            {
+               case Log4110:
+               {
+                  if (bLog4110 == false)
+                  {
+                     PopulateASetTable( Fields );
+                     bLog4110 = true;
+                  }
+               }
+               break;
+               
+               case Log4111:
+               {
+                  if (bLog4111 == false)
+                  {
+                     PopulateNSetTable( Fields );
+                     bLog4111 = true;
+                  }
+               }
+               break;
+               
+               case Event387:
+               {
+                  if (bEvent == false)
+                  {
+                     State.rows[0].cells[0].innerText = Fields.GetFieldValueText( 0 );
+                     bEvent = true;
+                  }
+               }
+               break;
+            }
+            
+            if (bLog4110 == true && bLog4111 == true && bEvent == true)
+            {
+               break;
+            }
+         }
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateASetTable( Fields )
+{
+   var TableRow;
+   var TableCell;
+   var FieldVal;
+   var DataIndex = 2;
+
+   var Frequency = Fields.GetFieldValueText( 1 );
+
+   // Grab number of rows in existing table
+   var CurRows = ASetTable.rows.length;
+   var ASetCount = Fields.GetFieldValue( 0 );
+   ManageRows( ASetTable, 0, CurRows, ASetCount, 5, true );
+   
+   for (var f = 0; f < ASetCount; f++)
+   {
+      ASetTable.rows[f].cells[0].innerText = Frequency; 
+      
+      // PSC/SSC
+      FieldVal = Fields.GetFieldValueText( DataIndex + 1 );
+      FieldVal += "/";
+      FieldVal += Fields.GetFieldValueText( DataIndex + 5 );
+      ASetTable.rows[f].cells[1].innerText = FieldVal;
+      
+      // Position
+      FieldVal = Fields.GetFieldValueText( DataIndex + 7 );
+      ASetTable.rows[f].cells[2].innerText = FieldVal;
+      
+      // TPC
+      FieldVal = Fields.GetFieldValueText( DataIndex + 2 );
+      ASetTable.rows[f].cells[3].innerText = FieldVal;
+      
+      // Diversity
+      FieldVal = Fields.GetFieldValueText( DataIndex + 3 );
+      ASetTable.rows[f].cells[4].innerText = FieldVal; 
+            
+      DataIndex += 8;
+   }   
+}
+
+function PopulateNSetTable( Fields )
+{
+   var TableRow;
+   var TableCell;
+   var FieldVal;
+   var DataIndex = 1;
+
+   // Number of frequencies
+   var FreqCount = Fields.GetFieldValue( 0 );
+   var DownlinkFreq;
+   
+   // Number of neighbor cells (per-frequency/total)
+   var NCellCount = 0;
+   var NCellTotal = 0;
+   
+   // Grab number of rows in existing table
+   var CurRows = NSetTable.rows.length;
+      
+   for (var f = 0; f < FreqCount; f++)
+   {      
+      DownlinkFreq = Fields.GetFieldValueText( DataIndex++ );
+      NCellCount = Fields.GetFieldValue( DataIndex++ );
+            
+      for (var c = 0; c < NCellCount; c++)
+      {
+         if (c >= CurRows)
+         {
+            TableRow = NSetTable.insertRow();
+            for (var g = 0; g < 4; g++)
+            {
+               TableCell = TableRow.insertCell();
+            }
+         }
+
+         // Downlink frequency
+         NSetTable.rows[c].cells[0].innerText = DownlinkFreq;
+                  
+         // PSC
+         FieldVal = Fields.GetFieldValueText( DataIndex++ );
+         NSetTable.rows[c].cells[1].innerText = FieldVal;
+         
+         // Diversity
+         FieldVal = Fields.GetFieldValueText( DataIndex++ );
+         NSetTable.rows[c].cells[3].innerText = FieldVal;
+         
+         // Position
+         FieldVal = Fields.GetFieldValue( DataIndex++ );
+         if (FieldVal == 0xFFFFFFFF)
+         {
+            FieldVal = "Unknown";
+         }
+         NSetTable.rows[c].cells[2].innerText = FieldVal;
+      }
+      
+      NCellTotal += NCellCount;
+   }
+   
+   // Delete excess rows
+   DeleteExcessRows( NSetTable, 0, CurRows, NCellTotal, true );
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,705 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPRS Serving Cell Parameters" />
+   <meta name="DMViewWidth" content="800" />
+   <meta name="DMViewHeight" content="640" />
+
+   <title>GPRS Serving Cell Parameters</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td valign="top" class=noborder>
+      
+         <div class="label">GPRS Indicators</div>
+      
+         <table width="100%">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>      
+            <tbody id="GPRSIndicatorsTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <br />
+         <div class="label">GPRS General Parameters</div>
+
+         <table width="100%">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>      
+            <tbody id="GPRSParametersTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <br />
+         <div class="label">GPRS Cell Options</div>
+
+         <table width="100%">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>      
+            <tbody id="GPRSCellOptionsTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+      <td valign="top" class=noborder>
+      
+         <div class="label">GPRS Power Control Parameters</div>
+         
+         <table width="100%">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+            
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>      
+            <tbody id="GPRSPowerControlTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <br />
+         <div class="label">GPRS Mobile Allocation (MA)</div>
+         
+         <table width="100%">
+            <colgroup span="1">
+               <col width="100%" />
+            </colgroup>
+            
+            <tr>
+               <th>ARFCN/Band</th>
+            </tr>      
+            
+            <tbody id="GPRSMobileAllocOneTable">
+               <tr>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <table width="100%" id="GPRSMobileAllocTwoTable">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+            
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>          
+            <tr>
+               <td>Hopping Sequence Number</td>
+               <td>-</td>
+            </tr>         
+         </table>
+
+         <br />
+         <div class="label">PBCCH Description</div>
+         
+         <table width="100%" id="GPRSPBCCHTable">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+            
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>        
+            <tr>
+               <td>PBCCH Power Reduction</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>Training Sequence Code</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>PBCCH Timeslot Number</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>Band (if not hopping)</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>ARFCN (if not hopping)</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>MAIO (hopping)</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+         <div class="label">GRR State</div>
+         
+         <table width="100%">
+            <colgroup span="2">
+               <col width="60%" />
+               <col width="40%" />
+            </colgroup>
+            
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>      
+            <tbody id="GPRSGRRStateTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+               
+      </td>
+      <td valign="top" class=noborder>
+
+         <div class="label">Receive Message Metrics A</div>
+         
+         <table width="100%">
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>
+            <tbody id="BodyA">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         <div class="label">Receive Message Metrics B</div>
+         
+         <table width="100%">
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>
+            <tbody id="BodyB">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         <div class="label">Receive Message Metrics C</div>
+         
+         <table width="100%">
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>
+            <tbody id="BodyC">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+         
+         <br />
+         <div class="label">Receive Message Metrics D</div>
+         
+         <table width="100%">
+            <tr>
+               <th>Parameter</th>
+               <th>Value</th>
+            </tr>
+            <tbody id="BodyD">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle             = 0xFFFFFFFF;
+var TIMEOUT_MS         = 500;
+var UPDATE_MS          = 500;
+var LOG_ON_DEMAND_REQ  = "Log On Demand Request";
+var gMainTickID        = 0;
+
+var PrevIndex          = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.      
+   clientObject.AddLog( 0x51F4 );
+   clientObject.AddLog( 0x51F5 );
+   clientObject.AddLog( 0x51F6 );
+   clientObject.AddLog( 0x51F7 );   
+   clientObject.AddLog( 0x51F8 );
+   clientObject.AddLog( 0x51F9 );
+   clientObject.AddLog( 0x51FA );   
+   clientObject.AddLog( 0x524D );   
+   clientObject.AddLog( 0x524E );   
+   clientObject.AddLog( 0x524F );   
+   clientObject.AddLog( 0x5250 );   
+   
+   clientObject.CommitConfig();                
+*/    
+   RequestLogOnDemand("0x51F4");
+   RequestLogOnDemand("0x51F5");
+   RequestLogOnDemand("0x51F6");
+   RequestLogOnDemand("0x51F7");
+   RequestLogOnDemand("0x51F8");
+   RequestLogOnDemand("0x51F9");
+   RequestLogOnDemand("0x51FA");
+  
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+         
+function RequestLogOnDemand( logCode )
+{
+   var ReqID = IQXDM2.RequestItem( LOG_ON_DEMAND_REQ,
+                                   logCode,
+                                   1,
+                                   TIMEOUT_MS,
+                                   1,
+                                   1 );        
+                                                                    
+   if (ReqID == null)
+   {
+      window.document.write( "<br /> Error scheduling request" );
+      return;
+   }         
+}
+            
+function TranslateBand( Band, ARFCN )
+{
+   var bandString = "Error";
+   switch (Band)
+   {
+      case 0:
+         // Determine band based on ARFCN
+         if (ARFCN >= 512 && ARFCN <= 885)
+         {
+            bandString = "DCS";
+         }
+         else
+         {
+            bandString = "GSM 900";
+         }
+         break;
+         
+      case 8:
+         bandString = "GSM 900";
+         break;
+         
+      case 9:
+         bandString = "DCS";
+         break;
+         
+      case 10:
+         bandString = "PCS";
+         break;
+         
+      case 11:
+         bandString = "GSM 850";
+         break;
+         
+      case 12:
+         bandString = "GSM 450";
+         break;        
+   }
+   
+   return bandString;
+}
+
+function ProcessLogs()
+{
+   var LogCode51F4 = "[0x51F4]";
+   var LogCode51F5 = "[0x51F5]";
+   var LogCode51F6 = "[0x51F6]";
+   var LogCode51F7 = "[0x51F7]";
+   var LogCode51F8 = "[0x51F8]";
+   var LogCode51F9 = "[0x51F9]";
+   var LogCode51FA = "[0x51FA]";
+   var LogCode524D = "[0x524D]";
+   var LogCode524E = "[0x524E]";
+   var LogCode524F = "[0x524F]";
+   var LogCode5250 = "[0x5250]";
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+   
+   // Keep track if populate attempt succeeds
+   var log51F4 = false;    
+   var log51F5 = false;    
+   var log51F6 = false;    
+   var log51F7 = false;    
+   var log51F8 = false;    
+   var log51F9 = false;    
+   var log51FA = false;    
+   var log524D = false;    
+   var log524E = false;    
+   var log524F = false;    
+   var log5250 = false;    
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }     
+
+      var bOK = false;
+      var bTabs = false;
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case LogCode51F4:
+         {
+            if (log51F4 == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, GPRSIndicatorsTable, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log51F4 = true;               
+               }
+            }
+         }
+         break;              
+         case LogCode51F5:
+         {
+            if (log51F5 == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, GPRSParametersTable, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {  
+                  log51F5 = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode51F6:
+         {
+            if (log51F6 == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, GPRSCellOptionsTable, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {  
+                  log51F6 = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode51F7:
+         {
+            if (log51F7 == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, GPRSPowerControlTable, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log51F7 = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode51F8:
+         {
+            if (log51F8 == false)
+            {
+               bOK = PopulateLogGPRSMobileAlloc( Fields, bTabs );
+               if (bOK == true)
+               {
+                  log51F8 = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode51F9:
+         {
+            if (log51F9 == false)
+            {
+               bOK = PopulateLogGPRSPBCCH( Fields, bTabs );
+               if (bOK == true)
+               {
+                  log51F9 = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode51FA:
+         {
+            if (log51FA == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, GPRSGRRStateTable, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log51FA = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode524D:
+         {
+            if (log524D == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyA, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log524D = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode524E:
+         {
+            if (log524E == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyB, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log524E = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode524F:
+         {
+            if (log524F == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyC, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log524F = true;               
+               }
+            }
+         }
+         break;
+         
+         case LogCode5250:
+         {
+            if (log5250 == false)
+            {
+               bOK = PopulateSimpleFieldTableTabs( Fields, BodyD, bTabs, gbDefault, gStackID );
+               if (bOK == true)
+               {
+                  log5250 = true;               
+               }
+            }
+         }
+         break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateLogGPRSMobileAlloc( Fields, bTabs )
+{                                
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   if (Fields == null)
+   {
+      return;
+   }                  
+   
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 2)
+   {
+      return;
+   }
+            
+   var HSN = Fields.GetFieldValueText( 0 );   
+   GPRSMobileAllocTwoTable.rows[1].cells[1].innerText = HSN;  
+   
+   var Carriers = (FieldCount - 2) / 2;
+   var CurRows = GPRSMobileAllocOneTable.rows.length;
+   ManageRows( GPRSMobileAllocOneTable, 0, CurRows, Carriers, 1, true );  
+   
+   // Add in any new carriers
+   var FI = 2;
+   for (var c = 0; c < Carriers; c++)
+   {      
+      FieldVal = Fields.GetFieldValueText( FI++ );
+      FieldVal += " / ";
+      FieldVal += Fields.GetFieldValueText( FI++ );
+      
+      GPRSMobileAllocOneTable.rows[c].cells[0].innerText = FieldVal;
+   }                                
+}
+
+function PopulateLogGPRSPBCCH( Fields, bTabs )
+{      
+   var bOK = false;
+                             
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   if (Fields == null)
+   {
+      return bOK;
+   }         
+      
+   var FieldVal = Fields.GetFieldValueText( 0 );   
+   GPRSPBCCHTable.rows[1].cells[1].innerText = FieldVal;    
+   
+   FieldVal = Fields.GetFieldValueText( 1 );   
+   GPRSPBCCHTable.rows[2].cells[1].innerText = FieldVal;
+   
+   FieldVal = Fields.GetFieldValueText( 2 );   
+   GPRSPBCCHTable.rows[3].cells[1].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValue( 3 );
+   var Band = FieldVal << 12;
+   var ARFCN = FieldVal && 0xFFF;
+   var tmp = TranslateBand( Band, ARFCN );
+      
+   GPRSPBCCHTable.rows[4].cells[1].innerText = tmp;
+   GPRSPBCCHTable.rows[5].cells[1].innerText = ARFCN;
+
+   FieldVal = Fields.GetFieldValueText( 4 );   
+   GPRSPBCCHTable.rows[6].cells[1].innerText = FieldVal;
+   
+   bOK = true;
+   return bOK;
+}
+
+</script>
+
+</body>
+</html>

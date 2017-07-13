@@ -1,0 +1,714 @@
+
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Service Configuration Info" />
+   <meta name="DMViewWidth" content="600" />
+   <meta name="DMViewHeight" content="600" />
+
+   <title>Service Configuration Info</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="OldSchoolTable">
+   <colgroup span="3">
+      <col width="40%" />
+      <col width="30%" />
+      <col width="30%" />
+   </colgroup>
+
+   <tr>
+      <th colspan="3">General Info</th>
+   </tr>
+   <tr>
+      <th>Parameter</th>
+      <th colspan="2">Value</th>
+   </tr>
+   <tr>
+      <td>Service Option</td>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <td>FCH Frame Size</td>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <td>DCCH Frame Size</td>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th colspan="3">Link Info</th>
+   </tr>
+   <tr>
+      <th>Parameter</th>
+      <th>Forward</th>
+      <th>Reverse</th>
+   </tr>
+   <tr>
+      <td>FCH Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>SCH0 Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>SCH1 Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>DCCH Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Traffic Channel</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Mulitplex Option</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>FCH 1/8 Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>FCH 1/4 Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>FCH 1/2 Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>FCH Full Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Active Supplementals</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<table width="100%" id="NewSchoolTable">
+   <colgroup span="5">
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   
+   <tr>
+      <th colspan="5">Link Info</th>
+   </tr>
+   <tr>
+      <th colspan="3">Parameter</th>
+      <th>Forward</th>
+      <th>Reverse</th>
+   </tr>
+   <tr>
+      <td colspan="3">FCH Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">FCH/DCCH Multiplex Option</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">FCH 1/8 Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">FCH 1/4 Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">FCH 1/2 Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">FCH Full Rate Allowed</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH Multiplex Option</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH Coding Indicator</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH 40 ms Frames Used</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH 80 ms Frames Used</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH Frame Offset</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">SCH Max Negotiated Data Rate</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">DCCH Radio Config</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="3">DCCH Multiplex Option</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <th colspan="5">Connection Info</th>
+   </tr>
+   <tr>      
+      <th>Service Reference ID</th>
+      <th>Connection Reference</th>
+      <th>Service Option</th>
+      <th>F/R Traffic Type</th>
+      <th>Encryption Mode</th>
+   </tr>
+   <tbody id="ConnectionTable">
+   </tbody>
+
+   <tr>
+      <th colspan="5">Logical-To-Physical Map</th>
+   </tr>
+   <tr>
+      <th>Service Reference ID</th>
+      <th>Logical ID</th>
+      <th>Physical ID</th>
+      <th>F/R Supported</th>
+      <th>Multiplexing Priority</th>
+   </tr>
+   <tbody id="LPMTable">
+   </tbody>
+
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var gOldMap        = new Array();
+var gNewMap        = new Array();
+var UPDATE_MS      = 1000;
+var NA_STR         = "N/A"
+
+var PrevIndex      = -1;
+
+// Construct a map etry
+function MapEntry( ForwardIndex, ReverseIndex )
+{
+   this.F = ForwardIndex;
+   this.R = ReverseIndex;
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x102E );
+   clientObject.AddLog( 0x10C5 );
+   clientObject.AddLog( 0x1176 );
+   clientObject.CommitConfig();
+      
+   // Make sure the old school table is visible
+   OldSchoolTable.style.display = "block";
+   NewSchoolTable.style.display = "none";
+      
+   // Setup the old table row, cell (forward/reverse), field ID map
+   gOldMap[7] = new MapEntry( 1, 5 );
+   gOldMap[8] = new MapEntry( 2, 6 );
+   gOldMap[9] = new MapEntry( 3, 7 );
+   gOldMap[10] = new MapEntry( 4, 8 );
+   gOldMap[11] = new MapEntry( 11, 12 );
+   gOldMap[12] = new MapEntry( 13, 14 );
+   gOldMap[13] = new MapEntry( 16, 21 );
+   gOldMap[14] = new MapEntry( 17, 22 );
+   gOldMap[15] = new MapEntry( 18, 23 );
+   gOldMap[16] = new MapEntry( 19, 24 );
+   gOldMap[17] = new MapEntry( 25, 26 );
+      
+   // Setup the new table row, cell (forward/reverse), field ID map
+   gNewMap[3] = new MapEntry( 0, 1 );
+   gNewMap[4] = new MapEntry( 3, 9 );
+   gNewMap[5] = new MapEntry( 4, 10 );
+   gNewMap[6] = new MapEntry( 5, 11 );
+   gNewMap[7] = new MapEntry( 6, 12 );
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process the last received log for this period
+function ProcessLogs()
+{
+   var OldLog = "[0x102E]";
+   var NewLog2 = "[0x10C5]";
+   var NewLog3 = "[0x1176]";
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         var ItemKey = Item.GetItemKeyText();
+         switch (ItemKey)
+         { 
+            case OldLog:
+               UpdateOldSchoolTable( Fields );
+               break;
+               
+            case NewLog2:
+               UpdateNewSchoolTable( Fields, false );
+               break;
+               
+            case NewLog3:
+               UpdateNewSchoolTable( Fields, true );
+               break;   
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Update the old 0x102E log code based active set table
+function UpdateOldSchoolTable( Fields )
+{  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 27)
+   {
+      return;
+   }
+   
+   // Make sure the old school table is visible
+   OldSchoolTable.style.display = "block";
+   NewSchoolTable.style.display = "none";
+   
+   // Service option
+   var FieldVal = Fields.GetFieldValueText( 0 );   
+   OldSchoolTable.rows[2].cells[1].innerText = FieldVal;
+   
+   // FCH frame size
+   FieldVal = Fields.GetFieldValueText( 9 );   
+   OldSchoolTable.rows[3].cells[1].innerText = FieldVal;
+   
+   // DCCH frame size
+   FieldVal = Fields.GetFieldValueText( 10 );   
+   OldSchoolTable.rows[4].cells[1].innerText = FieldVal;
+   
+   var Row;
+   for (Row in gOldMap)
+   {         
+      // Forward link parameter
+      FieldVal = Fields.GetFieldValueText( gOldMap[Row].F );   
+      OldSchoolTable.rows[Row].cells[1].innerText = FieldVal;
+
+      // Reverse link parameter
+      FieldVal = Fields.GetFieldValueText( gOldMap[Row].R );   
+      OldSchoolTable.rows[Row].cells[2].innerText = FieldVal;
+   }
+}
+
+// Update the new 0x10C5/0x1176 log code based service config table
+function UpdateNewSchoolTable( Fields, bVersion3 )
+{  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 20)
+   {
+      return;
+   }
+   
+   // Make sure the new school table is visible
+   NewSchoolTable.style.display = "block";
+   OldSchoolTable.style.display = "none";
+      
+   // Fill in the easy (fixed index) fields
+   var FieldVal;
+   var Row;
+   for (Row in gNewMap)
+   {         
+      // Forward link parameter
+      FieldVal = Fields.GetFieldValueText( gNewMap[Row].F );
+      NewSchoolTable.rows[Row].cells[1].innerText = FieldVal;
+
+      // Reverse link parameter
+      FieldVal = Fields.GetFieldValueText( gNewMap[Row].R );
+      NewSchoolTable.rows[Row].cells[2].innerText = FieldVal;
+   }
+   
+   // Active channels
+   var fch = Fields.GetFieldValue( 12 ); 
+   var dcch = Fields.GetFieldValue( 13 ); 
+   var fsch = Fields.GetFieldValue( 14 );
+   var rsch = Fields.GetFieldValue( 15 );
+   
+   // FCH active?
+   if (fch == 1)
+   {
+      // Forward link parameter
+      FieldVal = GetTextFromName( Fields, "FCH Info.Forward Radio Config" );
+      NewSchoolTable.rows[2].cells[1].innerText = FieldVal;
+
+      // Reverse link parameter
+      FieldVal = GetTextFromName( Fields, "FCH Info.Reverse Radio Config" );
+      NewSchoolTable.rows[2].cells[2].innerText = FieldVal;
+   }
+   else
+   {
+      NewSchoolTable.rows[2].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[2].cells[2].innerText = NA_STR;
+   }
+   
+   // F-SCH active?
+   if (fsch == 1)
+   {
+      // Radio config
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.SCH Radio Configuration" );
+      NewSchoolTable.rows[8].cells[1].innerText = FieldVal;
+
+      // MUX option
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.SCH MUX Option MSB" );
+      FieldVal += " ";
+      FieldVal += GetTextFromName( Fields, "F-SCH Info.SCH MUX Option LSB" );
+      NewSchoolTable.rows[9].cells[1].innerText = FieldVal;
+      
+      // Coding type
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.Coding Indicator" );
+      NewSchoolTable.rows[10].cells[1].innerText = FieldVal;
+      
+      // 40 ms frames
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.40 ms Frames Used" );
+      NewSchoolTable.rows[11].cells[1].innerText = FieldVal;
+      
+      // 80 ms frames
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.80 ms Frames Used" );
+      NewSchoolTable.rows[12].cells[1].innerText = FieldVal;
+      
+      // Frame offset
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.SCH Frame Offset" );
+      NewSchoolTable.rows[13].cells[1].innerText = FieldVal;
+      
+      // Max rate
+      FieldVal = GetTextFromName( Fields, "F-SCH Info.Maximum Negotiated Data Rate" );
+      NewSchoolTable.rows[14].cells[1].innerText = FieldVal;
+   }
+   else
+   {
+      NewSchoolTable.rows[8].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[9].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[10].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[11].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[12].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[13].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[14].cells[1].innerText = NA_STR;
+   }
+   
+   // R-SCH active?
+   if (rsch == 1)
+   {
+      // Radio config
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.SCH Radio Configuration" );
+      NewSchoolTable.rows[8].cells[2].innerText = FieldVal;
+
+      // MUX option
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.SCH MUX Option MSB" );
+      FieldVal += " ";
+      FieldVal += GetTextFromName( Fields, "R-SCH Info.SCH MUX Option LSB" );
+      NewSchoolTable.rows[9].cells[2].innerText = FieldVal;
+      
+      // Coding type
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.Coding Indicator" );
+      NewSchoolTable.rows[10].cells[2].innerText = FieldVal;
+      
+      // 40 ms frames
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.40 ms Frames Used" );
+      NewSchoolTable.rows[11].cells[2].innerText = FieldVal;
+      
+      // 80 ms frames
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.80 ms Frames Used" );
+      NewSchoolTable.rows[12].cells[2].innerText = FieldVal;
+      
+      // Frame offset
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.SCH Frame Offset" );
+      NewSchoolTable.rows[13].cells[2].innerText = FieldVal;
+      
+      // Max rate
+      FieldVal = GetTextFromName( Fields, "R-SCH Info.Maximum Negotiated Data Rate" );
+      NewSchoolTable.rows[14].cells[2].innerText = FieldVal;
+   }
+   else
+   {
+      NewSchoolTable.rows[8].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[9].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[10].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[11].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[12].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[13].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[14].cells[2].innerText = NA_STR;
+   }
+   
+   // DCCH active?
+   if (dcch == 1)
+   {
+      // Forward link parameter
+      FieldVal = GetTextFromName( Fields, "DCCH Info.Forward Radio Config" );
+      NewSchoolTable.rows[15].cells[1].innerText = FieldVal;
+
+      // Reverse link parameter
+      FieldVal = GetTextFromName( Fields, "DCCH Info.Reverse Radio Config" );
+      NewSchoolTable.rows[15].cells[2].innerText = FieldVal;
+      
+      // Version 3?
+      if (bVersion3 == true)
+      {
+         // Forward link parameter
+         FieldVal = GetTextFromName( Fields, "DCCH Info.F-DCCH MUX Option" );
+         NewSchoolTable.rows[16].cells[1].innerText = FieldVal;
+
+         // Reverse link parameter
+         FieldVal = GetTextFromName( Fields, "DCCH Info.R-DCCH MUX Option" );
+         NewSchoolTable.rows[16].cells[2].innerText = FieldVal;      
+      }
+      else
+      {
+         NewSchoolTable.rows[16].cells[1].innerText = NA_STR;
+         NewSchoolTable.rows[16].cells[2].innerText = NA_STR;
+      }
+   }
+   else
+   {
+      NewSchoolTable.rows[15].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[15].cells[2].innerText = NA_STR;
+      NewSchoolTable.rows[16].cells[1].innerText = NA_STR;
+      NewSchoolTable.rows[16].cells[2].innerText = NA_STR;
+   }
+   
+   // Array sizes
+   var CountSOC = Fields.GetFieldValue( 17 ); 
+   var CountLPM = Fields.GetFieldValue( 18 ); 
+   var CountLTU = Fields.GetFieldValue( 19 ); 
+      
+   var i = 0;
+   var j = 0;
+   var fi = 0;
+   var FieldName;
+   var TableRow;
+   var TableCell;
+   
+   // Load the connection info table
+   var CurRows = ConnectionTable.rows.length;
+   for (i = 0; i < CountSOC; i++)
+   {
+      // New row?
+      if (i >= CurRows)
+      {
+         TableRow = ConnectionTable.insertRow();
+         for (j = 0; j < 5; j++)
+         {
+            TableCell = TableRow.insertCell();
+         }      
+      }   
+   
+      FieldName = "Connection Info[" + i +"].Connection Reference";
+      
+      fi = Fields.GetFieldIndex( FieldName, 1 );
+      if (fi == 0xFFFFFFFF)
+      {
+         for (j = 0; j < 5; j++)
+         {
+            ConnectionTable.rows[i].cells[j].innerText = "-";
+         }  
+         
+         continue;
+      }
+      
+      // Service reference ID
+      FieldVal = Fields.GetFieldValueText( fi + 6 );
+      ConnectionTable.rows[i].cells[0].innerText = FieldVal;
+      
+      // Connection reference
+      FieldVal = Fields.GetFieldValueText( fi + 0 );
+      ConnectionTable.rows[i].cells[1].innerText = FieldVal;
+      
+      // Service option
+      FieldVal = Fields.GetFieldValueText( fi + 1 );
+      FieldVal += " ";
+      FieldVal += Fields.GetFieldValueText( fi + 2 );
+      ConnectionTable.rows[i].cells[2].innerText = FieldVal;
+      
+      // F/R traffic type
+      FieldVal = Fields.GetFieldValueText( fi + 3 );
+      FieldVal += "/";
+      FieldVal += Fields.GetFieldValueText( fi + 4 );
+      ConnectionTable.rows[i].cells[3].innerText = FieldVal;
+      
+      // Encryption mode
+      FieldVal = Fields.GetFieldValueText( fi + 5 );
+      ConnectionTable.rows[i].cells[4].innerText = FieldVal;
+   }
+   
+   // Delete unused rows
+   for (i = CurRows - 1; i >= CountSOC; i--)
+   {
+      ConnectionTable.deleteRow( i );
+   }
+   
+   // Load the logical-to-physical map table
+   CurRows = LPMTable.rows.length;
+   for (i = 0; i < CountLPM; i++)
+   {
+      // New row?
+      if (i >= CurRows)
+      {
+         TableRow = LPMTable.insertRow();
+         for (j = 0; j < 5; j++)
+         {
+            TableCell = TableRow.insertCell();
+         }      
+      }   
+   
+      FieldName = "LPM Info[" + i +"].Service Reference ID";
+      
+      fi = Fields.GetFieldIndex( FieldName, 1 );
+      if (fi == 0xFFFFFFFF)
+      {
+         for (j = 0; j < 5; j++)
+         {
+            LPMTable.rows[i].cells[j].innerText = "-";
+         }  
+         
+         continue;
+      }
+      
+      // Service reference ID
+      FieldVal = Fields.GetFieldValueText( fi + 0 );
+      LPMTable.rows[i].cells[0].innerText = FieldVal;
+      
+      // Logical ID
+      FieldVal = Fields.GetFieldValueText( fi + 1 );
+      LPMTable.rows[i].cells[1].innerText = FieldVal;
+      
+      // Physical ID
+      FieldVal = Fields.GetFieldValueText( fi + 2 );
+      LPMTable.rows[i].cells[2].innerText = FieldVal;
+      
+      // F/R supported
+      FieldVal = Fields.GetFieldValueText( fi + 3 );
+      FieldVal += "/";
+      FieldVal += Fields.GetFieldValueText( fi + 4 );
+      LPMTable.rows[i].cells[3].innerText = FieldVal;
+      
+      // Multiplexing priority
+      FieldVal = Fields.GetFieldValueText( fi + 6 );
+      LPMTable.rows[i].cells[4].innerText = FieldVal;
+   }
+   
+   // Delete unused rows
+   for (i = CurRows - 1; i >= CountLPM; i--)
+   {
+      LPMTable.deleteRow( i );
+   }   
+}
+
+</script>
+
+</body>
+</html>

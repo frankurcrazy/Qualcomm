@@ -1,0 +1,751 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA EUL E-TFCI Usage" />
+   <meta name="DMViewWidth" content="900" />
+   <meta name="DMViewHeight" content="400" />
+
+   <title>WCDMA EUL E-TFCI Usage</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="DataTable">
+   <colgroup span="14">
+      <col width="7.5%" />
+      <col width="7.5%" />
+      <col width="7.5%" />
+      <col width="7.5%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+      <col width="7%" />
+   </colgroup>
+   <tr>
+      <th colspan="5"></th>
+      <th colspan="9">Block Error Rate</th>
+   </tr>
+   <tr>
+      <th>E-TFCI</th>
+      <th>Bits</th>
+      <th>Count</th>
+      <th>Usage</th>
+      <th>Avg SG</th>
+      <th>Total</th>
+      <th>TX 1</th>
+      <th>TX 2</th>
+      <th>TX 3</th>
+      <th>TX 4</th>
+      <th>TX 5</th>
+      <th>TX 6</th>
+      <th>TX 7</th>
+      <th>TX 8</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Totals</td>
+      <td>N/A</td>
+      <td>-</td>
+      <td>N/A</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>   
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+var C_ETFCI        = 0;
+var C_BITS         = 1;
+var C_OCCUR        = 2;
+var C_PCT          = 3;
+var C_SG           = 4;
+var C_BLER         = 5;
+var C_BLER1        = 6;
+var C_BLER2        = 7;
+var C_BLER3        = 8;
+var C_BLER4        = 9;
+var C_BLER5        = 10;
+var C_BLER6        = 11;
+var C_BLER7        = 12;
+var C_BLER8        = 13;
+var D_SGTOTAL      = 14;
+var D_SGCOUNT      = 15;
+var D_NAK          = 16;
+var D_ACK          = 17;
+
+var gRows          = new Array();
+var gRowCount      = 0;
+
+var gTotalCount    = 0;
+
+var gTTI           = -1;
+var gTable         = -1;
+
+var RO             = 2;
+
+// Transport Block Size
+// TTI:          10ms, 10ms, 2ms, 2ms
+// E-TFCI Table:    0,    1,   0,   1
+var TBS = new Array
+(
+   new Array( 18, 18, 18, 18 ), // 0 
+   new Array( 120, 186, 120, 186 ), // 1 
+   new Array( 124, 204, 124, 204 ), // 2 
+   new Array( 130, 354, 129, 354 ), // 3 
+   new Array( 135, 372, 133, 372 ), // 4 
+   new Array( 141, 522, 138, 522 ), // 5 
+   new Array( 147, 540, 143, 540 ), // 6 
+   new Array( 153, 690, 149, 674 ), // 7 
+   new Array( 159, 708, 154, 690 ), // 8 
+   new Array( 166, 858, 160, 708 ), // 9 
+   new Array( 172, 876, 166, 726 ), // 10 
+   new Array( 180, 1026, 172, 858 ), // 11 
+   new Array( 187, 1044, 178, 876 ), // 12 
+   new Array( 195, 1194, 185, 1026 ), // 13 
+   new Array( 203, 1212, 192, 1044 ), // 14 
+   new Array( 211, 1362, 199, 1062 ), // 15 
+   new Array( 220, 1380, 206, 1194 ), // 16 
+   new Array( 229, 1530, 214, 1212 ), // 17 
+   new Array( 239, 1548, 222, 1330 ), // 18 
+   new Array( 249, 1698, 230, 1348 ), // 19 
+   new Array( 259, 1716, 238, 1362 ), // 20 
+   new Array( 270, 1866, 247, 1380 ), // 21 
+   new Array( 281, 1884, 256, 1398 ), // 22 
+   new Array( 293, 2034, 266, 1530 ), // 23 
+   new Array( 305, 2052, 275, 1548 ), // 24 
+   new Array( 317, 2370, 286, 1698 ), // 25 
+   new Array( 331, 2388, 296, 1716 ), // 26 
+   new Array( 344, 2706, 307, 1734 ), // 27 
+   new Array( 359, 2724, 318, 1866 ), // 28 
+   new Array( 374, 3042, 330, 1884 ), // 29 
+   new Array( 389, 3060, 342, 1986 ), // 30 
+   new Array( 405, 3378, 355, 2004 ), // 31 
+   new Array( 422, 3396, 368, 2022 ), // 32 
+   new Array( 440, 3732, 382, 2034 ), // 33 
+   new Array( 458, 3750, 396, 2052 ), // 34 
+   new Array( 477, 4068, 410, 2070 ), // 35 
+   new Array( 497, 4086, 426, 2370 ), // 36 
+   new Array( 517, 4404, 441, 2388 ), // 37 
+   new Array( 539, 4422, 458, 2406 ), // 38 
+   new Array( 561, 4740, 474, 2642 ), // 39 
+   new Array( 584, 4758, 492, 2660 ), // 40 
+   new Array( 608, 5076, 510, 2678 ), // 41 
+   new Array( 634, 5094, 529, 2706 ), // 42 
+   new Array( 660, 5412, 548, 2724 ), // 43 
+   new Array( 687, 5430, 569, 2742 ), // 44 
+   new Array( 716, 5748, 590, 3042 ), // 45 
+   new Array( 745, 5766, 611, 3060 ), // 46 
+   new Array( 776, 6084, 634, 3078 ), // 47 
+   new Array( 809, 6102, 657, 3298 ), // 48 
+   new Array( 842, 6420, 682, 3316 ), // 49 
+   new Array( 877, 6438, 707, 3334 ), // 50 
+   new Array( 913, 6756, 733, 3378 ), // 51 
+   new Array( 951, 6774, 760, 3396 ), // 52 
+   new Array( 991, 7092, 788, 3414 ), // 53 
+   new Array( 1032, 7110, 817, 3732 ), // 54 
+   new Array( 1074, 7428, 847, 3750 ), // 55 
+   new Array( 1119, 7464, 878, 3972 ), // 56 
+   new Array( 1165, 7764, 911, 3990 ), // 57 
+   new Array( 1214, 7800, 944, 4068 ), // 58 
+   new Array( 1264, 8100, 979, 4086 ), // 59 
+   new Array( 1316, 8136, 1015, 4404 ), // 60 
+   new Array( 1371, 8436, 1053, 4422 ), // 61 
+   new Array( 1428, 8472, 1091, 4628 ), // 62 
+   new Array( 1487, 8772, 1132, 4646 ), // 63 
+   new Array( 1549, 8808, 1173, 4740 ), // 64 
+   new Array( 1613, 9108, 1217, 4758 ), // 65 
+   new Array( 1680, 9144, 1262, 5076 ), // 66 
+   new Array( 1749, 9444, 1308, 5094 ), // 67 
+   new Array( 1822, 9480, 1356, 5284 ), // 68 
+   new Array( 1897, 9780, 1406, 5302 ), // 69 
+   new Array( 1976, 9816, 1458, 5412 ), // 70 
+   new Array( 2058, 10116, 1512, 5430 ), // 71 
+   new Array( 2143, 10152, 1568, 5748 ), // 72 
+   new Array( 2232, 10452, 1626, 5766 ), // 73 
+   new Array( 2325, 10488, 1685, 5940 ), // 74 
+   new Array( 2421, 10788, 1748, 5958 ), // 75 
+   new Array( 2521, 10824, 1812, 6084 ), // 76 
+   new Array( 2626, 11124, 1879, 6102 ), // 77 
+   new Array( 2735, 11178, 1948, 6420 ), // 78 
+   new Array( 2848, 11460, 2020, 6438 ), // 79 
+   new Array( 2966, 11514, 2094, 6596 ), // 80 
+   new Array( 3089, 11796, 2172, 6614 ), // 81 
+   new Array( 3217, 11850, 2252, 6756 ), // 82 
+   new Array( 3350, 12132, 2335, 6774 ), // 83 
+   new Array( 3489, 12186, 2421, 7092 ), // 84 
+   new Array( 3634, 12468, 2510, 7110 ), // 85 
+   new Array( 3784, 12522, 2603, 7252 ), // 86 
+   new Array( 3941, 12804, 2699, 7288 ), // 87 
+   new Array( 4105, 12858, 2798, 7428 ), // 88 
+   new Array( 4275, 13140, 2901, 7464 ), // 89 
+   new Array( 4452, 13194, 3008, 7764 ), // 90 
+   new Array( 4636, 13476, 3119, 7800 ), // 91 
+   new Array( 4828, 13530, 3234, 7908 ), // 92 
+   new Array( 5029, 13812, 3353, 7944 ), // 93 
+   new Array( 5237, 13866, 3477, 8100 ), // 94 
+   new Array( 5454, 14148, 3605, 8136 ), // 95 
+   new Array( 5680, 14202, 3738, 8436 ), // 96 
+   new Array( 5915, 14484, 3876, 8472 ), // 97 
+   new Array( 6161, 14556, 4019, 8564 ), // 98 
+   new Array( 6416, 14820, 4167, 8600 ), // 99 
+   new Array( 6682, 14892, 4321, 8772 ), // 100 
+   new Array( 6959, 15156, 4480, 8808 ), // 101 
+   new Array( 7247, 15228, 4645, 9108 ), // 102 
+   new Array( 7547, 15492, 4816, 9144 ), // 103 
+   new Array( 7860, 15564, 4994, 9220 ), // 104 
+   new Array( 8186, 15828, 5178, 9256 ), // 105 
+   new Array( 8525, 15900, 5369, 9444 ), // 106 
+   new Array( 8878, 16164, 5567, 9480 ), // 107 
+   new Array( 9246, 16236, 5772, 9780 ), // 108 
+   new Array( 9629, 16500, 5985, 9816 ), // 109 
+   new Array( 10028, 16572, 6206, 9876 ), // 110 
+   new Array( 10444, 17172, 6435, 9912 ), // 111 
+   new Array( 10877, 17244, 6672, 10116 ), // 112 
+   new Array( 11328, 17844, 6918, 10152 ), // 113 
+   new Array( 11797, 17916, 7173, 10452 ), // 114 
+   new Array( 12286, 18516, 7437, 10488 ), // 115 
+   new Array( 12795, 18606, 7711, 10532 ), // 116 
+   new Array( 13325, 19188, 7996, 10568 ), // 117 
+   new Array( 13877, 19278, 8290, 10788 ), // 118 
+   new Array( 14453, 19860, 8596, 10824 ), // 119 
+   new Array( 15051, 19950, 8913, 11124 ), // 120 
+   new Array( 15675, "-", 9241, 11178 ), // 121 
+   new Array( 16325, "-", 9582, 11188 ), // 122 
+   new Array( 17001, "-", 9935, 11242 ), // 123 
+   new Array( 17706, "-", 10302, 11460 ), // 124 
+   new Array( 18440, "-", 10681, 11478 ), // 125 
+   new Array( 19204, "-", 11075, "-" ), // 126 
+   new Array( 20000, "-", 11484, "-" ) // 127 
+);
+
+function SafeDivide( Num, Den )
+{
+   var Result = "-";
+   if (isNaN( Num ) == false && isNaN( Den ) == false && Den != 0)
+   {
+      Result = Num / Den;
+   }
+   return Result;
+}
+
+function ResetTable()
+{
+   var Cols = DataTable.rows[RO].cells.length;
+   var Rows = DataTable.rows.length;
+
+   var cell;
+   for (var r = Rows - 1; r > RO; r--)
+   {
+      DataTable.deleteRow( r );
+   }
+
+   for (var c = 0; c < Cols; c++)
+   {
+      DataTable.rows[RO].cells[c].innerText = "-";
+   }
+   
+   gRows          = new Array();
+   gRowCount      = 0;
+
+   gTotalCount    = 0;
+
+   gTTI           = -1;
+   gTable         = -1;
+}
+
+function GetTransportBlockSize( ETFCI, TTI, Table )
+{
+   var Result = "-";
+   if (ETFCI <= 127)
+   {
+      var i = -1;
+      if (TTI == 1)
+      {
+         // TTI 10ms
+         if (Table == 0)
+         {
+            i = 0;
+         }
+         else if (Table == 1)
+         {
+            i = 1;
+         }
+      }
+      else if (TTI == 0)
+      {
+         // TTI 2ms
+         if (Table == 0)
+         {
+            i = 2;
+         }
+         else if (Table == 1)
+         {
+            i = 3;
+         }
+      }
+      if (i >= 0)
+      {
+         Result = TBS[ETFCI][i];
+      }
+   }
+   return Result;
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x4309 );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   // Process all logs
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetConfiguredItemFields( "", false, false );
+         if (Fields != null)
+         {
+            PopulateData( Fields );
+         }
+      }
+   }
+
+   PopulateTable();
+
+   PrevIndex = CurrIndex;
+}
+
+function PopulateData( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 7)
+   {
+      return;
+   }
+
+   var FieldVal;
+
+   var NumSamples = Fields.GetFieldValue( 0 );
+   
+   // TTI
+   var TTI = Fields.GetFieldValue( 1 );
+
+   // E-TFCI Table
+   var Table = Fields.GetFieldValue( 2 );
+
+   if (gTTI < 0)
+   {
+      // Set values for first time
+      gTTI = TTI;
+      gTable = Table;
+   }
+   else
+   {
+      // Reset if TTI or E-TFCI Table changed
+      if (TTI != gTTI || Table != gTable)
+      {
+         ResetTable();
+         
+         gTTI = TTI;
+         gTable = Table;
+      }
+   }
+   
+   var fi = 7;
+   
+   for (var s = 0; s < NumSamples; s++)
+   {
+      if (FieldCount < fi + 32)
+      {
+         return;
+      }
+
+      // DTX
+      var DTX = Fields.GetFieldValue( fi + 2 );
+      if (DTX == 1)
+      {
+         // Do not process this sample
+         fi += 32;
+         continue;
+      }
+      
+      // E-TFCI
+      var ETFCI = Fields.GetFieldValue( fi + 31 );
+      if (ETFCI > 127)
+      {
+        fi += 32;
+        continue;
+      }
+      
+      var bFound = false;
+      var r = 0;
+      for (r = 0; r < gRowCount; r++)
+      {
+         // Search sorted rows for ETFCI
+         if (ETFCI == gRows[r][C_ETFCI])
+         {
+            // Found, now need to insert row
+            bFound = true;
+            break;
+         }
+         
+         if (ETFCI < gRows[r][C_ETFCI])
+         {
+            // Not found, insert row here
+            break;
+         }
+      }
+      
+      if (bFound == false)
+      {
+         // Add a row to the end
+         gRows[gRowCount] = new Array();
+         gRows[gRowCount][D_NAK]  = new Array();
+         gRows[gRowCount][D_ACK]  = new Array();
+
+         if (r < gRowCount)
+         {
+            for (var i = gRowCount - 1; i >= r; i--)
+            {
+               // Copy values to next row
+               for (var c = 0; c <= D_ACK; c++)
+               {
+                  if (c == D_NAK || c == D_ACK) 
+                  {
+                     // Copy array values to next row
+                     for (var j = 0; j <= 8; j++)
+                     {
+                        gRows[i + 1][c][j] = gRows[i][c][j];
+                     }
+                  }
+                  else
+                  {
+                     // Copy values to next row
+                     gRows[i + 1][c] = gRows[i][c];
+                  }
+               }
+            }
+         }
+
+         gRowCount++;
+         
+         // Set values for new row 
+         gRows[r][C_ETFCI]    = ETFCI;
+         gRows[r][C_BITS]     = GetTransportBlockSize( ETFCI, TTI, Table );
+         gRows[r][C_OCCUR]    = 0;
+         gRows[r][C_PCT]      = 0;
+         gRows[r][C_SG]       = 0;
+         gRows[r][C_BLER]     = 0;
+         gRows[r][C_BLER1]    = 0;
+         gRows[r][C_BLER2]    = 0;
+         gRows[r][C_BLER3]    = 0;
+         gRows[r][C_BLER4]    = 0;
+         gRows[r][C_BLER5]    = 0;
+         gRows[r][C_BLER6]    = 0;
+         gRows[r][C_BLER7]    = 0;
+         gRows[r][C_BLER8]    = 0;
+         gRows[r][D_SGTOTAL]  = 0;
+         gRows[r][D_SGCOUNT]  = 0;
+         
+         for (var i = 0; i <= 8; i++)
+         {
+            gRows[r][D_NAK][i] = 0;
+            gRows[r][D_ACK][i] = 0;
+         }
+      }
+      
+      // Retransmission Counter
+      var ReTx = Fields.GetFieldValue( fi + 25 );
+      
+      var NakCount = 0;
+      var AckCount = 0;
+
+      // HICH Cell (Combined)
+      FieldVal = Fields.GetFieldValue( fi );
+      if (FieldVal == 2)
+      {
+         // NAK found
+         NakCount++;
+      }
+      else if (FieldVal == 1 || FieldVal == 3)
+      {
+         // ACK found
+         AckCount++;
+      }
+
+      // Store total nak count
+      gRows[r][D_NAK][0] += NakCount; 
+      
+      // Store total count
+      gRows[r][D_ACK][0] += AckCount; 
+      
+      if (ReTx < 8)
+      {
+         // Store nak count for given retransmission count
+         gRows[r][D_NAK][ReTx + 1] += NakCount;
+
+         // Store count for given retransmission count
+         gRows[r][D_ACK][ReTx + 1] += AckCount; 
+      }
+      
+      // Increment E-TFCI count
+      gRows[r][C_OCCUR]++;
+
+      // Increment total count
+      gTotalCount++;
+
+      // Serving Grant Index
+      FieldVal = Fields.GetFieldValue( fi + 27 );
+      if (FieldVal == 38)
+      {
+         // Zero Grant value
+         FieldVal = 0;
+      }
+      
+      // Store Serving Grant, unless it is set to No Grant Available
+      if (FieldVal != 0x3F)
+      {
+         // Sum all Serving Grant values
+         gRows[r][D_SGTOTAL] += FieldVal; 
+         
+         // Store number of Serving Grant values
+         gRows[r][D_SGCOUNT]++;
+      }
+
+      fi += 32;
+   }
+}
+
+function PopulateTable()
+{
+   // Add rows if necessary
+   var CurRows = DataTable.rows.length - RO - 1;
+   for (var r = CurRows + 1; r <= gRowCount; r++)
+   {
+      var TableRow = DataTable.insertRow();
+      for (var c = 0; c < DataTable.rows[RO].cells.length; c++)
+      {
+         var TableCell = TableRow.insertCell();
+      }
+   }
+   
+   var Totals = new Array;
+   Totals[D_NAK]  = new Array();
+   Totals[D_ACK]  = new Array();
+   for (var c = 0; c <= D_ACK; c++)
+   {
+      if (c == D_NAK || c == D_ACK)
+      {
+         for (var i = 0; i <= 8; i++)
+         {
+            Totals[c][i] = 0;
+         }
+      }
+      else
+      {
+         Totals[c] = 0;
+      }
+   }
+
+   for (var r = 0; r < gRowCount; r++)
+   {
+      for (var c = 0; c <= D_ACK; c++)
+      {
+         if (c == D_NAK || c == D_ACK)
+         {
+            for (var i = 0; i <= 8; i++)
+            {
+               Totals[c][i] += gRows[r][c][i];
+            }
+         }
+         else
+         {
+            Totals[c] += gRows[r][c];
+         }
+      }
+      
+      // Usage (%)
+      gRows[r][C_PCT] = SafeDivide( gRows[r][C_OCCUR] * 100, gTotalCount );
+      
+      // Average Serving Grant
+      gRows[r][C_SG] = SafeDivide( gRows[r][D_SGTOTAL], gRows[r][D_SGCOUNT] );
+      
+      for (var i = 0; i <= 8; i++)
+      {
+         // BLER (%) = NAK count / Total count
+         gRows[r][C_BLER + i] = SafeDivide( gRows[r][D_NAK][i] * 100, 
+                                            gRows[r][D_NAK][i] + gRows[r][D_ACK][i] );
+      }
+      
+      for (var c = 0; c <= C_BLER8; c++)
+      {
+         if (c >= C_PCT && c <= C_BLER8)
+         {
+            FieldVal = gRows[r][c];
+            if (isNaN( FieldVal ) == false)
+            {
+               FieldVal = FieldVal.toFixed( 2 );
+               
+               if (c != C_SG)
+               {
+                  FieldVal += " %";
+               }
+            }
+         }
+         else
+         {
+            FieldVal = gRows[r][c];
+         }
+         
+         DataTable.rows[r + RO].cells[c].innerText = FieldVal;
+      }
+   }
+   
+   // Usage (%)
+   Totals[C_PCT] = SafeDivide( Totals[C_OCCUR] * 100, gTotalCount );
+   
+   // Average Serving Grant
+   Totals[C_SG] = SafeDivide( Totals[D_SGTOTAL], Totals[D_SGCOUNT] );
+   
+   for (var i = 0; i <= 8; i++)
+   {
+      // BLER (%) = NAK count / Total count
+      Totals[C_BLER + i] = SafeDivide( Totals[D_NAK][i] * 100, 
+                                         Totals[D_NAK][i] + Totals[D_ACK][i] );
+   }
+   
+   for (var c = C_OCCUR; c <= C_BLER8; c++)
+   {
+      if (c == C_PCT)
+      {
+         continue;
+      }
+      
+      if (c >= C_PCT && c <= C_BLER8)
+      {
+         FieldVal = Totals[c];
+         if (isNaN( FieldVal ) == false)
+         {
+            FieldVal = FieldVal.toFixed( 2 );
+            
+            if (c != C_SG)
+            {
+               FieldVal += " %";
+            }
+         }
+      }
+      else
+      {
+         FieldVal = Totals[c];
+      }
+      
+      DataTable.rows[gRowCount + RO].cells[C_ETFCI].innerText = "Totals";
+      DataTable.rows[gRowCount + RO].cells[C_BITS].innerText = "N/A";
+      DataTable.rows[gRowCount + RO].cells[C_PCT].innerText = "N/A";
+      DataTable.rows[gRowCount + RO].cells[c].innerText = FieldVal;
+   }
+}
+
+</script>
+</body>
+</html>

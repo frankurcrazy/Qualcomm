@@ -1,0 +1,985 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Multi Carrier Pilot Sets" />
+   <meta name="DMViewWidth" content="1300" />
+   <meta name="DMViewHeight" content="500" />
+
+   <title>HDR Multi Carrier Pilot Sets</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td width="25%" valign="top" class="noborder">
+
+         <div class="label">General</div>
+         <table width="100%" id="GeneralTable">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup>
+
+            <tr>
+               <th>Version</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Pilot PN Increment</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Searcher State</th>
+               <td>-</td>
+            </tr>
+             <tr>
+               <th>Active Set Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Active Set Window</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Slot Count</th>
+               <td>-</td>
+            </tr>
+             <tr>
+               <th>Candidate Set Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Candidate Set Window</th>
+               <td>-</td>
+            </tr>
+             <tr>
+               <th>Neighbor Set Count</th>
+               <td>-</td>
+            </tr>
+             <tr>
+               <th>Remaining Set Window</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Remaining Set Channel</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+      </td>
+
+      <td width="75%" valign="top" class="noborder">
+         <div class="label">Neighbor Set</div>
+         <table width="100%">
+            <colgroup span="9">
+               <col width="4%" />
+               <col width="10%" />
+               <col width="15%" />
+               <col width="10%" />
+               <col width="6%" />
+               <col width="25%" />
+               <col width="10%" />
+               <col width="10%" />
+               <col width="10%" />
+            </colgroup>
+
+            <tr>
+               <th>PN</th>
+               <th>PilotEnergy</th>
+               <th>OFSCondEnergy</th>
+               <th>PN GID</th>
+               <th>Chann #</th>
+               <th>BandClass</th>
+               <th>WindowSize</th>
+               <th>WindowOffset</th>
+               <th>Age</th>
+            </tr>
+
+            <tbody id="NeighborSetTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+         <br />
+
+         <div class="label">Candidate Set</div>
+         <table width="100%">
+            <colgroup span="9">
+               <col width="4%" />
+               <col width="10%" />
+               <col width="15%" />
+               <col width="10%" />
+               <col width="6%" />
+               <col width="25%" />
+               <col width="10%" />
+               <col width="10%" />
+               <col width="10%" />
+            </colgroup>
+
+            <tr>
+               <th>PN</th>
+               <th>PilotEnergy</th>
+               <th>OFSCondEnergy</th>
+               <th>PN GID</th>
+               <th>Chann #</th>
+               <th>BandClass</th>
+               <th>DropTimerExpired</th>
+               <th>DropTimerActive</th>
+               <th>WinCenterX2</th>
+            </tr>
+
+            <tbody id="CandidateSetTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+      </td>
+   </tr>
+</table>
+
+<div class="label">Active Set - SubASET ID 0</div>
+<table width="100%">
+   <colgroup span="21">
+      <col width="3%" />
+      <col width="5%" />
+      <col width="10%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="3%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+   </colgroup>
+
+   <tr>
+      <th>PN</th>
+      <th>PNEnergy</th>
+      <th>OFSCondEnergy</th>
+      <th>PNGID</th>
+      <th>Chan#</th>
+      <th>BandClass</th>
+      <th>LinkID</th>
+      <th>DemodIdx</th>
+      <th>Reportable</th>
+      <th>SchedTAG</th>
+      <th>ASPIdx</th>
+      <th>RPCIdx</th>
+      <th>DRCCover</th>
+      <th>DropTmrExp</th>
+      <th>DropTmrAct</th>
+      <th>FLMACIdx</th>
+      <th>DSC</th>
+      <th>AuxDRCCover</th>
+      <th>RABMACIdx</th>
+      <th>RLMACIdx</th>
+      <th>WinCenterX2</th>
+   </tr>
+
+   <tbody id="ActiveSetTable0">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<br />
+
+<div class="label">Active Set - SubASET ID 1</div>
+<table width="100%">
+   <colgroup span="21">
+      <col width="3%" />
+      <col width="5%" />
+      <col width="10%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="3%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+   </colgroup>
+
+   <tr>
+      <th>PN</th>
+      <th>PNEnergy</th>
+      <th>OFSCondEnergy</th>
+      <th>PNGID</th>
+      <th>Chan#</th>
+      <th>BandClass</th>
+      <th>LinkID</th>
+      <th>DemodIdx</th>
+      <th>Reportable</th>
+      <th>SchedTAG</th>
+      <th>ASPIdx</th>
+      <th>RPCIdx</th>
+      <th>DRCCover</th>
+      <th>DropTmrExp</th>
+      <th>DropTmrAct</th>
+      <th>FLMACIdx</th>
+      <th>DSC</th>
+      <th>AuxDRCCover</th>
+      <th>RABMACIdx</th>
+      <th>RLMACIdx</th>
+      <th>WinCenterX2</th>
+   </tr>
+
+   <tbody id="ActiveSetTable1">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<br />
+
+<div class="label">Active Set - SubASET ID 2</div>
+<table width="100%">
+   <colgroup span="21">
+      <col width="3%" />
+      <col width="5%" />
+      <col width="10%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="3%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="3%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="5%" />
+   </colgroup>
+
+   <tr>
+      <th>PN</th>
+      <th>PNEnergy</th>
+      <th>OFSCondEnergy</th>
+      <th>PNGID</th>
+      <th>Chan#</th>
+      <th>BandClass</th>
+      <th>LinkID</th>
+      <th>DemodIdx</th>
+      <th>Reportable</th>
+      <th>SchedTAG</th>
+      <th>ASPIdx</th>
+      <th>RPCIdx</th>
+      <th>DRCCover</th>
+      <th>DropTmrExp</th>
+      <th>DropTmrAct</th>
+      <th>FLMACIdx</th>
+      <th>DSC</th>
+      <th>AuxDRCCover</th>
+      <th>RABMACIdx</th>
+      <th>RLMACIdx</th>
+      <th>WinCenterX2</th>
+   </tr>
+
+   <tbody id="ActiveSetTable2">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   ClientObject.AddLog( 0x12A1 );
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client - we only update based on the last item
+// since the user cannot discern anything faster than our update
+// interval
+function ProcessItems()
+{
+   var Log0x12A1 = "[0x12A1]";
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         var ItemKey = Item.GetItemKeyText();
+         if (ItemKey == Log0x12A1)
+         {
+            var Version = Fields.GetFieldValue( 0 );
+            if (Version == 0)
+            {
+               PopulateV0Tables( Fields );
+            }
+            else if (Version == 1)
+            {
+               PopulateV1Tables( Fields );
+            }
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function ComputeRSSI( RSSI )
+{
+   var result = "N/A";
+   if (RSSI > 0)
+   {
+      var inDB = 10 * Math.LOG10E * Math.log( (RSSI/512) );
+
+      // Keep 2 decimal places
+      result = Precision( inDB, 2, false );
+   }
+
+   return result;
+}
+
+// Populate version 0 of multi carrier pilot sets log
+function PopulateV0Tables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 11)
+   {
+      return;
+   }
+
+   // Fill in the general fields
+   var f;
+   var FieldVal;
+   for (f = 0; f < 11; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      GeneralTable.rows[f].cells[1].innerText = FieldVal;
+   }
+
+   // Get the number of sets for each table
+   var ASets = Fields.GetFieldValue( 3 );
+   var CSets = Fields.GetFieldValue( 6 );
+   var NSets = Fields.GetFieldValue( 8 );
+
+   var ExpectedFieldCount = 11 + (ASets * 22) + (CSets * 9) + (NSets * 9);
+   if (FieldCount < ExpectedFieldCount)
+   {
+      return;
+   }
+
+   var r;
+   var fi;
+   var CurRows;
+   var FieldName;
+   var FieldVal;
+   var RSSI;
+   var ASET0Count = 0;
+   var ASET1Count = 0;
+   var ASET2Count = 0;
+
+   FieldName = "ASET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Determine the number of Subactive sets indexes
+   for (r = 0; r < ASets; r++)
+   {
+      // Subactive Set Index
+      FieldVal = Fields.GetFieldValue( fi + 8 );
+      if (!(FieldVal >= 0 && FieldVal <= 2))
+      {
+         continue;
+      }
+
+      switch (FieldVal)
+      {
+         case 0:
+         {
+            ASET0Count++;
+         }
+         break;
+
+         case 1:
+         {
+            ASET1Count++;
+         }
+         break;
+
+         case 2:
+         {
+            ASET2Count++;
+         }
+         break;
+      }
+
+      // Get ready for next loop
+      fi += 22;
+   }
+
+   CurRows = ActiveSetTable0.rows.length;
+   ManageRows( ActiveSetTable0, 0, CurRows, ASET0Count, 21, true );
+
+   CurRows = ActiveSetTable1.rows.length;
+   ManageRows( ActiveSetTable1, 0, CurRows, ASET1Count, 21, true );
+
+   CurRows = ActiveSetTable2.rows.length;
+   ManageRows( ActiveSetTable2, 0, CurRows, ASET2Count, 21, true );
+
+   // Get back the field offset
+   FieldName = "ASET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new active sets
+   for (r = 0; r < ASets; r++)
+   {
+      // Subactive Set Index
+      FieldVal = Fields.GetFieldValue( fi + 8 );
+      if (!(FieldVal >= 0 && FieldVal <= 2))
+      {
+         continue;
+      }
+
+      switch (FieldVal)
+      {
+         case 0:
+         {
+            PopulateASETables0( ActiveSetTable0, Fields, fi, --ASET0Count );
+         }
+         break;
+
+         case 1:
+         {
+            PopulateASETables0( ActiveSetTable1, Fields, fi, --ASET1Count );
+         }
+         break;
+
+         case 2:
+         {
+            PopulateASETables0( ActiveSetTable2, Fields, fi, --ASET2Count );
+         }
+         break;
+      }
+
+      // Get ready for next loop
+      fi += 22;
+   }
+
+   CurRows = CandidateSetTable.rows.length;
+   ManageRows( CandidateSetTable, 0, CurRows, CSets, 9, true );
+
+   FieldName = "CSET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new candidate sets
+   for (r = 0; r < CSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      CandidateSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      CandidateSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy -- Not valid for version 0 log
+      CandidateSetTable.rows[r].cells[2].innerText = "-";
+
+      for (f = 2; f < 7; f++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + f );
+         CandidateSetTable.rows[r].cells[f + 1].innerText = FieldVal;
+      }
+
+      // Window center
+      FieldVal = Fields.GetFieldValueText( fi + 8 );
+      CandidateSetTable.rows[r].cells[8].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 9;
+   }
+
+   CurRows = NeighborSetTable.rows.length;
+   ManageRows( NeighborSetTable, 0, CurRows, NSets, 9, true );
+
+   FieldName = "NSET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new neighbor sets
+   for (r = 0; r < NSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      NeighborSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      NeighborSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy -- Not valid for version 0 log
+      NeighborSetTable.rows[r].cells[2].innerText = "-";
+
+      for (f = 2; f < 7; f++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + f );
+         NeighborSetTable.rows[r].cells[f + 1].innerText = FieldVal;
+      }
+
+      // Age
+      FieldVal = Fields.GetFieldValueText( fi + 8 );
+      NeighborSetTable.rows[r].cells[8].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 9;
+   }
+}
+
+// Populate version 1 of multi carrier pilot sets log
+function PopulateV1Tables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 11)
+   {
+      return;
+   }
+
+   // Fill in the general fields
+   var f;
+   var FieldVal;
+   for (f = 0; f < 11; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      GeneralTable.rows[f].cells[1].innerText = FieldVal;
+   }
+
+   // Get the number of sets for each table
+   var ASets = Fields.GetFieldValue( 3 );
+   var CSets = Fields.GetFieldValue( 6 );
+   var NSets = Fields.GetFieldValue( 8 );
+
+   var ExpectedFieldCount = 11 + (ASets * 23) + (CSets * 10) + (NSets * 10);
+   if (FieldCount < ExpectedFieldCount)
+   {
+      return;
+   }
+
+   var r;
+   var fi;
+   var CurRows;
+   var FieldName;
+   var FieldVal;
+   var RSSI;
+   var ASET0Count = 0;
+   var ASET1Count = 0;
+   var ASET2Count = 0;
+
+   FieldName = "ASET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Determine the number of Subactive sets indexes
+   for (r = 0; r < ASets; r++)
+   {
+      // Subactive Set Index
+      FieldVal = Fields.GetFieldValue( fi + 9 );
+      if (!(FieldVal >= 0 && FieldVal <= 2))
+      {
+         continue;
+      }
+
+      switch (FieldVal)
+      {
+         case 0:
+         {
+            ASET0Count++;
+         }
+         break;
+
+         case 1:
+         {
+            ASET1Count++;
+         }
+         break;
+
+         case 2:
+         {
+            ASET2Count++;
+         }
+         break;
+      }
+
+      // Get ready for next loop
+      fi += 23;
+   }
+
+   CurRows = ActiveSetTable0.rows.length;
+   ManageRows( ActiveSetTable0, 0, CurRows, ASET0Count, 21, true );
+
+   CurRows = ActiveSetTable1.rows.length;
+   ManageRows( ActiveSetTable1, 0, CurRows, ASET1Count, 21, true );
+
+   CurRows = ActiveSetTable2.rows.length;
+   ManageRows( ActiveSetTable2, 0, CurRows, ASET2Count, 21, true );
+
+   // Get back the field offset
+   FieldName = "ASET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new active sets
+   for (r = 0; r < ASets; r++)
+   {
+      // Subactive Set Index
+      FieldVal = Fields.GetFieldValue( fi + 9 );
+      if (!(FieldVal >= 0 && FieldVal <= 2))
+      {
+         continue;
+      }
+
+      switch (FieldVal)
+      {
+         case 0:
+         {
+            PopulateASETables1( ActiveSetTable0, Fields, fi, --ASET0Count );
+         }
+         break;
+
+         case 1:
+         {
+            PopulateASETables1( ActiveSetTable1, Fields, fi, --ASET1Count );
+         }
+         break;
+
+         case 2:
+         {
+            PopulateASETables1( ActiveSetTable2, Fields, fi, --ASET2Count );
+         }
+         break;
+      }
+
+      // Get ready for next loop
+      fi += 23;
+   }
+
+   CurRows = CandidateSetTable.rows.length;
+   ManageRows( CandidateSetTable, 0, CurRows, CSets, 9, true );
+
+   FieldName = "CSET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new candidate sets
+   for (r = 0; r < CSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      CandidateSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      CandidateSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy
+      FieldVal = Fields.GetFieldValue( fi + 2 );
+      CandidateSetTable.rows[r].cells[2].innerText = "-";
+
+      for (f = 2; f < 7; f++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + f + 1 );
+         CandidateSetTable.rows[r].cells[f + 1].innerText = FieldVal;
+      }
+
+      // Window center
+      FieldVal = Fields.GetFieldValueText( fi + 9 );
+      CandidateSetTable.rows[r].cells[8].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 10;
+   }
+
+   CurRows = NeighborSetTable.rows.length;
+   ManageRows( NeighborSetTable, 0, CurRows, NSets, 9, true );
+
+   FieldName = "NSET[0].PN Offset";
+   fi = Fields.GetFieldIndex( FieldName, 1 );
+
+   // Add in new neighbor sets
+   for (r = 0; r < NSets; r++)
+   {
+      // Pilot PN
+      FieldVal = Fields.GetFieldValueText( fi );
+      NeighborSetTable.rows[r].cells[0].innerText = FieldVal;
+
+      // Pilot Energy
+      FieldVal = Fields.GetFieldValue( fi + 1 );
+      RSSI = ComputeRSSI( FieldVal );
+      NeighborSetTable.rows[r].cells[1].innerText = RSSI;
+
+      // OFS Condition Energy
+      FieldVal = Fields.GetFieldValue( fi + 2 );
+      NeighborSetTable.rows[r].cells[2].innerText = "-";
+
+      for (f = 2; f < 7; f++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi + f + 1 );
+         NeighborSetTable.rows[r].cells[f + 1].innerText = FieldVal;
+      }
+
+      // Age
+      FieldVal = Fields.GetFieldValueText( fi + 9 );
+      NeighborSetTable.rows[r].cells[8].innerText = FieldVal;
+
+      // Get ready for next loop
+      fi += 10;
+   }
+}
+
+// Populate active set tables with verion 0 of log 0x12A1
+function PopulateASETables0( TableName, Fields, FieldIndex, RO )
+{
+   var fi = FieldIndex;
+
+   // Pilot PN
+   var FieldVal = Fields.GetFieldValue( fi );
+   TableName.rows[RO].cells[0].innerText = FieldVal;
+
+   // Pilot Energy
+   FieldVal = Fields.GetFieldValue( fi + 1 );
+   RSSI = ComputeRSSI( FieldVal );
+   TableName.rows[RO].cells[1].innerText = RSSI;
+
+   // OFS Condition Energy -- Not valid for version 0 log
+   TableName.rows[RO].cells[2].innerText = "-";
+
+   for (f = 2; f < 8; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + f );
+      TableName.rows[RO].cells[f + 1].innerText = FieldVal;
+   }
+
+   for (f = 9; f < 15; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + f );
+      TableName.rows[RO].cells[f].innerText = FieldVal;
+   }
+
+   for (f = 16; f < 22; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + f );
+      TableName.rows[RO].cells[f - 1].innerText = FieldVal;
+   }
+}
+
+// Populate active set tables with verion 1 of log 0x12A1
+function PopulateASETables1( TableName, Fields, FieldIndex, RO )
+{
+   var fi = FieldIndex;
+
+   // Pilot PN
+   var FieldVal = Fields.GetFieldValue( fi );
+   TableName.rows[RO].cells[0].innerText = FieldVal;
+
+   // Pilot Energy
+   FieldVal = Fields.GetFieldValue( fi + 1 );
+   RSSI = ComputeRSSI( FieldVal );
+   TableName.rows[RO].cells[1].innerText = RSSI;
+
+   // OFS Condition Energy
+   FieldVal = Fields.GetFieldValue( fi + 2 );
+   TableName.rows[RO].cells[2].innerText = "-";
+
+   for (f = 2; f < 8; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + f + 1 );
+      TableName.rows[RO].cells[f + 1].innerText = FieldVal;
+   }
+
+   for (f = 9; f < 15; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + f + 1 );
+      TableName.rows[RO].cells[f].innerText = FieldVal;
+   }
+
+   for (f = 16; f < 22; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( fi + f + 1 );
+      TableName.rows[RO].cells[f - 1].innerText = FieldVal;
+   }
+}
+
+</script>
+
+</body>
+</html>

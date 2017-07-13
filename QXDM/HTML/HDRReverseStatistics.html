@@ -1,0 +1,385 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Reverse Statistics" />
+   <meta name="DMViewWidth" content="400" />
+   <meta name="DMViewHeight" content="300" />
+
+   <title>HDR Reverse Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" cellpadding="2">
+
+   <tr>
+      <td colspan="2" width="100%" valign="top" class="noborder">
+       
+         <table width="100%" id="RRITable">
+            <colgroup span="2">
+               <col width="40%" />
+               <col width="60%" />
+            </colgroup>
+
+            <tr>
+               <th colspan="2">Reverse Rate Indicator</th>
+            </tr>
+            <tr>               
+               <td>Actual RRI</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Reverse Rate Limit</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Power Amplifier Limit</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>AT State</td>
+               <td>-</td>
+            </tr>
+         </table>
+                  
+      </td>   
+   </tr>
+
+   <tr>
+      <td width="50%" valign="top" class="noborder">
+      
+         <table width="100%" id="TrafficTable">
+            <colgroup span="2">
+               <col width="40%" />
+               <col width="60%" />
+            </colgroup>
+            <tr>
+               <th colspan="2">Traffic Statistics</th>
+            </tr>
+            <tr>
+               <td>9.6 Kbps</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>19.2 Kbps</td>               
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>38.4 Kbps</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>76.8 Kbps</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>153.6 Kbps</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th colspan="2"><input type="button" value="Reset" onclick="ResetTraffic();"></th>
+            </tr>
+         </table> 
+         
+      </td>
+      <td width="50%" valign="top" class="noborder">
+       
+         <table width="100%" id="AccessTable">         
+            <colgroup span="2">
+               <col width="40%" />
+               <col width="60%" />
+            </colgroup>
+
+            <tr>
+               <th colspan="2">Access Statistics</th>
+            </tr>
+            <tr>               
+               <td>Successes</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Failures</td>
+               <td>-</td>
+            </tr>
+            <tr>               
+               <td>Attempts</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th colspan="2"><input type="button" value="Reset" onclick="ResetAccess();"></th>
+            </tr>
+            <tr>              
+         </table>
+         
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1000;
+var LOG_ON_DEMAND_REQ = "Log On Demand Request";
+var RESET_TRAFFIC_REQ = "CDMA 1xEV/Reset Reverse Stats Request";
+var RESET_ACCESS_REQ  = "CDMA 1xEV/Reset Access Attempts Request";
+
+var gMainTickID       = 0;
+var PrevIndex         = -1;
+        
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs     
+   clientObject.AddLog( 0x1060 );
+   clientObject.AddLog( 0x1062 );
+   clientObject.AddLog( 0x106C );
+   clientObject.AddLog( 0x107E );
+   
+   clientObject.CommitConfig();
+   
+   // Request state immediately
+   IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, "0x107E", 1, TIMEOUT_MS, 1, 1 );
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process new logs in our client view
+function ProcessLogs()
+{
+   var LogCode1060 = "[0x1060]";
+   var LogCode1062 = "[0x1062]";
+   var LogCode106C = "[0x106C]";
+   var LogCode107E = "[0x107E]";
+
+   // We only process the last instance of each log every pass 
+   var bLogCode1060 = false;
+   var bLogCode1062 = false;
+   var bLogCode106C = false;
+   var bLogCode107E = false;
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case LogCode1060:     
+            if (bLogCode1060 == false)
+            {
+               bLogCode1060 = true;   
+               ProcessRRI( ItemFields );
+            }
+            break;
+         
+         case LogCode1062:        
+            if (bLogCode1062 == false)
+            {
+               bLogCode1062 = true;   
+               ProcessTraffic( ItemFields );
+            }
+            break;
+            
+         case LogCode106C:
+            if (bLogCode106C == false)
+            {
+               bLogCode106C = true;   
+               ProcessAccess( ItemFields );
+            }
+            break;
+   
+         case LogCode107E:    
+            if (bLogCode107E == false)
+            {
+               bLogCode107E = true;   
+               ProcessState( ItemFields );
+            }
+            break;
+      }     
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function ProcessRRI( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 8)
+   {
+      return;
+   }
+      
+   // Actual RRI
+   var FieldVal = Fields.GetFieldValueText( 7 );
+   RRITable.rows[1].cells[1].innerText = FieldVal;
+
+   // Reverse rate limit
+   FieldVal = Fields.GetFieldValueText( 0 );
+   RRITable.rows[2].cells[1].innerText = FieldVal;
+
+   // Attempt count
+   FieldVal = Fields.GetFieldValueText( 5 );
+   RRITable.rows[3].cells[1].innerText = FieldVal;
+}
+
+function ProcessTraffic( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 5)
+   {
+      return;
+   }
+   
+   var FieldVal;
+   for (var f = 0; f < 5; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      TrafficTable.rows[f + 1].cells[1].innerText = FieldVal;
+   }
+}
+
+function ProcessAccess( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 9)
+   {
+      return;
+   }
+      
+   // Successes
+   var FieldVal = Fields.GetFieldValueText( 6 );
+   AccessTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Failures
+   FieldVal = Fields.GetFieldValueText( 7 );
+   AccessTable.rows[2].cells[1].innerText = FieldVal;
+
+   // Attempts
+   FieldVal = Fields.GetFieldValueText( 8 );
+   AccessTable.rows[3].cells[1].innerText = FieldVal;
+}
+
+function ProcessState( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+   
+   // AT State
+   FieldVal = Fields.GetFieldValueText( 0 );
+   RRITable.rows[4].cells[1].innerText = FieldVal;
+}
+
+function ResetTraffic()
+{
+   IQXDM2.RequestItem( RESET_TRAFFIC_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+   
+   for (var r = 1; r < 6; r++)
+   {
+      TrafficTable.rows[r].cells[1].innerText = "?";
+   }
+}
+
+function ResetAccess()
+{
+   IQXDM2.RequestItem( RESET_ACCESS_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+   
+   for (var r = 1; r < 4; r++)
+   {
+      AccessTable.rows[r].cells[1].innerText = "?";
+   }
+}
+
+</script>
+
+</body>
+</html>  

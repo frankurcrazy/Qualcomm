@@ -1,0 +1,464 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GNSS GPS HBW/RXD Measurements" />
+   <meta name="DMViewWidth" content="1265" />
+   <meta name="DMViewHeight" content="420" />
+
+   <title>GNSS GPS HBW/RXD Measurements</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+   <table width="25%" id="FCountTable">
+      <colgroup span="2">
+         <col width="40%" />
+         <col width="60%" />
+      </colgroup>
+      <tr>
+         <th>F Count</th>
+         <td>-</td>
+      </tr>
+   </table>
+
+   <br />
+
+   <table width="100%" id="GPSMeasTable">
+      <colgroup span="23">
+         <col width="3%" />
+         <col width="3%" />
+         <col width="12%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="6%" />
+         <col width="4%" />
+         <col width="3%" />
+         <col width="3%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="3%" />
+         <col width="3%" />
+         <col width="5%" />
+         <col width="5%" />
+         <col width="6%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="4%" />
+         <col width="4%" />
+      </colgroup>
+
+      <tr>
+         <th>Sv</th>
+         <th>Type</th>
+         <th>C</th>
+         <th>Elv</th>
+         <th>Azi</th>
+         <th>Stat</th>
+         <th>Gd</th>
+         <th>ObsCnt</th>
+         <th>PrtyErr</th>
+         <th>CNo</th>
+         <th>Latency</th>
+         <th>Pre</th>
+         <th>Post</th>
+         <th>Ms</th>
+         <th>SubMs</th>
+         <th>OffSM</th>
+         <th>TUnc</th>
+         <th>Speed</th>
+         <th>OffSpd</th>
+         <th>SpdUnc</th>
+         <th>CarrierPh</th>
+         <th>CSlipCnt</th>
+         <th>MultiPath</th>
+      </tr>
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle        = 0xFFFFFFFF;
+var UPDATE_MS     = 1000;
+var PrevIndex     = -1;
+var gMainTickID   = 0;
+var gFcount       = -1;
+var gMeasType     = -1;
+var gNumSVs       = 0;
+var gSVIDs        = new Array;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure GNSS GPS High Bandwidth Receive Diversity Measurement log
+   ClientObject.AddLog( 0x1481 );
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   // Process items oldest to newest
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == "[0x1481]")
+      {
+         PopulateGPSTable( Fields );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the "GNSS GPS High Bandwidth Receive Diversity Measurement" table
+function PopulateGPSTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 10)
+   {
+      return;
+   }
+
+   // Is it a valid version of log ?
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+
+   // Measurement type
+   var MeasType = Fields.GetFieldValueText( 8 );
+
+   // FCount
+   var Fcount = Fields.GetFieldValue( 1 );
+   FCountTable.rows[0].cells[1].innerText = Fcount;
+
+   // Grab number of rows in existing table
+   var CurRows = GPSMeasTable.rows.length;
+
+   // Clear out the table for a new FCount
+   if (Fcount != gFcount)
+   {
+      gSVIDs = new Array;
+   }
+
+   // Ignore Measurement type "0" i.e. "LBW"
+   var MeasTypeVal = Fields.GetFieldValue( 8 );
+   if (!MeasTypeVal)
+   {
+      return;
+   }
+
+   // Process only valid measurment types i.e. "HBW" & "RXD"
+   if (MeasTypeVal != 1 && MeasTypeVal != 2)
+   {
+      return;
+   }
+
+   // Grab number of SVs and process
+   var NumSVs = Fields.GetFieldValue( 9 );
+   if (NumSVs > 16)
+   {
+      NumSVs = 16;
+   }
+
+   // Do we have enough fields to process ?
+   if (FieldCount < (10 + 50 * NumSVs))
+   {
+      return;
+   }
+
+   // We don't need to do this if we have sufficient rows
+   var DesiredRows = NumSVs * 2;
+   if (NumSVs > gNumSVs)
+   {
+      ManageRows( GPSMeasTable, 1, CurRows, DesiredRows, 23, true );
+   }
+
+   var FI = 10;
+   var Row = 0;
+   for (var sv = 0; sv < NumSVs; sv++)
+   {
+      // SV ID
+      var SVID = Fields.GetFieldValue( FI++ );
+      if (SVID == 0)
+      {
+         FI += 50;
+      }
+      else
+      {
+         // Observation State
+         var ObsState = Fields.GetFieldValueText( FI++ );
+
+         // Total Observations
+         var TotalObs = Fields.GetFieldValueText( FI++ );
+
+         // Good Observations
+         var GoodObs = Fields.GetFieldValueText( FI++ );
+
+         // Parity Error
+         var ParityError = Fields.GetFieldValueText( FI );
+
+         FI += 2;
+
+         // Carrier Noise
+         var CNoise = Fields.GetFieldValueText( FI++ );
+         CNoise /= 100;
+
+         // Latency
+         var Latency = Fields.GetFieldValueText( FI++ );
+
+         // Pre-Detection Integration 
+         var PreInt = Fields.GetFieldValueText( FI++ );
+
+         // Post-Detections
+         var PostInt = Fields.GetFieldValueText( FI++ );
+
+         // Unfiltered Measurement - Integral
+         var Ms = Fields.GetFieldValueText( FI++ );
+
+         // Unfiltered Measurement - Fraction
+         var SubMs = Fields.GetFieldValueText( FI++ );
+
+         // Unfiltered Measurement - Offset
+         var MsOffset = Fields.GetFieldValueText( FI++ );
+
+         // Unfiltered Time Uncertainty
+         var TimeUnc = Fields.GetFieldValueText( FI++ );
+
+         // Fine Velocity/Uncertainty available ?
+         var Speed;
+         var SpeedUnc;
+         var FineVelAvail = Fields.GetFieldValue( FI + 8 );
+         if (FineVelAvail)
+         {
+            // Fine Speed
+            Speed = Fields.GetFieldValue( FI + 34 );
+
+            // Fine Speed Offset
+            SpeedOffset = Fields.GetFieldValue( FI + 35 );
+         }
+         else
+         {
+            // Unfiltered Speed
+            Speed = Fields.GetFieldValue( FI );
+
+            // Unfiltered Speed Uncertainty
+            SpeedUnc = Fields.GetFieldValue( FI + 2 );
+         }
+
+         // Unfiltered Speed Offset
+         SpeedOffset = Fields.GetFieldValue( FI + 1 );
+
+         FI += 26;
+
+         // Channel Measurement Status
+         var MeasStatus = Fields.GetFieldValueText( FI );
+
+         FI += 2;
+
+         var Azimuth = "-";
+         var Elevation = "-";
+
+         // Direction Valid
+         var bValid = (Fields.GetFieldValue( FI++ ) == 1);
+         if (bValid == true)
+         {
+            // Azimuth
+            Azimuth = Fields.GetFieldValue( FI + 1 );
+
+            // Elevation
+            Elevation = Fields.GetFieldValue( FI + 2 );
+         }
+         else
+         {
+            Azimuth = "N/A";
+            Elevation = "N/A";
+         }
+
+         // Multipath Estimate
+         var MultiPath = Fields.GetFieldValueText( FI++ );
+
+         FI += 2;
+
+         // Carrier Phase Cycles & Cycle Slip Count
+         var CarrierPhaseInt = Fields.GetFieldValueText( FI++ );
+         var CarrierPhaseFct = Fields.GetFieldValueText( FI++ );
+         var CarrierPhase = CarrierPhaseInt + "." + CarrierPhaseFct;
+         var CycleSlipCount = Fields.GetFieldValue( FI + 2 );
+
+         var ro = -1;
+         if ((SVID in gSVIDs) == true)
+         {
+            // Do we have an existing row with SV ID ?
+            ro = gSVIDs[SVID];
+         }
+
+         // SV ID is new, use the default row
+         if (ro == -1)
+         {
+            ro = Row + 1;
+         }
+
+         // Update the next row for same Fcount and different measurement type
+         if (Fcount == gFcount && gMeasType != MeasTypeVal)
+         {
+            ro = ro + 1;
+         }
+         else
+         {
+            GPSMeasTable.rows[ro + 1].cells[0].innerText = SVID;
+            if (MeasTypeVal == 2)
+            {
+               GPSMeasTable.rows[ro + 1].cells[1].innerText = "HBW";
+            }
+            else if (MeasTypeVal == 1)
+            {
+               GPSMeasTable.rows[ro + 1].cells[1].innerText = "RXD";
+            }
+
+            for (var col = 2; col < 23; col++)
+            {
+               GPSMeasTable.rows[ro + 1].cells[col].innerText = "-";
+            }
+         }
+
+         // Store SV ID for each row
+         gSVIDs[SVID] = ro;
+
+         GPSMeasTable.rows[ro].cells[0].innerText = SVID;
+         GPSMeasTable.rows[ro].cells[1].innerText = MeasType;
+         GPSMeasTable.rows[ro].cells[2].innerText = ObsState;
+         GPSMeasTable.rows[ro].cells[3].innerText = Elevation;
+         GPSMeasTable.rows[ro].cells[4].innerText = Azimuth;
+         GPSMeasTable.rows[ro].cells[5].innerText = MeasStatus;
+         GPSMeasTable.rows[ro].cells[6].innerText = GoodObs;
+         GPSMeasTable.rows[ro].cells[7].innerText = TotalObs;
+         GPSMeasTable.rows[ro].cells[8].innerText = ParityError;
+         GPSMeasTable.rows[ro].cells[9].innerText = CNoise.toFixed( 2 );
+         GPSMeasTable.rows[ro].cells[10].innerText = Latency;
+         GPSMeasTable.rows[ro].cells[11].innerText = PreInt;
+         GPSMeasTable.rows[ro].cells[12].innerText = PostInt;
+         GPSMeasTable.rows[ro].cells[13].innerText = Ms;
+         GPSMeasTable.rows[ro].cells[14].innerText = SubMs;
+         GPSMeasTable.rows[ro].cells[15].innerText = MsOffset;
+         GPSMeasTable.rows[ro].cells[16].innerText = TimeUnc;
+         GPSMeasTable.rows[ro].cells[17].innerText = Speed.toFixed( 4 );
+         GPSMeasTable.rows[ro].cells[18].innerText = SpeedOffset;
+         GPSMeasTable.rows[ro].cells[19].innerText = SpeedUnc.toFixed( 4 );
+         GPSMeasTable.rows[ro].cells[20].innerText = CarrierPhase;
+         GPSMeasTable.rows[ro].cells[21].innerText = CycleSlipCount;
+         GPSMeasTable.rows[ro].cells[22].innerText = MultiPath;
+
+         FI += 3;
+         Row += 2;
+      }
+   }
+
+   // Store the Fcount, NumSVs and measurement type values for next pass
+   gFcount = Fcount;
+   gNumSVs = NumSVs;
+   gMeasType = MeasTypeVal;
+}
+
+</script>
+</body>
+</html>

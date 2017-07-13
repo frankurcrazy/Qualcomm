@@ -1,0 +1,144 @@
+<job id="QXDM GPSPort Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMGPSPort.wsf [GPS Port Number]
+
+// This example demonstrates the usage of the IQXDM automation
+// interface method GPSPort()
+
+// Global variable
+var QXDM;
+
+// GPS port to be used for communication with the phone by QXDM
+var PortNumber = -1;
+
+// Process the argument - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript QXDMGPSPort.wsf [Optional GPS Port Number]\n"
+            + "Eg:     CScript QXDMGPSPort.wsf 5\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 1)
+   {
+      // GPS port is optional
+      RC = true;
+      return RC;
+   }
+
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Obtain and dump out the GPS port status
+function DumpGPSPort()
+{
+   var Txt = "";
+
+   // Check GPS port status
+   var GPSPort = QXDM.GPSPort;
+   if (GPSPort == -1)
+   {
+      Txt = "Error occurred";
+      WScript.StdOut.WriteLine( Txt );
+   }
+   else if (GPSPort == 0)
+   {
+      Txt = "GPS not connected";
+      WScript.StdOut.WriteLine( Txt );
+   }
+   else if (GPSPort > 0)
+   {
+      Txt = "Connected to GPS port: COM" + GPSPort;
+      WScript.StdOut.WriteLine( Txt );
+   }
+}
+
+// Main body of script
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   if (PortNumber != -1)
+   {
+      // Change the GPS port
+      QXDM.GPSPort = PortNumber;
+   }
+
+   // Wait for change in GPS port
+   WScript.Sleep( 2000 );
+
+   // Obtain and dump out the GPS port status
+   DumpGPSPort();
+}
+
+Execute();
+
+</script>
+</job>

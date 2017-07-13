@@ -1,0 +1,245 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GSM Dedicated Mode WCDMA Cell List" />
+   <meta name="DMViewWidth" content="460" />
+   <meta name="DMViewHeight" content="320" />
+
+   <title>GSM Dedicated Mode WCDMA Cell List</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label-left">State Information</div>
+
+<table width="100%" id="ReselectTable">
+   <colgroup span="3">
+      <col width="34%" />
+      <col width="33%" />
+      <col width="33%" />
+   </colgroup>
+
+   <tr>
+      <th colspan="3">3G Reselection Parameters</th>
+   </tr>
+   <tr>
+      <th>Quality Threshold</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th>3G Search Priority</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th colspan="3">3G Reselection Cell List</th>
+   </tr>
+   <tr>
+      <th>UARFCN</th>
+      <th>SCI</th>
+      <th>STTD In Use</th>
+   </tr>
+   <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>     
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 1000;
+var UNASSIGNED_STR = "Unassigned"
+var UNASSIGNED_VAL = 0xFFFF;
+
+var PrevIndex      = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x525A );
+   clientObject.CommitConfig();
+*/
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var bTabs = false;
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields != null)
+      {
+         UpdateTable( Fields, bTabs );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+ 
+function UpdateTable( Fields, bTabs )
+{  
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 3)
+   {
+      return;
+   }
+
+   var FieldVal = Fields.GetFieldValueText( 0 );   
+   ReselectTable.rows[1].cells[1].innerText = FieldVal;    
+   
+   FieldVal = Fields.GetFieldValueText( 1 );   
+   ReselectTable.rows[2].cells[1].innerText = FieldVal;
+   
+   // Clear out table   
+   ReselectTable.rows[5].cells[0].innerText = "-";
+   ReselectTable.rows[5].cells[1].innerText = "-";
+   ReselectTable.rows[5].cells[2].innerText = "-";
+   
+   // Grab number of rows in existing table
+   var CurRows = ReselectTable.rows.length;
+   for (var r = CurRows - 1; r > 5 ; r--)
+   {
+      ReselectTable.deleteRow( r );
+   }
+   
+   var FI = 3;
+   var UARFCN = 0;
+   var Cells = 0;
+   var Row = 5;
+   
+   // Grab number of frequencies and process
+   var Freqs = Fields.GetFieldValue( 2 );   
+   for (var f = 0; f < Freqs; f++)
+   {
+      if (FI + 1 >= FieldCount)
+      {
+         break;
+      }
+      
+      UARFCN = Fields.GetFieldValueText( FI++ );
+      Cells = Fields.GetFieldValue( FI++ );
+      
+      for (var c = 0; c <  Cells; c++)
+      {
+         if (FI + 1 >= FieldCount)
+         {
+            break;
+         }
+         
+         if (Row > 5)
+         {
+            var TableRow = ReselectTable.insertRow();
+            TableRow.insertCell();
+            TableRow.insertCell();
+            TableRow.insertCell(); 
+         }
+         
+         if (c == 0)
+         {
+            ReselectTable.rows[Row].cells[0].innerText = UARFCN;
+         }
+         else
+         {
+            ReselectTable.rows[Row].cells[0].innerText = " ";
+         }
+         
+         FieldVal = Fields.GetFieldValueText( FI++ );
+         ReselectTable.rows[Row].cells[1].innerText = FieldVal;
+         
+         FieldVal = Fields.GetFieldValueText( FI++ );
+         ReselectTable.rows[Row].cells[2].innerText = FieldVal;
+         
+         Row++;
+      }
+   }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Broadcast Script Execution Verifier </title>
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<meta content="Broadcast Script Execution Verifier" name="DMViewName">
+		<meta content="800" name="DMViewWidth">
+		<meta content="600" name="DMViewHeight">
+		<style type="text/css"> .isdb-label { font-size: 10pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-label { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; background-color: #ffcc99; text-align: left; }
+	.isdb-table-input-label { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; background-color: #ffffcc; text-align: left; }
+	.isdb-matrix-label { font-size: 10pt; color: #000066; font-family: Arial; width: 25%; background-color: #ffcc99; text-align: left; padding-left: 5px; }
+	.isdb-table-value { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; text-align: right; }
+	.isdb-matrix-value { font-size: 10pt; color: #000066; font-family: Arial; width: 25%; text-align: right; }
+	.isdb-title { font-weight: bolder; font-size: 12pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-title { font-weight: bolder; font-size: 11pt; color: #000066; font-family: Arial; background-color: #ffffff; text-align: left; }
+	.isdb-button { font-weight: bolder; font-size: 10pt; color: white; font-family: Arial; background-color: navy; }
+	.style1 { font-size: 10pt; color: #000066; font-family: Arial; width: 142px; text-align: right; }
+	.style2 { font-size: 10pt; color: #000066; font-family: Arial; width: 137px; background-color: #ffcc99; text-align: left; height: 12pt; }
+	.style3 { font-size: 10pt; color: #000066; font-family: Arial; width: 132px; text-align: right; }
+	.style5 { font-size: 10pt; color: #000066; font-family: Arial; width: 113px; text-align: right; }
+	.style6 { font-size: 10pt; color: #000066; font-family: Arial; width: 109px; background-color: #ffcc99; text-align: left; }
+	.style7 { font-size: 10pt; color: #000066; font-family: Arial; width: 109px; background-color: #ffcc99; text-align: left; height: 12pt; }
+	.style8 { font-size: 10pt; color: #000066; font-family: Arial; width: 72px; background-color: #ffcc99; text-align: left; padding-left: 5px; height: 21px; }
+	.style9 { font-size: 10pt; color: #000066; font-family: Arial; width: 72px; text-align: right; }
+	.style10 { font-size: 10pt; color: #000066; font-family: Arial; width: 57px; background-color: #ffcc99; text-align: left; padding-left: 5px; height: 21px; }
+	.style11 { font-size: 10pt; color: #000066; font-family: Arial; width: 57px; text-align: right; }
+	.style12 { font-size: 10pt; color: #000066; font-family: Arial; width: 53px; background-color: #ffcc99; text-align: left; padding-left: 5px; height: 21px; }
+	.style13 { font-size: 10pt; color: #000066; font-family: Arial; width: 53px; text-align: right; }
+	.style14 { font-size: 10pt; color: #000066; font-family: Arial; width: 198px; background-color: #ffcc99; text-align: left; }
+	.style15 { font-size: 10pt; color: #000066; font-family: Arial; width: 198px; background-color: #ffcc99; text-align: left; height: 22px; }
+	.style16 { font-size: 10pt; color: #000066; font-family: Arial; width: 198px; background-color: #ffcc99; text-align: left; height: 17px; }
+	.style17 { font-size: 10pt; color: #000066; font-family: Arial; width: 198px; background-color: #ffcc99; text-align: left; height: 12px; }
+	.style18 { font-size: 10pt; color: #000066; font-family: Arial; width: 198px; background-color: #ffcc99; text-align: left; height: 16px; }
+	.style19 { font-size: 10pt; color: #000066; font-family: Arial; width: 129px; background-color: #ffcc99; text-align: left; height: 12pt; }
+		</style>
+		<script src="BroadcastBaseView.js" type="text/jscript"></script>
+	</head>
+	<body onload="Register()" onunload="Unregister()" style="BACKGROUND-COLOR: #ffffff">
+		<div style="WIDTH: 696px; POSITION: relative; HEIGHT: 420px" ms_positioning="GridLayout">
+			<DIV language="javascript" id="DIV3" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; Z-INDEX: 103; LEFT: 32px; BORDER-LEFT: navy thin inset; WIDTH: 656px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 40px; HEIGHT: 368px"
+				ms_positioning="GridLayout">&nbsp;
+				<TABLE id="Table2" style="Z-INDEX: 100; LEFT: 496px; MARGIN-BOTTOM: 0px; WIDTH: 136px; POSITION: absolute; TOP: 168px; HEIGHT: 136px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 2px" colSpan="2" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							-STATUS-</TD>
+					</TR>
+					<TR>
+						<TD colSpan="2" id="status_bulb" style="TEXT-ALIGN :center">----</TD>
+					</TR>
+				</TABLE>
+				<DIV language="javascript" class="isdb-label" id="DIV5" style="BORDER-RIGHT: white 1px solid; BORDER-TOP: white 1px solid; MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 101; LEFT: 5px; BORDER-LEFT: white 1px solid; WIDTH: 88px; BORDER-BOTTOM: white 1px solid; POSITION: absolute; TOP: 221px; HEIGHT: 28px; BACKGROUND-COLOR: activeborder"
+					ms_positioning="FlowLayout"><FONT color="gray" size="4">Message:</FONT>
+				</DIV>
+				<INPUT class="isdb-table-value" id="msg" style=" Z-INDEX:102;LEFT:110px;WIDTH:375px;POSITION:absolute;TOP:225px;HEIGHT:22px;TEXT-ALIGN:left"
+					type="text" size="65">
+				<TABLE id="Table1" style="Z-INDEX: 103; LEFT: 280px; MARGIN-BOTTOM: 0px; WIDTH: 136px; POSITION: absolute; TOP: 32px; HEIGHT: 72px"
+					cellSpacing="1" cellPadding="1" border="1" language="javascript">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 2px" align="center" colSpan="2" id="stall_cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							Stall&nbsp; (2)</TD>
+					</TR>
+				</TABLE>
+				<TABLE language="javascript" id="Table3" style="Z-INDEX: 105; LEFT: 144px; MARGIN-BOTTOM: 0px; WIDTH: 136px; POSITION: absolute; TOP: 32px; HEIGHT: 72px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 2px" align="center" colSpan="2" id="distortion_cell">&nbsp;&nbsp;&nbsp;&nbsp;Distortion&nbsp; 
+							(1)</TD>
+					</TR>
+				</TABLE>
+				<TABLE language="javascript" id="Table4" style="Z-INDEX: 106; LEFT: 144px; MARGIN-BOTTOM: 0px; WIDTH: 272px; POSITION: absolute; TOP: 0px; HEIGHT: 32px"
+					cellSpacing="1" cellPadding="1" border="1">
+					<TR>
+						<TD class="isdb-table-title" style="HEIGHT: 2px" align="center" colSpan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Video 
+							Quality User Notifications</TD>
+					</TR>
+				</TABLE>
+			</DIV>
+		</div>
+		
+			<script type="text/jscript">
+	
+////////////////
+// CONSTANTS //
+///////////////
+var cnt = 0 ; 
+
+function RegisterSpecificViewItems()   
+ {
+	 ClientObject.ClearConfig();
+	 ClientObject.AddString( 3 );
+	 ClientObject.AddEvent( EVENT_MEDIA_PLAYER_KEYPRESS );
+     ClientObject.CommitConfig();
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+function ProcessStrings( Item )
+{
+  
+   var str = Item.GetItemSummary();
+	
+	
+ if (StringHasSubstr(str ,  "Started running script file"))
+ {
+	msg.innerText = str;
+	status_bulb.style.backgroundColor='yellow';
+	status_bulb.innerText = "EXECUTION";
+	return ; 
+ }
+
+ 
+  if (StringHasSubstr(str ,  "Finished Script File"))
+ {
+	status_bulb.style.backgroundColor='green';
+	msg.innerText = str;
+	status_bulb.innerText = "SUCCESS";
+	return ; 
+ }
+ 
+  if (StringHasSubstr(str ,  "Unable to") || StringHasSubstr(str ,  "Unknown command") )
+ {
+	status_bulb.style.backgroundColor='red';
+	msg.innerText = str;
+	status_bulb.innerText = "FAILED";
+	return ; 
+ }
+ 
+ 
+   
+}
+////////////////////////////////////////////////////////////////////////
+function ProcessEvents( Item )
+{
+	var sleep_delay = 7000 ; 
+	if (GetItemID(Item) ==  EVENT_MEDIA_PLAYER_KEYPRESS)
+	{
+		var Fields               = Item.GetItemFields();
+		if (Fields == null) {return ;   }
+	
+		var keyPressed = Fields.GetFieldValue( 0 ) ;
+	
+	switch (keyPressed)
+	{
+		case 0xE06D  :
+		{
+			stall_cell.style.backgroundColor = 'red' ; 
+            setTimeout ( "reset_gui()", 1000 );
+			break ; 
+			
+		}
+		case 0xE036  :
+		{
+			distortion_cell.style.backgroundColor = 'yellow' ; 
+			  setTimeout ( "reset_gui()", 1000 );
+			break ; 
+			
+		}
+	 
+	}
+	
+	}// case this is EVENT_MEDIA_PLAYER_KEYPRESS
+}// close function 
+
+function  reset_gui()
+{
+	stall_cell.style.backgroundColor      = 'white' ; 
+	distortion_cell.style.backgroundColor = 'white' ; 
+}
+
+function   ProcessLogs( Item){}
+
+////////////////////////////////////////////////////////////////////////////////////////
+function UnRegisterSpecificPerView() {} 
+function  InitDisplay()
+{
+reset_gui();
+}   
+			</script>
+	</body>
+</html>

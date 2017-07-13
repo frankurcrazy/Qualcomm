@@ -1,0 +1,567 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="CDMA RLP Statistics" />
+   <meta name="DMViewWidth" content="400" />
+   <meta name="DMViewHeight" content="600" />
+
+   <title>CDMA RLP Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="RLPTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+
+   <tr>
+      <th>Service ID Filter</th>
+      <td>
+         <select onchange="SetIDFilter(this.value);" id="IDSelect">
+            <option value='2048' selected>None (Last Received)</option>
+         </select>
+      </td>
+   </tr>
+   <tr>               
+      <td>Service ID</td>
+      <td>-</td>
+   </tr>
+   <tr>               
+      <td>Last Reset Time</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Retransmitted Frames Not Found</td>
+      <td>-</td>
+   </tr> 
+   <tr>
+      <td>Retransmitted Frames Missing</td>
+      <td>-</td>
+   </tr>
+   <tr>               
+      <td>Last RTT Measurement Frames</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <td>Largest Consecutive Erasures</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Number Of Resets</td>
+      <td>-</td>
+   </tr>
+   <tr>               
+      <td>Number Of NAK Aborts</td>
+      <td>-</td>
+   </tr>
+   <tr>               
+      <td>Block Of Bytes Used</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <th colspan="2">RX Queue</th>
+   </tr>
+   <tr>               
+      <td>Idle Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>               
+      <td>Fill Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Blank Frames</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <td>Null Frames</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <td>New Data Frames</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <td>Fundamental Data Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Erasures</td>
+      <td>-</td>
+   </tr>   
+   <tr>
+      <td>Multiplexer Erasures</td>
+      <td>-</td>
+   </tr> 
+   <tr>
+      <td>Total Bytes</td>
+      <td>-</td>
+   </tr>
+      
+   <tr>
+      <th colspan="2">TX Queue</th>
+   </tr>
+   <tr>               
+      <td>Retransmitted Frames</td>
+      <td>-</td>
+   </tr>  
+   <tr>               
+      <td>Idle Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>New Data Frames</td>
+      <td>-</td>
+   </tr>      
+   <tr>
+      <td>Fundamental Data Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Total Bytes</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2">TX NAK Counts</th>
+   </tr>
+   <tr>               
+      <td>Single</td>
+      <td>-</td>
+   </tr>
+   <tr>               
+      <td>Double</td>
+      <td>-</td>
+   </tr>  
+   <tr>               
+      <td>Triple</td>
+      <td>-</td>
+   </tr>  
+   <tr>
+      <th colspan="2"><input type="button" value="Reset" onclick="ResetRLP();"></th>
+   </tr>  
+</table>
+         
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1000;
+
+// None selected/current service ID
+var gNoServiceID      = 2048;
+var gServiceID        = 2048;
+
+// Known service IDs
+var gServiceIDs       = new Array();
+
+// Index of last log for given service ID (-1 = none)
+var gServiceIndices   = new Array();
+
+var RESET_RLP_REQ = "RLP Statistics Reset Request";
+
+var gMainTickID       = 0;
+var PrevIndex         = -1;
+        
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs     
+   clientObject.AddLog( 0x1031 );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// User has updated the service ID filter
+function SetIDFilter( ServiceID )
+{
+   // Save
+   gServiceID = ServiceID;
+   
+   // Grab index of item
+   var idx = -1; 
+   if (gServiceID == gNoServiceID)
+   {
+      // Just use the last one we have processed
+      idx = PrevIndex;
+   }
+   else
+   {
+      // Use the last one processed for this ID
+      var sz = gServiceIDs.length;
+      for (var i = 0; i < sz; i++)
+      {
+         if (gServiceIDs[i] == gServiceID)
+         {
+            idx = gServiceIndices[i];
+            break;
+         }
+      }
+   }
+   
+   // Do we have a matching item?
+   if (idx >= 0)
+   {
+      // Yes, try to update table
+      var Item = IQXDM2.GetClientItem( Handle, idx );
+      if (Item != null)
+      {
+         var ItemFields = Item.GetItemFields();
+         if (ItemFields != null)
+         {                   
+            UpdateTable( ItemFields );
+         }
+         else
+         {
+            ResetTable();
+         }
+      } 
+      else
+      {
+         ResetTable();
+      } 
+   }
+   else
+   {
+      // No, reset table
+      ResetTable();
+   }
+}
+
+// Process new logs in our client view
+function ProcessLogs()
+{   
+   // We process all logs since we search for new service IDs   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }
+              
+      // Check for a new service ID
+      UpdateServiceIDs( ItemFields, i );
+      
+      // Update table
+      UpdateTable( ItemFields );  
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Check for a new service ID, if one is found update the filter 
+// combo-box and our internal arrays
+function UpdateServiceIDs( Fields, Index )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+      
+   // Get service ID and check
+   var ServiceID = Fields.GetFieldValue( 0 );
+   
+   var bFound = false;
+   var sz = gServiceIDs.length;
+   for (var i = 0; i < sz; i++)
+   {
+      if (gServiceIDs[i] == ServiceID)
+      {
+         // Update the last index received for this service ID
+         gServiceIndices[i] = Index;
+      
+         bFound = true;
+         break;
+      }
+   }
+   
+   // New service ID?
+   if (bFound == false)
+   {
+      var newOption = document.createElement( "option" );
+      newOption.text = "Service ID " + ServiceID;
+      newOption.value = ServiceID;
+
+      IDSelect.add( newOption );
+      
+      gServiceIDs[sz] = ServiceID;
+      gServiceIndices[sz] = Index;
+   }
+}
+
+// Update the table
+function UpdateTable( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 25)
+   {
+      return;
+   }
+      
+   // Get service ID and check
+   var ServiceID = Fields.GetFieldValue( 0 );
+   if (gServiceID != gNoServiceID)
+   {
+      if (ServiceID != gServiceID)
+      {
+         return;
+      }
+   }
+         
+   // Service ID
+   var FieldVal = Fields.GetFieldValueText( 0 );
+   RLPTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Last Reset Time
+   FieldVal = Fields.GetFieldValueText( 1 );
+   var AsDate = ConvertCDMATime( FieldVal );
+   
+   RLPTable.rows[2].cells[1].innerText = AsDate.toUTCString();
+
+   // Retransmitted Frames Not Found
+   FieldVal = Fields.GetFieldValueText( 3 );
+   RLPTable.rows[3].cells[1].innerText = FieldVal;
+
+   // Retransmitted Frames Missing
+   FieldVal = Fields.GetFieldValueText( 9 );
+   RLPTable.rows[4].cells[1].innerText = FieldVal;
+   
+   // Last RTT Measurement Frames
+   FieldVal = Fields.GetFieldValueText( 7 );
+   RLPTable.rows[5].cells[1].innerText = FieldVal;
+   
+   // Largest Consecutive Erasures
+   FieldVal = Fields.GetFieldValueText( 4 );
+   RLPTable.rows[6].cells[1].innerText = FieldVal;
+
+   // Number Of Resets
+   FieldVal = Fields.GetFieldValueText( 5 );
+   RLPTable.rows[7].cells[1].innerText = FieldVal;
+   
+   // Number Of NAK Aborts
+   FieldVal = Fields.GetFieldValueText( 6 );
+   RLPTable.rows[8].cells[1].innerText = FieldVal;
+   
+   // Block Of Bytes Used
+   FieldVal = Fields.GetFieldValueText( 8 );
+   RLPTable.rows[9].cells[1].innerText = FieldVal;
+   
+   // RX - Idle Frames
+   FieldVal = Fields.GetFieldValueText( 10 );
+   RLPTable.rows[11].cells[1].innerText = FieldVal;
+   
+   // RX - Fill Frames
+   FieldVal = Fields.GetFieldValueText( 11 );
+   RLPTable.rows[12].cells[1].innerText = FieldVal;
+   
+   // RX - Blank Frames
+   FieldVal = Fields.GetFieldValueText( 12 );
+   RLPTable.rows[13].cells[1].innerText = FieldVal;
+   
+   // RX - Null Frames
+   FieldVal = Fields.GetFieldValueText( 13 );
+   RLPTable.rows[14].cells[1].innerText = FieldVal;
+   
+   // RX - New Data Frames
+   FieldVal = Fields.GetFieldValueText( 14 );
+   RLPTable.rows[15].cells[1].innerText = FieldVal;
+   
+   // RX - Fundamental Data Frames
+   FieldVal = Fields.GetFieldValueText( 15 );
+   RLPTable.rows[16].cells[1].innerText = FieldVal;
+   
+   // RX - Erasures
+   FieldVal = Fields.GetFieldValueText( 17 );
+   RLPTable.rows[17].cells[1].innerText = FieldVal;
+   
+   // RX - Multiplexer Erasures
+   FieldVal = Fields.GetFieldValueText( 18 );
+   RLPTable.rows[18].cells[1].innerText = FieldVal;
+   
+   // RX - Total Bytes
+   FieldVal = Fields.GetFieldValueText( 16 );
+   RLPTable.rows[19].cells[1].innerText = FieldVal;
+   
+   // TX - Retransmitted Frames
+   FieldVal = Fields.GetFieldValueText( 19 );
+   RLPTable.rows[21].cells[1].innerText = FieldVal;
+   
+   // TX - Idle Frames
+   FieldVal = Fields.GetFieldValueText( 20 );
+   RLPTable.rows[22].cells[1].innerText = FieldVal;
+   
+   // TX - New Data Frames
+   FieldVal = Fields.GetFieldValueText( 21 );
+   RLPTable.rows[23].cells[1].innerText = FieldVal;
+   
+   // TX - Fundamental Data Frames
+   FieldVal = Fields.GetFieldValueText( 22 );
+   RLPTable.rows[24].cells[1].innerText = FieldVal;
+   
+   // TX - Total Bytes
+   FieldVal = Fields.GetFieldValueText( 23 );
+   RLPTable.rows[25].cells[1].innerText = FieldVal;
+   
+   // Get number of NAK entries
+   var nakEntries = Fields.GetFieldValueText( 24 );
+   if (nakEntries > 3)
+   {
+      nakEntries = 3;
+   }
+ 
+   // Add in NAK counts (up to three)
+   var n;
+   for (n = 0; n < nakEntries; n++)
+   {
+      FieldVal = Fields.GetFieldValueText( 25 + n );
+      RLPTable.rows[27 + n].cells[1].innerText = FieldVal;
+   }
+   
+   // Clear out unused entries
+   for (n = nakEntries; n < 3; n++)
+   {
+      RLPTable.rows[27 + n].cells[1].innerText = "-";
+   }
+}
+
+function ResetTable()
+{
+   for (var r = 1; r < 30; r++)
+   {
+      if (r != 10 && r != 20 && r != 26)
+      {
+         RLPTable.rows[r].cells[1].innerText = "?";
+      }
+   }
+}
+
+function ResetRLP()
+{
+   // Grab index of item
+   var idx = -1; 
+   if (gServiceID == gNoServiceID)
+   {
+      // Just use the last one we have processed
+      idx = PrevIndex;
+   }
+   else
+   {
+      // Use the last one processed for this ID
+      var sz = gServiceIDs.length;
+      for (var i = 0; i < sz; i++)
+      {
+         if (gServiceIDs[i] == gServiceID)
+         {
+            idx = gServiceIndices[i];
+            break;
+         }
+      }
+   }
+   
+   // Do we have a matching item?
+   if (idx >= 0)
+   {
+      // Yes, try to update table
+      var Item = IQXDM2.GetClientItem( Handle, idx );
+      if (Item != null)
+      {
+         var ItemFields = Item.GetItemFields();
+         if (ItemFields != null)
+         {                   
+            var serviceID = ItemFields.GetFieldValueText( 0 );
+            
+            IQXDM2.RequestItem( RESET_RLP_REQ, 
+                                serviceID, 
+                                1, 
+                                TIMEOUT_MS, 
+                                1, 
+                                1 );
+                                
+            ResetTable();
+         }
+      } 
+   }
+}
+
+</script>
+
+</body>
+</html>  

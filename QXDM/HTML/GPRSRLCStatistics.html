@@ -1,0 +1,464 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPRS RLC Statistics" />
+   <meta name="DMViewWidth" content="500" />
+   <meta name="DMViewHeight" content="300" />
+
+   <title>GPRS RLC Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+      
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">GPRS RLC Periodically Reported Statistics</div>
+
+<table border="0" width="100%" cellpadding="10">
+   <tr>
+      <td width="50%" valign="top" class="noborder">
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            
+            <tr>
+               <th>Uplink Parameters</th>
+               <th>Values</th>
+            </tr>
+
+            <tr>
+               <td>Uplink Update Rate</td>
+               <td>
+                  <select onchange="SetULUpdateRate(this.value);">
+                     <option value='1'>1 second</option>
+                     <option value='10' >10 seconds</option>
+                     <option value='30' >30 seconds</option>
+                     <option value='60'>1 minute</option>
+                     <option value='600'>10 minutes</option>
+                     <option value='3600'>1 hour</option>
+                     <option value='0'selected>Disabled</option>
+                  </select>
+               </td>
+            </tr>
+            
+            <tr>
+               <td>Reset Uplink Stats</td>
+               <td><input type="button" value="Reset" onclick="ResetULStats();"></td>
+            </tr>
+
+            <tbody id="RLCULStatisticsTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table> 
+      </td>
+      <td width="50%" valign="top" class="noborder"> 
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+
+            <tr>
+               <th>Downlink Parameters</th>
+               <th>Values</th>
+            </tr>       
+            
+            <tr>
+               <td>Downlink Update Rate</td>
+               <td>
+                  <select onchange="SetDLUpdateRate(this.value);">
+                     <option value='1'>1 second</option>
+                     <option value='10' >10 seconds</option>
+                     <option value='30' >30 seconds</option>
+                     <option value='60'>1 minute</option>
+                     <option value='600'>10 minutes</option>
+                     <option value='3600'>1 hour</option>
+                     <option value='0'selected>Disabled</option>
+                  </select>
+               </td>
+            </tr> 
+            
+            <tr>
+               <td>Reset Downlink Stats</td>
+               <td><input type="button" value="Reset" onclick="ResetDLStats();"></td>
+            </tr>
+               
+            <tbody id="RLCDLStatisticsTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<br />
+<div class="label">GPRS RLC Uplink Abnormal Release And Event Counters</div>
+   
+<table border="0" width="100%" cellpadding="10">
+   <tr>
+      <td width="50%" valign="top" class="noborder">   
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>    
+
+            <tr>
+               <th>Abnormal Releases</th>
+               <th>Counts</th>
+            </tr>
+
+            <tr>
+               <td>Reset Abnormal Releases</td>
+               <td><input type="button" value="Reset" onclick="ResetULRlsCounts();">
+            </td>
+            </tr>
+
+            <tbody id="RLCULAbnormalReleaseTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+      <td width="50%" valign="top" class="noborder">
+         <table width="100%">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>    
+
+            <tr>
+               <th>Events</th>
+               <th>Counts</th>
+            </tr>
+
+            <tr>
+               <td>Reset Event Counters</td>
+               <td><input type="button" value="Reset" onclick="ResetULEventCounts();"></td>
+            </tr>
+
+            <tbody id="RLCULEventCountersTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle             = 0xFFFFFFFF;
+
+var TIMEOUT_MS         = 500;
+var UPDATE_MS          = 500;
+var GPRS_LOG_REQ       = "GSM/GPRS Log Packet Request";
+var LOG_ON_DEMAND_REQ  = "Log On Demand Request";
+
+var gULTimerInSecs     = 0;
+var gDLTimerInSecs     = 0;
+var gMainTickID        = 0;
+var gULTickID          = 0;
+var gDLTickID          = 0;
+
+var PrevIndex         = -1;
+
+// Initialize the HTML page   
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support requeired interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.      
+   clientObject.AddLog( 0x5200 );
+   clientObject.AddLog( 0x5201 );
+   clientObject.AddLog( 0x5202 );
+   clientObject.AddLog( 0x520A );
+   
+   clientObject.CommitConfig();
+  
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (gULTickID != 0)
+   {
+      window.clearInterval( gULTickID );
+      gULTickID = 0;
+   }
+
+   if (gDLTickID != 0)
+   {
+      window.clearInterval( gDLTickID );
+      gDLTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+    
+// Request (or reset) a GPRS log through the GSM/GPRS subsystem 
+// dispatch command
+function GetLogs( requestString )
+{
+   var ReqID = IQXDM2.RequestItem( GPRS_LOG_REQ,
+                                   requestString,
+                                   1,
+                                   TIMEOUT_MS,
+                                   1,
+                                   1 );
+   if (ReqID == 0)
+   {
+      window.document.write( "<br /> Error scheduling request" );
+      return;
+   }    
+}
+
+// Request a log using the log on demand DIAG command
+function RequestLogOnDemand( logCode )
+{
+   var ReqID = IQXDM2.RequestItem( LOG_ON_DEMAND_REQ,
+                                   logCode,
+                                   1,
+                                   TIMEOUT_MS,
+                                   1,
+                                   1 );
+
+   if (ReqID == null)
+   {
+      window.document.write( "<br /> Error scheduling request" );
+      return;
+   }
+}
+
+function ResetULStats()
+{   
+   GetLogs( "0x5202 1 0" );
+   ClearSimpleFieldTable( RLCULStatisticsTable );
+}
+
+function ResetDLStats()
+{   
+   GetLogs( "0x520A 1 0" );
+   ClearSimpleFieldTable( RLCDLStatisticsTable ); 
+}
+
+function ResetULRlsCounts()
+{   
+   GetLogs( "0x5200 1 0" );
+   ClearSimpleFieldTable( RLCULAbnormalReleaseTable ); 
+}
+
+function ResetULEventCounts()
+{   
+   GetLogs( "0x5201 1 0" );
+   ClearSimpleFieldTable( RLCULEventCountersTable ); 
+}
+
+function RequestULPackets()
+{  
+   RequestLogOnDemand( "0x5200" );
+   RequestLogOnDemand( "0x5201" );
+   RequestLogOnDemand( "0x5202" );
+}
+
+function RequestDLPackets()
+{   
+   RequestLogOnDemand( "0x520A" );
+}
+
+function SetULUpdateRate( seconds )
+{
+   if (gULTickID != 0)
+   {
+      window.clearInterval( gULTickID );
+      gULTickID = 0;
+   }
+
+   var inSecs = parseInt( seconds, 10 );
+   gULTimerInSecs = inSecs;   
+   if (gULTimerInSecs > 0)
+   {
+      // Convert to milliseconds and set
+      var inMS = gULTimerInSecs * 1000;       
+      gULTickID = window.setInterval( "RequestULPackets()", inMS );
+      
+      // Go ahead and ask for them immediately
+      RequestULPackets();
+   }
+   else
+   {         
+      // Clear out tables
+      ClearSimpleFieldTable( RLCULStatisticsTable );
+      ClearSimpleFieldTable( RLCULAbnormalReleaseTable );
+      ClearSimpleFieldTable( RLCULEventCountersTable );
+   }
+}
+
+function SetDLUpdateRate( seconds )
+{
+   if (gDLTickID != 0)
+   {
+      window.clearInterval( gDLTickID );
+      gDLTickID = 0;
+   }
+
+   var inSecs = parseInt( seconds, 10 );
+   gDLTimerInSecs = inSecs;   
+   if (gDLTimerInSecs > 0)
+   {
+      // Convert to milliseconds and set
+      var inMS = gDLTimerInSecs * 1000;       
+      gDLTickID = window.setInterval( "RequestDLPackets()", inMS );
+      
+      // Go ahead and ask for them immediately
+      RequestDLPackets();
+   }
+   else
+   {         
+      // Clear out table
+      ClearSimpleFieldTable( RLCDLStatisticsTable );
+   }
+}
+
+function ProcessLogs()
+{
+   var LogCode5200 = "[0x5200]";
+   var LogCode5201 = "[0x5201]";
+   var LogCode5202 = "[0x5202]";
+   var LogCode520A = "[0x520A]";
+   
+   var log5200 = false;
+   var log5201 = false;
+   var log5202 = false;
+   var log520A = false;
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case LogCode5200:
+         {
+            if (log5200 == false && gULTickID > 0)
+            {
+               PopulateSimpleFieldTable( Fields, RLCULAbnormalReleaseTable );
+            }
+            
+            log5200 = true;
+         }
+         break;
+         
+         case LogCode5201:
+         {
+            if (log5201 == false && gULTickID > 0)
+            {
+               PopulateSimpleFieldTable( Fields, RLCULEventCountersTable );
+            }
+            
+            log5201 = true;
+         }
+         break; 
+          
+         case LogCode5202:
+         {
+            if (log5202 == false && gULTickID > 0)
+            {
+               PopulateSimpleFieldTable( Fields, RLCULStatisticsTable );
+            }
+            
+            log5202 = true;
+         }
+         break;  
+         
+         case LogCode520A:
+         {
+            if (log520A == false && gDLTickID > 0)
+            {
+               PopulateSimpleFieldTable( Fields, RLCDLStatisticsTable );
+            }
+            
+            log520A = true;
+         }
+         break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+</script>
+
+</body>
+</html>

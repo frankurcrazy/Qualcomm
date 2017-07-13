@@ -1,0 +1,575 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPRS SNDCP Statistics" />
+   <meta name="DMViewWidth" content="600" />
+   <meta name="DMViewHeight" content="600" />
+
+   <title>GPRS SNDCP Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">GPRS SNDCP Active NSAPIs</div>
+<table width="100%" id="ActiveNSAPITable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+   </tr>
+   <tr>
+      <td>Active NSAPIs</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+<div class="label">SNDCP NSAPI Display Selection</div>
+<table width="100%">
+   <tr>
+      <th>Parameter</th>
+      <th>PDP 1</th>
+      <th>PDP 2</th>
+      <th>PDP 3</th>
+   </tr>
+   <tr>
+      <td>GPRS NSAPI Selection</td>
+      <td>
+         <select onchange="SetNSAPI(0, this.value);">
+            <option value='5'>NSAPI 5</option>
+            <option value='6'>NSAPI 6</option>
+            <option value='7'>NSAPI 7</option>
+            <option value='8'>NSAPI 8</option>
+            <option value='9'>NSAPI 9</option>
+            <option value='10'>NSAPI 10</option>
+            <option value='11'>NSAPI 11</option>
+            <option value='12'>NSAPI 12</option>
+            <option value='13'>NSAPI 13</option>
+            <option value='14'>NSAPI 14</option>
+            <option value='15'>NSAPI 15</option>
+            <option value='2048' selected>None</option>
+         </select>
+      </td>
+      <td>
+         <select onchange="SetNSAPI(1, this.value);">
+            <option value='5'>NSAPI 5</option>
+            <option value='6'>NSAPI 6</option>
+            <option value='7'>NSAPI 7</option>
+            <option value='8'>NSAPI 8</option>
+            <option value='9'>NSAPI 9</option>
+            <option value='10'>NSAPI 10</option>
+            <option value='11'>NSAPI 11</option>
+            <option value='12'>NSAPI 12</option>
+            <option value='13'>NSAPI 13</option>
+            <option value='14'>NSAPI 14</option>
+            <option value='15'>NSAPI 15</option>
+            <option value='2048' selected>None</option>            
+         </select>
+      </td>
+      <td>
+         <select onchange="SetNSAPI(2, this.value);">
+            <option value='5'>NSAPI 5</option>
+            <option value='6'>NSAPI 6</option>
+            <option value='7'>NSAPI 7</option>
+            <option value='8'>NSAPI 8</option>
+            <option value='9'>NSAPI 9</option>
+            <option value='10'>NSAPI 10</option>
+            <option value='11'>NSAPI 11</option>
+            <option value='12'>NSAPI 12</option>
+            <option value='13'>NSAPI 13</option>
+            <option value='14'>NSAPI 14</option>
+            <option value='15'>NSAPI 15</option>
+            <option value='2048' selected>None</option>            
+         </select>
+      </td>      
+   </tr>
+   <tr>
+      <td>NSAPI Statistics Update Rate</td>
+      <td>
+         <select onchange="SetNSAPIUpdateTime(this.value);">
+            <option value='1'>1 second</option>
+            <option value='10' >10 seconds</option>
+            <option value='30' >30 seconds</option>
+            <option value='60'>1 minute</option>
+            <option value='600'>10 minutes</option>
+            <option value='3600'>1 hour</option>
+            <option value='0'selected>Disabled</option>
+         </select>
+      </td>
+   </tr>
+</table>
+
+<br />
+<div class="label">SNDCP States and Substates</div>
+<table width="100%">
+   <colgroup span="4">
+      <col width="40%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>PDP 1</th>
+      <th>PDP 2</th>
+      <th>PDP 3</th>
+   </tr>
+   <tbody id="StateTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+      
+<br />
+<div class="label">PDP Context Information</div>
+<table width="100%">
+   <colgroup span="4">
+      <col width="40%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>PDP 1</th>
+      <th>PDP 2</th>
+      <th>PDP 3</th>
+   </tr>
+   <tbody id="ContextTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+      
+<br />
+<div class="label">Throughput Statistics</div>
+<table width="100%">
+   <colgroup span="4">
+      <col width="40%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>PDP 1</th>
+      <th>PDP 2</th>
+      <th>PDP 3</th>
+   </tr>
+   <tr>
+      <td>Statistics Resets</td>
+      <td><input type="button" value="Reset" onclick="ResetThroughput(0);"></td>
+      <td><input type="button" value="Reset" onclick="ResetThroughput(1);"></td>
+      <td><input type="button" value="Reset" onclick="ResetThroughput(2);"></td>
+   </tr>   
+   <tbody id="ThroughputTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+      
+<script type="text/jscript" src="HelperFunctions.js"></script>      
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1000;
+var GPRS_LOG_REQ      = "GSM/GPRS Log Packet Request";
+var LOG_ON_DEMAND_REQ = "Log On Demand Request";
+
+// Invalid NSAPI
+var gNoNSAPI          = 2048;
+
+// User selected NSAPIs
+var gNSAPIs           = new Array;
+
+// Maximum number of user selected/total ((i * 2) + 1) SAPIs
+var gMaxNSAPIs        = 3;
+var gAllNSAPIs        = 16;
+
+var gTimerInSecs      = 0;
+var gMainTickID       = 0;
+var gStatTickID       = 0;
+var gRequestIDs       = new Array;
+
+var PrevIndex         = -1;
+        
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs     
+   clientObject.AddLog( 0x521C );
+   clientObject.AddLog( 0x521D );
+   clientObject.AddLog( 0x521E );
+   clientObject.AddLog( 0x521F );  
+   
+   clientObject.CommitConfig();
+   
+   // Initially there are no SAPIs selected
+   for (var s = 0; s < gMaxNSAPIs; ++s)
+   {
+      gNSAPIs[s] = gNoNSAPI;
+   }   
+   
+   // Set up an infinite request to obtain the LLME (every second)
+   var ReqID = IQXDM2.RequestItem( LOG_ON_DEMAND_REQ,
+                                   "0x521C",
+                                   1,
+                                   TIMEOUT_MS,
+                                   0xFFFFFFFF,
+                                   UPDATE_MS );
+
+   if (ReqID != 0)
+   {
+      gRequestIDs[gRequestIDs.length] = ReqID;
+   }   
+   else
+   {
+      window.document.write( "<br /> Error scheduling NSAPI request" );
+      return;
+   }       
+  
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (gStatTickID != 0)
+   {
+      window.clearInterval( gStatTickID );
+      gStatTickID = 0;
+   }
+   
+   // Remove all outstanding periodic requests
+   for (var s = 0; s < gRequestIDs.length; ++s)
+   {
+      IQXDM2.RemoveRequest( gRequestIDs[s] );
+   }      
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+  
+// Request (or reset) a GPRS log through the GSM/GPRS subsystem 
+// dispatch command
+function GetLogs( LogCodeString, NSAPI, Reset )
+{
+   if (NSAPI != gNoNSAPI)
+   {
+      var RequestString = LogCodeString + " " + Reset + " " + NSAPI;
+      var ReqID = IQXDM2.RequestItem( GPRS_LOG_REQ,
+                                      RequestString,
+                                      1,
+                                      TIMEOUT_MS,
+                                      1,
+                                      1 );
+
+      if (ReqID == 0)
+      {
+         window.document.write( "<br /> Error scheduling request" );
+         return;
+      }      
+   }
+}
+
+// Request all periodic stats for selected NSAPIs
+function RequestStats()
+{
+   for (var s = 0; s < gMaxNSAPIs; ++s)
+   {
+      GetLogs( "0x521D", gNSAPIs[s], 0 );
+      GetLogs( "0x521E", gNSAPIs[s], 0 );
+      GetLogs( "0x521F", gNSAPIs[s], 0 );
+   }   
+}
+
+function ResetThroughput( NSAPIIndex )
+{      
+   var NSAPI = gNSAPIs[NSAPIIndex];
+   if (NSAPI != gNoNSAPI)
+   {
+      GetLogs( "0x521F", NSAPI, 1 );
+      
+      // Clear out table at the specified index
+      var r;
+      var c = 1 + NSAPIIndex;      
+      
+      var CurRows = ThroughputTable.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         ThroughputTable.rows[r].cells[c].innerText = "-";
+      }              
+   }
+}
+
+// Set one of the three user selected NSAPIs
+function SetNSAPI( NSAPIIndex, NSAPI )
+{
+   if (NSAPIIndex < gMaxNSAPIs)
+   {
+      gNSAPIs[NSAPIIndex] = parseInt( NSAPI, 10 );
+
+      var r;
+      var c = 1 + NSAPIIndex;
+   
+      // Clear out tables at the specified index
+      var CurRows = StateTable.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         StateTable.rows[r].cells[c].innerText = "-";
+      }
+            
+      CurRows = ContextTable.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         ContextTable.rows[r].cells[c].innerText = "-";
+      }   
+      
+      CurRows = ThroughputTable.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         ThroughputTable.rows[r].cells[c].innerText = "-";
+      }
+   }
+}
+
+// Set the user selected NSAPIs update interval
+function SetNSAPIUpdateTime( seconds )
+{
+   if (gStatTickID != 0)
+   {
+      window.clearInterval( gStatTickID );
+      gStatTickID = 0;
+   }
+
+   var inSecs = parseInt( seconds, 10 );
+   gTimerInSecs = inSecs;   
+   if (gTimerInSecs > 0)
+   {
+      // Convert to milliseconds and set
+      var inMS = gTimerInSecs * 1000;       
+      gStatTickID = window.setInterval( "RequestStats()", inMS );
+      
+      // Go ahead and ask for them immediately
+      RequestStats();      
+   }
+   else
+   {         
+      // Clear out tables at the all indices
+      var CurRows = StateTable.rows.length;
+      for (r = 0; r < CurRows; r++)
+      {
+         StateTable.rows[r].cells[1].innerText = "-";
+         StateTable.rows[r].cells[2].innerText = "-";
+         StateTable.rows[r].cells[3].innerText = "-";
+      }
+            
+      CurRows = ContextTable.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         ContextTable.rows[r].cells[1].innerText = "-";
+         ContextTable.rows[r].cells[2].innerText = "-";
+         ContextTable.rows[r].cells[3].innerText = "-";
+      }   
+      
+      CurRows = ThroughputTable.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         ThroughputTable.rows[r].cells[1].innerText = "-";
+         ThroughputTable.rows[r].cells[2].innerText = "-";
+         ThroughputTable.rows[r].cells[3].innerText = "-";
+      }   
+   }
+}
+
+// Process new logs in our client view
+function ProcessLogs()
+{
+   var LogCode521C = "[0x521C]";
+   var LogCode521D = "[0x521D]";
+   var LogCode521E = "[0x521E]";
+   var LogCode521F = "[0x521F]";
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case LogCode521C:         
+            ProcessActiveNSAPIsLog( ItemFields );
+            break;
+         
+         case LogCode521D:        
+            ProcessNSAPIStatsLog( ItemFields, ContextTable );         
+            break;
+         
+         case LogCode521E:    
+            ProcessNSAPIStatsLog( ItemFields, StateTable );
+            break; 
+                      
+         case LogCode521F:
+            ProcessNSAPIStatsLog( ItemFields, ThroughputTable );
+            break;           
+      }     
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function ProcessActiveNSAPIsLog( Fields )
+{                                
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();   
+   var nsapiList = "";     
+
+   for (var n = 0; n < FieldCount; n++)
+   {      
+      var nsapiBitmask = Fields.GetFieldValue( n );
+      if (nsapiBitmask != 0)
+      {
+         if (nsapiList.length != 0)
+         {
+            nsapiList += ", ";
+         }
+         nsapiList += n;
+      }
+   }
+
+   if (nsapiList.length == 0)
+   {
+      nsapiList = "None";            
+   }
+   
+   ActiveNSAPITable.rows[1].cells[1].innerText = nsapiList;
+}
+
+function ProcessNSAPIStatsLog( Fields, TheTable )
+{
+   if (Fields == null || gTimerInSecs == 0)
+   {
+      return;
+   }    
+      
+   // Grab NSAPI from packet
+   var NSAPI = Fields.GetFieldValue( 0 );
+      
+   // Is this a user selected NSAPI?
+   var NSAPIIndex = gMaxNSAPIs;
+   for (var s = 0; s < gMaxNSAPIs; ++s)
+   {
+      if (gNSAPIs[s] == NSAPI)
+      {
+         NSAPIIndex = s;
+         break;
+      }
+   }      
+   
+   // Not a user selected NSAPI?
+   if (NSAPIIndex == gMaxNSAPIs)
+   {
+      return;
+   }
+   
+   // Convert to a column index
+   NSAPIIndex++; 
+               
+   // Convert the fields to table rows
+   var FieldCount = Fields.GetFieldCount();   
+   var CurRows = TheTable.rows.length;
+   ManageRows( TheTable, 0, CurRows, FieldCount, 4, true );  
+   
+   for (var f = 1; f < FieldCount; f++)
+   {
+      FieldName = Fields.GetFieldName( f, true );
+      TheTable.rows[f - 1].cells[0].innerText = FieldName;
+
+      FieldVal = Fields.GetFieldValueText( f );
+      TheTable.rows[f - 1].cells[NSAPIIndex].innerText = FieldVal;  
+   }
+}
+
+</script>
+
+</body>
+</html>

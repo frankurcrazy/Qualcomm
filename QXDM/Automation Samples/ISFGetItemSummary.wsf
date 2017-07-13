@@ -1,0 +1,106 @@
+<job id="ISF GetItemSummary Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript ISFGetItemSummary.wsf
+
+// This script demostrates usage of the IColorItem automation
+// interface method GetItemSummary()
+
+// Global variables
+var IISF;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create the item store file interface
+   IISF = new ActiveXObject( "DMCoreAutomation.ItemStoreFiles" );
+   if (IISF == null)
+   {
+      WScript.StdOut.WriteLine( "Unable to obtain ISF interface" );
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Get file name from script folder path
+function GetFileName()
+{
+   var FileName = "";
+   var FolderPath = GetPathFromScript();
+
+   // Item store file name
+   FileName = FolderPath + "Example.isf";
+   return FileName;
+}
+
+// Dump the summary of an item
+function DumpItemSummary()
+{
+   var Txt = "";
+
+   // Generate item store file name
+   var FileName = GetFileName();
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Load the item store file
+   var Handle = IISF.LoadItemStore( FileName );
+   if (Handle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to load ISF:\n" + FileName;
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   // Retrieve item from example ISF
+   var Item = IISF.GetItem( Handle, 2 );
+   if (Item == null)
+   {
+      Txt = "Unable to retrieve item";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   var Summary = Item.GetItemSummary();
+   if (Summary == "")
+   {
+      Txt = "Unable to retrieve item summary";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "Item summary is \'" + Summary + "\'";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Dump the summary of an item
+   DumpItemSummary();
+}
+
+Execute();
+
+</script>
+</job>

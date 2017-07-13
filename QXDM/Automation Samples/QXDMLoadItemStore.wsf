@@ -1,0 +1,110 @@
+<job id="QXDM LoadItemStore Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMLoadItemStore.wsf
+
+// This example demonstrates the usage of the QXDM automation
+// interface method LoadItemStore
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// Get file name from script folder path
+function GetFileName()
+{
+   var FileName = "";
+   var FolderPath = GetPathFromScript();
+
+   // Item store file name
+   FileName = FolderPath + "WCDMACall.isf";
+   return FileName;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Disconnect phone in order to load item store file
+   RC = Disconnect();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Generate item store file name
+   var FileName = GetFileName();
+   if (FileName == "")
+   {
+      return;
+   }
+
+   Txt = "Loading item store file:\n";
+   WScript.StdOut.WriteLine( Txt + FileName );
+
+   // Load existing item store file
+   RC = QXDM.LoadItemStore( FileName ); 
+   if (RC == false)
+   {
+      Txt = "Unable to load item store file";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "Successfully loaded item store file";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+Execute();
+
+</script>
+</job>

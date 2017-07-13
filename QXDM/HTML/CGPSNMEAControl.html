@@ -1,0 +1,470 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+   <title>CGPS GPS Control</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="CGPS GPS Control" />
+   <meta name="DMViewWidth" content="300" />
+   <meta name="DMViewHeight" content="360" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<label>GPS Data To Be Deleted With Start</label>
+
+<br />
+
+<input type="checkbox" id="Ephemeris" />Ephemeris<br />
+<input type="checkbox" id="Almanac" />Almanac<br />
+<input type="checkbox" id="Position" />Position<br />
+<input type="checkbox" id="Time" />Time<br />
+<input type="checkbox" id="Ionospheres" />Ionospheres<br />
+<input type="checkbox" id="UTC" />UTC Data<br />
+<input type="checkbox" id="Health"/>SV Health<br />
+<input type="checkbox" id="Direction" />SV Direction<br />
+<input type="checkbox" id="Steering" />SV Steering<br />
+<input type="checkbox" id="SA" />SA Data<br />
+<input type="checkbox" id="RTI" />RTI Data<br />
+<input type="checkbox" id="Cell" />Cell Database <br />
+
+<br />
+
+<input type="button" onclick="StartNMEA()" value="Start GPS" />
+<input type="button" onclick="StopNMEA()" value="Stop GPS" />
+<input type="button" onclick="Reset()" value="Reset" />
+
+<br />
+<br />
+
+<div id="Response" />
+
+<script type="text/jscript">
+
+var IQXDM2;
+var TIMEOUT_MS          = 500;
+var Handle              = 0xFFFFFFFF;
+
+// Constants
+var SVR_STATE_CONNECTED = 2;
+var SVR_STATE_REPLAY    = 4;
+var STATE               = "[4]";
+var START_DIAG_TASK     = "GPS/Start DIAG Task Request";
+var MODE_CHANGE         = "Mode Change Request";
+var DIAG_PDAPI_REQ      = "CGPS/DIAG PDAPI Request";
+
+var Timer               = "";
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure connection string
+   ClientObject.AddString( 4 );
+   ClientObject.CommitConfig();
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Return integer value of a checkbox state
+function ValueOf( boolValue )
+{
+   if (boolValue == false)
+   {
+      return 0;
+   }
+   else
+   {
+      return 1;
+   }
+}
+
+// Generate aiding data bit mask string
+function GenerateBitmaskString()
+{
+   var RequestString = Math.pow( 2, 0) * ValueOf( Ephemeris.checked )   +
+                       Math.pow( 2, 1) * ValueOf( Almanac.checked )     +
+                       Math.pow( 2, 2) * ValueOf( Position.checked )    +
+                       Math.pow( 2, 3) * ValueOf( Time.checked )        +
+                       Math.pow( 2, 4) * ValueOf( Ionospheres.checked ) +
+                       Math.pow( 2, 5) * ValueOf( UTC.checked )         +
+                       Math.pow( 2, 6) * ValueOf( Health.checked )      +
+                       Math.pow( 2, 7) * ValueOf( Direction.checked )   +
+                       Math.pow( 2, 8) * ValueOf( Steering.checked )    +
+                       Math.pow( 2, 9) * ValueOf( SA.checked )          +
+                       Math.pow( 2, 10) * ValueOf( RTI.checked )        +
+                       Math.pow( 2, 15) * ValueOf( Cell.checked );
+
+   return RequestString;
+}
+
+// Send a DIAG/Subsystem command request
+function SendRequest( RequestItem, RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return bOK; 
+   }
+
+   var ReqID = IQXDM2.ClientRequestItem( Handle,
+                                         RequestItem,
+                                         RequestString,
+                                         true,
+                                         TIMEOUT_MS,
+                                         1,
+                                         1 );
+
+   if (ReqID == 0)
+   {
+      Txt = "Error scheduling request";
+      Response.innerHTML = Txt;
+      return bOK;
+   }
+   else
+   {
+      bOK = true;
+   }
+
+   return bOK;
+}
+
+// Send a delayed Initialize BREW client request
+function SendInitBREWRequest( Stop, RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   var bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling initialize/release BREW client request";
+      Response.innerHTML = Txt;
+      return;
+   }
+   else
+   {
+      // Stop NMEA ?
+      if (Stop == "1")
+      {
+         // Stop GPS DIAG task
+         RequestString = "\"CGPS/End DIAG Task Request\"" + "";
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendRequest(" + RequestString + ")", 1000 );
+      }
+      else
+      {
+         // Register BREW client
+         RequestString = "\"0\", " + "\"1 1 1009 0\"";
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendRegBREWRequest(" + RequestString + ")", 1000 );
+      }
+   }
+}
+
+// Send a delayed Register BREW client request
+function SendRegBREWRequest( Stop, RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling register/deregister BREW client request";
+      Response.innerHTML = Txt;
+      return;
+   }
+   else
+   {
+      // Stop NMEA ?
+      if (Stop == "1")
+      {
+         // Release BREW client
+         RequestString = "\"1\", " + "\"9 1 1009\"";
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendInitBREWRequest(" + RequestString + ")", 1000 );
+      }
+      else
+      {
+         // Activate BREW client
+         RequestString = "\"0\", " + "\"7 1 1009\"";
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendActBREWRequest(" + RequestString + ")", 1000 );
+      }
+   }
+}
+
+// Send a delayed Activate BREW client request
+function SendActBREWRequest( Stop, RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling activate/deactivate BREW client request";
+      Response.innerHTML = Txt;
+      return;
+   }
+   else
+   {
+      // Stop NMEA ?
+      if (Stop == "1")
+      {
+         // Deregister BREW client
+         RequestString = "\"1\"," + "\"1 1 1009 1\"";
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendRegBREWRequest(" + RequestString + ")", 1000 );
+      }
+      else
+      {
+         // Delete aiding data as per selected bit mask
+         RequestString = "\"0, " + "12 1 1009 4 32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+                                     + new Number( GenerateBitmaskString() )
+                                     + " 0 0 0 0 0 0\"";
+         RequestString = new String (RequestString);
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendAidingDataRequest(" + RequestString + ")", 1000 );
+      }
+   }
+}
+
+// Send a delayed aiding data command request
+function SendAidingDataRequest( RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   var Stop = RequestString.substr( 0, 1 );
+   var ReqString = RequestString.substr( 3 );
+
+   var bOK = SendRequest( DIAG_PDAPI_REQ, ReqString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling delete aiding data request";
+      Response.innerHTML = Txt;
+      return;
+   }
+   else
+   {
+      // Stop NMEA ?
+      if (Stop != "1")
+      {
+         // Start GPS standalone tracking session with Time Between Fixes = 1
+         // QoS Performance = 180 and QoS Accuracy Threshold = 10
+         RequestString = "\"0\", " + "\"10 1 2 1 0 0 0 180 10 1 9999999 1009 0x0000000000000000 0 0 0 0 0\"";
+
+         // Setup a one-time timer to sleep for 1 second
+         Timer = window.setTimeout( "SendSessionRequest(" + RequestString + ")", 1000 );
+      }
+   }
+}
+
+// Send a delayed session tracking command request
+function SendSessionRequest( Stop, RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling GPS tracking session request";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+}
+
+// Start NMEA
+function StartNMEA()
+{
+   var Txt = "";
+   var RequestString = "";
+
+   // Start GPS DIAG task
+   var bOK = SendRequest( START_DIAG_TASK, RequestString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling start GPS DIAG task request";
+      Response.innerHTML = Txt;
+      return;
+   }
+   else
+   {
+      // Initialize BREW client
+      RequestString = "\"0\" ," + "\"0 1 5\"";
+
+      // Setup a one-time timer to sleep for 1 second
+      Timer = window.setTimeout( "SendInitBREWRequest(" + RequestString + ")", 1000 );
+   }
+}
+
+// Stop NMEA
+function StopNMEA()
+{
+   var Txt = "";
+   var RequestString = "";
+
+   // Stop GPS standalone tracking session
+   RequestString = "11 1 0 1009";
+   var bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling stop GPS session request";
+      Response.innerHTML = Txt;
+   }
+   else
+   {
+      // Deactivate BREW client
+      RequestString = "\"1\" ," + "\"8 1 1009\"";
+
+      // Setup a one-time timer to sleep for 1 second
+      Timer = window.setTimeout( "SendActBREWRequest(" + RequestString + ")", 1000 );
+   }
+}
+
+// Reset the phone
+function Reset()
+{
+   // Set the phone offline first
+   var bOK = SendRequest( MODE_CHANGE, "1" );
+   if (bOK == false)
+   {
+      Txt = "Error scheduling mode change offline request";
+      Response.innerHTML = Txt;
+      return;
+   }
+   else
+   {
+      // Reset the phone
+      bOK = SendRequest( MODE_CHANGE, "2" );
+      if (bOK == false)
+      {
+         Txt = "Error scheduling mode change reset request";
+         Response.innerHTML = Txt;
+         return;
+      }
+      else
+      {
+         // Clear our client
+         bOK = IQXDM2.ClearClientItems( Handle );
+
+         // Setup a one-time timer to process state information
+         Timer = window.setTimeout( "ProcessState()", 180000 );
+      }
+   }
+}
+
+// Process state string
+function ProcessState()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // We have to process just the state strings
+   for (var i = 0; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      // Check for a state notification
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == STATE)
+      {
+         // We don't process strings in replay mode
+         var ServerState = IQXDM2.GetServerState();
+         if (ServerState != SVR_STATE_REPLAY)
+         {
+            var Txt = Item.GetItemSummary();
+            var bConnect = (Txt.indexOf( "Connected to" ) >= 0);
+
+            // Has connection has been reached?
+            if (bConnect == true)
+            {
+               Txt = "Phone reset was successful";
+               Response.innerHTML = Txt;
+               return;
+            }
+            else
+            {
+               Txt = "Phone reset was unsuccessful";
+               Response.innerHTML = Txt;
+               continue;
+            }
+         }
+      }
+   }
+}
+
+</script>
+</body>
+</html>

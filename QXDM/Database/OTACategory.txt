@@ -1,0 +1,176 @@
+0^"Known Over-The-Air Types"^-1^-1
+1^"CDMA"^-1^0
+2^"GSM"^-1^0
+3^"TDMA"^-1^0
+4^"UMTS"^-1^0
+5^"WCDMA"^-1^0
+6^"CDMA 1xEV-DO"^-1^0
+7^"UMTS"^-1^0
+8^"Bluetooth"^-1^0
+10^"DTV"^-1^0
+11^"UMB"^-1^0
+12^"WLAN"^-1^0
+100^"Access Channel"^-1^1
+101^"Paging Channel"^-1^1
+102^"Sync Channel"^-1^1
+103^"Forward Traffic Channel"^-1^1
+104^"Reverse Traffic Channel"^-1^1
+105^"Forward Broadcast Control Channel"^-1^1
+106^"Reverse Enhanced Access Channel"^-1^1
+107^"Forward Common Control Channel"^-1^1
+108^"Forward Dedicated Control Channel"^-1^1
+109^"Reverse Dedicated Control Channel"^-1^1
+121^"From UMTS - Paging Channel"^-1^1
+123^"From UMTS - Forward Traffic Channel"^-1^1
+130^"From VOIP - Access Channel"^-1^1
+131^"From VOIP - Paging Channel"^-1^1
+133^"From VOIP - Forward Traffic Channel"^-1^1
+200^"Radio Resource"^-1^2
+201^"Medium Access Control"^-1^2
+202^"Session/Mobility Management"^-1^2
+203^"By Channel"^-1^200
+204^"By Type"^-1^200
+205^"By Channel"^-1^201
+206^"By Type"^-1^201
+207^"By Channel"^-1^202
+208^"By Type"^-1^202
+210^"Dedicated Control Channel"^-1^203
+211^"Random Access Channel"^-1^203
+212^"Slow Associated Control Channel"^-1^203
+213^"Stand Alone Dedeciated Control Channel"^-1^203
+214^"Fast Associated Control Channel"^-1^203
+215^"Broadcast Channel"^-1^203
+216^"Common Control Channel"^-1^203
+217^"Uplink"^-1^210
+218^"Downlink"^-1^210
+219^"Uplink"^-1^212
+220^"Downlink"^-1^212
+221^"Uplink"^-1^213
+222^"Downlink"^-1^213
+223^"Uplink"^-1^214
+224^"Downlink"^-1^214
+230^"Packet Random Access Channel (11 Bit)"^-1^205
+231^"Packet Random Access Channel (8 Bit)"^-1^205
+232^"Packet Associated Control Channel (Relative Reserved Block Period)"^-1^205
+233^"Packet Associated Control Channel"^-1^205
+234^"Packet Paging Channel"^-1^205
+235^"Packet Access Grant Channel"^-1^205
+236^"Packet Broadcast Control Channel"^-1^205
+237^"Uplink"^-1^233
+238^"Downlink"^-1^233
+240^"Uplink"^-1^207
+241^"Downlink"^-1^207
+250^"Channel Establishment"^-1^204
+251^"Ciphering"^-1^204
+252^"Configuration Change"^-1^204
+253^"Handover"^-1^204
+254^"Channel Release"^-1^204
+255^"Paging and Notification"^-1^204
+256^"3G Specific"^-1^204
+257^"System Information"^-1^204
+258^"Miscellaneous"^-1^204
+259^"VGCS Uplink Control"^-1^204
+260^"Application"^-1^204
+270^"Uplink TBF Establishment"^-1^206
+271^"Downlink TBF Establishment"^-1^206
+272^"TBF Release"^-1^206
+273^"Paging"^-1^206
+274^"RLC"^-1^206
+275^"System Information"^-1^206
+276^"Miscellaneous"^-1^206
+280^"Mobility Management"^-1^208
+281^"Session Management"^-1^208
+300^"Header Only"^-1^6
+310^"Physical Layer Protocol"^-1^6
+311^"Control Channel MAC Protocol"^-1^6
+312^"Access Channel MAC Protocol"^-1^6
+313^"Forward Traffic Channel MAC Protocol"^-1^6
+314^"Reverse Traffic Channel MAC Protocol"^-1^6
+315^"Key Exchange Protocol"^-1^6
+316^"Authentication Protocol"^-1^6
+317^"Encryption Protocol"^-1^6
+318^"Security Protocol"^-1^6
+319^"Packet Consolidation Protocol"^-1^6
+320^"Air Link Management Protocol"^-1^6
+321^"Initialization State Protocol"^-1^6
+322^"Idle State Protocol"^-1^6
+323^"Connect State Protocol"^-1^6
+324^"Route Update Protocol"^-1^6
+325^"Overhead Messages Protocol"^-1^6
+326^"Session Management Protocol"^-1^6
+327^"Address Management Protocol"^-1^6
+328^"Session Configuration Protocol"^-1^6
+329^"Stream Protocol"^-1^6
+330^"Stream 0 Default Signaling Application"^-1^6
+331^"Stream 1 Default Packet Application"^-1^6
+332^"Stream 2 Default Packet Application"^-1^6
+333^"Stream 3 Default Packet Application"^-1^6
+334^"Broadcast Protocol"^-1^6
+335^"Stream 1 Multiflow Packet Application"^-1^6
+336^"Stream 2 Multiflow Packet Application"^-1^6
+337^"Stream 3 Multiflow Packet Application"^-1^6
+338^"Stream 1 3G1X CSNA Application"^-1^6
+339^"Stream 2 3G1X CSNA Application"^-1^6
+340^"Stream 3 3G1X CSNA Application"^-1^6
+341^"Stream 1 Enhanced Multiflow Packet Application"^-1^6
+342^"Stream 2 Enhanced Multiflow Packet Application"^-1^6
+343^"Stream 3 Enhanced Multiflow Packet Application"^-1^6
+344^"Stream 1 Multilink Multiflow Packet Application"^-1^6
+345^"Stream 2 Multilink Multiflow Packet Application"^-1^6
+346^"Stream 3 Multilink Multiflow Packet Application"^-1^6
+347^"Multimode Capability Discovery Protocol"^-1^6
+500^"Radio Resource Control"^-1^5
+501^"Uplink"^-1^500
+502^"Downlink"^-1^500
+503^"CCCH"^-1^501
+504^"DCCH"^-1^501
+505^"BCCH - BCH (Encoded)"^-1^502
+506^"BCCH - FACH (Encoded)"^-1^502
+507^"BCCH - BCH (Decoded)"^-1^502
+508^"BCCH - FACH (Decoded)"^-1^502
+509^"CCCH"^-1^502
+510^"DCCH"^-1^502
+511^"PCCH"^-1^502
+512^"MCCH"^-1^502
+513^"MSCH"^-1^502
+600^"Call Control"^-1^7
+601^"Mobility Management"^-1^7
+602^"GPRS Mobility Management"^-1^7
+603^"GPRS Session Management"^-1^7
+604^"GSM Radio Resource Management"^-1^7
+605^"Short Message Service"^-1^7
+606^"Supplementary Service"^-1^7
+700^"Call Establishment Messages"^-1^600
+701^"Call Information Phase Messages"^-1^600
+702^"Call Clearing Messages"^-1^600
+703^"Miscellaneous Messages"^-1^600
+710^"Registration Messages"^-1^601
+711^"Security Messages"^-1^601
+712^"Connection Management Messages"^-1^601
+713^"Miscellaneous Messages"^-1^601
+750^"Channel Establishment"^-1^604
+751^"Ciphering"^-1^604
+752^"Configuration Change"^-1^604
+753^"Handover"^-1^604
+754^"Channel Release"^-1^604
+755^"Paging and Notification"^-1^604
+756^"3G Specific"^-1^604
+757^"System Information"^-1^604
+758^"Miscellaneous"^-1^604
+759^"VGCS Uplink Control"^-1^604
+760^"Application"^-1^604
+800^"Access Channel MAC Protocol"^-1^11
+801^"Forward Traffic Channel MAC Protocol"^-1^11
+802^"Reverse Traffic Channel MAC Protocol"^-1^11
+803^"Reverse Control Channel MAC Protocol"^-1^11
+804^"QoS Management Protocol"^-1^11
+805^"Key Exchange Protocol"^-1^11
+806^"Air Link Management Protocol"^-1^11
+807^"Connected State Protocol"^-1^11
+808^"Active Set Management Protocol"^-1^11
+809^"Overhead Messages Protocol"^-1^11
+810^"Session Control Protocol"^-1^11
+811^"Reverse Control Protocol"^-1^11
+812^"Radio Link Protocol"^-1^11
+813^"Application Protocol"^-1^11
+814^"Idle State Protocol"^-1^11

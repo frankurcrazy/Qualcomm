@@ -1,0 +1,3585 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+   <title>GPSOne Fix Collection</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPSOne Fix Collection" />
+   <meta name="DMViewWidth" content="440" />
+   <meta name="DMViewHeight" content="830" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<label id="Iteration"><b>Test Iterations</b></label>
+<br />
+<br />
+<input type="radio" name="TestIterations" id="AppTrack" onclick="UpdateFixType()" /><b>App Tracking</b>
+<label> -- Number Of Fixes</label><input type="text" size="5" id="NumFixesAppTrack" value="1" />
+<label>Secs Between Fixes</label><input type="text" size="5" id="SecsBFixesAppTrack" value="1" />
+<input type="checkbox" id="EventsAppTrack" checked="checked" />Wait For Events Completion 
+<input type="text" size="5" id="SecsEventsWait" value="60" />secs <br /><BR />
+
+<input type="radio" name="TestIterations" id="SingleShot" onclick="UpdateFixType()" /><b>Single Shot</b>
+<label> -- Number Of Sessions</label><input type="text" size="5" id="NumSessionsSingleShot" value="1" />
+<label>Secs Between Sessions</label><input type="text" size="5" id="SecsBSessionsSingleShot" value="15" /><br />
+<!-- 
+MTL: 
+When User selects E911 AND Single Shot fix, then instead of issuing GPS DIAG commands to trigger GPS Fixes, the GUI will simply make 
+911 call string specified; this behavior is similar to the call manager, but here GPS related stats will be computed and presented 
+in the background and presented in a CSV output upon end of test.
+-->
+<input type="checkbox" id="E911" />E911 (Control Plane) - <label>Call String </label><input type="text" size="5" id="E911String" VALUE="911" />
+<label>Call Duration </label><input type="text" size="5" id="E911Duration" value="40" />
+<!--
+MTL: TODO 
+Ideally, the GUI can have intelligence to determine the network type via diag commmands, which would eliminate the need for the following 
+pulldown.  For simplicity, that ability has been deferred to next phase. 
+-->
+<label>Call Type </label>
+<select id="E911CallType">
+   <option value=1  selected="selected">GSM</option>
+   <option value=2>WCDMA</option>
+</select>
+<input type="checkbox" id="FullSetup" checked="checked" />Full Phone Setup
+
+<!--
+MTL: 
+The diag cmd for making a WCDMA allows for a AMR parameter.
+Via email exchange, it was decided to set this parameter to be the highest rate available
+-->
+<!--
+<label>AMR(WCDMA) </label>
+<select id="E911CallWcdmaAmr">
+   <option value=0  selected="selected">4.75 kbps</option>
+   <option value=1>5.15 kbps</option>
+   <option value=2>5.90 kbps</option>
+   <option value=3>6.70 kbps</option>
+   <option value=4>7.40 kbps</option>
+   <option value=5>7.95 kbps</option>
+   <option value=6>10.2 kbps</option>
+   <option value=7>12.2 kbps</option>
+</select>
+-->
+
+<br />
+<br />
+<!--
+MTL: 
+Originally, this GUI was designed to stop the test upon detecting any error.
+For sake of overnight testing, such a behavior was deemed unacceptable, so the following configuration setting
+has been added to keep going on a best effort basis.
+-->
+<label><b>Error Handling </b></label><input type="radio" name="ErrHandling" id="StopCollect" />Stop Collect
+<input type="radio" name="ErrHandling" id="KeepGoing" checked="checked" />Keep Going
+
+<!--
+MTL:
+Tentatively, these settings below should not be used for E911 mode of operation.
+It is always Cold Start (all except alm) and Mobile Based.
+-->
+<hr>
+<label><b>USER PLANE PARAMETERS</b></label> 
+<br />
+<br />
+
+<label><b>Quality Of Service</b></label><br />
+<label>Accuracy (1-1000 Meters)</label>
+<input type="text" size="5" id="Accuracy" value="50" /> <br />
+<label>Performance (0-255 Seconds Timeout)</label>
+<input type="text" size="5" id="Performance" value="60" />
+<br />
+
+<label><b>Fix Mode</b></label>
+
+<select id="OperationType">
+   <option value='1'>Standalone</option>
+   <option value='2'>MS Based</option>
+   <option value='3'>MS Assisted</option>
+   <option value='4'>Optimal Speed</option>
+   <option value='5'>Optimal Accuracy</option>
+   <option value='6'>Optimal Data</option>
+</select>
+
+<br />
+<br />
+
+<label><b>Handset Start State</b></label><br />
+
+<input type="radio" name="StartState" id="Custom" onclick="UpdateAssitance()" />Custom
+<input type="radio" name="StartState" id="ResetState" onclick="UpdateAssitance()" />Reset
+<input type="radio" name="StartState" id="Cold" onclick="UpdateAssitance()" />Cold
+<input type="radio" name="StartState" id="Warm" onclick="UpdateAssitance()" />Warm
+<input type="radio" name="StartState" id="Hot" onclick="UpdateAssitance()" />Hot
+<input type="radio" name="StartState" id="XCold" onclick="UpdateAssitance()" />XTRA-Cold
+
+<br />
+<br />
+
+<!-- 
+MTL: 
+The layout of this section has changed to improve use of window real estate
+-->
+<label><b>Assitance Data To Be Deleted</b></label><br />
+<table border="0">
+<TR>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<input type="checkbox" id="Ephemeris" />Ephemeris<br />
+<input type="checkbox" id="Almanac" />Almanac<br />
+<input type="checkbox" id="Position" />Position<br />
+</TD>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<input type="checkbox" id="UTC" />UTC Data<br />
+<input type="checkbox" id="SA" />SA Data<br />
+<input type="checkbox" id="RTI" />RTI Data<br />
+</TD>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<input type="checkbox" id="Health"/>SV Health<br />
+<input type="checkbox" id="Direction" />SV Direction<br />
+<input type="checkbox" id="Steering" />SV Steering<br />
+</TD>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<input type="checkbox" id="AlmanacCorr" />GPSOne XTRA Assistance<br />
+<input type="checkbox" id="Ionospheres" />Ionospheric Correction<br />
+<input type="checkbox" id="Cell" />Cell Database<br />
+</TD>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<input type="checkbox" id="Time" />Time<br />
+</TD>
+</TABLE>
+
+<br />
+
+<label><b>Client Type</b></label>
+<input type="text" size="4" id="ClientType" value="8" />
+
+<br />
+<br />
+
+<label><b>Server Configuration</b></label><br />
+
+<label>Parameter Source</label>
+<select id="ServerParam">
+   <option value='0'>Use NV Default</option>
+   <option value='1' selected="selected">Use Custom Local Options</option>
+</select>
+<label>Custom IP</label>
+<input type="text" size="4" id="IP1" value="0" />.
+<input type="text" size="4" id="IP2" value="0" />.
+<input type="text" size="4" id="IP3" value="0" />.
+<input type="text" size="4" id="IP4" value="0" />
+<label>Custom Port</label><input type="text" size="5" id="ServerPort" value="4911" />
+<br />
+<br />
+<hr>                         
+
+<!-- 
+MTL: 
+These are values that user enter that only gets used to fulfill backend processing 
+They do not affect how the DIAG commands get issued
+-->
+<label><B>Reference Position</B></label><BR>
+<table border="0"cellpadding=10>
+<TR>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<label>Lat (deg): </label><input TYPE="text" NAME="RefLat" VALUE="37.31553000"/><BR />
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<label>Long (deg): </label><input TYPE="text" NAME="RefLong" VALUE="-121.97360000"/><BR />
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<label>Alt (m): </label><input TYPE="text" NAME="RefAlt" VALUE="23.00"/><BR />
+</TABLE>
+<!--
+<label>Collecdt Metadata</B></label><BR>
+<table border="0"cellpadding=10>
+<TR>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<label>GPS Signal</label>
+<select id="GpsSignal">
+   <option value='Radiated' selected="selected">Radiated</option>
+   <option value='ConductedExt' >Conducted External</option>
+   <option value='ConductedULTS' >Conducted ULTS</option>
+</select><br />
+<label>GPS Antenna</label>
+<select id="GpsAntenna">
+   <option value='Internal'>Internal</option>
+   <option value='External' selected="selected">External</option>
+</select><br />
+<label>SV View</label>
+<select id="SvView">
+   <option value='Rural' SELECTED="selected">Rural</option>
+   <option value='Suburban'>Suburban</option>
+   <option value='Urban'>Urban</option>
+   <option value='DenseUrban'>Dense Urban Canyon</option>
+   <OPTION VALUE='Indoor'>Indoor</OPTION>
+</select><br />
+<label>Weather Condition</label>
+<select id="Weather">
+   <option value='Sunny'  selected="selected">Sunny</option>
+   <option value='LightClouds'>Light Clouds</option>
+   <option value='HeavyClouds'>Heavy Clouds</option>
+   <option value='Rainy'>Rainy</option>
+   <option value='Snowy'>Snowy</option>
+</select><br />
+<label>Cellular State</label>
+<select id="CellState">
+   <option value='Idle' selected="selected">Idle</option>
+   <option value='Traffic'>Traffic</option>
+</select><br />
+</TD>
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<label>Network : </label><input TYPE="text" NAME="Network" /><BR />
+<label>Vendor : </label><input TYPE="text" NAME="NetVendor" /><BR />
+<label>Band : </label><input TYPE="text" NAME="NetBand" /><BR />
+<label>Channel : </label><input TYPE="text" NAME="NetChn" /><BR />
+<label>SIM Card : </label><input TYPE="text" NAME="SimCard" /><BR />
+<TD VALIGN="top" align="left" style="text-align: left" class="noborder">
+<label>Reference Lat (deg): </label><input TYPE="text" NAME="RefLat" VALUE="37.31553000"/><BR />
+<label>Reference Long (deg): </label><input TYPE="text" NAME="RefLong" VALUE="-121.97360000"/><BR />
+<label>Reference Alt (m): </label><input TYPE="text" NAME="RefAlt" VALUE="23.00"/><BR />
+<label>Test Point : </label><input TYPE="text" NAME="TestPoint" size=60 /><BR />
+<label>Comments : </label><input TYPE="text" NAME="Comments" size=60 /><BR />
+</TABLE>
+-->
+<hr>  
+<br />
+
+
+<!--
+MTL:
+Due to the nature of keeping the collect going despite error, there is now a need to 
+distinguish between the very first user-triggered start/stop and the code-determined
+start/stop operation, which necessitated the StartGPSClick() and StopGPSClick() intermediate 
+functions
+-->
+<!--
+The "Write to file" button allows user to do intermediate flush of statistical data to file
+-->
+<input type="button" id="StartGPSID" onclick="StartGPSClick()" value="Start GPS" />
+<input type="button" onclick="StopGPSClick()" value="Stop GPS" />
+<input type="button" onclick="Reset()" value="Reset" />
+<!-- 
+<input type="button" onclick="alert('QXDM Pro Version 3.12.704')" value="Version" />
+-->
+<input type="checkbox" id="write2file" onclick="CheckWriteOption();" checked="checked" />Write to file<br />
+<!--
+<input type="button" id="closeLDFButton" value="Write to file" onclick="CopyCSVFile();"/>
+-->
+<br />
+
+
+<div id="Response" />
+
+<script type="text/jscript">
+
+var IQXDM2;
+var TIMEOUT_MS          = 5000;
+var UPDATE_MS           = 10;
+
+// Constants
+var SVR_STATE_CONNECTED = 2;
+var ITEM_TYPE_SUBSYS_RX = 9;
+var ITEM_TYPE_SUBSYS_TX = 10;
+var SECONDS_PER_DAY = 86400.0;
+var ANGPS_DEG2RAD = 0.01745329252;  // TO CONVERT FROM DEGREES TO RADIANS
+var ANGPS_RADIUS = 6367435.68;      // Earth radius = SQRT(ANGPS_A * ANGPS_B)
+
+var CGPS_CMD_RSP        = "[0013/0100]";
+var CALL_END_RSP        = "[0015/0004]";
+var DIAG_PDAPI_REQ      = "CGPS/DIAG PDAPI Request";
+var CALL_END_REQ        = "Call Manager/Call End Request";
+//MTL - Reference QXDM Diag DB -> Subsystem Requests -> known subsystem requests -> Call manager
+var GSM_CALL_ORIG_REQ   = "Call Manager/GSM Call Origination Request";
+var WCDMA_CALL_ORIG_REQ = "Call Manager/WCDMA Call Origination Request";
+var GSM_CALL_ORIG_RSP   = "[0015/0006]";
+var WCDMA_CALL_ORIG_RSP = "[0015/0005]";
+var CALL_STATE_REQ      = "Call Manager/State Info Request";
+var CALL_STATE_RSP      = "[0015/0000]";
+
+var GSM_STATUS_REQ      = "GSM/Status Request";
+var WCDMA_STATUS_REQ    = "WCDMA/Additional Status Request";
+var GSM_STATUS_RSP      = "[0008/0001]";
+var WCDMA_STATUS_RSP    = "[0004/0015]";
+
+var VERSION_INFO_REQ  = "Version Number Request";
+var BUILD_ID_REQ      = "Extended Build ID Request";
+
+var VERSION_INFO_RESP = "Version Number Response";
+var BUILD_ID_RESP     = "Extended Build ID Response";
+
+var ITEM_TYPE_DIAG_RESP = 1;
+
+// Global variables
+var gReqID              = 0;
+var gCallID             = "";
+var gClientID           = "";
+var gClientType         = 8;
+var gOperationType      = 1;
+var gAccuracy           = 50;
+var gPerformance        = 60;
+var gServerParam        = 1;
+var gServerIP           = new Array();
+var gServerPort         = 4911;
+var gSecsBFixes         = 0;
+var gNumFixes           = 1;
+var gSessionCount       = 1;
+var gMainTickID         = 0;
+var gStartTimeVal          = 0;
+var gbE911              = false;
+var gbEvent411          = false;
+var gbEvent601          = false;
+var gbEvent602          = false;
+var gbEvent605          = false;
+var gbEvent614          = false;
+var gbEvent1301         = false;
+var gbAllEventsReceived = false;
+var gbStoreSessionCount = false;
+var gbSendMultipleReqs  = false;  //MTL - indicates that the GUI will be sending out multiple start session requests without waiting for session end
+
+var gUserClickedStop    = false;  //MTL - indicates if user had clicked the stop button
+var gFullPhoneSetup     = true;   //MTL - indicates if user wants to initialize, register, activate before every e911 call 
+                                  //                                 and unregister, release after every e911 call
+var gErrorOccured       = 0;      //MTL - indicates if an error occured during the current session
+var gCallState          = 0;      //MTL - keeps track of the most recently received call state (idle, conversation, etc)
+var gServiceState       = 0;      //MTL - keeps track of the most recently received service state (full service, no service)
+var gOpMode             = 0;      //MTL - keeps track of operating mode of the FFA (low power, online, etc)
+var gNetworkErrCnt = 0;           //MTL - keeps track of number of network error counts occured during the current collect
+var gPhoneErrCnt = 0;             //MTL - keeps track of nubmer of phone errors during the current collect 
+var gErrorString  = "";           //MTL - a cumulative string that carries the nature of all the errors that occured
+var gErrorHTML    = "";           //MTL - same as above but in HTML tag format
+var gFixIsDone    = false;        //MTL - flag indicating that fix have been completed, allow for late arriving responses processor calls to just return
+var gDeviceIsSetup  = false;      //MTL - flag indicating whether we need to do another initialize/register/activate cycle or not
+var gRequeueCount = 0;            //MTL - flag indicating how many time we did not receive expected diag response, for determining if phone died
+
+// MTL - 0 = initial phone state probe, 1 = model probe, 2 = version probe, 3 = phone num probe, 4 = gps collect in progress
+var gPhoneInfoState = 0;
+
+var gSwVersion = "";              //MTL - Firmware version on the phone
+var gSwDate = "";                 //MTL - Firmware date on the phone
+var gPhoneType = "";              //MTL - Phone type as read from diag
+var gPhoneModel = "";             //MTL - Phone model as read from diag
+var gIMEI = "0";                   //MTL - IMEI read from diag
+var gIMSI = "0";                   //MTL - IMSI read from diag
+var gCsvFileName = "";            //MTL - name of output file
+var gCallOrigCount = 0;           //MTL - keeps track of how many calls we originated
+var gCallEndCount = 0;            //MTL - keeps track of how many calls we ended (end count needs to be no more than orig count
+                                  //      This is to keep us from ending a call, shld a program logic flaw causes a delayed response handling to end a call prematurely
+var gCurrentSessNum = 0;          //MTL - keeps track of the current session number
+var gPrevErrSessNum = 0;          //MTL - keeps track of the last session with error  
+                                  //      These two session num variables prevents overwriting initial error with consequent errors in a given session
+var gCurrentFixNum = 0;           //MTL - keeps track of the current app track fix number
+var gPrevErrFixNum = 0;           //MTL - keeps track of the last fix number with error
+
+var Timer = "";
+var gEnableDebug = false;         //MTL - allows for better control of debug popups during long runs
+
+// Constants for navigation types
+var gDRAndGPS        = 0;
+var gDROnly          = 0;
+var gPlainGPS        = 0;
+var gCurrNavigation = "";
+
+// RK
+var gSummaryStr = "";
+
+// Global location data fix attributes
+var gOutputFolder = "C:\\";   // Output folder location
+var gGpsSessionCount = 0;                // GPS Session number
+var gFinalFixCount = 0;               // Total GPS final fixes
+var gAssistanceDataRecv = 0;        // Assistance data recv count
+var gLastWroteSerialNum = 0;        // Last session number
+var gNetworkCommDoneTS = 0;         // Communication finish time stamp
+var gGPSCompleteTS = 0;             // GPS finish time stamp
+var gEventMGPOffTS = 0;             // Receiver off finish time stamp
+var gEventPDSessStartTS = 0;        // PD session start time stamp
+var gEventPDPosTS = 0;              // PD position time stamp
+var gLocDataFields = new Array();   // Location data fix fields
+
+var gSecsEventsWait = 0;            //the amt of time to wait for app trk events
+
+function d2h(d) {return d.toString(16);}
+
+// Function to convert Packed BCD to human readable form
+// IMSI and IMEI returned from DIAG probing are in Packed BCD
+function convPBCD(d)
+{
+   var retstr = "";
+   if (d<16)
+   {
+      retstr = d2h(d) + "0";
+   }
+   else
+   {
+      var tempStr = d2h(d);
+      retstr = tempStr.charAt(1) + tempStr.charAt(0);
+   }
+   return retstr;
+}         
+
+// Constructor for a client object
+function Client()
+{
+   /* Client handle */
+   this.Handle = 0xFFFFFFFF;
+
+   /* Last index processed for client */
+   this.PrevIndex = -1;
+}
+
+// Client array
+var gClients = new Array();
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // The first client is for responses
+   gClients[0] = new Client();
+
+   //gClients[0].Handle = IQXDM2.RegisterQueueClient( 16384 ); // Queue based subscribtion
+   gClients[0].Handle = IQXDM2.RegisterClient( "", 0 ); // Non-queue based subscribtion
+   if (gClients[0].Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+      return;
+   }
+
+   var ClientObject = IQXDM2.ConfigureClientByKeys( gClients[0].Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure subsystem response
+   // MTL - the initial set of diag responses to subscribe to is 
+   //       different from the set used during actual collect
+   ClientObject.AddSubsysResponse( 13, 100 );
+   ClientObject.AddSubsysResponse( 15, 6 );   //MTL - gsm call response
+   ClientObject.AddSubsysResponse( 15, 5 );   //MTL - wcdma call response
+   ClientObject.AddSubsysResponse( 15, 4 );   //MTL - call end response
+
+   ClientObject.AddSubsysResponse( 15, 0 );   //MTL - get call state
+   
+   ClientObject.AddSubsysResponse( 8, 1 );    //MTL - GSM get status for IMSI/IMEI
+   ClientObject.AddSubsysResponse( 4, 15 );   //MTL - WCDMA get additional status for IMSI/IMEI
+   
+   ClientObject.AddDiagResponse( 0 );         //MTL - get phone model
+   ClientObject.AddDiagResponse( 124 );       //MTL - get firmware version
+
+   ClientObject.CommitConfig();
+   ClientObject = null;
+
+   // The second client is for events
+   gClients[1] = new Client();
+
+   //gClients[1].Handle = IQXDM2.RegisterQueueClient( 16384 ); // Queue based subscribtion
+   gClients[1].Handle = IQXDM2.RegisterClient( "", 0 ); // Non-queue based subscribtion
+   if (gClients[1].Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+      return;
+   }
+
+   ClientObject = IQXDM2.ConfigureClientByKeys( gClients[1].Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure events
+   ClientObject.AddEvent( 411 );  //EVENT_GPS_PD_SESSION_END "GPS position determination session end"
+   ClientObject.AddEvent( 601 );  //EVENT_GPS_PD_FIX_START "Position Determination fix start"
+   ClientObject.AddEvent( 602 );  //Event_GPS_PD_FIX_END "Position Determination fix end"
+   ClientObject.AddEvent( 605 );  //EVENT_GPS_PD_SESSION_START "Position determination session start"
+   ClientObject.AddEvent( 614 );  //EVENT_GPS_PD_POSITION "Position determination position"
+   ClientObject.AddEvent( 1301 ); //EVENT_GPS_LM_MGP_OFF "generated by LM when MGP state changes to off"//EVENT_GPS_PD_POSITION "Position determination position"//EVENT_GPS_PD_POSITION "Position determination position"
+
+   // Configure Aries GPS items
+   ClientObject.AddLog( 0x1370 ); // CGPS Position Report
+   ClientObject.AddLog( 0x1371 ); // CGPS Measurement Report   
+   ClientObject.AddLog( 0x1377 ); // CGPS Report Event
+   ClientObject.AddLog( 0x1387 ); // CGPS Report Server Rx (Assistance Data) - only from GEN7 GSM/WCDMA
+   ClientObject.AddLog( 0x137D ); // CGPS PDSM PD Event Callback
+
+   ClientObject.CommitConfig();
+   ClientObject = null;
+
+   Custom.checked = true;
+   UpdateFixType();
+
+   SingleShot.checked = true;
+   UpdateAssitance();
+
+   // Initialize activeX
+   /*
+   try 
+   {
+      gFileSysObj = new ActiveXObject("Scripting.FileSystemObject"); 
+   }
+   catch(e)
+   {
+      alert(e.message + ' (error code: ' + (e.number & 0xFFFF) + ').');
+   }
+   */
+}
+
+// Clean up on unloading the page
+function Unregister()
+{   
+   // Remove all outstanding periodic requests
+   if (gReqID != 0)
+   {
+      IQXDM2.RemoveRequest( gReqID );
+   }
+
+   var ClientCount = gClients.length;
+   for (var C = 0; C < ClientCount; C++)
+   {
+      if (gClients[C].Handle != 0xFFFFFFFF)
+      {
+         IQXDM2.UnregisterClient( gClients[C].Handle );
+      }
+   }
+   
+   StopGPS();
+}
+
+// Return integer value of a checkbox state
+function ValueOf( boolValue )
+{
+   if (boolValue == false)
+   {
+      return 0;
+   }
+   else
+   {
+      return 1;
+   }
+}
+
+// Generate a call string
+function GenerateCallString( CallString )
+{
+   var PhoneNumber = "";
+
+   // Extract phone number (only digits)
+   for (var c = 0; c < CallString.length; c++)
+   {
+      var Val = CallString.charAt( c );
+      switch (Val)
+      {
+         case '0':
+         case '1':
+         case '2':
+         case '3':
+         case '4':
+         case '5':
+         case '6':
+         case '7':
+         case '8':
+         case '9':
+         case '+':
+         case '*':
+         case '#':
+         case 'A':
+         case 'B':
+         case 'C':
+            PhoneNumber += Val;
+            break;
+      }
+   }
+
+   return PhoneNumber;
+}
+
+// Generate aiding data bit mask string
+function GenerateBitmaskString()
+{
+   var RequestString = Math.pow( 2, 0) * ValueOf( Ephemeris.checked )   +
+                       Math.pow( 2, 1) * ValueOf( Almanac.checked )     +
+                       Math.pow( 2, 2) * ValueOf( Position.checked )    +
+                       Math.pow( 2, 3) * ValueOf( Time.checked )        +
+                       Math.pow( 2, 4) * ValueOf( Ionospheres.checked ) +
+                       Math.pow( 2, 5) * ValueOf( UTC.checked )         +
+                       Math.pow( 2, 6) * ValueOf( Health.checked )      +
+                       Math.pow( 2, 7) * ValueOf( Direction.checked )   +
+                       Math.pow( 2, 8) * ValueOf( Steering.checked )    +
+                       Math.pow( 2, 9) * ValueOf( SA.checked )          +
+                       Math.pow( 2, 10) * ValueOf( RTI.checked )        +
+                       Math.pow( 2, 15) * ValueOf( Cell.checked )       +
+                       Math.pow( 2, 16) * ValueOf( AlmanacCorr.checked );
+
+   return RequestString;
+}
+
+// Send a Subsystem command request
+function SendRequest( RequestItem, RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return bOK;
+   }
+
+   // Send client request item request
+   var ReqID = IQXDM2.ClientRequestItem( gClients[0].Handle,
+                                         RequestItem,
+                                         RequestString,
+                                         true,
+                                         TIMEOUT_MS,
+                                         1,
+                                         1 );
+   if (ReqID == 0)
+   {
+      Txt = "Err with req - (" + RequestItem + "," + RequestString + ")";
+      Response.innerHTML = Txt;
+      bOK = false;
+   }
+   else
+   {
+      bOK = true;
+   }
+   return bOK;
+}
+
+// Update assistance data selections bitmask in the GUI based
+// on handset start state selection
+function UpdateAssitance()
+{
+   if (Custom.checked == true || Hot.checked == true)
+   {
+      Ephemeris.checked = false;
+      Almanac.checked = false;
+      Position.checked = false;
+      Time.checked = false;
+      Ionospheres.checked = false;
+      UTC.checked = false;
+      Health.checked = false;
+      Direction.checked = false;
+      Steering.checked = false;
+      SA.checked = false;
+      RTI.checked = false;
+      Cell.checked = false;
+      AlmanacCorr.checked = false;
+   }
+   else if (ResetState.checked == true)
+   {
+      Ephemeris.checked = true;
+      Almanac.checked = true;
+      Position.checked = true;
+      Time.checked = true;
+      Ionospheres.checked = true;
+      UTC.checked = true;
+      Health.checked = true;
+      Direction.checked = true;
+      Steering.checked = true;
+      SA.checked = true;
+      RTI.checked = true;
+      Cell.checked = true;
+      AlmanacCorr.checked = true;
+   }
+   else if (Cold.checked == true)
+   {
+      Ephemeris.checked = true;
+      Almanac.checked = false;
+      Position.checked = true;
+      Time.checked = true;
+      Ionospheres.checked = true;
+      UTC.checked = true;
+      Health.checked = true;
+      Direction.checked = true;
+      Steering.checked = true;
+      SA.checked = true;
+      RTI.checked = true;
+      Cell.checked = true;
+      AlmanacCorr.checked = true;
+   }
+   else if (XCold.checked == true)
+   {
+      Ephemeris.checked = true;
+      Almanac.checked = false;
+      Position.checked = true;
+      Time.checked = true;
+      Ionospheres.checked = true;
+      UTC.checked = true;
+      Health.checked = false;
+      Direction.checked = true;
+      Steering.checked = true;
+      SA.checked = true;
+      RTI.checked = true;
+      Cell.checked = true;
+      AlmanacCorr.checked = false;
+   }
+   else if (Warm.checked == true)
+   {
+      Ephemeris.checked = true;
+      Almanac.checked = false;
+      Position.checked = false;
+      Time.checked = false;
+      Ionospheres.checked = false;
+      UTC.checked = false;
+      Health.checked = false;
+      Direction.checked = false;
+      Steering.checked = false;
+      SA.checked = false;
+      RTI.checked = false;
+      Cell.checked = false;
+      AlmanacCorr.checked = false;
+   }
+}
+
+// Update fix type based on user selection, this determines what kind of
+// fix collection test iteration is executed
+function UpdateFixType()
+{
+   // Send the entire set of subsystem commands for number of sessions
+   // specified by the user
+   if (SingleShot.checked == true)
+   {
+//MTL - don't clear this value for sake of subsequent sessions
+//      gSecsBFixes = 0;
+//      SecsBSessionsSingleShot.value = 0;
+      gSessionCount = NumSessionsSingleShot.value;
+      gSecsBFixes = SecsBSessionsSingleShot.value;
+      gNumFixes = 1;
+   }
+   // Send the entire set of subsystem commands only once except the
+   // "Start Session Request" which is sent for number of fixes specified
+   // by the user
+   else if (AppTrack.checked == true)
+   {
+      gSessionCount = 1;
+      gSecsBFixes = SecsBFixesAppTrack.value;
+      gNumFixes = NumFixesAppTrack.value;
+      gSecsEventsWait = SecsEventsWait.value;
+   }
+   gErrorString = "";
+   gErrorHTML = "";
+}
+
+// Update all global variables with user specified values from the GUI
+function UpdateGlobals()
+{
+   gStartTimeVal = 0;
+   gbE911 = E911.checked;
+   gFullPhoneSetup = FullSetup.checked;
+   gClientType = ClientType.value;
+   gOperationType = OperationType.value;
+   gAccuracy = Accuracy.value;
+   gPerformance = Performance.value;
+   gServerParam = ServerParam.value;
+   gServerIP[0] = IP1.value;
+   gServerIP[1] = IP2.value;
+   gServerIP[2] = IP3.value;
+   gServerIP[3] = IP4.value;
+   gServerPort = ServerPort.value;
+   gErrorOccured = 0;
+   gCallState = 0;
+   gServiceState = 0;
+   gOpMode = 0;
+   if ((SingleShot.checked == true) && ((!gbE911) || (gFullPhoneSetup == true)))
+   {
+      gClientID = "";
+   }
+}
+
+// Do a best effort error recovery, which usually consists of
+// - terminating the current call
+// - unregistering the phone
+function handleError(errorID, ErrorText)
+{
+   if (gErrorOccured == 0) 
+   {
+      gErrorOccured = errorID;      
+   }
+      //don't overwrite existing error code if there is one
+      if ((gCurrentSessNum != gPrevErrSessNum) || (gCurrentFixNum != gPrevErrFixNum))  
+      {
+         //extend error string for final display
+         gErrorHTML += ("<BR>" + gCurrentSessNum + ". " + ErrorText);
+         gErrorString += ("\n" + gCurrentSessNum + ". " + ErrorText);
+         gPrevErrSessNum = gCurrentSessNum;
+         gPrevErrFixNum = gCurrentFixNum;
+         switch(errorID)
+         { 
+            //handle known phone errors
+            case 1: //Invalid Diag Client ID
+            case 2: //Invalid Diag Response Count
+            case 3: //UE Init Error
+            case 4: //DIAG request failure
+            case 5: //Insufficient DIAG response
+            case 6: //Incorrect DIAG Response Type
+            case 7: //Incorrect UE Init Response
+            case 8: //Assistance Data Delete Failure
+            case 9: //Call orig request failure
+            case 11: //UE Call Termination Failure
+            case 12: //UE Model Probe Failure
+            case 13: //UE SW Probe Failure
+            case 14: //UE Call Termination Failure 2
+            case 15: //UE Phone Num Failure
+            case 16: //UE Call Termination Failure
+            case 19: //Unexpected Call State
+            case 20: //Assistance Data Delete Failure
+            case 21: //Call orig request failure
+            case 22: //Invalid Diag Client ID (GUI logic error)
+            case 23: //Missing event 
+               gPhoneErrCnt++;
+               break;
+            //handle known network errors
+            //MTL - TODO
+            //  code 17 and 18 have been commented out, due to misbehavior with the diag command
+            //  namely, issuing CM/CALL_STATE_REQ seems to causes diag response packet loss
+            case 10:  //Call origination failure
+            case 17:  //Network initiated call drop (disabled code)
+            case 18:  //Call drop with no service (disabled code)
+               gNetworkErrCnt++;
+               break;
+         }
+      }
+   
+   //MTL - Need to allow continue of collect despite error
+   if (StopCollect.checked)
+   {
+      // Stop the fix collection
+      StopGPS();
+   }     
+   else
+   {  
+      if ((errorID == 23))  //expected event was not received
+      {  //not detrimental, just keep going.
+         return;
+      }
+      // Something wrong with the DIAG interface, so just restart GPS and hope for the best
+      if (errorID == 3)
+      {
+         gErrorID = 0;
+         gDeviceIsSetup = false;
+         Timer = window.setTimeout( "StartGPS(5)" , (gSecsBFixes * 1000) );
+         return;
+      }
+      if ((errorID == 4) || (errorID == 5))
+      {
+         if ((AppTrack.checked == true) && (EventsAppTrack.checked == true) && (gCurrentFixNum) && (gCurrentFixNum < NumFixesAppTrack.value))
+         {
+            RequestString = "\"10 1 1 " + gOperationType + " " + gServerParam + " 0 0 "
+                          + gPerformance + " " + gAccuracy + " " + gSecsBFixes + " "
+                          + gNumFixes + " " + gClientID + " 0x0000000000000000 "
+                          + gServerIP[0] + " " + gServerIP[1] + " "
+                          + gServerIP[2] + " " + gServerIP[3] + " "
+                          + gServerPort + "\"";
+            Timer = window.setTimeout( "SendDelayedStartRequest(" + RequestString + ")", 10 );
+            gRequeueCount = 0;
+            return;
+         }
+         else
+         {
+            gErrorID = 0;
+            gDeviceIsSetup = false;
+            Timer = window.setTimeout( "StartGPS(5)" , (gSecsBFixes * 1000) );
+            return;
+         }
+      }
+      
+      // if it is not a network error, try to hang up current call first
+      if ((errorID != 11) && (errorID != 17) && (errorID != 18) && (errorID != 19))
+      {  //error ID 11 is call end request failure; the others are call drops
+        if ((SingleShot.checked==true) && (gbE911) && (gCallOrigCount > gCallEndCount) && (typeof gCallID == "number"))
+        {
+           // Generate a call end request
+           RequestString = "1 " + gCallID + " 1 0 0 0 0 0";
+           bOK = SendRequest( CALL_END_REQ, RequestString );
+           if (bOK == true)
+           {
+             gCallEndCount++;
+             
+             // Reset call ID of the current call
+             gCallID = "";
+
+             // Setup a one-time timer to process call end command response
+             Timer = window.setTimeout( "ProcessResponses()", 3000 );
+             
+             return;
+           }
+        }
+      }
+      //if we get here, then we need to restart GPS, since attempt to end call had failed
+      // this can/should be done by unregistering/deactivating the client, which eventually leads to release
+      // and another startGPS call
+      // Generate Unregister/Deactivate client request
+      if ((errorID != 1) && (typeof gClientID == "number"))
+      {  // can unregister only with a valid client ID
+
+   // Clear the timer
+   window.clearTimeout( Timer );
+   Timer = "";
+   gStartTimeVal = 0;
+
+         RequestString = "\"8 1 " + gClientID + " 1\"";
+      
+         bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+         if (bOK == true)
+         {  
+            Timer = window.setTimeout( "ProcessResponses()", 3000 );
+         }
+      }
+      else
+      {  // All is lost 
+         // gErrorID = 0;
+         // Restarting GPS here would lead to strange behavior, so just stop
+         StopGPS();
+      }
+   }                
+   return;
+}
+
+// Do we have a valid client ID ?
+function CheckClientID(i)
+{
+   // Invalid client ID ? We cannot proceed in that scenario
+   if (gClientID == "")
+   {
+      // Txt = "Invalid client ID, error scheduling request";
+      Txt = "Invalid client ID at " + i;
+      Response.innerHTML = Txt;
+      // Stop the fix collection
+      handleError(1, Txt);
+      return false;
+   }
+
+   return true;
+}
+
+// Verify if subsystem command response is valid
+function VerifyResponse( FieldCount, ErrorText )
+{
+   // Assume failure
+   var bOK = false;
+
+   // Field count as expected ?
+   if (FieldCount < 4)
+   {
+      Response.innerHTML = ErrorText;
+
+      // Stop the fix collection
+      handleError(2, ErrorTxt);
+      return bOK;
+   }
+
+   // Client ID is still valid ?
+   bOK = CheckClientID(1);
+   if (bOK == false)
+   {
+      return bOK;
+   }
+
+   return bOK;
+}
+
+//start gps operation initiated by user clicking the button
+function StartGPSClick()
+{
+   // Need to store the session count for "Single Shot"
+   // fix collection
+   if (gbStoreSessionCount == false)
+   {
+      StartGPSID.disabled = true;
+      UpdateFixType();      
+      gbStoreSessionCount = true;
+   }
+   
+   // Clear the client view
+   if (gClients[0].Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.ClearClientItems( gClients[0].Handle );
+      gClients[0].PrevIndex = -1;
+   }
+   if (gClients[1].Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.ClearClientItems( gClients[1].Handle );
+      gClients[1].PrevIndex = -1;
+   }
+   
+   if ((AppTrack.checked == true) && (EventsAppTrack.checked == false) && (document.getElementById("write2file").checked == true))
+   {
+      alert("CSV file from AppTracking Collect without Event Wait will contain unpredictable contents!");
+   }
+   
+   gCallOrigCount = 0;
+   gCallEndCount = 0;
+   gUserClickedStop = false;
+   gPhoneInfoState = 0;
+   gFixIsDone = false;
+   gRequeueCount = 0;
+   gDeviceIsSetup = false;
+   gErrorOccured = 0;
+   gCurrentSessNum = 0;
+   gPrevErrSessNum = 0;   
+   
+   if (StartGPS(0))
+   {
+      // Upon GPSStart, open a new .csv file for LocDataFix
+	  // OpenNewCSVFile();
+   }
+}	
+
+// Start GPS fix collection
+// entryID can be used for debugging how we got into start GPS
+function StartGPS(entryID)
+{
+   var Txt = "";
+   var bOK = false;
+   var RequestString = "";
+   var tf;
+   
+   //if this is a GPS start due to a delayed diag response handling, then just return
+   if (gFixIsDone == true)  
+   {
+      return true;  
+   }
+
+   Response.innerHTML = Txt;
+                                                    
+   StartGPSID.disabled = true;  //gray out the start gps button
+
+   // Start off each GPS session with no error
+   gErrorOccured = 0;
+   gErrorID = 0;
+
+   // Do initial probing on the phone if needed, which should eventually take us to 
+   //  gPhoneInfoState 3
+   if (gPhoneInfoState == 0)
+    {
+       var ClientObject = IQXDM2.ConfigureClientByKeys( gClients[0].Handle );
+       if (ClientObject == null)
+       {
+          window.document.write("<br />Failed to get client interface pointer");
+          return;
+       }
+
+       // Configure subsystem response
+
+       ClientObject.AddSubsysResponse( 15, 0 );   //MTL - get call state
+       
+       ClientObject.AddSubsysResponse( 8, 1 );    //MTL - GSM get status for IMSI/IMEI
+       ClientObject.AddSubsysResponse( 4, 15 );   //MTL - WCDMA get additional status for IMSI/IMEI
+       
+       ClientObject.AddDiagResponse( 0 );         //MTL - get phone model
+       ClientObject.AddDiagResponse( 124 );       //MTL - get firmware version
+
+       ClientObject.CommitConfig();
+       ClientObject = null;
+
+          Txt = "<b>Test Iterations</b>" + " (Probing State)";
+          Iteration.innerHTML = Txt;
+          RequestString = "";
+          bOK = SendRequest( CALL_STATE_REQ, RequestString );
+          if (bOK == false)
+          {
+             alert("Can't Probe Phone; please reset & check QPST");
+             StopGPS();
+             return false; // failure
+          }
+          Timer = window.setTimeout( "ProcessResponses()", 3000 );
+          return true;
+          
+    }                   
+   if (gPhoneInfoState == 1)  //need to fetch phone info
+   {
+      Txt = "<b>Test Iterations</b>" + " (Probing Model)";
+      Iteration.innerHTML = Txt;
+      var ReqID = IQXDM2.RequestItem( VERSION_INFO_REQ,
+                                      "",
+                                      1,
+                                      TIMEOUT_MS,
+                                      1,
+                                      UPDATE_MS );
+      if (ReqID != 0)
+      {
+         Timer = window.setTimeout( "ProcessResponses()", TIMEOUT_MS );
+		 // Set the time interval to invoke ProcessItems() function
+		 gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+         return true;
+      }  
+      else 
+      {
+         Txt = "Err Model Probe Failed";
+         Response.innerHTML = Txt;
+         handleError(12, Txt);
+         return false; // failure
+      }
+   }
+   else if (gPhoneInfoState == 2)  
+   {
+      Txt = "<b>Test Iterations</b>" + " (Probing SW Ver)";
+      Iteration.innerHTML = Txt;
+      var ReqID = IQXDM2.RequestItem( BUILD_ID_REQ,
+                                      "",
+                                      1,
+                                      TIMEOUT_MS,
+                                      1,
+                                      UPDATE_MS );
+      if (ReqID != 0)
+      {
+         Timer = window.setTimeout( "ProcessResponses()", TIMEOUT_MS );
+         return true;
+      }  
+      else 
+      {
+         Txt = "Err SW Probe Failed";
+         Response.innerHTML = Txt;
+         handleError(13, Txt);
+         return false; // failure
+      }
+   }
+   else if (gPhoneInfoState == 3)  
+   {   
+      if ((SingleShot.checked == true) && (gbE911))
+      {
+         Txt = "<b>Test Iterations</b>" + " (Probing Ph Num)";
+         Iteration.innerHTML = Txt;
+         if (E911CallType.value == 2)
+         {
+            RequestString = "";
+            bOK = SendRequest( WCDMA_STATUS_REQ, RequestString );
+         }
+         else 
+         {
+            RequestString = "";
+            bOK = SendRequest( GSM_STATUS_REQ, RequestString );
+         }
+         if (bOK == false)
+         {
+            Txt = "Err Phone Num Probe Failure";
+            Response.innerHTML = Txt;
+            handleError(15, Txt);
+            return false; // failure
+         }
+         // Setup a one-time timer to process call string query
+         Timer = window.setTimeout( "ProcessResponses()", 3000 );
+         return true;
+      }
+      else
+      {
+         Timer = window.setTimeout( "StartGPS(4)" , 1000) ;
+         gPhoneInfoState++;
+         return;
+      }
+   }
+
+   //write out the seed content of the CSV output
+   if (((SingleShot.checked== true) && (gSessionCount == NumSessionsSingleShot.value)) ||
+       ((AppTrack.checked == true) && (gNumFixes == NumFixesAppTrack.value)))
+   {
+      today = new Date();
+      var monthStr = today.getMonth();
+      var dateStr = today.getDate();
+      var hourStr = today.getHours();
+      var minStr = today.getMinutes();
+      var secStr = today.getSeconds();
+      
+      todayStr = "" + today.getFullYear() + "-";
+      if (monthStr < 9)
+         todayStr += "0";
+      todayStr +=  ((monthStr + 1) + "-");
+      if (dateStr < 10)
+         todayStr += "0";
+      todayStr += dateStr;
+      
+      timeStr = "";                 
+      if (hourStr < 10)
+        timeStr += "0";
+      timeStr += (hourStr + "-");
+      if (minStr < 10)
+        timeStr += "0";
+      timeStr += (minStr + "-");
+      if (secStr < 10)
+        timeStr += "0";
+      timeStr += secStr;
+
+       // filenameStr = gSwVersion + "_" + gIMSI + "_" + gPhoneType + "_" + TestPoint.value + "_" + todayStr + "_" + timeStr + ".csv";
+       filenameStr = gSwVersion + "_" + gIMSI + "_" + gPhoneType + "_" + todayStr + "_" + timeStr + ".csv";
+       var re = /[\s\(\)\,\\\/]+/g;
+       var trimmedFilename = filenameStr.replace(re, "-");
+       gCsvFileName = gOutputFolder + trimmedFilename;
+       
+       // Accumulate the summary details
+       gSummaryStr = "%%%%%%%%%%%%%%%%%%% version Q1.00" + "\n";
+       gSummaryStr += "% Execution Date:, " + todayStr + "\n";
+       gSummaryStr += "% Execution Time:, " + timeStr + "\n";
+       gSummaryStr += "% " + "\n";
+       if (SingleShot.checked == true)
+       {
+          gSummaryStr += "% Number of Location Sessions:, " + NumSessionsSingleShot.value + "\n";
+          gSummaryStr += "% Delay between Sessions:, " + SecsBSessionsSingleShot.value + "\n";
+          gSummaryStr += "% Location session type:, Single Shot" + "\n";
+       }
+       else
+       {  
+          gSummaryStr += "% Number of Location Sessions:, " + NumFixesAppTrack.value + "\n";
+          gSummaryStr += "% Delay between Sessions:, " + SecsBFixesAppTrack.value + "\n";
+          gSummaryStr += "% Location session type:, App Tracking" + "\n";
+       }
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+/*       
+       gSummaryStr += "% GPS Signal:, " + GpsSignal.value + "\n";
+       gSummaryStr += "% GPS Antenna:, " + GpsAntenna.value + "\n";
+       gSummaryStr += "% Satellite View:, " + SvView.value + "\n";
+       gSummaryStr += "% Weather Condition:, " + Weather.value + "\n";
+       if (SingleShot.checked == true && E911.checked)
+       {
+          if (E911CallType.value==1) 
+          {
+             gSummaryStr += "% Network:, GSM"  + "\n";
+          }
+          else
+          {
+             gSummaryStr += "% Network:, WCDMA" + "\n";
+          }
+       }
+       else
+       {
+          gSummaryStr += "% Network:, UMTS" + "\n";   
+       }
+
+       gSummaryStr += "% Cellular State:, " + CellState.value + "\n";   
+       gSummaryStr += "% Network Infrastructure Vendor:, " + NetVendor.value + "\n";   
+       gSummaryStr += "% Network Band:, " + NetBand.value + "\n";   
+       gSummaryStr += "% Network Channel:, " + NetChn.value + "\n";   
+       gSummaryStr += "% SIM Card:, " + SimCard.value + "\n";   
+       gSummaryStr += "% Test Point:, " + TestPoint.value + "\n";   
+       gSummaryStr += "% Comments:, " + Comments.value + "\n";   
+*/       
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% MCU SW Version:, " + gSwVersion + "\n";   
+       gSummaryStr += "% MCU SW Date:, " + gSwDate + "\n";   
+       gSummaryStr += "% Phone Type:, " + gPhoneType + "\n";   
+       gSummaryStr += "% Phone Model:, " + gPhoneModel + "\n";   
+       gSummaryStr += "% IMEI Number:, " + gIMEI + "\n";   
+       gSummaryStr += "% Phone Number:, " + gIMSI + "\n";   
+       gSummaryStr += "% Reference Latitude:, " + RefLat.value + "\n";   
+       gSummaryStr += "% Reference Longitude:, " + RefLong.value + "\n";   
+       gSummaryStr += "% Reference Altitude:, " + RefAlt.value + "\n";   
+       gSummaryStr += "% " + "\n";
+       if (SingleShot.checked== true)
+       {
+          gSummaryStr += "% Number of trials: ," + NumSessionsSingleShot.value + "\n";
+          gSummaryStr += "% Cold start: ,Yes"  + "\n";
+          gSummaryStr += "% Location Method: ,Mobile-Based" + "\n";
+          gSummaryStr += "% Number Of Fixes: ," + NumSessionsSingleShot.value + "\n";
+          gSummaryStr += "% Interval Between Fixes: ," + SecsBSessionsSingleShot.value + "\n";
+          gSummaryStr += "% Maximum Time to First Fix: ,N/A" + "\n";
+       }
+       else if (AppTrack.checked == true)
+       {
+          gSummaryStr += "% Number of trials: ," + "\n";
+          gSummaryStr += "% Cold start: ," + "\n";
+          gSummaryStr += "% Location Method: ," + "\n";
+          gSummaryStr += "% Number Of Fixes: ," + "\n";
+          gSummaryStr += "% Interval Between Fixes: ," + "\n";
+          gSummaryStr += "% Maximum Time to First Fix: ," + "\n";
+       }
+       gSummaryStr += "% , 0" + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       gSummaryStr += "% " + "\n";
+       
+       // Add the location data header
+       if (SingleShot.checked == true)
+            gSummaryStr += "%Session Number,";
+       else
+            gSummaryStr += "%Fix Number,";
+        
+       gSummaryStr += "GPS WeekNum,GPS SoW(msec),UTC Local Time,Assistance Data,TTFF (Response Time (s)),TTFF (Measurement Time (s)),Latitude Error (m),Longitude Error (m),Latitude (deg),Longitude (deg),Uncertainty A,Uncertainty P,Uncertainty Angle,Fix Type,Altitude HAE (m),Altitude Uncertainty,Altitude MSL,Heading,Heading Magnetic,Heading Uncertainty,Horizontal Speed,Horizontal Speed Uncertainty,Vertical Speed,Vertical Speed Uncertainty,DOP,PDOP,HDOP,VDOP,TDOP\n";
+          
+
+       
+       // Write to an empty file.
+       IQXDM2.TextFileSave(gCsvFileName, gSummaryStr, true);
+       
+       /*
+       tf = gFileSysObj.CreateTextFile(gCsvFileName, true);
+       // Write a line with a newline character.
+       tf.WriteLine("%%%%%%%%%%%%%%%%%%% version Q1.00") ;
+       tf.WriteLine("% Execution Date:, " + todayStr);
+       tf.WriteLine("% Execution Time:, " + timeStr);
+       tf.WriteLine("% ");
+       if (SingleShot.checked == true)
+       {
+          tf.WriteLine("% Number of Location Sessions:, " + NumSessionsSingleShot.value);
+          tf.WriteLine("% Delay between Sessions:, " + SecsBSessionsSingleShot.value);
+          tf.WriteLine("% Location session type:, Single Shot");
+       }
+       else
+       {  
+          tf.WriteLine("% Number of Location Sessions:, " + NumFixesAppTrack.value);
+          tf.WriteLine("% Delay between Sessions:, " + SecsBFixesAppTrack.value);
+          tf.WriteLine("% Location session type:, App Tracking");
+       }
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% GPS Signal:, " + GpsSignal.value);
+       tf.WriteLine("% GPS Antenna:, " + GpsAntenna.value);
+       tf.WriteLine("% Satellite View:, " + SvView.value);
+       tf.WriteLine("% Weather Condition:, " + Weather.value);
+       if (SingleShot.checked == true && E911.checked)
+       {
+          if (E911CallType.value==1) 
+          {
+             tf.WriteLine("% Network:, GSM" );
+          }
+          else
+          {
+             tf.WriteLine("% Network:, WCDMA");
+          }
+       }
+       else
+       {
+          tf.WriteLine("% Network:, UMTS");   
+       }
+
+       tf.WriteLine("% Cellular State:, " + CellState.value);   
+       tf.WriteLine("% Network Infrastructure Vendor:, " + NetVendor.value);   
+       tf.WriteLine("% Network Band:, " + NetBand.value);   
+       tf.WriteLine("% Network Channel:, " + NetChn.value);   
+       tf.WriteLine("% SIM Card:, " + SimCard.value);   
+       tf.WriteLine("% Test Point:, " + TestPoint.value);   
+       tf.WriteLine("% Comments:, " + Comments.value);   
+       tf.WriteLine("% ");
+       tf.WriteLine("% MCU SW Version:, " + gSwVersion);   
+       tf.WriteLine("% MCU SW Date:, " + gSwDate);   
+       tf.WriteLine("% Phone Type:, " + gPhoneType);   
+       tf.WriteLine("% Phone Model:, " + gPhoneModel);   
+       tf.WriteLine("% IMEI Number:, " + gIMEI);   
+       tf.WriteLine("% Phone Number:, " + gIMSI);   
+       tf.WriteLine("% Reference Latitude:, " + RefLat.value);   
+       tf.WriteLine("% Reference Longitude:, " + RefLong.value);   
+       tf.WriteLine("% Reference Altitude:, " + RefAlt.value);   
+       tf.WriteLine("% ");
+       if (SingleShot.checked== true)
+       {
+          tf.WriteLine("% Number of trials: ," + NumSessionsSingleShot.value);
+          tf.WriteLine("% Cold start: ,Yes" );
+          tf.WriteLine("% Location Method: ,Mobile-Based");
+          tf.WriteLine("% Number Of Fixes: ," + NumSessionsSingleShot.value);
+          tf.WriteLine("% Interval Between Fixes: ," + SecsBSessionsSingleShot.value);
+          tf.WriteLine("% Maximum Time to First Fix: ,N/A");
+       }
+       else if (AppTrack.checked == true)
+       {
+          tf.WriteLine("% Number of trials: ,");
+          tf.WriteLine("% Cold start: ,");
+          tf.WriteLine("% Location Method: ,");
+          tf.WriteLine("% Number Of Fixes: ,");
+          tf.WriteLine("% Interval Between Fixes: ,");
+          tf.WriteLine("% Maximum Time to First Fix: ,");
+       }
+       tf.WriteLine("% , 0");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+       tf.WriteLine("% ");
+
+       tf.Close();
+       */
+             
+        
+       /*
+       tf = gFileSysObj.CreateTextFile(gOutputFolder + "GpsPosPipe.txt", true);
+       // Write a line with a newline character.
+       tf.WriteLine(gCsvFileName);
+       tf.WriteLine(RefLat.value);
+       tf.WriteLine(RefLong.value);
+       tf.WriteLine(RefAlt.value);
+       if (SingleShot.checked == true)
+       {
+          tf.WriteLine(NumSessionsSingleShot.value);
+       }
+       else
+       {
+          tf.WriteLine(NumFixesAppTrack.value);
+       }
+       tf.Close();
+       */ 
+    }
+  
+   
+   // Done with the fix collection, hurray !
+   if (((SingleShot.checked== true) && (gSessionCount == 0)) ||
+       ((AppTrack.checked == true) && (gNumFixes == 0)) ||
+       (gUserClickedStop == true))
+   {
+      // Set the session count to default value
+      gSessionCount = 1;
+      gFixIsDone = true;
+
+      Txt = "Fix collection completed" + gErrorHTML;
+      Response.innerHTML = Txt;
+      
+      // Stop the fix collection, where wait between session should have been taken care of by the caller of StartGPS()
+      Timer = window.setTimeout( "StopGPS()", 15000 );
+
+      return true;
+   }
+
+   // MTL - If we get here, then the GUI need to do another iteration of fix collect
+
+   // Update global variables with user specified values
+   UpdateGlobals();
+   
+   // If we're not in recovery mode, then 
+   //  decrement the fix collection count for "Single Shot" test iteration
+   if (entryID != 5)
+   {
+      gSessionCount--;
+   }
+   gCurrentSessNum = NumSessionsSingleShot.value - gSessionCount;
+   gRequeueCount = 0;
+
+   /*
+   // Update the pipe file with updated counters
+   tf = gFileSysObj.CreateTextFile(gOutputFolder + "GpsPosPipe.txt", true);
+
+   // Write a line with a newline character.
+   tf.WriteLine(gCsvFileName);
+   tf.WriteLine(RefLat.value);
+   tf.WriteLine(RefLong.value);
+   tf.WriteLine(RefAlt.value);
+   if (SingleShot.checked == true)
+   {
+      tf.WriteLine(NumSessionsSingleShot.value);
+      tf.WriteLine(gCurrentSessNum);
+   }
+   else if (AppTrack.checked == true)
+   {
+      tf.WriteLine(NumFixesAppTrack.value);
+      tf.WriteLine(gCurrentFixNum);
+   }
+   tf.Close();
+   */
+       
+   // if the device hasn't been setup or if user wanted to do full setup cycles (initialize, register, activate / unregister , release)
+   //   then issue the diag command to do initialize
+   if ((gDeviceIsSetup == false) || 
+       ((SingleShot.checked) && (gbE911) && (gFullPhoneSetup)) ||
+       ((SingleShot.checked) && (!gbE911)) || 
+       (AppTrack.checked))
+   {
+      if (SingleShot.checked == true)
+      {
+         Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Initializing)";
+      }
+      else if (AppTrack.checked == true)
+      {
+         Txt = "<b>Test Iterations</b>" + " ==> (Initializing)";
+      }
+      Iteration.innerHTML = Txt;   
+      // Initialize the client request
+      RequestString = "0 1 " + gClientType;
+      bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+      if (bOK == false)
+      {
+         // Txt = "Err scheduling initialize client request; can't access phone";
+         Txt = "Err Phone Access Failure";
+         Response.innerHTML = Txt;
+         handleError(3, Txt);
+         return false; // failure
+      }
+
+      // Setup a one-time timer to process initialize command response
+      Timer = window.setTimeout( "ProcessResponses()", 3000 );
+      return true; 
+   }
+   else
+   {
+   
+      //if user asked for abbreviated test cycle and device is setup, then just trigger the call cylcle
+      //MTL - TODO
+      //This logic should be fixed up to support AppTracking and Single shots collects, instead of doing
+      //  E911 unconditionally 
+
+      RequestString = "12 1 " + gClientID +  " 4 32 "
+                      + "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+                      + " 34813 "
+                      + " 0 0 0 0 0 0";
+      bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+      if (bOK == false)
+      {
+         //Txt = "Err scheduling delete param command request";
+         Txt = "Err scheduling del parm cmd req";
+         Response.innerHTML = Txt;
+         handleError(20, Txt);
+         return;
+      }
+
+      if (SingleShot.checked == true)
+      {
+         Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Calling)";
+      }
+      else if (AppTrack.checked == true)
+      {
+         Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Wrong Start)";
+      }
+      Iteration.innerHTML = Txt;   
+
+      var CallString = E911String.value;
+      var PhoneNum = GenerateCallString( CallString );
+
+      // Generate a GSM call originate request according to E911 call type                  
+      if (E911CallType.value ==2)
+      {
+         // MTL - replace 7 with E911CallWcdmaAmr.value if it needs to be configurable 
+         RequestString = PhoneNum.length.toString() + " 7 "+ PhoneNum;                     
+         bOK = SendRequest( WCDMA_CALL_ORIG_REQ, RequestString );
+      }
+      else 
+      {
+         RequestString = PhoneNum.length.toString() + " " + PhoneNum;
+         bOK = SendRequest( GSM_CALL_ORIG_REQ, RequestString );
+      }
+      if (bOK == false)
+      {
+         //Txt = "Err scheduling call orig request";
+         Txt = "Err scheduling call req";
+         Response.innerHTML = Txt;
+         handleError(21, Txt);
+         return;
+      }
+      gCallOrigCount++;
+
+      // Setup a one-time timer to process call originate command response
+      Timer = window.setTimeout( "ProcessResponses()", 3000 );
+   }
+}
+
+
+function SendDelayedCallEndRequest( RequestString )
+{
+   // This is a special case in which we need to send the call end
+   // request after the specified number of seconds in the GUI i.e. we 
+   // need to keep the call connected for that specified number of seconds
+   var CallDuration = E911Duration.value;
+   if ((SingleShot.checked==true) && (gbE911) && (gCallOrigCount > gCallEndCount))
+   {
+      if (CallDuration > 0)
+      {
+         if (SingleShot.checked == true)
+         {
+            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Call Ending)";
+         }
+         else if (AppTrack.checked == true)
+         {
+            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Wrong State)";
+         }
+         Iteration.innerHTML = Txt;
+
+         // Send a GSM call end request
+         gReqID = IQXDM2.ClientRequestItem( gClients[0].Handle,
+                                            CALL_END_REQ,
+                                            RequestString,
+                                            true,
+                                            TIMEOUT_MS,
+                                            1,
+                                            1 );
+         if (gReqID == 0)
+         {
+            var Txt = "Err scheduling call end request";
+            Response.innerHTML = Txt;
+            return false;
+         }
+
+         gCallEndCount++;
+         
+         // Setup a one-time timer to process subsystem command response
+         Timer = window.setTimeout( "ProcessResponses()", 3000 );
+      }
+      else
+      {
+         Txt = "<b>Test Iterations</b>" + " ==> Wrong State ";
+      }
+   }
+   else
+   {
+      Txt = "<b>Test Iterations</b>" + " ==> Wrong State - Non-E911 entered delayed call end";
+   }
+}
+
+
+// Send a delayed subsystem command request
+function SendDelayedStartRequest( RequestString )
+{
+   var rv = SendDelayedRequest(RequestString);   
+   if (rv == true)
+   {
+      //update fix count if we received successful start indication
+      if ((AppTrack.checked == true) && (EventsAppTrack.checked == true))
+      {
+         // Reduce the fix count
+         gNumFixes--;
+         gCurrentFixNum = NumFixesAppTrack.value - gNumFixes;
+      }
+   }
+}
+
+// Send a delayed subsystem command request
+function SendDelayedRequest( RequestString )
+{
+   // Assume failure
+   var bOK = false;
+
+   // Verify the client ID without which we cannot proceed
+   bOK = CheckClientID(2);
+   if (bOK == false)
+   {
+      return bOK;
+   }
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // Send out multiple start session requests for
+   // "App Track" test iteration ?
+   if (gbSendMultipleReqs == true)
+   {
+      // Seconds between fixes converted to milliseconds
+      var SecsBFixes = gSecsBFixes * 1000;
+
+      // Diable the multiple client requests
+      gbSendMultipleReqs = false;
+
+      // Send multiple (gNumFixes) "Start Session Request" every (SecsBFixes)
+      gReqID = IQXDM2.ClientRequestItem( gClients[0].Handle,
+                                         DIAG_PDAPI_REQ,
+                                         RequestString,
+                                         true,
+                                         TIMEOUT_MS,
+                                         gNumFixes,
+                                         SecsBFixes );
+                  
+      if (gReqID == 0)
+      {
+         Txt = "Err scheduling start session request";
+         Response.innerHTML = Txt;
+         bOK = false;
+         return bOK;
+      }
+      else
+      {
+         // Send Unregister client request after all the start
+         // session requests have been sent
+         var WaitTimeInMS = gNumFixes * (gSecsBFixes) * 1000;
+         bOK = SendUnregisterClientRequest( WaitTimeInMS );
+         return bOK;
+      }
+   }
+   else
+   {
+      // Send a single client request item request
+      bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+      if (bOK == false)
+      {
+         //Txt = "Err scheduling request";
+         Txt = "Err scheduling delayed req "+ RequestString;
+         Response.innerHTML = Txt;
+         handleError(4, Txt);
+         return bOK;
+      }
+
+      // Setup a one-time timer to process subsystem command response
+      Timer = window.setTimeout( "ProcessResponses()", 3000 );
+      return bOK;
+   }
+}
+
+// Send Unregister/Deactivate client request
+function SendUnregisterClientRequest( WaitTimeInMS )
+{
+   // Assume failure
+   var bOK = false;
+
+   // Verify the client ID without which we cannot proceed
+   bOK = CheckClientID(3);
+   if (bOK == false)
+   {
+      return bOK;
+   }
+
+   // Unregister/Deactivate client request
+   var RequestString = "\"8 1 " + gClientID + " 1\"";
+
+   // Setup a one-time timer to sleep for WaitTimeInMS
+   Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", WaitTimeInMS );
+   return bOK;
+}
+
+// Stop GPS fix collection if user had clicked Stopp
+function StopGPSClick()
+{
+   gUserClickedStop = true;
+   
+   if (SingleShot.checked == true)
+   {
+      Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Stopping)";
+   }
+   else if (AppTrack.checked == true)
+   {
+      Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Stopping)";
+   }
+   Iteration.innerHTML = Txt;
+
+   if ((SingleShot.checked==true) && gbE911)
+   {
+      if ((gCallOrigCount > gCallEndCount) && (typeof gCallID == "number"))
+      {
+         // Generate a call end request
+         RequestString = "1 " + gCallID + " 1 0 0 0 0 0";
+         bOK = SendRequest( CALL_END_REQ, RequestString );
+         if (bOK == true)
+         {
+           gCallEndCount++;
+             
+           // Reset call ID of the current call
+           gCallID = "";
+
+           // Setup a one-time timer to process call end command response
+           Timer = window.setTimeout( "ProcessResponses()", 3000 );   
+           
+           return;          
+         }      
+      }
+      else  
+      {
+         //MTL - As best effort, try to unregister the client 
+         RequestString = "\"8 1 " + gClientID + " 1\"";
+
+         bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+         if (bOK == true)
+         {
+             gCallEndCount++;
+             
+             // Reset call ID of the current call
+             gCallID = "";
+
+             // Setup a one-time timer to process call end command response
+             Timer = window.setTimeout( "ProcessResponses()", 3000 );
+ 
+             return;
+         }
+      }
+   }
+   else
+   {
+     //MTL TODO
+     //    Need to do stop session for regular singleshot and app track
+   }
+
+   //If any cleanup cannot be done (i.e. diag command didn't go through), just fall through and cleanup
+   alert("Please reset phone before next test");   
+   StopGPS();
+}
+
+// Stop GPS fix collection
+function StopGPS()
+{
+   // Clear the client view
+   if (gClients[0].Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.ClearClientItems( gClients[0].Handle );
+      gClients[0].PrevIndex = -1;      
+   }
+   if (gClients[1].Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.ClearClientItems( gClients[1].Handle );
+      gClients[1].PrevIndex = -1;      
+   }
+      
+   // Write the final error summary
+   WriteFinalSummary();
+   
+   var Txt = "<b>Test Iterations</b>";
+   Iteration.innerHTML = Txt;
+   
+   // Reset assitance and fix type
+   UpdateAssitance();
+   
+   //MTL - No need to update fix type; let start gps take care of this update     
+   //UpdateFixType();
+
+   // Reset global variables
+   gbEvent411 = false;
+   gbEvent601 = false;
+   gbEvent602 = false;
+   gbEvent605 = false;
+   gbEvent614 = false;
+   gbEvent1301 = false;
+   gCallID = "";
+   gbAllEventsReceived = false;
+   gbSendMultipleReqs = false;
+
+   // Enable the start button
+   StartGPSID.disabled = false;
+
+   // Will need to store session count for next test iteration
+   gbStoreSessionCount = false;
+
+   // Clear the timer
+   window.clearTimeout( Timer );
+   Timer = "";
+   gStartTimeVal = 0;
+
+   // Clear the main timer interval
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+   
+   // Reset the current session/fix number
+   gCurrentSessNum = 0;
+   gCurrentFixNum = 0;
+   gPhoneInfoState = 0;
+}
+
+
+// Reset the values in the display to default, if user presses Reset button
+// MTL - TODO
+//   Need to review what to clear in the meta data section of the forms
+function Reset()
+{
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // Stop GPS fix collection
+   StopGPS();
+
+   // Reset the display
+   ClientType.value = 8;
+   OperationType.value = 1;
+   E911String.value = 911;
+   E911Duration.value = 0;
+
+   // Default values
+   Custom.checked = true;
+   E911.checked = false;
+   gCallID = "";
+
+   Accuracy.value = 50;
+   Performance.value = 60;
+
+   ServerParam.value = 1;
+   IP1.value = 0;
+   IP2.value = 0;
+   IP3.value = 0;
+   IP4.value = 0;
+   ServerPort.value = 4911
+
+   SingleShot.checked = true;
+   EventsAppTrack.checked = false;
+
+   SecsBSessionsSingleShot.value = 10;
+   NumSessionsSingleShot.value = 0;
+   NumFixesAppTrack.value = 1;
+   SecsBFixesAppTrack.value = 1;
+   SecsEventsWait.value = 60;
+
+   // Reset global variables
+   gClientID = "";
+   gClientType = ClientType.value;
+   gOperationType = OperationType.value;
+   gAccuracy = Accuracy.value;
+   gPerformance = Performance.value;
+   gServerParam = ServerParam.value;
+   gServerIP = new Array();
+   gServerPort = ServerPort.value;
+   gSessionCount = 1;
+   
+   gIMEI = "";
+   gIMSI = "";
+   
+   // Close & Open new LocDataFix file
+   // CloseCSVFile();
+   // OpenNewCSVFile();
+}
+
+// Process responses in our client view
+function ProcessResponses()
+{
+   var bProcessedSomething = false;
+
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // Get the handle to our client
+   var Handle = gClients[0].Handle;
+
+   if (gFixIsDone == true)
+   {
+      IQXDM2.ClearClientItems( Handle );
+      gClients[0].PrevIndex = -1;
+      return;
+   }
+
+   var Count = IQXDM2.GetClientItemCount( Handle );
+   var CurrIndex = Count - 1;
+   if (gClients[0].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[0].PrevIndex = -1;
+   }
+
+   // Make sure there is an item to process
+   if ((CurrIndex < 0) || ((gClients[0].PrevIndex!=-1) && (CurrIndex <= gClients[0].PrevIndex)))
+   {
+      if (gRequeueCount < 20)  //if we didn't see any diag response in less then 20 tries, then try again
+      {
+         Txt = "WARN: Diag Rsp Wait (" + gRequeueCount + " : " + CurrIndex + " : " + gClients[0].PrevIndex + ")";
+         Response.innerHTML = Txt;
+         Timer = window.setTimeout( "ProcessResponses()", 2000 );
+         gRequeueCount++;      
+      }
+      else                     //otherwise, assume the phone is dead, and kick off cleanup processing
+      {
+         Txt = "Err : Diag Rsp Time Out";
+         gDeviceIsSetup = false;
+         Response.innerHTML = Txt;
+         handleError(5, Txt);
+      }
+      return;
+   }
+
+   //if debug was enabled, then dump out the items queue
+   if (gEnableDebug == true)   
+   {
+      for (var i = 0; i < Count; i++)
+      {
+         var Item = IQXDM2.GetClientItem( Handle, i );
+         if (Item != null)
+         {
+            var ItemKey = Item.GetItemKeyText();
+            var ItemParsedText = Item.GetItemParsedText();
+            alert(ItemKey);
+            alert(ItemParsedText);
+         }
+      }
+   }                           
+                         
+   // Loop through items in our client
+   var PrevIndex = gClients[0].PrevIndex;
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         //Txt = "Err : can't get diag rsp item";
+         Response.innerHTML = Txt;
+         continue;
+      }
+
+      var ItemType = Item.GetItemType();
+      var ItemFields = Item.GetItemFields();
+      var ItemFieldCount = ItemFields.GetFieldCount();
+
+      // Interested only in responses, and skip over unexpected packets
+      if (((gPhoneInfoState > 0) && (gPhoneInfoState < 3) && (ItemType != ITEM_TYPE_DIAG_RESP)) || 
+          ((gPhoneInfoState == 1) && (ItemFieldCount != 11)) ||  
+          ((gPhoneInfoState == 2) && (ItemFieldCount != 5))) 
+      {
+         continue;
+      }      
+      else if (gPhoneInfoState == 1) //process phone model info
+      {
+         gPhoneInfoState++;
+         gSwDate = ItemFields.GetFieldValueText(0);
+         gPhoneType = ItemFields.GetFieldValueText(7);
+         gClients[0].PrevIndex = i;
+         Timer = window.setTimeout( "StartGPS(1)" , 1000) ;
+         return;
+      }
+      else if (gPhoneInfoState == 2) //process firmware version info
+      {
+         gPhoneInfoState++;
+         gPhoneModel = ItemFields.GetFieldValueText(1);
+         gSwVersion = ItemFields.GetFieldValueText(3);
+         gClients[0].PrevIndex = i;
+         Timer = window.setTimeout( "StartGPS(2)" , 1000) ;
+         return;
+      }
+
+      //Skip over unexpected item types, as we want responses (RX) and not requests (TX)
+      if (ItemType == ITEM_TYPE_SUBSYS_TX)  
+      {
+         continue;
+      }
+
+      // No need to go any further as no response is received
+      // MTL - TODO : this is dead code from the old way of looping thru diag items
+      //              will remove after actual testing
+//      if (i == 1 && ItemType != ITEM_TYPE_SUBSYS_RX)
+//      {
+//         //Txt = "Err receiving valid response";
+//         Txt = "Err : invalid rsp";
+//         Response.innerHTML = Txt;
+//
+//         handleError(6, Txt);
+//         return;
+//      }
+
+      // Get configured fields without enumerations and field names
+      var Fields = Item.GetConfiguredItemFields( "", false, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount <= 0)
+      {
+         continue;
+      }      
+
+      var ItemKey = Item.GetItemKeyText();
+      if ((gPhoneInfoState == 3) && (ItemKey != GSM_STATUS_RSP) && (ItemKey != WCDMA_STATUS_RSP))
+      {
+         continue;
+      }
+      
+      if (ItemKey == CGPS_CMD_RSP)  //GPS PDAPI Diag responses
+      {
+         var bOK = false;
+         var RequestString = "";
+         var CommandCode = Fields.GetFieldValue( 0 );
+         
+         switch (CommandCode)
+         {
+            // Initialize command response
+            case 0:
+            {
+               bProcessedSomething = true;
+
+               if (SingleShot.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Initialized)";
+               }
+               else if (AppTrack.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> (Initialized)";
+               }
+               Iteration.innerHTML = Txt;
+
+               if (FieldCount < 4)
+               {
+                  //Txt = "Err receiving initialize command response";
+                  Txt = "Err : bad init cmd rsp";
+                  Response.innerHTML = Txt;
+
+                  handleError(7, Txt);
+                  return;
+               }
+
+               // Get the client ID which is the key for all subsequent commands
+               gClientID = Fields.GetFieldValue( 2 );
+
+               // Verify if the client ID if valid
+               bOK = CheckClientID(4);
+               if (bOK == false)
+               {
+                  return;
+               }
+
+               // Generate Register client request
+               RequestString = "\"1 1 " + gClientID + " 0\"";
+
+               // Setup a one-time timer to sleep for 10 ms
+               Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+            }
+            break;
+
+            // Register command response
+            case 1:
+            {
+
+               bProcessedSomething = true;
+
+               if (SingleShot.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Registered)";
+               }
+               else if (AppTrack.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> (Registered)";
+               }
+               Iteration.innerHTML = Txt;
+               
+               Txt = "Err receiving register command response";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+
+               // Generate Activate client request
+               RequestString = "\"7 1 " + gClientID + "\"";
+
+               // Setup a one-time timer to sleep for 10 ms
+               Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+            }
+            break;
+
+            // Activate command response
+            case 7:
+            {
+
+               bProcessedSomething = true;
+
+               Txt = "Err receiving activate command response";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+               if (SingleShot.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Activated)";
+               }
+               else if (AppTrack.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> (Activated)";
+               }
+               Iteration.innerHTML = Txt;
+
+               gDeviceIsSetup = true;
+
+               if (SingleShot.checked == true && gbE911)
+               {
+                  // Generate Delete param request - don't care about response
+                  // Need to delete appropriate assistance data before
+                  // originating a new call every single time
+// MTL - don't use user specified bitmask
+// Always do cold start (del all but alm)
+//                  RequestString = "12 1 " + gClientID +  " 4 32 "
+//                                + "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+//                                + new Number( GenerateBitmaskString() )
+//                                + " 0 0 0 0 0 0";
+                  RequestString = "12 1 " + gClientID +  " 4 32 "
+                                + "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+                                + " 34813 "
+                                + " 0 0 0 0 0 0";
+                  bOK = SendRequest( DIAG_PDAPI_REQ, RequestString );
+                  if (bOK == false)
+                  {
+                     //Txt = "Err scheduling delete param command request";
+                     Txt = "Err scheduling del parm cmd req";
+                     Response.innerHTML = Txt;
+                     handleError(8, Txt);
+                     return;
+                  }
+                  
+                  var CallString = E911String.value;
+                  var PhoneNum = GenerateCallString( CallString );
+// alert("CallString: " + CallString + " PhoneNum: " + PhoneNum);
+                  // Generate a GSM call originate request according to E911 call type                  
+                  if (E911CallType.value ==2)
+                  {
+                     // MTL - replace 7 with E911CallWcdmaAmr.value if it needs to be configurable 
+                     RequestString = PhoneNum.length.toString() + " 7 "+ PhoneNum;                     
+                     bOK = SendRequest( WCDMA_CALL_ORIG_REQ, RequestString );
+                  }
+                  else 
+                  {
+                     RequestString = PhoneNum.length.toString() + " " + PhoneNum;
+                     bOK = SendRequest( GSM_CALL_ORIG_REQ, RequestString );
+                  }
+                  if (bOK == false)
+                  {
+                     //Txt = "Err scheduling call orig request";
+                     Txt = "Err scheduling call req";
+                     Response.innerHTML = Txt;
+                     handleError(9, Txt);
+                     return;
+                  }
+                  gCallOrigCount++;
+
+                  // Setup a one-time timer to process call originate command response
+                  Timer = window.setTimeout( "ProcessResponses()", 3000 );
+               }
+               else
+               {
+                  // Generate Delete param request
+                  RequestString = "\"12 1 " + gClientID +  " 4 32 "
+                                + "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+                                + new Number( GenerateBitmaskString() )
+                                + " 0 0 0 0 0 0\"";
+
+                  // Setup a one-time timer to sleep for 10 ms
+                  Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+               }
+            }
+            break;
+
+            // Set Parameter command response
+            case 12:
+            {
+               bProcessedSomething = true;
+               
+               if (SingleShot.checked == true && gbE911)
+               {  // MTL - no more processing needed from this path (we had already made an E911 call)
+                  break;  
+               }
+
+               Txt = "Err in del parm cmd rsp";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+               // Generate Start session request
+               RequestString = "\"10 1 1 " + gOperationType + " " + gServerParam + " 0 0 "
+                             + gPerformance + " " + gAccuracy + " " + gSecsBFixes + " "
+                             + gNumFixes + " " + gClientID + " 0x0000000000000000 "
+                             + gServerIP[0] + " " + gServerIP[1] + " "
+                             + gServerIP[2] + " " + gServerIP[3] + " "
+                             + gServerPort + "\"";
+
+               // For "App Track" fix collection only
+               if (AppTrack.checked == true)
+               {
+                  // No need to check for events arrival
+                  if (EventsAppTrack.checked == false)
+                  {
+                     // Send multiple start session requests
+                     gbSendMultipleReqs = true;
+
+                     // Verify the client ID
+                     bOK = CheckClientID(5);
+                     if (bOK == false)
+                     {
+                        return;
+                     }
+                  }
+                  else
+                  {
+                     gNumFixes--;  
+                     gCurrentFixNum = NumFixesAppTrack.value - gNumFixes;
+                  }                  
+               }
+               
+               // Mark the start time for next fix collection
+               var StartTime = new Date();
+               gStartTimeVal = StartTime.valueOf() + 10;
+
+               // Setup a one-time timer to sleep for 10 ms
+               // MTL - bug here : the delayed diag request may fail in the send - need to handle
+               Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+            }
+            break;
+
+            // Start session response
+            case 10:
+            {
+               bProcessedSomething = true;
+
+               Txt = "Err receiving start session response";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+            }
+            break;
+
+            // End session response
+            case 11:
+            {
+               bProcessedSomething = true;
+
+               Txt = "Err receiving end session response";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+
+               // Generate Unregister/Deactivate client request
+               RequestString = "\"8 1 " + gClientID + " 1\"";
+
+               // Setup a one-time timer to sleep for 10 ms
+               Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+            }
+            break;
+
+            // Unregister/Deactivate client response
+            case 8:
+            {
+               bProcessedSomething = true;
+
+               if (SingleShot.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Deactivated/Unregistered)";
+               }
+               else if (AppTrack.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> (Deactivated/Unregistered)";
+               }
+               Iteration.innerHTML = Txt;
+               
+               Txt = "Err receiving unregister client response";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+               
+               gDeviceIsSetup = false;
+
+               // Generate Release client request
+               RequestString = "\"9 1 " + gClientID + "\"";
+
+               // Setup a one-time timer to sleep for 10 ms
+               Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+            }
+            break;
+
+            // Release client response
+            case 9:
+            {
+               bProcessedSomething = true;
+
+               if (SingleShot.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Released)";
+               }
+               else if (AppTrack.checked == true)
+               {
+                  Txt = "<b>Test Iterations</b>" + " ==> (Released)";
+               }
+               Iteration.innerHTML = Txt;
+               
+               Txt = "Err receiving release client response";
+               bOK = VerifyResponse( FieldCount, Txt );
+               if (bOK == false)
+               {
+                  return;
+               }
+
+               //Update processing index in QXDM item list
+               gClients[0].PrevIndex = i;
+
+               // Only if it is "Single Shot" fix collection that we need to send the entire
+               // set of subsystem commands as specified by number of sessions
+               if (SingleShot.checked == true)
+               {
+                  Timer = window.setTimeout( "StartGPS(3)" , (gSecsBFixes * 1000) );
+                  return;
+               }
+               else
+               {
+                  // Done with App Track fix collection
+                  gFixIsDone = true;
+                  Txt = "AppTrk Fix Collection Done";
+                  Response.innerHTML = Txt;
+                  Timer = window.setTimeout( "StopGPS()", 15000 + (gSecsBFixes * 1000) );
+                  return;
+               }
+            }
+            break;
+         }
+      }
+      else if ((ItemKey == GSM_CALL_ORIG_RSP) || (ItemKey == WCDMA_CALL_ORIG_RSP))
+      {  // GSM call originate response
+         
+        bProcessedSomething = true;
+
+         if (SingleShot.checked == true)
+         {
+            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Call Made)";
+         }
+         else if (AppTrack.checked == true)
+         {
+            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Wrong Call Response)";
+         }
+         Iteration.innerHTML = Txt;
+         
+         var Status = Fields.GetFieldValue( 0 );
+         if (!Status)
+         {
+            // Abort since the call status is "Failure"
+            handleError(10, "Failed stat for Call Req");
+            return;
+         }
+
+         // Save the call ID for the call terminate request
+         gCallID = Fields.GetFieldValue( 1 );
+         var StartTime = new Date();
+         gStartTimeVal = StartTime.valueOf();
+
+         var CallDuration = E911Duration.value;
+         if (CallDuration > 0)
+         {
+            // Generate a call end request
+            RequestString = "\"1 " + gCallID + " 0 0 0 0 0 0\"";
+
+            // Reset call ID of the current call
+// MTL - We do not clear the caller ID in case we need to interrupt the call (e.g. stop button being pressed)
+//            gCallID = "";
+
+            // Convert call duration to milliseconds
+            var MSDuration = CallDuration * 1000;
+
+            // Setup a one-time timer to sleep for CallDuration * 1000 ms
+            Timer = window.setTimeout( "SendDelayedCallEndRequest(" + RequestString + ")", MSDuration );
+
+         }
+         // If call duration specified in the GUI is "0" then proceed with the wait for
+         // post processing events
+         else
+         {
+            // Setup the main update timer
+            gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+         }
+      }
+      else if (ItemKey == CALL_END_RSP)
+      { // Call end response
+
+         bProcessedSomething = true;
+
+         if (SingleShot.checked == true)
+         {
+            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Call End)";
+         }
+         else if (AppTrack.checked == true)
+         {
+            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Wrong Call End)";
+         }
+         Iteration.innerHTML = Txt;
+         
+         if ((SingleShot.checked == true) && gbE911)
+         {
+            var end_response = Fields.GetFieldValue( 0 );
+         
+            //MTL - Note failure to end call and try to release resource anyway
+            if (end_response != 1)
+            {
+               Txt = "Err Can't End Call " + gCallID;
+               handleError(16, Txt);
+            }  
+            else
+            {
+               gCallID = "";
+               gCallEndCount = gCallOrigCount;  //we were able to end the call successfully, so end has now caught up with call orig
+            }
+                                 
+            if (gFullPhoneSetup)  //MTL - No need for the elaborate testing, since can only get Call_end_resp with E911
+            {
+               // Generate Unregister/Deactivate client request
+               RequestString = "\"8 1 " + gClientID + " 1\"";
+
+               // Setup a one-time timer to sleep for 10 ms
+               Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+            }
+            else
+            {  //just loop back and do another call after specified time between session
+               Timer = window.setTimeout( "StartGPS(7)" , (gSecsBFixes * 1000) );
+            }
+         }      
+      }
+      else if ((ItemKey == GSM_STATUS_RSP) || (ItemKey == WCDMA_STATUS_RSP))
+      {      
+         if (gPhoneInfoState == 3)    //Received the response packet for phone number probe
+         {
+            gPhoneInfoState++;
+// MTL - TRY
+// Subscribe to a smaller set of diag responses to improve stability
+{
+   var ClientObject = IQXDM2.ConfigureClientByKeys( gClients[0].Handle );
+   if (ClientObject == null)
+   {
+      alert("Fatal Internal Error; please restart QXDM");
+      return;
+   }
+
+   ClientObject.ClearConfig();
+
+   // Configure subsystem response
+   ClientObject.AddSubsysResponse( 13, 100 );
+   ClientObject.AddSubsysResponse( 15, 6 );   //MTL - gsm call response
+   ClientObject.AddSubsysResponse( 15, 5 );   //MTL - wcdma call response
+   ClientObject.AddSubsysResponse( 15, 4 );   //MTL - call end resp
+
+   ClientObject.CommitConfig();
+   ClientObject = null;
+}
+
+            gIMEI = "";
+            gIMSI = "";
+            var imei_len = Fields.GetFieldValue( 0 );
+            for (var indx = 1; (indx <= imei_len) && (indx <=8) ; indx++)
+            {
+               gIMEI += convPBCD( Fields.GetFieldValue( indx ) );
+               if (indx==1)
+               {
+                  gIMEI += "-";
+               }
+            }            
+            var imsi_len = Fields.GetFieldValue( 9 );
+            for (var indx = 10; (indx <= imsi_len + 9) && (indx <=17); indx++)
+            {
+               gIMSI += convPBCD( Fields.GetFieldValue( indx ) );
+               if (indx==10)
+               {
+                  gIMSI += "-";
+               }
+            }            
+            Timer = window.setTimeout( "StartGPS(4)" , 1000) ;
+            gClients[0].PrevIndex = i;
+            return;
+
+         }
+      }
+      else if (ItemKey == CALL_STATE_RSP)
+      {  
+         //Received the diag packet with the phone stat 
+         //  Subscribing to this packet fills up the item list pretty fast
+         //  which is why it should be done judiciously 
+         //MTL - TODO:
+         //Also, the call state presented does not always seem to be accurate
+         //  but we'll use it for now, until migration to the recommended DM 0x12c1
+            gServiceState = Fields.GetFieldValue( 44 );
+            gCallState = Fields.GetFieldValue( 0 );
+            gOpMode = Fields.GetFieldValue( 1 );
+            if (gPhoneInfoState == 0) 
+            {
+//              if (gCallState != 0)
+//              {
+//                  alert("Phone not idle (" + gCallState + "); please reset");
+//                  StopGPS();
+//                  return;
+//              }
+               if (gOpMode != 5)
+               {
+                  alert("Phone not online (" + gOpMode + "); please reset");
+                  StopGPS();
+                  return;
+               }
+               gPhoneInfoState++;
+               Timer = window.setTimeout( "StartGPS(6)" , 1000) ;
+               gClients[0].PrevIndex = i;
+               return;
+            }
+            continue;
+//MTL - TODO:
+// Could also use this payload (CM/CALL_STATE_RSP) to determine network state, but had issues during testing, so disabled the code for now.
+//
+//            if (gPhoneInfoState != 5)
+//            {
+//               continue;
+//            }         
+//   
+//            gPhoneInfoState++;
+//          
+//            Txt = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Call Ending)";
+//            Iteration.innerHTML = Txt;
+//
+//            if (gCallState == 5)
+//            {  // MTL - Good, the call is still connected, so send call end request
+//               if (typeof gCallID == "number")
+//               {
+//                  // Generate a call end request
+//                  RequestString = "1 " + gCallID + " 1 0 0 0 0 0";
+//                  bOK = SendRequest( CALL_END_REQ, RequestString );
+//                  if (bOK == false)
+//                  {
+//                     //Txt = "Err scheduling call end request; call had dropped already";
+//                     Txt = "Err : Call End Failed for" + gCallID;
+//                     Response.innerHTML = Txt;
+//                     handleError(11, Txt);
+//                     return;
+//                  }
+//                  gCallEndCount++;
+//        
+//                  // Reset call ID of the current call
+//                  gCallID = "";
+//            
+//                  // Setup a one-time timer to process call end command response
+//                  Timer = window.setTimeout( "ProcessResponses()", 3000 );
+//               }
+//               else
+//               {
+//                  Txt = "Err Call End No Call ID";
+//                  handleError(22, Txt);
+//                  return;
+//               }
+//            }
+//            else if (gServiceState == 2)
+//            { //Call dropped with full service, will try to end call anyway via error handler
+//               Txt = "Err Call Drop while in Service";
+//               handleError(17, Txt);
+//               return;
+//            }
+//            else if (gServiceState < 2) 
+//            { //Call droppped with poor service, will try to end call anyway via error handler
+//               Txt = "Err Call Drop No Service";
+//               handleError(18, Txt);
+//               return;
+//            }
+//            else 
+//            { //Unexpected Call State, will try to end call anyway via error handler
+//               Txt = "Err Bad Call State";
+//               handleError(19, Txt);
+//               return;
+//            }
+      }
+   }
+
+   if (bProcessedSomething == false)
+   {  //if we did not receive anything we expect, phone may have died, so initiate retry loop
+      Txt = "WARN: Initiating Missing Rsp Wait";
+      Response.innerHTML = Txt;
+      gRequeueCount++;
+      Timer = window.setTimeout( "ProcessResponses()", 2000 );
+   }
+   gClients[0].PrevIndex = CurrIndex;
+
+}
+
+// Process events in our client view
+function ProcessItems()
+{
+   var Handle = gClients[1].Handle;
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   
+   if (gClients[1].PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      gClients[1].PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   //if start time not set, then the session / fix hasn't been started, so no need to process events                                                     
+   if (gStartTimeVal == 0)
+   {
+      return;
+   }
+   
+   // Loop through from last index (+1) we processed till current index
+   var PrevIndex = gClients[1].PrevIndex;
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+	  var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+	  
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case "[00411]":     //EVENT_GPS_PD_SESSION_END "GPS position determination session end"
+         {
+            gbEvent411 = true;
+         }
+         break;
+
+         case "[00601]":     //EVENT_GPS_PD_FIX_START "Position Determination fix start"
+         {
+            gbEvent601 = true;
+         }
+         break;
+
+         case "[00602]":     //Event_GPS_PD_FIX_END "Position Determination fix end"
+         {
+            gbEvent602 = true;
+         }
+         break;
+
+         case "[00605]":     //EVENT_GPS_PD_SESSION_START "Position determination session start"
+         {
+            gbEvent605 = true;
+			gEventPDSessStartTS = Item.GetItemSpecificTimestamp2() * SECONDS_PER_DAY;
+         }
+         break;
+
+         case "[00614]":     //EVENT_GPS_PD_POSITION "Position determination position"
+         {
+            gbEvent614 = true;
+			gEventPDPosTS = Item.GetItemSpecificTimestamp2() * SECONDS_PER_DAY;
+         }
+         break;
+
+         case "[01301]":     //EVENT_GPS_LM_MGP_OFF "generated by LM when MGP state changes to off"
+         {
+            gbEvent1301 = true;
+			
+			if (gEventPDPosTS == 0) 
+			{
+				gEventMGPOffTS = Item.GetItemSpecificTimestamp2() * SECONDS_PER_DAY;
+			}
+			else
+			{
+				gEventMGPOffTS = gEventPDPosTS;  //we intentionally assume engine went off when position event is received
+			}
+			
+			// Compute Measurement Time
+            if ((gEventMGPOffTS > 0) && (gEventPDSessStartTS > 0))
+                gLocDataFields[6] = (gEventMGPOffTS - gEventPDSessStartTS) + ",";
+            else
+                gLocDataFields[6] = "Insufficient data" + ",";
+			gEventPDSessStartTS = gEventPDPosTS = 0; // reset meas time fields
+			
+			WriteLocDataPerSession();
+         }
+         break;
+		 
+		case "[0x1370]":
+		   ProcessCGPSPositionReport( Fields );
+		   break;
+		
+		case "[0x1377]":
+		   ProcessCGPSReportEvent( Fields, Item.GetItemSpecificTimestamp2() );
+		   break;
+		
+		case "[0x1387]":
+		   ProcessCGPSReportServer( Fields );
+		   break;
+		
+		case "[0x137D]":
+			ProcessCGPSPDEventCallback( Fields, Item.GetItemSpecificTimestamp2() );
+			break;
+      }
+
+      // Fix collection is "Single Shot"
+      if (SingleShot.checked == true)
+      {
+         // Wait for the arrival of the necessary events
+         if (gbEvent411 == true && gbEvent601 == true && gbEvent602 == true && 
+             gbEvent605 == true && gbEvent614 == true && gbEvent1301 == true)
+         {
+            gbAllEventsReceived = true;
+         }
+      }
+      // Fix collection is "App Track"
+      else if (AppTrack.checked == true)
+      {
+         // Wait for the arrival of the necessary events
+         if (EventsAppTrack.checked == true) 
+         {
+            if (gbEvent411 == true && gbEvent601 == true && gbEvent602 == true &&  gbEvent605 == true && gbEvent614 == true)
+            {
+               gbAllEventsReceived = true;
+            }
+         }
+         else
+         {
+            if (gbEvent411 == true && gbEvent601 == true && gbEvent602 == true &&  gbEvent605 == true && gbEvent614 == true)
+            {
+               gNumFixes--;  
+               gCurrentFixNum = NumFixesAppTrack.value - gNumFixes;
+               gbEvent411 = false;
+               gbEvent601 = false;
+               gbEvent602 = false;
+               gbEvent605 = false;
+               gbEvent614 = false;
+            }
+         }
+      }
+   }
+
+   gClients[1].PrevIndex = CurrIndex;
+   
+   // End time, to start collecting the next fix
+   var EventTime = new Date();
+   var EventTimeVal = EventTime.valueOf();
+   var EventTicks = EventTimeVal - gStartTimeVal;
+   if (EventTicks == 0)
+   {
+      EventTicks = 1;  //avoid a delta roll
+   }
+
+   // Need to subtract time waited for response (2 seconds)
+   var EventSecs = 0;
+   if (EventTicks > 2000)
+   {
+      EventSecs = (EventTicks / 1000);   
+   }
+   
+   // All the required events have been received
+   if ((gbAllEventsReceived == true) || 
+       ((AppTrack.checked == true) && (EventsAppTrack.checked == true) && (EventSecs > gSecsEventsWait)))
+   {
+      if (!gbAllEventsReceived)
+      {
+         Txt = "Err Missing Evnts : SessStart(" + gbEvent605 + ") SessEnd(" + gbEvent411+ ") FixStart(" + gbEvent601 + ") FixEnd(" + gbEvent602 + ") Pos(" + gbEvent614 + ") MgpOff(" + gbEvent1301 + ") EventSecs(" + EventSecs + ") SecsEventWait(" + gSecsEventsWait + ") EventTimeVal(" + EventTimeVal + ") StartTimeVal(" + gStartTimeVal + ")";
+         handleError(23,Txt);
+      }
+                                                                       
+      // Reset flags for all events
+      gbEvent411 = false;
+      gbEvent601 = false;
+      gbEvent602 = false;
+      gbEvent605 = false;
+      gbEvent614 = false;
+      gbEvent1301 = false;
+      gbAllEventsReceived = false;
+
+      // Verify the client ID
+      var bOK = CheckClientID(6);
+      if (bOK == false)
+      {
+         return;
+      }
+
+      // Only for "App Track" fix collection
+      var RequestString = "";
+      if (AppTrack.checked == true)
+      {  
+         // Did we send out all fixes yet ?
+         if (gNumFixes != 0)
+         {
+            // Start session request
+            RequestString = "\"10 1 1 " + gOperationType + " " + gServerParam + " 0 0 "
+                          + gPerformance + " " + gAccuracy + " " + gSecsBFixes + " "
+                          + gNumFixes + " " + gClientID + " 0x0000000000000000 "
+                          + gServerIP[0] + " " + gServerIP[1] + " "
+                          + gServerIP[2] + " " + gServerIP[3] + " "
+                          + gServerPort + "\"";
+
+            // End time, to start collecting the next fix
+            var EndTime = new Date();
+            var Ticks = EndTime.valueOf() - gStartTimeVal;
+            if (Ticks <= 0)
+            {
+               Ticks = 1;
+            }
+            // Need to subtract time waited for response (2 seconds)
+            var Secs = (Ticks / 1000) - 2;
+            if (Secs > gSecsBFixes)
+            {
+               // Setup a one-time timer to sleep for 10 ms
+               Timer = window.setTimeout( "SendDelayedStartRequest(" + RequestString + ")", 10 );
+               var StartTime = new Date();                                        
+               gStartTimeVal = StartTime.valueOf() + 10;
+            }
+            else
+            {
+               // Time elapsed since the last "Start Session Request" in milliseconds
+               // var TimeInMS = (Secs - gSecsBFixes) * 1000;
+               var TimeInMS = (gSecsBFixes - Secs) * 1000;
+               if (TimeInMS < 0)
+               {
+                  TimeInMS = 10;
+               }
+               // Setup a one-time timer to sleep for TimeInMS
+               Timer = window.setTimeout( "SendDelayedStartRequest(" + RequestString + ")", TimeInMS );
+               var StartTime = new Date();                                        
+               gStartTimeVal = StartTime.valueOf() + TimeInMS;
+            }
+         }
+         else
+         {
+            // Generate Unregister/Deactivate client request
+            RequestString = "\"8 1 " + gClientID + " 1\"";
+
+            // Setup a one-time timer to sleep for 10 ms
+            Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+         }
+      }
+      // Only for "Single Shot" fix collection and when we are making a E911 call
+      // we need to send "End Session Request"
+      else if ((SingleShot.checked==true) && (gbE911))
+      {
+/*      
+         if ((gCallOrigCount > gCallEndCount) && (typeof gCallID == "number"))
+         {
+            // Generate a call end request
+            RequestString = "1 " + gCallID + " 1 0 0 0 0 0";
+            bOK = SendRequest( CALL_END_REQ, RequestString );
+            if (bOK == false)
+            {
+               //Txt = "Err scheduling call end request; call had dropped already";
+               Txt = "Err : Call End Falure";
+               Response.innerHTML = Txt;
+               handleError(14, Txt);
+               return;
+            }
+                        
+            gCallEndCount++;
+
+            // Reset call ID of the current call
+            gCallID = "";
+         
+         }
+         // Setup a one-time timer to process call end command response
+         Timer = window.setTimeout( "ProcessResponses()", 3000 );
+*/
+      }
+      else  //regular single shot collects
+      {
+         // Generate End session request
+         RequestString = "\"11 1 0 " + gClientID + "\"";
+
+         // Setup a one-time timer to sleep for 10 ms
+         Timer = window.setTimeout( "SendDelayedRequest(" + RequestString + ")", 10 );
+      }
+   }
+}
+
+// Process CGPS position report (0x1370)
+function ProcessCGPSPositionReport( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   // Data is valid when Position Source is "Weighted Least Squares" or "Kalman Filter"
+   var PositionSource = Fields.GetFieldValue( 2 );
+   var PositionSourceString = Fields.GetFieldValueText( 2 );
+   
+   if (PositionSource == 0)
+   {
+      gCurrNavigation = "No Fix";
+      return;
+   }
+   else if (PositionSource != 1 && PositionSource != 2)
+   {
+      return;
+   }
+   
+   var FI = 1;
+
+   // FCount
+   var Fcount = Fields.GetFieldValueText( FI );
+   
+   // Index of Latitude field
+   FI = Fields.GetFieldIndexFromByID( 305094, FI, false );;
+   if (FI == 0xFFFFFFFF)
+   {
+      return;
+   }
+
+   var FinalFix;
+   var PosSrcName;
+   var GPSWeekNum;
+   var GPSTimeMSec;
+   var NumSVUsed = 0;
+   var Txt = "";
+       
+   // Weighted Least Squares
+   if (PositionSource == 1)
+   {
+	  PosSrcName = "WLS";
+//      Txt = " (Received WLS PreFix";
+      FinalFix = Fields.GetFieldValue( 11 );
+      NumSVUsed = Fields.GetFieldValue( 47 ); // Number Of SVs Used
+      
+      if (FinalFix)
+      {
+		 gCurrNavigation = "Plain GPS";
+         Txt = " (Received Final Fix";
+         gPlainGPS++;
+		 GPSWeekNum = Fields.GetFieldValue( 21 );
+		 GPSTimeMSec = Fields.GetFieldValue( 22 );
+        
+        // Update the status
+        Txt += " - SV used: " + NumSVUsed + ")";       
+      }
+   }
+
+   // Kalman Filter
+   if (PositionSource == 2)
+   {	  
+      PosSrcName = "KF";
+//      Txt = " (Received KF PreFix";
+      FinalFix = Fields.GetFieldValue( 8 );
+      NumSVUsed = Fields.GetFieldValue( 46 ); // Number Of SVs Used
+      
+      if (FinalFix)
+      { 
+         Txt = " (Received Final Fix";
+         var DRAndGPS = Fields.GetFieldValue( 11 );
+         if (DRAndGPS)
+         {
+            gCurrNavigation = "Combined - DR + GPS";
+            gDRAndGPS++;
+         }
+
+         var DR = Fields.GetFieldValue( 12 );
+         if (DR)
+         {
+            gCurrNavigation = "DR";
+            gDROnly++;
+         }
+
+         if (DRAndGPS == 0 && DR == 0)
+         {
+            gCurrNavigation = "Plain GPS";
+            gPlainGPS++;
+         }
+		 GPSWeekNum = Fields.GetFieldValue( 20 );
+		 GPSTimeMSec = Fields.GetFieldValue( 21 );
+        
+        // Update the status
+        Txt += " - SV used: " + NumSVUsed + ")";       
+      }
+   }
+
+   if (SingleShot.checked == true)
+   {
+      Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + Txt;
+   }
+   else if (AppTrack.checked == true)
+   {
+      Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + Txt;
+   }
+   
+   // Latitude
+   var Latitude = Fields.GetFieldValue( FI++ );
+   Latitude = Latitude * (180 / Math.PI);
+   if (Latitude <= -180.0)
+   {
+      Latitude = -180.0;
+   }
+   else if(Latitude >= 180.0)
+   {
+      Latitude = 180.0;
+   }
+
+   // Longitude
+   var Longitude = Fields.GetFieldValue( FI++ );
+   Longitude = Longitude * (180 / Math.PI);
+   if (Longitude <= -180.0)
+   {
+      Longitude = -180.0;
+   }
+   else if(Longitude >= 180.0)
+   {
+      Longitude = 180.0;
+   }
+
+   // Height
+   var Height = Fields.GetFieldValueText( FI++ );
+   if (Height >= 10000.0)
+   {
+      Height = 10000.0;
+   }
+   else if (Height <= 0.0)
+   {
+      Height = 0.0;
+   }
+   
+   // Vertical Uncertainty
+   var VerticalUnc = Fields.GetFieldValueText( FI + 3 );
+
+   // Speed
+   var EastVel = Fields.GetFieldValue( FI++ );
+   var NorthVel = Fields.GetFieldValue( FI++ );
+   var UpVel = Fields.GetFieldValue( FI++ ); // Vertical Velocity
+
+   var Speed = Math.sqrt( (EastVel * EastVel) + (NorthVel * NorthVel) );
+
+   // Direction
+   var Azimuth;
+   if (Speed > 0.1)
+   {
+      Azimuth = (Math.atan2( EastVel, NorthVel )) * (180 / 3.14159265);
+      if (Azimuth < 0.0)
+      {
+         Azimuth += 360;
+      }
+   }
+
+   // Vertical Velocity Uncertainty
+   var VertVelUnc = Fields.GetFieldValue( FI + 3 ).toFixed( 6 );
+   
+   FI += 10;
+
+   // Position Dilution Of Precision
+   var PDOP = Fields.GetFieldValueText( FI++ );
+
+   // Horizontal Dilution Of Precision
+   var HDOP = Fields.GetFieldValueText( FI++ );
+
+   // Vertical Dilution Of Precision
+   var VDOP = Fields.GetFieldValueText( FI++ );
+
+   // Ellipse Confidence
+   var EllipseConfidence = Fields.GetFieldValueText( FI++ );
+
+   // Ellipse Angle
+   var EllipseAngle = Fields.GetFieldValueText( FI++ );
+
+   // Ellipse Along Axis Uncertainty
+   var EllipseAxisUnc = Fields.GetFieldValueText( FI++ );
+
+   // Ellipse Perpendicular Axis Uncertainty
+   var EllipsePerUnc = Fields.GetFieldValueText( FI++ );
+
+	// Write to CSV file
+	if ((document.getElementById("write2file").checked == true) && FinalFix)
+	{
+		gFinalFixCount++;
+		var arrIndex = 0;
+		
+      // Session number
+      if (SingleShot.checked == true)
+      {
+         gLocDataFields[arrIndex++] =  gGpsSessionCount + ",";
+      }
+      else if (AppTrack.checked == true)
+      {
+         gLocDataFields[arrIndex++] = gFinalFixCount + ",";
+      }
+
+      // Fix time in GPS time system
+      gLocDataFields[arrIndex++] = GPSWeekNum + ",";
+      gLocDataFields[arrIndex++] = GPSTimeMSec + ",";
+        
+		// Fix time in UTC local system
+		var utcYear, utcMonth, utcDay, utcHour, utcMinute, utcSecond;
+		// utcMonth = utcDay = utcHour = utcMinute = utcSecond = ",";
+		var utcDate = ConvertGPSTime2UTCMsec( GPSWeekNum, GPSTimeMSec );
+		// gLocDataFields[arrIndex++] = utcDate.toTimeString().substring(0,8) + ",";
+				
+		utcYear = utcDate.getUTCFullYear() + '';
+		utcMonth = (utcDate.getUTCMonth() + 1) + '';
+		utcDay = utcDate.getUTCDate() + '';
+		utcHour = utcDate.getUTCHours() + '';
+		utcMinute = utcDate.getUTCMinutes() + '';
+		utcSecond = utcDate.getUTCSeconds() + "." + utcDate.getMilliseconds();	
+	
+      gLocDataFields[arrIndex++] = '\'' + utcYear + '/' + utcMonth + '/' + utcDay + ' ' + utcHour + ':' + utcMinute + ':' + utcSecond + ',';
+
+      // Assistance Data (AD)
+		if (gAssistanceDataRecv > 0)
+			gLocDataFields[arrIndex++] = "Received ("+ gAssistanceDataRecv + "),";
+		else
+			gLocDataFields[arrIndex++] = "None,";
+
+		// TTFF (Response Time) - computed later
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		// TTFF (Measurement Time) - computed later
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  UTC Year
+		// gLocDataFields[arrIndex++] = utcYear;
+		
+		//  UTC Month
+		// gLocDataFields[arrIndex++] = utcMonth;
+		
+		//  UTC Day
+		// gLocDataFields[arrIndex++] = utcDay;
+		
+		//  UTC Hour
+		// gLocDataFields[arrIndex++] = utcHour;
+		
+		//  UTC Minute
+		// gLocDataFields[arrIndex++] = utcMinute;
+		
+		//  UTC Second
+		// gLocDataFields[arrIndex++] = utcSecond;
+		
+		//  Latitude Error
+		gLocDataFields[arrIndex++] = ((Latitude.toFixed( 6 ) - RefLat.value) * ANGPS_DEG2RAD * ANGPS_RADIUS) + "," ;
+		
+		//  Longitude Error
+		gLocDataFields[arrIndex++] = ((Longitude.toFixed( 6 ) - RefLong.value) * ANGPS_DEG2RAD * Math.cos(RefLat.value * ANGPS_DEG2RAD)  * ANGPS_RADIUS) + "," ;
+		
+		//  Latitude
+		gLocDataFields[arrIndex++] = Latitude.toFixed( 6 ) + ",";
+		
+		//  Longitude
+		gLocDataFields[arrIndex++] = Longitude.toFixed( 6 ) + ",";
+		
+		//  Uncertainty A
+		gLocDataFields[arrIndex++] = EllipseAxisUnc + ",";
+		
+		//  Uncertainty P
+		gLocDataFields[arrIndex++] = EllipsePerUnc + ",";
+		
+		//  Uncertainty Angle
+		gLocDataFields[arrIndex++] = EllipseAngle + ",";
+		
+		//  Fix_type
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  Altitude
+		gLocDataFields[arrIndex++] = Height + ",";
+		
+		//  Altitude Uncertainty
+		gLocDataFields[arrIndex++] = VerticalUnc + ",";
+		
+		//  Altitude MSL
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  Heading
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  Heading Magnetic
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  Heading Uncertainty
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  Horizontal Speed
+		gLocDataFields[arrIndex++] = Speed.toFixed( 6 )  + ",";
+		
+		//  Horizontal Speed Uncertainty (Used ellipseAxis to calc HEPEUnc as in APEX)
+		gLocDataFields[arrIndex++] = Math.sqrt(EllipseAxisUnc * EllipseAxisUnc + EllipsePerUnc * EllipsePerUnc) + ",";
+		
+		//  Vertical Speed (Uses Vertical Velocity from Pos table)
+		gLocDataFields[arrIndex++] = UpVel.toFixed( 6 ) + ",";
+		
+		//  Vertical Speed Uncertainty (Uses Vertical Velocity Uncertainty from 0x1370)
+		gLocDataFields[arrIndex++] = VertVelUnc + ",";
+		
+		//  DOP
+		gLocDataFields[arrIndex++] = "N/A,";
+		
+		//  PDOP
+		gLocDataFields[arrIndex++] = PDOP + ",";
+		
+		//  HDOP
+		gLocDataFields[arrIndex++] = HDOP + ",";
+		
+		//  VDOP
+		gLocDataFields[arrIndex++] = VDOP + ",";
+		
+		//  TDOP
+		gLocDataFields[arrIndex++] = "N/A" + ",";
+		
+        //  TDOP
+		gLocDataFields[arrIndex++] = Fcount ;
+	}
+}
+
+// Process CGPS report (0x1377)
+function ProcessCGPSReportEvent( Fields, TimeStamp )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+   
+   TimeStamp = TimeStamp * SECONDS_PER_DAY;
+   var EventId = Fields.GetFieldValue( 0 );
+   if (EventId == 7) // GPS complete
+   {
+      if (SingleShot.checked == true)
+      {
+         Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (GPS Done)";
+      }
+      else if (AppTrack.checked == true)
+      {
+         Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (GPS Done)";
+      }
+      gGPSCompleteTS = TimeStamp;
+   }
+}
+
+// Process Assistance data (0x1387)
+function ProcessCGPSReportServer( Fields )
+{
+    gAssistanceDataRecv++;
+    if (SingleShot.checked == true)
+    {
+       Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (AD Rcvd " + gAssistanceDataRecv + " )"; 
+    }
+    else if (AppTrack.checked == true)
+    {
+       Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value)  + " (AD Rcvd " + gAssistanceDataRecv + " )"; 
+    }
+}
+
+// Process PD callback events (0x137D)
+function ProcessCGPSPDEventCallback( Fields, TimeStamp )
+{
+	if ((Fields == null) || (Fields.GetFieldCount() < 2))
+	{
+		return;
+	}
+
+	var EventType = Fields.GetFieldValue( 1 );
+	
+	TimeStamp = TimeStamp * SECONDS_PER_DAY;
+	switch (EventType)
+	{
+	case 1: // PDSM_PD_EVENT_BEGIN - Session start		
+           if (SingleShot.checked == true)
+           {
+              Iteration.innerHTML = "<b>Test Iterations</b>" + "  ==>  " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Sess Begin)";
+           }
+           else if (AppTrack.checked == true)
+           {
+              Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Sess Begin)";
+           }
+           // Whether to write previous session's location data to file?
+           if ((gEventMGPOffTS == 0) && (gGpsSessionCount || gFinalFixCount))
+           {
+               // "GPS_LM_MGP_OFF" event not received for the last session. So write previous session to file.
+               WriteLocDataPerSession();
+           }
+           else
+           {
+               // Session data written to the file, since "GPS_LM_MGP_OFF" event received for the last session.
+               gEventMGPOffTS = 0; // reset meas time fields
+           }
+		
+           gGpsSessionCount++;
+		   gAssistanceDataRecv = 0; // reset assistance data count for each session.
+		   break;
+		
+	case 13: // Done with communication to the network
+           gNetworkCommDoneTS = TimeStamp;
+           if (SingleShot.checked == true)
+           {
+              Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Network Comm Done)";  
+           }
+           else if (AppTrack.checked == true)
+           {
+              Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Network Comm DOne)";
+           }
+           break;
+	
+	case 7: // PD session done. Similar to 0 - End of session (or) 9 - GPS receiver OFF
+        {
+           if (SingleShot.checked == true)
+           {
+              Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentSessNum + " of " + (NumSessionsSingleShot.value) + " (Sess End)";	
+           }
+           else if (AppTrack.checked == true)
+           {
+              Iteration.innerHTML = "<b>Test Iterations</b>" + " ==> " + gCurrentFixNum + " of " + (NumFixesAppTrack.value) + " (Sess End)";
+           }
+            // Whether to write previous session's location data to file?
+			// Compute Response Time
+            if ((gGPSCompleteTS > 0) && (gNetworkCommDoneTS > 0))
+                gLocDataFields[5] = gGPSCompleteTS - gNetworkCommDoneTS + ",";
+            else
+                gLocDataFields[5] = "Insufficient data" + ",";
+			gGPSCompleteTS = gNetworkCommDoneTS = 0; // reset
+			// Measurement time could be computed only after "GPS_LM_MGP_OFF" DMSS event, so differ it now.
+			break;
+        }
+	}
+}
+
+// Write a single row of location data per fix
+function WriteLocDataPerSession() 
+{   
+	try
+	{				
+		// Is write to file option is enabled?
+		if (document.getElementById("write2file").checked == true) 
+        {    
+            var contentStr = "";
+            var currentSessOrFixNum = 0;
+            // var actualStop = 0;
+            
+            if (SingleShot.checked == true)
+            {
+                currentSessOrFixNum = gGpsSessionCount;
+                // actualStop = NumSessionsSingleShot.value;
+            }
+            else // Either singleshot & app tracking is selected by the user. So need to check for (AppTrack.checked == true)
+            {
+                currentSessOrFixNum = gFinalFixCount;
+                // actualStop = NumFixesAppTrack.value;
+            }
+            
+            // Write to file after the first session has started & avoid writting the same session twice
+            // && (currentSessOrFixNum <= actualStop))
+            if (currentSessOrFixNum && (gLastWroteSerialNum < currentSessOrFixNum)) 
+            {  
+                // Check for jump in sessions. For those missing session just print the session id.
+                for (var i = gLastWroteSerialNum + 1; i < currentSessOrFixNum; i++)
+                {
+                    contentStr = i + ",, No,GPS,Final,Fix,due,to,Diag,Interface,Problem" + "\n";
+                }    
+                
+                // --- Current session --- //
+                // Have final fix for current session? If final fix available the field length should be 34.
+                if (gLocDataFields.length > 30)
+                {				
+                    // Write to file
+                    for (var i = 0; i < gLocDataFields.length; i++)
+                        contentStr += gLocDataFields[i];
+                    
+                    contentStr += "\n";
+                }
+                else
+                {
+                    // No final-fix so just print the session id
+                    contentStr += currentSessOrFixNum + ",, No,GPS,Final,Fix,due,to,insufficient,data\n";
+                }    
+                
+                // clear the array
+                gLocDataFields.length = 0;
+                // Record the last written session number
+                gLastWroteSerialNum = currentSessOrFixNum;
+                
+                // Append to the main file
+                IQXDM2.TextFileSave(gCsvFileName, contentStr, false);
+            }
+            
+        }
+       
+	}
+	catch(e)
+	{
+		alert(e.message + ' (error code: ' + (e.number & 0xFFFF) + ').');
+	}
+}
+
+// Write the final error summary details
+function WriteFinalSummary()
+{	
+	try
+	{
+		if ((document.getElementById("write2file").checked == true) && ((0 != gCurrentFixNum) || (0 != gCurrentSessNum)))
+		{
+            var finalSummaryStr = "";
+            var currSerialNumber = 0;
+            var TotalErr = gNetworkErrCnt + gPhoneErrCnt;
+            
+            if ((SingleShot.checked == true) && (gGpsSessionCount > 0))
+                currSerialNumber = gGpsSessionCount;
+            else if ((AppTrack.checked == true) && (gFinalFixCount > 0))
+                currSerialNumber = gFinalFixCount;
+            
+			// Before file closing, flush the session data.
+			WriteLocDataPerSession();
+			
+            finalSummaryStr = "\n" + "%Description,Count,Yield," + "\n";
+            if (currSerialNumber > 0)
+			{
+                finalSummaryStr += "GPS Final Fixes, " + gFinalFixCount + "," + ((gFinalFixCount / (currSerialNumber + TotalErr)) * 100) + "%," + "\n";
+			}
+			else
+			{
+                finalSummaryStr += "GPS Final Fixes, " + gFinalFixCount + ",0%," + "\n";
+			}
+			
+			if (TotalErr > 0) 
+			{	
+                finalSummaryStr += "Network Errors, " + gNetworkErrCnt + "," + ((gNetworkErrCnt / (currSerialNumber + TotalErr)) * 100) + "%," + "\n";
+                finalSummaryStr += "Phone Errors, " + gPhoneErrCnt + "," + ((gPhoneErrCnt / (currSerialNumber + TotalErr)) * 100) + "%," + "\n";
+			}
+			else
+			{
+                finalSummaryStr += "Network Errors, " + gNetworkErrCnt + ",0%," + "\n";	
+                finalSummaryStr += "Phone Errors, " + gPhoneErrCnt + ",0%," + "\n";
+			}
+		
+            // Append to the main file
+            IQXDM2.TextFileSave(gCsvFileName, finalSummaryStr, false);
+            
+			alert("The fix summary file available at: " + gCsvFileName);
+		}
+	} 
+	catch(e)
+	{ 
+		alert(e.message + ' (error code: ' + (e.number & 0xFFFF) + ').');
+	}	
+	
+	CleanUp();
+}
+
+// reset the values
+function CleanUp()
+{
+	gGpsSessionCount = 0;
+	gLastWroteSerialNum = 0;
+	gFinalFixCount = 0;
+	gNetworkErrCnt = 0;
+	gPhoneErrCnt = 0;
+}
+
+// Check 'Write to File' option box state & take necessary action.
+function CheckWriteOption()
+{
+    if (document.getElementById("write2file").checked == true)
+	{
+        
+    }
+    else
+    {
+        // Unchecked
+        WriteFinalSummary()
+    }
+}
+
+/*===========================================================================
+METHOD:
+   ConvertGPSTime2UTCMsec
+
+DESCRIPTION:
+   Convert a GPS Week & Time to UTC time represented into a JScript 'Date' object.
+   
+PARAMETERS:
+   gpsWeek      [ I ] - GPS Week number
+   gpsTimeMSec  [ I ] - GPS time of week in milliseconds.
+   
+RETURN VALUE:
+   'Date' object
+===========================================================================*/
+
+function ConvertGPSTime2UTCMsec( gpsWeek, gpsTimeMSec )
+{
+    // Convert GPS Week, TimeInSec to GPSTime in msec
+	var GPSTimeInMSec = (gpsWeek * 604800000) + parseInt(gpsTimeMSec);
+	
+   // We now have elapsed GPS milliseconds since 01/06/80 00:00:00, we want to 
+   // convert that to elapsed milliseconds since 01/01/70 00:00:00 (UTC), so we
+   // add the missing decade
+   var utcMissingMSec = Date.UTC( 1980, 0, 6, 0, 0, 0, 0 );
+   
+   // Convert GPS time to UTC time
+   var GPSMSecDiff2UTC = 15000; // i.e 15 seconds // todo : 15 seconds from Jan-1-2010
+   var adjustedGPSTmMSec = GPSTimeInMSec - GPSMSecDiff2UTC;
+   var utcTimeMSec = utcMissingMSec + adjustedGPSTmMSec;
+   
+   return new Date( utcTimeMSec );
+}
+
+</script>
+</body>
+</html>

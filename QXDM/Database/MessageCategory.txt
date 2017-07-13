@@ -1,0 +1,396 @@
+0^"Legacy"^-1^100000
+1^"Audio Format"^-1^100000
+2^"Audio Vocoder Services"^-1^100000
+3^"Boot"^-1^100000
+4^"Blue Tooth"^-1^100000
+5^"Call Manager"^-1^100000
+6^"Compact Multimedia Extensions"^-1^100000
+7^"Diagnostics Services"^-1^100000
+8^"Data Service Memory Buffers"^-1^100000
+9^"File Services"^-1^100000
+10^"HandSet Services"^-1^100000
+11^"Modem DSP"^-1^100000
+12^"Qualcomm DSP Service Task"^-1^100000
+13^"Real-time Executive"^-1^100000
+14^"Radio Frequency"^-1^100000
+15^"CDMA System Determination"^-1^100000
+16^"Serial Input Output"^-1^100000
+17^"Voice Recognition"^-1^100000
+18^"Wireless Messaging Services"^-1^100000
+19^"Global Positioning System"^-1^100000
+20^"Multi Mode Controller"^-1^100000
+21^"User Interface Module"^-1^100000
+22^"Task Main Controller"^-1^100000
+23^"Factory Test Mode"^-1^100000
+24^"AAGPS"^-1^100000
+25^"Sleep"^-1^100000
+26^"System Arbitration Module"^-1^100000
+27^"Shared Resource Manager"^-1^100000
+28^"Debug"^-1^100000
+29^"Searcher"^-1^28
+30^"SanDisk FAT Filesystem"^-1^100000
+31^"Joystick"^-1^100000
+32^"Media Forward Link Only"^-1^100000
+33^"Digital TV"^-1^100000
+34^"TCXO Manager"^-1^100000
+35^"EFS"^-1^100000
+36^"IRDA"^-1^100000
+37^"FM Radio"^-1^100000
+38^"Accessory Attachment Manager"^-1^100000
+39^"Battery Manager"^-1^100000
+40^"Position Engine"^-1^100000
+41^"QIP Call"^-1^100000
+42^"Flute"^-1^100000
+43^"Camera"^-1^100000
+44^"HSUSB"^-1^100000
+45^"Flow Controller"^-1^100000
+46^"USB Host"^-1^100000
+47^"Profiler"^-1^100000
+48^"MGP"^-1^100000
+49^"MGP ME"^-1^100000
+50^"GPS OS"^-1^100000
+51^"MGP PE"^-1^100000
+52^"GPS SM"^-1^100000
+53^"IMS"^-1^100000
+54^"MBP RF"^-1^100000
+55^"SNS"^-1^100000
+56^"WM"^-1^100000
+57^"LK"^-1^100000
+58^"Power Debug"^-1^100000
+59^"Dynamic Clock And Voltage Scaling"^-1^100000
+60^"Android ADB"^-1^100000
+61^"Video Encoder"^-1^100000
+62^"VENC OMX"^-1^100000
+63^"GAN"^-1^100000
+64^"KINETO GAN"^-1^100000
+65^"Android QCRIL"^-1^100000
+66^"A2"^-1^100000
+67^"Linux Data"^-1^100000
+68^"ECALL"^-1^100000
+69^"CHORD"^-1^100000
+70^"QCNE"^-1^100000
+71^"APPS CAD General"^-1^100000
+72^"OMADM"^-1^100000
+73^"SIWA"^-1^100000
+74^"APR Modem"^-1^100000
+75^"APR Apps"^-1^100000
+76^"APR ADSP"^-1^100000
+77^"SRD General"^-1^100000
+78^"ACDB General"^-1^100000
+79^"DALTF"^-1^100000
+80^"CFM"^-1^100000
+500^"QTV"^-1^100000
+501^"QTV Levels"^-1^100001
+502^"ONCRPC"^-1^100000
+503^"ONCRPC Misc Modem"^-1^100000
+504^"ONCRPC Misc Apps"^-1^100000
+505^"ONCRPC CM Modem"^-1^100000
+506^"ONCRPC CM Apps"^-1^100000
+507^"ONCRPC DB"^-1^100000
+508^"ONCRPC SND"^-1^100000
+509^"Graphics"^-1^100000
+1000^"1X Default"^-1^100000
+1001^"Analog Call Processing"^-1^100000
+1002^"Digital Call Processing"^-1^100000
+1003^"CDMA Decoder"^-1^100000
+1004^"CDMA Encoder"^-1^100000
+1005^"GPS Searcher"^-1^100000
+1006^"Multiplex Sublayer"^-1^100000
+1007^"Searcher"^-1^100000
+2000^"1xEv-DO Protocol"^-1^90000
+2001^"1xEv-DO Data"^-1^90000
+2002^"1xEv-DO Searcher"^-1^90000
+2003^"1xEv-DO Drivers"^-1^90000
+2004^"1xEv-DO IS 890"^-1^90000
+2005^"1xEV-DO Debug"^-1^100000
+2006^"RTCMAC Debug"^-1^2005
+2007^"FTCMAC Debug"^-1^2005
+2008^"1xEV-DO HIT"^-1^90000
+2009^"1xEV-DO PCP"^-1^90000
+2010^"1xEV-DO HeapMem"^-1^90000
+3000^"UMTS"^-1^100000
+3001^"WCDMA L1"^-1^3000
+3002^"WCDMA L2"^-1^3000
+3003^"WCDMA MAC"^-1^3000
+3004^"WCDMA RLC"^-1^3000
+3005^"WCDMA RRC"^-1^3000
+3006^"NAS CNM"^-1^3900
+3007^"NAS MM"^-1^3900
+3008^"NAS MN"^-1^3900
+3009^"NAS RABM"^-1^3900
+3010^"NAS REG"^-1^3900
+3011^"NAS SM"^-1^3900
+3012^"NAS TC"^-1^3900
+3900^"NAS"^-1^3000
+4000^"GSM"^-1^100000
+4001^"GSM L1"^-1^4000
+4002^"GSM L2"^-1^4000
+4003^"GSM RR"^-1^4000
+4004^"GSM GPRS GCOMMON"^-1^4000
+4005^"GSM GPRS GLLC"^-1^4000
+4006^"GSM GPRS GMAC"^-1^4000
+4007^"GSM GPRS GPL1"^-1^4000
+4008^"GSM GPRS GRLC"^-1^4000
+4009^"GSM GPRS GRR"^-1^4000
+4010^"GSM GPRS GSNDCP"^-1^4000
+4500^"WLAN"^-1^100000
+4501^"WLAN ADP"^-1^4500
+4502^"WLAN CP"^-1^4500
+4503^"WLAN FTM"^-1^4500
+4504^"WLAN OEM"^-1^4500
+4505^"WLAN SEC"^-1^4500
+4506^"WLAN TRP"^-1^4500
+4507^"WLAN Reserved 1"^-1^4500
+4508^"WLAN Reserved 2"^-1^4500
+4509^"WLAN Reserved 3"^-1^4500
+4510^"WLAN Reserved 4"^-1^4500
+4511^"WLAN Reserved 5"^-1^4500
+4512^"WLAN Reserved 6"^-1^4500
+4513^"WLAN Reserved 7"^-1^4500
+4514^"WLAN Reserved 8"^-1^4500
+4515^"WLAN Reserved 9"^-1^4500
+4516^"WLAN Reserved 10"^-1^4500
+4517^"WLAN TL"^-1^4500
+4518^"WLAN BAL"^-1^4500
+4519^"WLAN SAL"^-1^4500
+4520^"WLAN SSC"^-1^4500
+4521^"WLAN HDD"^-1^4500
+4522^"WLAN SME"^-1^4500
+4523^"WLAN PE"^-1^4500
+4524^"WLAN HAL"^-1^4500
+4525^"WLAN SYS"^-1^4500
+4526^"WLAN VOSS"^-1^4500
+4600^"MCS"^-1^100000
+4601^"ATS"^-1^4600
+4602^"MSGR"^-1^4600
+4603^"APPMGR"^-1^4600
+4604^"QTF"^-1^4600
+4605^"FWS"^-1^4600
+4606^"MCS RESERVED 2"^-1^4600
+4607^"MCS RESERVED 3"^-1^4600
+4608^"MCS RESERVED 4"^-1^4600
+4609^"MCS RESERVED 5"^-1^4600
+4610^"MCS RESERVED 6"^-1^4600
+4611^"MCS RESERVED 7"^-1^4600
+4612^"MCS RESERVED 8"^-1^4600
+5000^"Data Services"^-1^100000
+5001^"DS Radio Link Protocol"^-1^5000
+5002^"DS PPP"^-1^5000
+5003^"DS TCPIP"^-1^5000
+5004^"DS IS 707"^-1^5000
+5005^"DS 3G Manager"^-1^5000
+5006^"DS Protocol Services"^-1^5000
+5007^"DS Mobile IP"^-1^5000
+5008^"DS UMTS"^-1^5000
+5009^"DS GPRS"^-1^5000
+5010^"DS GSM"^-1^5000
+5011^"DS Sockets"^-1^5000
+5012^"DS AT Command Parser"^-1^5000
+5013^"DS Serial IO"^-1^5000
+5014^"DS BroadCast MultiCast Services"^-1^5000
+5015^"DS Multi Radio Link Protocol"^-1^5000
+5016^"DS Real Time Transport Protocol"^-1^5000
+5017^"DS Session Initiation Protocol Stack"^-1^5000
+5018^"DS ROHC"^-1^5000
+5019^"DS DO QoS"^-1^5000
+5020^"DS IPC"^-1^5000
+5021^"DS SHIM"^-1^5000
+5022^"DS ACL Policy"^-1^5000
+5023^"DS APPS"^-1^5000
+5024^"DS MUX"^-1^5000
+5025^"DS 3GPP"^-1^5000
+5026^"DS LTE"^-1^5000
+5027^"DS WCDMA"^-1^5000
+5028^"DS ACL Policy Apps"^-1^5000
+5500^"Security"^-1^100000
+5501^"Security/Cryptography"^-1^5500
+5502^"Security/Secure Sockets Layer"^-1^5500
+5503^"Security/Internet Protocol Security"^-1^5500
+5504^"Security/Secure File System"^-1^5500
+5505^"Security/Security Test Subsystem"^-1^5500
+5506^"Security/Content Agent Interface"^-1^5500
+5507^"Security/Rights Manager Interface"^-1^5500
+5508^"Security/Rights Object Aquisition Protocol"^-1^5500
+5509^"Security/Media Manager Interface"^-1^5500
+5510^"Security/ID Store Interface"^-1^5500
+5511^"Security/File Interface"^-1^5500
+5512^"Security/SQL Interface"^-1^5500
+5513^"Security/Common Interface"^-1^5500
+5514^"Security/Broadcast Content Agent Interface"^-1^5500
+6000^"Applications Default"^-1^100000
+6001^"Application Manager"^-1^6000
+6002^"User Interface"^-1^6000
+6003^"QTV Legacy Applications"^-1^6000
+6004^"QVP Applications"^-1^6000
+6005^"QVP Statistics"^-1^6000
+6006^"QVP Vencoder"^-1^6000
+6007^"QVP Modem"^-1^6000
+6008^"QVP UI"^-1^6000
+6009^"QVP Stack"^-1^6000
+6010^"QVP VDecoder"^-1^6000
+6011^"ACM"^-1^6000
+6012^"Heap Profile"^-1^6000
+6013^"QTV General"^-1^500
+6014^"QTV Debug"^-1^500
+6015^"QTV Statistics"^-1^500
+6016^"QTV UI Task"^-1^500
+6017^"QTV MP4 Player"^-1^500
+6018^"QTV Audio Task"^-1^500
+6019^"QTV Video Task"^-1^500
+6020^"QTV Streaming"^-1^500
+6021^"QTV MPEG4 Task"^-1^500
+6022^"QTV File OPS"^-1^500
+6023^"QTV RTP"^-1^500
+6024^"QTV RTCP"^-1^500
+6025^"QTV RTSP"^-1^500
+6026^"QTV SDP Parse"^-1^500
+6027^"QTV Atom Parse"^-1^500
+6028^"QTV Text Task"^-1^500
+6029^"QTV DEC DSP IF"^-1^500
+6030^"QTV Stream Recording"^-1^500
+6031^"QTV Configuration"^-1^500
+6032^"QCamera"^-1^6000
+6033^"QCamcorder"^-1^6000
+6034^"BREW"^-1^6000
+6035^"QDJ"^-1^6000
+6036^"QDTX"^-1^6000
+6037^"Broadcast FLO"^-1^6000
+6038^"MDP General"^-1^6000
+6039^"Phonebook Manager"^-1^6000
+6040^"Graphics General"^-1^509
+6041^"Graphics EGL"^-1^509
+6042^"Graphics Open GL"^-1^509
+6043^"Graphics Direct 3D"^-1^509
+6044^"Graphics SVG"^-1^509
+6045^"Graphics Open VG"^-1^509
+6046^"Graphics 2D"^-1^509
+6047^"Graphics QX Profiler"^-1^509
+6048^"Graphics DSP"^-1^509
+6049^"Graphics GRP"^-1^509
+6050^"Graphics MDP"^-1^509
+6051^"CAD"^-1^6000
+6052^"IMS DPL"^-1^53
+6053^"IMS FW"^-1^53
+6054^"IMS SIP"^-1^53
+6055^"IMS REGMGR"^-1^53
+6056^"IMS RTP"^-1^53
+6057^"IMS SDP"^-1^53
+6058^"IMS VS"^-1^53
+6059^"IMS XDM"^-1^53
+6060^"IMS HOM"^-1^53
+6061^"IMS IM ENABLER"^-1^53
+6062^"IMS IMS CORE"^-1^53
+6063^"IMS FWAPI"^-1^53
+6064^"IMS SERVICES"^-1^53
+6065^"IMS POLICYMGR"^-1^53
+6066^"IMS PRESENCE"^-1^53
+6067^"IMS QIPCALL"^-1^53
+6068^"IMS SIGCOMP"^-1^53
+6069^"IMS PSVT"^-1^53
+6070^"IMS UNKNOWN"^-1^53
+6071^"IMS Settings"^-1^53
+6072^"OMX Common"^-1^6000
+6500^"Application DSP Tasks/Default"^-1^100000
+6501^"Application DSP Tasks/Kernel"^-1^6500
+6502^"Application DSP Tasks/AFE Task"^-1^6500
+6503^"Application DSP Tasks/Voice Processing Task"^-1^6500
+6504^"Application DSP Tasks/Voice Decoder Task"^-1^6500
+6505^"Application DSP Tasks/Voice Encoder Task"^-1^6500
+6506^"Application DSP Tasks/Video Task"^-1^6500
+6507^"Application DSP Tasks/VFE Task"^-1^6500
+6508^"Application DSP Tasks/Video Enc Task"^-1^6500
+6509^"Application DSP Tasks/JPEG Task"^-1^6500
+6510^"Application DSP Tasks/Audio PP Task"^-1^6500
+6511^"Application DSP Tasks/Audio Play 0 Task"^-1^6500
+6512^"Application DSP Tasks/Audio Play 1 Task"^-1^6500
+6513^"Application DSP Tasks/Audio Play 2 Task"^-1^6500
+6514^"Application DSP Tasks/Audio Play 3 Task"^-1^6500
+6515^"Application DSP Tasks/Audio Play 4 Task"^-1^6500
+6516^"Application DSP Tasks/LPM Task"^-1^6500
+6517^"Application DSP Tasks/DIAG Task"^-1^6500
+6518^"Application DSP Tasks/Audio Recorder Task"^-1^6500
+6519^"Application DSP Tasks/Audio Preprocessor Task"^-1^6500
+6520^"Application DSP Tasks/Modmath Task"^-1^6500
+6521^"Application DSP Tasks/Graphics Task"^-1^6500
+7000^"L4/Linux Kernel"^-1^206011
+7001^"L4/Linux Keypad"^-1^206011
+7002^"L4/Linux Applications"^-1^206011
+7003^"L4/Linux QDDAEMON"^-1^206011
+7100^"L4/Iguana Server"^-1^206011
+7101^"L4/Iguana EFS2"^-1^206011
+7102^"L4/Iguana QDMS"^-1^206011
+7103^"L4/Iguana REX"^-1^206011
+7104^"L4/Iguana SMMS"^-1^206011
+7105^"L4/Iguana Frame Buffer"^-1^206011
+7106^"L4/Iguana Keypad"^-1^206011
+7107^"L4/Iguana Naming"^-1^206011
+7108^"L4/Iguana SDIO"^-1^206011
+7109^"L4/Iguana Serial"^-1^206011
+7110^"L4/Iguana Timer"^-1^206011
+7111^"L4/Iguana Tramp"^-1^206011
+7200^"L4/AMSS QDiag"^-1^206011
+7201^"L4/AMSS APS"^-1^206011
+8000^"HIT"^-1^100000
+8500^"QDSP6"^-1^100000
+8501^"ADSP Audio Service"^-1^206006
+8502^"ADSP Audio ENCDEC"^-1^206006
+8503^"ADSP Voice ENCDEC"^-1^206006
+8504^"ADSP Voice Services"^-1^206006
+8505^"ADSP MIDI"^-1^206006
+8506^"ADSP PostProcessing"^-1^206006
+8507^"ADSP PreProcessing"^-1^206006
+8508^"ADSP AFE"^-1^206006
+8509^"ADSP Media Session"^-1^206006
+8510^"ADSP Device Session"^-1^206006
+8511^"ADSP Device Config"^-1^206006
+8512^"ADSP Video Encoder"^-1^206007
+8513^"ADSP Video Encoder DAL Driver"^-1^206007
+8514^"ADSP Video Decoder"^-1^206007
+8515^"ADSP Video Decoder DAL Driver"^-1^206007
+8516^"ADSP Video Common Software Units"^-1^206007
+8517^"ADSP Video Hardware"^-1^206007
+8518^"ADSP JPEG Encoder"^-1^206008
+8519^"ADSP JPEG Decoder"^-1^206008
+8520^"ADSP OpenMM"^-1^206009
+8521^"ADSP Power or DEM"^-1^206009
+8522^"ADSP Resource Manager"^-1^206009
+8523^"ADSP General Core"^-1^206009
+9000^"UMB"^-1^100000
+9001^"UMB Application"^-1^9000
+9002^"UMB Data Services"^-1^9000
+9003^"UMB Call Processing"^-1^9000
+9004^"UMB Radio Link Layer"^-1^9000
+9005^"UMB MAC"^-1^9000
+9006^"UMB SRCH"^-1^9000
+9007^"UMB Firmware"^-1^9000
+9008^"UMB PLT"^-1^9000
+9500^"LTE"^-1^100000
+9501^"LTE RRC"^-1^9500
+9502^"LTE MACUL"^-1^9500
+9503^"LTE MACDL"^-1^9500
+9504^"LTE MACCTRL"^-1^9500
+9505^"LTE RLCUL"^-1^9500
+9506^"LTE RLCDL"^-1^9500
+9507^"LTE PDCPUL"^-1^9500
+9508^"LTE PDCPDL"^-1^9500
+9509^"LTE ML1"^-1^9500
+90000^"1xEV-DO"^-1^100000
+100000^"Known Messages (By Subsystem)"^-1^-1
+100001^"Known Messages (By Level)"^-1^-1
+200000^"Low"^-1^100001
+200001^"Medium"^-1^100001
+200002^"High"^-1^100001
+200003^"Error"^-1^100001
+200004^"Fatal"^-1^100001
+200005^"Custom"^-1^100001
+206000^"QTV Low"^-1^501
+206001^"QTV Medium"^-1^501
+206002^"QTV High"^-1^501
+206003^"QTV Error"^-1^501
+206004^"QTV Fatal"^-1^501
+206005^"QTV Debug"^-1^501
+206006^"ADSP Audio"^-1^8500
+206007^"ADSP Video"^-1^8500
+206008^"ADSP JPEG"^-1^8500
+206009^"ADSP General"^-1^8500
+206011^"L4"^-1^100000

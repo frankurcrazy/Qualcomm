@@ -1,0 +1,693 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA TCXO Shutdown Counters" />
+   <meta name="DMViewWidth" content="720" />
+   <meta name="DMViewHeight" content="540" />
+   <title>WCDMA TCXO Shutdown Counters</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td width="50%" valign="top" class="noborder">
+
+         <div class="label">Slew Bins (CX8 Units) - L1</div>
+         <table width="100%" id="SlewTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Small Slew [-20 to 20]</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Medium Slew [-256 to -20] & [20 to 256]</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Large Slew [-768 to -256] & [256 to 768]</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Abnormal Slew [<-768] & [>768]</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">Re-acquisition - L1</div>
+         <table width="100%" id="ReacqTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>List Search Serving Success Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Step 123 Serving Success Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Step 123 Neighbor Success Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Failure All Count</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">Paging Counters - RRC/L1</div>
+         <table width="100%" id="PagingTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Number Of SFN Mismatches</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Number Of Pages Received</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Number Of Pages Matched</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Number Of PICH Demod Errors</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>DRX Cycle Length</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Number Of DRX Cycles</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">Cell Reselection - RRC</div>
+         <table width="100%" id="IntraFreqTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Intra Freq Success</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Intra Freq Failure - N-BCCH Est</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Intra Freq Failure - SIB Wait Timeout</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Intra Freq Failure - Transition To New Cell</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Intra Freq Failure - Other Causes</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>WTOG Success</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>WTOG Failure</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+      </td>
+
+      <td width="50%" valign="top" class="noborder">
+         <div class="label">Out Of Service</div>
+         <table width="100%" id="OOSTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            <tr>
+               <th>OOS Count Idle Mode</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>OOS Count Connected Mode</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">RACH Transmission RRC Retry - RRC</div>
+         <table width="100%" id="RRCTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Successful</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Failure - C-MAC Status Indication</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Failure - Other Causes</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label">RACH Transmission Preamble - L1</div>
+         <table width="100%" id="RACHTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>AICH-ACK Preamble 1 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 2 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 3 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 4 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 5 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 6 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 7 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble 8 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>AICH-ACK Preamble > 8 Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>RACH No ACK Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>NAK Preamble Max Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Max Preamble Ramping Cycles Count</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Total RACH Attempts</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>RACH Preamble Max Power</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>RACH Last Preamble Avg Power</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>RACH No ACK Last Preamble Avg Power</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>RACH No ACK Preamble Max Power</th>
+               <td>-</td>
+            </tr>
+         </table>
+
+      </td>
+
+   </tr>
+   <tr>
+      <th colspan="2"><input type="button" value="Reset Counters" onclick="ResetCounters();" /></th>
+   </tr>
+</table>
+
+<br />
+
+<div id="Response" />
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle              = 0xFFFFFFFF;
+var TIMEOUT_MS          = 500;
+
+// Constants
+var SVR_STATE_CONNECTED = 2;
+var DIAG_STATS_REQ      = "WCDMA/DIAG Stats Request";
+var DIAG_STATS_RESET    = "WCDMA/DIAG Clear Stats Request";
+
+var Timer               = "";
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Send request to obtain DIAG stats
+   SendRequest();
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Send request to obtain DIAG stats
+function SendRequest()
+{
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // We must be connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState != SVR_STATE_CONNECTED)
+   {
+      Txt = "Not connected";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+   // Send request to obtain DIAG stats
+   var ReqID = IQXDM2.ClientRequestItem( Handle,
+                                         DIAG_STATS_REQ,
+                                         "",
+                                         1,
+                                         TIMEOUT_MS,
+                                         1,
+                                         1 );
+   if (ReqID == 0)
+   {
+      Txt = "Error scheduling WCDMA DIAG stats request";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+   // Setup a one-time timer to process the above
+   Timer = window.setTimeout( "ProcessResponse()", 2000 );
+}
+
+// Process response in our client view
+function ProcessResponse()
+{
+   var Txt = "";
+   Response.innerHTML = Txt;
+
+   // Make sure there is a response (should be 0 - request, 1 - response)
+   var Count = IQXDM2.GetClientItemCount( Handle );
+   if (Count < 2)
+   {
+      Response.innerHTML = "Timeout";
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, 1 );
+   if (Item != null)
+   {
+      var ItemFields = Item.GetConfiguredItemFields( "", false, false );
+      if (ItemFields != null)
+      {
+         UpdateTables( ItemFields );
+      }
+   }
+
+   // Clear the client view
+   IQXDM2.ClearClientItems( Handle );
+}
+
+// Update our tables with the given field values
+function UpdateTables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 44)
+   {
+      return;
+   }
+
+   var Sum = 0;
+   var Percent = 0;
+   var FieldIdx = 0;
+
+   // Populate the Slew Bins table
+   var SmallSlew = Fields.GetFieldValue( FieldIdx++ );
+   Sum += SmallSlew;
+
+   var MediumSlew = Fields.GetFieldValue( FieldIdx++ );
+   Sum += MediumSlew;
+
+   var LargeSlew = Fields.GetFieldValue( FieldIdx++ );
+   Sum += LargeSlew;
+
+   var AbnormalSlew = Fields.GetFieldValue( FieldIdx++ );
+   Sum += AbnormalSlew;
+
+   Percent = SmallSlew * 100 / Sum;
+   if (Percent)
+   {
+      SlewTable.rows[0].cells[1].innerText = SmallSlew + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = MediumSlew * 100 / Sum;
+   if (Percent)
+   {
+      SlewTable.rows[1].cells[1].innerText = MediumSlew + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = LargeSlew * 100 / Sum;
+   if (Percent)
+   {
+      SlewTable.rows[2].cells[1].innerText = LargeSlew + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = AbnormalSlew * 100 / Sum;
+   if (Percent)
+   {
+      SlewTable.rows[3].cells[1].innerText = AbnormalSlew + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Sum = 0;
+
+   // Populate the Reacquisition table
+   var ListServ = Fields.GetFieldValue( FieldIdx++ );
+   Sum += ListServ;
+
+   var Serv123 = Fields.GetFieldValue( FieldIdx++ );
+   Sum+= Serv123;
+
+   var Neighbor123 = Fields.GetFieldValue( FieldIdx++ );
+   Sum += Neighbor123
+
+   var AllFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += AllFailure;
+
+   Percent = ListServ * 100 / Sum;
+   if (Percent)
+   {
+      ReacqTable.rows[0].cells[1].innerText = ListServ + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = Serv123 * 100 / Sum;
+   if (Percent)
+   {
+      ReacqTable.rows[1].cells[1].innerText = Serv123 + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = Neighbor123 * 100 / Sum;
+   if (Percent)
+   {
+      ReacqTable.rows[2].cells[1].innerText = Neighbor123 + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = AllFailure * 100 / Sum;
+   if (Percent)
+   {
+      ReacqTable.rows[3].cells[1].innerText = AllFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Sum = 0;
+
+   // Populate the Paging table
+   var SFNMismatches = Fields.GetFieldValue( FieldIdx++ );
+   PagingTable.rows[0].cells[1].innerText = SFNMismatches;
+
+   var PagesRX = Fields.GetFieldValue( FieldIdx++ );
+   PagingTable.rows[1].cells[1].innerText = PagesRX;
+
+   Sum += PagesRX;
+
+   var PagesMatched = Fields.GetFieldValue( FieldIdx++ );
+   Percent = PagesMatched * 100 / Sum;
+   if (Percent)
+   {
+      PagingTable.rows[2].cells[1].innerText = PagesMatched + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Sum = 0;
+
+   var DemodErrors = Fields.GetFieldValue( FieldIdx++ );
+
+   var DRXCycle = Fields.GetFieldValue( FieldIdx++ );
+   PagingTable.rows[4].cells[1].innerText = DRXCycle;
+
+   var SleepCycle = Fields.GetFieldValue( FieldIdx++ );
+   PagingTable.rows[5].cells[1].innerText = SleepCycle;
+
+   Sum += SleepCycle;
+
+   Percent = DemodErrors * 100 / Sum;
+   if (Percent)
+   {
+      PagingTable.rows[3].cells[1].innerText = DemodErrors + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Sum = 0;
+
+   // Populate the Intra Freq table
+   var IntraFreqSuccess = Fields.GetFieldValue( FieldIdx++ );
+   Sum += IntraFreqSuccess;
+
+   var NBCCHFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += NBCCHFailure;
+
+   var SIBFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += SIBFailure;
+
+   var NewCellFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += NewCellFailure;
+
+   var OtherFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += OtherFailure;
+
+   Percent = IntraFreqSuccess * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[0].cells[1].innerText = IntraFreqSuccess + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = NBCCHFailure * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[1].cells[1].innerText = NBCCHFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = SIBFailure * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[2].cells[1].innerText = SIBFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = NewCellFailure * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[3].cells[1].innerText = NewCellFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = OtherFailure * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[4].cells[1].innerText = OtherFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Sum = 0;
+
+   var WTOGSuccess = Fields.GetFieldValue( FieldIdx++ );
+   Sum += WTOGSuccess;
+
+   var WTOGFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += WTOGFailure;
+
+   Percent = WTOGSuccess * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[5].cells[1].innerText = WTOGSuccess + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = WTOGFailure * 100 / Sum;
+   if (Percent)
+   {
+      IntraFreqTable.rows[6].cells[1].innerText = WTOGFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Sum = 0;
+
+   // Populate the OOS table
+   var IdleCount = Fields.GetFieldValue( FieldIdx++ );
+   OOSTable.rows[0].cells[1].innerText = IdleCount;
+
+   var ConnectedCount = Fields.GetFieldValue( FieldIdx++ );
+   OOSTable.rows[1].cells[1].innerText = ConnectedCount;
+
+   // Populate the RRC table
+   var RetrySuccess = Fields.GetFieldValue( FieldIdx++ );
+   Sum += RetrySuccess;
+
+   var CMACFailure = Fields.GetFieldValue( FieldIdx++ );
+   Sum += CMACFailure;
+
+   var OtherFailure = Fields.GetFieldValue( FieldIdx );
+   Sum += OtherFailure;
+
+   FieldIdx += 2;
+
+   Percent = RetrySuccess * 100 / Sum;
+   if (Percent)
+   {
+      RRCTable.rows[0].cells[1].innerText = RetrySuccess + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = CMACFailure * 100 / Sum;
+   if (Percent)
+   {
+      RRCTable.rows[1].cells[1].innerText = CMACFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   Percent = OtherFailure * 100 / Sum;
+   if (Percent)
+   {
+      RRCTable.rows[2].cells[1].innerText = OtherFailure + "(" +
+         Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+   }
+
+   var f;
+   var FieldVal = "";
+   Sum = Fields.GetFieldValue( 39 );
+
+   // Populate the Reacquisition table
+   for (f = 27; f < 38; f++)
+   {
+      FieldVal = Fields.GetFieldValue( FieldIdx++ );
+      Percent = FieldVal * 100 / Sum;
+      if (Percent)
+      {
+         RACHTable.rows[f - 27].cells[1].innerText = FieldVal + "(" +
+            Percent.toFixed( 2 ) + "% Of " + Sum + ")";
+      }
+   }
+
+   for (f = 11; f < 17; f++)
+   {
+      FieldVal = Fields.GetFieldValue( FieldIdx++ );
+      RACHTable.rows[f].cells[1].innerText = FieldVal;
+   }
+}
+
+function ResetCounters()
+{
+   // Send request to reset DIAG stats
+   var ReqID = IQXDM2.RequestItem( DIAG_STATS_RESET,
+                                   "",
+                                   1,
+                                   TIMEOUT_MS,
+                                   1,
+                                   1 );
+   if (ReqID == 0)
+   {
+      Txt = "Error scheduling WCDMA DIAG clear stats request";
+      Response.innerHTML = Txt;
+      return;
+   }
+
+   // Clear out all the tables
+   ClearTableStats( SlewTable );
+   ClearTableStats( ReacqTable );
+   ClearTableStats( PagingTable );
+   ClearTableStats( IntraFreqTable );
+   ClearTableStats( OOSTable );
+   ClearTableStats( RRCTable );
+   ClearTableStats( RACHTable );
+
+   // Send request to obtain DIAG stats after a reset
+   SendRequest();
+}
+
+function ClearTableStats( TableName )
+{
+   var Rows = TableName.rows.length;
+   for (var r = 0; r < Rows; r++)
+   {
+      TableName.rows[r].cells[1].innerText = "-";
+   }
+}
+
+</script>
+</body>
+</html>

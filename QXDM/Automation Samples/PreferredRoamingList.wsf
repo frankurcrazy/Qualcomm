@@ -1,0 +1,230 @@
+<job id="QXDM Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript PreferredRoamingList.wsf <Port Number>
+
+// This example demonstrates usage of reading
+// Preferred Roaming List using QXDM and QPST automation
+
+// Global variables
+var QXDM;
+var QXDM2;
+
+// COM port to be used for communication with the phone by QXDM
+var PortNumber = "";
+
+// Process the argument - port number
+function ParseArguments()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+   var Help = "Syntax: CScript PreferredRoamingList.wsf <COM Port Number>\n"
+            + "Eg:     CScript PreferredRoamingList.wsf 5\n";
+
+   // Grab the shell
+   var SH = new ActiveXObject( "WScript.Shell" );
+   if (SH == null)
+   {
+      Txt = "Unable to interact with Windows shell";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   var Args = WScript.Arguments;
+   if (Args.length < 1)
+   {
+      WScript.StdOut.WriteLine( Help );
+
+      return RC;
+   }
+
+   PortNumber = WScript.Arguments( 0 );
+   if (PortNumber < 1 || PortNumber > 100)
+   {
+      Txt = "Invalid port number\n\n";
+      WScript.StdOut.WriteLine( Txt + Help );
+
+      return RC;
+   }
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Get the preferred roaming list
+function GetRoamingList()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Get unique PRL file name
+   var FileName = GenerateFileName( "", ".prl" );
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Interface to QPST
+   var QPST = new ActiveXObject( "QPSTAtmnServer.Application" );
+   if (QPST == null)
+   {
+      Txt = "Error interfacting to QPST";
+      WScript.StdOut.WriteLine( Txt );
+      return RC; 
+   }
+
+   var PortName = "COM" + PortNumber;
+   var QPSTPort = QPST.GetPort( PortName );
+   if (QPSTPort == null)
+   {
+      Txt = "Error obtaining port from QPST";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC; 
+   }
+
+   // Get service provisioning object
+   var Provisioning = QPSTPort.Provisioning;
+   if (Provisioning == null)
+   {
+      Txt = "Failed to obtain provisioning object";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC;
+   }
+
+   try
+   {
+      // Send SPC (service provisioning code) to the mobile to unlock it
+      QPSTPort.SendSPC( "000000" );
+
+      Txt = "Set the SPC";
+      WScript.StdOut.WriteLine( Txt );
+   }
+   catch (Err)
+   {
+      Txt = "Failed setting the SPC";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC; 
+   }
+
+   // NAM
+   var Index = 0;
+
+   try
+   {
+      // Parameters for GetPRL() - NAM, PRL File Path
+      Provisioning.GetPRL( Index, FileName );
+
+      Txt = "Downloaded PRL to:\n";
+      Txt += FileName;
+      WScript.StdOut.WriteLine( Txt );
+   }
+   catch (Err)
+   {
+      Txt = "Error reading PRL";
+      WScript.StdOut.WriteLine( Txt );
+
+      QPST.Quit();
+      return RC; 
+   }
+
+   // One has to explicitly ask QPST automation to exit
+   QPST.Quit();
+}
+
+// Main body of script
+function Execute()
+{
+   // Parse out arguments
+   var RC = ParseArguments();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Connect to our desired port
+   RC = Connect( PortNumber );
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Set phone offline
+   RC = PhoneOffline()
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get preferred roaming list
+   GetRoamingList();
+
+   // Reset phone
+   ResetPhone();
+
+   // Disconnect phone
+   Disconnect();
+}
+
+Execute();
+
+</script>
+</job>

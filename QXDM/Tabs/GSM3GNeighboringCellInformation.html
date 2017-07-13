@@ -1,0 +1,310 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GSM 3G Neighboring Cell Information" />
+   <meta name="DMViewWidth" content="600" />
+   <meta name="DMViewHeight" content="320" />
+
+   <title>GSM 3G Neighboring Cell Information</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<body onload='Register()' onunload='Unregister()'>
+
+<table width="100%">
+   <colgroup span="5">
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>UARFCN</th>
+      <th>Scrambling Code</th>
+      <th>Diversity</th>
+      <th>Energy</th>
+      <th>Five Second Timer State</th>
+   </tr>
+   
+   <tbody id="MeasurementsTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+  
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>  
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 250;
+var PrevIndex      = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs.      
+   clientObject.AddLog( 0x525B );
+   clientObject.AddLog( 0x5263 );
+   
+   clientObject.CommitConfig();   
+*/
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page.
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+
+// Periodic update of the display
+function ProcessLogs()
+{      
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+
+   var log5263 = "[0x5263]";
+   var log525B = "[0x525B]";
+
+   // Keep track if populate attempt succeeds  
+   var bGSM = false;   
+   var bGPRS = false;   
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var bTabs = false;
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {  
+         case log525B:         
+         {
+            if (bGSM == false)
+            {
+               bOK = ProcessLogGSM( Fields, 0, bTabs );
+               if (bOK == true)
+               {
+                  bGSM = true;
+               }
+            }
+         }
+         break;  
+         
+         case log5263:
+         {
+            if (bGPRS == false)
+            {
+               bOK = ProcessLogGPRS( Fields, 1, bTabs );
+               if (bOK == true)
+               {
+                  bGPRS = true;
+               }
+            }
+         }
+         break;
+      }
+
+      if (bGSM == true || bGPRS == true)
+      {
+         // We really only need to process one or the other
+         break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Process a GSM measurements log
+function ProcessLogGSM( Fields, bTabs )
+{
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount == 0)
+   {
+      return bOK;
+   }
+   
+   var FieldVal;
+   var DataIndex = 0;
+   
+   // Grab number of cells and process
+   var NumCells = Fields.GetFieldValue( 0 );
+   
+   // Grab number of rows in existing table
+   var CurRows = MeasurementsTable.rows.length;
+   ManageRows( MeasurementsTable, 0, CurRows, NumCells, 5, true );  
+   
+   for (var r = 0; r < NumCells; r++)
+   {
+      // UARFCN
+      FieldVal = Fields.GetFieldValueText( DataIndex + 1 );
+      MeasurementsTable.rows[r].cells[0].innerText = FieldVal;
+        
+      // Scrambling code
+      FieldVal = Fields.GetFieldValueText( DataIndex + 3 );
+      MeasurementsTable.rows[r].cells[1].innerText = FieldVal;
+
+      // Diversity
+      FieldVal = Fields.GetFieldValueText( DataIndex + 4 );
+      MeasurementsTable.rows[r].cells[2].innerText = FieldVal;
+
+      // Energy
+      FieldVal = Fields.GetFieldValueText( DataIndex + 7 );
+      MeasurementsTable.rows[r].cells[3].innerText = FieldVal;
+
+      // 5 second timer state (not valid for this packet) 
+      MeasurementsTable.rows[r].cells[4].innerText = "N/A";
+      
+      DataIndex += 9;     
+   }
+   
+   bOK = true;
+   return bOK;
+}
+
+// Process a GPRS measurements log
+function ProcessLogGPRS( Fields, bTabs )
+{
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount == 0)
+   {
+      return bOK;
+   }
+   
+   var FieldVal;
+   var DataIndex = 0;
+   
+   // Grab number of cells and process
+   var NumCells = Fields.GetFieldValue( 0 );
+
+   // Grab number of rows in existing table
+   var CurRows = MeasurementsTable.rows.length;   
+   ManageRows( MeasurementsTable, 0, CurRows, NumCells, 5, true );  
+   
+   for (var r = 0; r < NumCells; r++)
+   {
+      // UARFCN
+      FieldVal = Fields.GetFieldValueText( DataIndex + 1 );
+      MeasurementsTable.rows[r].cells[0].innerText = FieldVal;
+        
+      // Scrambling code
+      FieldVal = Fields.GetFieldValueText( DataIndex + 2 );
+      MeasurementsTable.rows[r].cells[1].innerText = FieldVal;
+
+      // Diversity
+      FieldVal = Fields.GetFieldValueText( DataIndex + 3 );
+      MeasurementsTable.rows[r].cells[2].innerText = FieldVal;
+
+      // Energy
+      FieldVal = Fields.GetFieldValueText( DataIndex + 4 );
+      MeasurementsTable.rows[r].cells[3].innerText = FieldVal;
+
+      // 5 second timer state (not valid for this packet) 
+      FieldVal = Fields.GetFieldValueText( DataIndex + 5 );
+      MeasurementsTable.rows[r].cells[4].innerText = FieldVal;
+      
+      DataIndex += 5;     
+   }
+
+   bOK = true;
+   return bOK;
+}
+
+</script>
+
+</body>
+</html>

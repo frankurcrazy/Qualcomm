@@ -1,0 +1,304 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GNSS Clock Report" />
+   <meta name="DMViewWidth" content="500" />
+   <meta name="DMViewHeight" content="305" />
+
+   <title>GNSS Clock Report</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="GNSSClockTable">
+   <colgroup span="4">
+      <col width="30%" />
+      <col width="20%" />
+      <col width="30%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>GNSS FCount</th>
+      <td>-</td>
+      <th>GNSS FCount Offset</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td colspan="2"></td>
+      <td colspan="2"><b>GLONASS Clock</b></td>
+   </tr>
+   <tr>
+      <td colspan="2"><b>GPS Clock</b></td>
+      <th>GLO 4 Year Cycle</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>GPS Week</th>
+      <td>-</td>
+      <th>GLO # Days</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>GPS MSec</th>
+      <td>-</td>
+      <th>GLO MSec</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>GPS Clock Time Bias(ms)</th>
+      <td>-</td>
+      <th>GLO Clock Time Bias(ms)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>GPS Clock Time UNC(ms)</th>
+      <td>-</td>
+      <th>GLO Clock Time UNC(ms)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>GPS Clock Source</th>
+      <td>-</td>
+      <th>GLO Clock Source</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Leap Seconds</th>
+      <td>-</td>
+      <th>GGTB</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Leap Seconds UNC</th>
+      <td>-</td>
+      <th>GGTB UNC</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2">GNSS Clock Freq Bias(m/s)</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th colspan="2">GNSS Clock Freq UNC</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th colspan="2">GNSS Clock Freq Source</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th colspan="2">GNSS Clock Resets</th>
+      <td colspan="2">-</td>
+   </tr>
+   <tr>
+      <th colspan="2">System RTC Time</th>
+      <td colspan="2">-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle          = 0xFFFFFFFF;
+var UPDATE_MS       = 1000;
+var PrevIndex       = -1;
+var gMainTickID     = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure GNSS clock report log
+   ClientObject.AddLog( 0x1478 );
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client view
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetConfiguredItemFields( "", false, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var ItemKey = Item.GetItemKeyText();
+   if (ItemKey == "[0x1478]")
+   {
+      PopulateGNSSClockTable( Fields );
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the GNSS clock report tables
+function PopulateGNSSClockTable( Fields )
+{
+   // Do we have minimum required fields ?
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 31)
+   {
+      return;
+   }
+
+   // Is the version of the log valid ?
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+
+   // FCount
+   var FieldVal = Fields.GetFieldValue( 8 );
+   GNSSClockTable.rows[0].cells[1].innerText = FieldVal;
+
+   // FCount Offset
+   FieldVal = Fields.GetFieldValue( 28 );
+   GNSSClockTable.rows[0].cells[3].innerText = FieldVal;
+
+   // GPS Week
+   FieldVal = Fields.GetFieldValue( 9 );
+   GNSSClockTable.rows[3].cells[1].innerText = FieldVal
+
+   // GPS MSec
+   FieldVal = Fields.GetFieldValue( 10 );
+   GNSSClockTable.rows[4].cells[1].innerText = FieldVal
+
+   // GPS Clock Time Bias
+   FieldVal = Fields.GetFieldValue( 11 );
+   GNSSClockTable.rows[5].cells[1].innerText = FieldVal.toFixed( 6 );
+
+   // GPS Clock Time Uncertainty
+   FieldVal = Fields.GetFieldValue( 12 );
+   GNSSClockTable.rows[6].cells[1].innerText = FieldVal.toFixed( 6 );
+
+   // GPS Clock Source
+   FieldVal = Fields.GetFieldValue( 13 );
+   GNSSClockTable.rows[7].cells[1].innerText = FieldVal
+
+   // Leap Seconds
+   FieldVal = Fields.GetFieldValue( 23 );
+   GNSSClockTable.rows[8].cells[1].innerText = FieldVal;
+
+   // Leap Seconds Uncertainty
+   FieldVal = Fields.GetFieldValue( 24 );
+   GNSSClockTable.rows[9].cells[1].innerText = FieldVal;
+
+   // GNSS Clock Frequency Bias
+   FieldVal = Fields.GetFieldValue( 20 );
+   GNSSClockTable.rows[10].cells[1].innerText = FieldVal.toFixed( 6 );
+
+   // GNSS Clock Frequency Uncertainty
+   FieldVal = Fields.GetFieldValue( 21 );
+   GNSSClockTable.rows[11].cells[1].innerText = FieldVal.toFixed( 6 );
+
+   // GNSS Clock Frequency Source
+   FieldVal = Fields.GetFieldValue( 22 );
+   GNSSClockTable.rows[12].cells[1].innerText = FieldVal;
+
+   // GNSS Clock Resets
+   FieldVal = Fields.GetFieldValue( 30 );
+   GNSSClockTable.rows[13].cells[1].innerText = FieldVal;
+
+   // System RTC Time
+   FieldVal = Fields.GetFieldValue( 27 );
+   GNSSClockTable.rows[14].cells[1].innerText = FieldVal
+
+   // GLONASS Number Of 4-year Cycles Since 01/01/96
+   FieldVal = Fields.GetFieldValue( 14 );
+   GNSSClockTable.rows[2].cells[2].innerText = FieldVal;
+
+   // GLONASS Days In Current 4-year Cycle
+   FieldVal = Fields.GetFieldValue( 15 );
+   GNSSClockTable.rows[3].cells[3].innerText = FieldVal;
+
+   // GLONASS Milliseconds Of Day
+   FieldVal = Fields.GetFieldValue( 16 );
+   GNSSClockTable.rows[4].cells[3].innerText = FieldVal;
+
+   // GLONASS Clock Time Bias
+   FieldVal = Fields.GetFieldValue( 17 );
+   GNSSClockTable.rows[5].cells[3].innerText = FieldVal.toFixed( 6 );
+
+   // GLONASS Clock Time Uncertainty
+   FieldVal = Fields.GetFieldValue( 18 );
+   GNSSClockTable.rows[6].cells[3].innerText = FieldVal.toFixed( 6 );
+
+   // GLONASS Clock Source
+   FieldVal = Fields.GetFieldValue( 19 );
+   GNSSClockTable.rows[7].cells[3].innerText = FieldVal;
+
+   // GGTB
+   FieldVal = Fields.GetFieldValue( 25 );
+   GNSSClockTable.rows[8].cells[3].innerText = FieldVal.toFixed( 6 );
+
+   // GGTB Uncertainty
+   FieldVal = Fields.GetFieldValue( 26 );
+   GNSSClockTable.rows[9].cells[3].innerText = FieldVal.toFixed( 6 );
+}
+
+</script>
+</body>
+</html>

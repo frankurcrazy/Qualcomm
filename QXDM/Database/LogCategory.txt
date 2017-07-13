@@ -1,0 +1,143 @@
+0^"3rd Party/OEM"^-1^100000
+1^"Common"^-1^100000
+2^"Reserved [2]"^-1^100000
+3^"Reserved [3]"^-1^100000
+4^"WCDMA"^-1^100000
+5^"GSM"^-1^100000
+6^"Location Based Services"^-1^100000
+7^"UMTS"^-1^100000
+8^"TDMA"^-1^100000
+9^"Reserved [9]"^-1^100000
+10^"DTV"^-1^100000
+11^"APU"^-1^100000
+12^"DSP Firmware"^-1^100000
+13^"Reserved [13]"^-1^100000
+14^"Reserved [14]"^-1^100000
+15^"Reserved [15]"^-1^100000
+16^"SMS"^-1^100000
+17^"UMB"^-1^100000
+18^"LTE"^-1^100000
+101^"Not In Use - Common"^-1^1
+104^"Not In Use - WCDMA"^-1^4
+105^"Not In Use - GSM"^-1^5
+107^"Not In Use - UMTS"^-1^7
+4096^"Obsolete"^-1^1
+4100^"AMPS/IS95/IS2000"^-1^1
+4101^"CDMA 1x-RLP"^-1^4100
+4116^"GPS"^-1^1
+4139^"Power Control"^-1^1
+4147^"Pilot Phase Measurement"^-1^4116
+4158^"Bluetooth"^-1^1
+4189^"HDR/CDMA 1xEV DO"^-1^1
+4190^"Obsolete"^-1^4189
+4191^"DV Information"^-1^1
+4192^"QoS Spec Logging"^-1^4300
+4254^"SSL"^-1^1
+4300^"Data Services"^-1^1
+4321^"Multimode"^-1^1
+4322^"MPEG"^-1^4321
+4338^"BREW"^-1^4321
+4370^"PPP Logging"^-1^4300
+4371^"Extended PPP Logging"^-1^4370
+4372^"UM Packet (SN) Interface"^-1^4371
+4373^"1xEV-DO AN (A12) Interface"^-1^4371
+4374^"RM Interface"^-1^4371
+4375^"RX"^-1^4372
+4376^"TX"^-1^4372
+4377^"RX"^-1^4373
+4378^"TX"^-1^4373
+4379^"RX"^-1^4374
+4380^"TX"^-1^4374
+4381^"Call Setup"^-1^4300
+4437^"OS"^-1^1
+4452^"QTV"^-1^1
+4500^"Streaming"^-1^4452
+4501^"Protocol"^-1^4500
+4502^"RTSP"^-1^4501
+4503^"RTCP"^-1^4501
+4504^"RTP"^-1^4501
+4600^"Searcher"^-1^4100
+4601^"Released (Supported)"^-1^4600
+4602^"Obsolete (Unsupported)"^-1^4600
+4603^"Internal"^-1^4600
+4604^"Dev"^-1^4600
+4700^"MediaFLO"^-1^1
+4800^"PS Statistics"^-1^4300
+4850^"ROHC"^-1^4300
+4900^"Bus Profiling"^-1^1
+5000^"QX Profiler"^-1^1
+5020^"QMI"^-1^1
+5040^"FLUTE"^-1^1
+5060^"RF"^-1^1
+5061^"RF Common"^-1^5060
+5062^"1X"^-1^5060
+16384^"Layer 1"^-1^4
+16385^"Layer 2 - MAC & RLC"^-1^4
+16386^"Layer 3 - RRC"^-1^4
+16387^"Obsolete"^-1^4
+16388^"QVP"^-1^4
+16389^"Compressed Mode"^-1^4
+16450^"HSDPA"^-1^16384
+16451^"HSDPA"^-1^16385
+16460^"HSUPA"^-1^16384
+16461^"HSUPA"^-1^16385
+20480^"Layer 1"^-1^5
+20481^"Layer 2"^-1^5
+20482^"Layer 3"^-1^5
+20483^"Circuit Switched Data"^-1^5
+20484^"GPRS"^-1^5
+20485^"Obsolete"^-1^5
+20486^"GSM User"^-1^5
+20487^"User 1"^-1^20486
+20488^"User 2"^-1^20486
+20489^"User 3"^-1^20486
+20490^"GRR"^-1^20484
+20491^"RLC"^-1^20484
+20492^"LLC"^-1^20484
+20493^"SNDCP"^-1^20484
+20494^"MAC"^-1^20484
+20495^"L1"^-1^20484
+20496^"EGPRS"^-1^5
+20497^"RLC"^-1^20496
+20498^"MAC"^-1^20496
+20500^"LLC"^-1^20496
+20501^"SNDCP"^-1^20496
+28672^"NAS Layer"^-1^7
+28673^"AMR/SIM"^-1^7
+28674^"Asynchronous Assisted GPS"^-1^7
+28675^"Call Flow Analysis"^-1^7
+28676^"NAS"^-1^28675
+28677^"GPRS"^-1^28675
+28678^"GSM"^-1^28675
+28679^"WCDMA"^-1^28675
+28680^"Circuit Switched Data"^-1^7
+29000^"Call Processing"^-1^17
+29001^"Physical Layer"^-1^17
+29002^"RF"^-1^17
+29003^"RLL"^-1^17
+29004^"SRCH"^-1^17
+29005^"MAC"^-1^17
+45056^"Obsolete"^-1^11
+45057^"OS"^-1^11
+49152^"Obsolete"^-1^12
+50000^"L3"^-1^10
+50001^"L1"^-1^10
+100000^"Known Log Items"^-1^-1
+100001^"Security"^-1^10
+100002^"SmartCard"^-1^100001
+100003^"Espresso"^-1^18
+100004^"Lower Layer 1"^-1^18
+100005^"Management Layer 1"^-1^18
+100006^"MAC Layer"^-1^18
+100007^"RLC Layer"^-1^18
+100008^"PDCP Layer"^-1^18
+100009^"RRC Layer"^-1^18
+100010^"NAS Layer"^-1^18
+100011^"WLAN"^-1^1
+100012^"DSDS"^-1^5
+100013^"DSDS"^-1^7
+100014^"CMMB"^-1^10
+100015^"SNS"^-1^1
+100016^"Audio"^-1^1
+100017^"MUX"^-1^1
+100018^"1X ADV"^-1^1

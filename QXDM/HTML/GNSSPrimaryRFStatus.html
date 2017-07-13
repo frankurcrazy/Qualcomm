@@ -1,0 +1,552 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GNSS Primary RF Status" />
+   <meta name="DMViewWidth" content="350" />
+   <meta name="DMViewHeight" content="655" />
+
+   <title>GNSS Primary RF Status</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="GNSSPRXTable">
+   <colgroup span="2">
+      <col width="55%" />
+      <col width="45%" />
+   </colgroup>
+   <tr>
+      <th>Gen8 HW Version</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>F Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Main Clock (M,N,D)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th align="left" style="font-weight: bold; color:Teal">RF IC</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>RF Mode</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RF Linearity State</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>VCO Tuning Code</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Coarse DC DAC I/Q</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Fine DC DAC I/Q</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>PGA Gain (dB)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2" align="left" style="font-weight: bold; color:Teal">ADC Processor</th>
+   </tr>
+   <tr>
+      <th>ADC Sample Rate (MHz)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>ADC Pre-Mean I/Q</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2" align="left" style="font-weight: bold; color:Teal">LBW Baseband Processor</th>
+   </tr>
+   <tr>
+      <th>Sample Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>BP Mean I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>BP Pre-Amplitude I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>BP Amplitude I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>Fine Freq Adjust (KHz)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Active Notch Filters</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Group Delay (ns)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2" align="left" style="font-weight: bold; color:Teal">GLONASS Baseband Processor</th>
+   </tr>
+   <tr>
+      <th>Sample Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>BP Mean I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>BP Amplitude I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>Fine Freq Adjust (KHz)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Active Notch Filters</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Group Delay (ns)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th colspan="2" align="left" style="font-weight: bold; color:Teal">HBW Baseband Processor</th>
+   </tr>
+   <tr>
+      <th>Sample Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>BP Mean I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>BP Amplitude I/Q</th>
+      <td style="font-weight: bold; color:Teal">-</td>
+   </tr>
+   <tr>
+      <th>Fine Freq Adjust (KHz)</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Active Notch Filters</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Group Delay (ns)</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle      = 0xFFFFFFFF;
+var UPDATE_MS   = 1000;
+var PrevIndex   = -1;
+var gMainTickID = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure GNSS PRX RF hardware status report log
+   ClientObject.AddLog( 0x147E );
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client view
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+
+   var Fields = Item.GetConfiguredItemFields( "", true, false );
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var ItemKey = Item.GetItemKeyText();
+   if (ItemKey == "[0x147E]")
+   {
+      if (Fields.GetFieldCount() < 1)
+      {
+         return;
+      }
+
+      var Version = Fields.GetFieldValue( 0 );
+      if (Version == 0)
+      {
+         PopulatePRXRFStatusVersion0( Fields );
+      }
+      else if (Version == 1)
+      {
+         PopulatePRXRFStatusVersion1( Fields );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Populate the Primary RX RF and HW Status table
+function PopulatePRXRFStatusVersion0( Fields )
+{
+   var FieldVal;
+   if (Fields.GetFieldCount() < 41)
+   {
+      return;
+   }
+
+   // Callisto HW Version
+   FieldVal = Fields.GetFieldValueText( 40 );
+   GNSSPRXTable.rows[0].cells[1].innerText = FieldVal;
+
+   // FCount
+   FieldVal = Fields.GetFieldValueText( 1 );
+   GNSSPRXTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Main Clock M/N:D Counter
+   var M = Fields.GetFieldValueText( 37 );
+   var N = Fields.GetFieldValueText( 38 );
+   var D = Fields.GetFieldValueText( 39 );
+   FieldVal = M + ", " + N + ", " + D;
+   GNSSPRXTable.rows[2].cells[1].innerText = FieldVal;
+
+   // RFIC
+   FieldVal = Fields.GetFieldValueText( 2 );
+   GNSSPRXTable.rows[3].cells[1].innerText = FieldVal;
+   GNSSPRXTable.rows[4].cells[1].innerText = "-";
+   GNSSPRXTable.rows[5].cells[1].innerText = "-";
+
+   // VCO Tuning Code
+   FieldVal = Fields.GetFieldValueText( 6 );
+   GNSSPRXTable.rows[6].cells[1].innerText = FieldVal;
+
+   // Coarse DC DAC I/Q
+   var I = Fields.GetFieldValueText( 7 );
+   var Q = Fields.GetFieldValueText( 8 );
+   GNSSPRXTable.rows[7].cells[1].innerText = I + " / " + Q;
+
+   // ADC Gain
+   FieldVal = Fields.GetFieldValueText( 9 );
+   GNSSPRXTable.rows[9].cells[1].innerText = FieldVal;
+
+   // ADC Sample Rate
+   FieldVal = Fields.GetFieldValue( 10 );
+   GNSSPRXTable.rows[11].cells[1].innerText = FieldVal.toFixed( 2 );
+
+   // Preliminary ADC Mean I/Q Valid ?
+   var valid = Fields.GetFieldValue( 11 );
+   if (valid)
+   {
+      I = Fields.GetFieldValue( 12 );
+      Q = Fields.GetFieldValue( 13 );
+      GNSSPRXTable.rows[12].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+   }
+   else
+   {
+      GNSSPRXTable.rows[12].cells[1].innerText = "-";
+   }
+
+   // LBW Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 14 );
+   GNSSPRXTable.rows[14].cells[1].innerText = FieldVal;
+
+   // LBW Baseband Processor Coarse DC Mean I/Q
+   I = Fields.GetFieldValue( 15 );
+   Q = Fields.GetFieldValue( 16 );
+   GNSSPRXTable.rows[15].cells[1].innerText = I + " / " + Q;
+
+   // LBW Baseband Processor amplitude I/Q
+   I = Fields.GetFieldValue( 17 );
+   Q = Fields.GetFieldValue( 18 );
+   GNSSPRXTable.rows[17].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // LBW Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 19 );
+   GNSSPRXTable.rows[18].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // LBW Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 20 );
+   GNSSPRXTable.rows[19].cells[1].innerText = FieldVal;
+
+   // LBW Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 21 );
+   GNSSPRXTable.rows[20].cells[1].innerText = FieldVal;
+
+   // GLONASS Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 22 );
+   GNSSPRXTable.rows[22].cells[1].innerText = FieldVal;
+
+   // GLONASS Baseband Processor Coarse DC Mean I/Q
+   I = Fields.GetFieldValue( 23 );
+   Q = Fields.GetFieldValue( 24 );
+   GNSSPRXTable.rows[23].cells[1].innerText = I + " / " + Q;
+
+   // GLONASS Baseband Processor amplitude I/Q
+   I = Fields.GetFieldValue( 25 );
+   Q = Fields.GetFieldValue( 26 );
+   GNSSPRXTable.rows[24].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+   GNSSPRXTable.rows[25].cells[1].innerText = "-";
+
+   // GLONASS Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 27 );
+   GNSSPRXTable.rows[26].cells[1].innerText = FieldVal;
+
+   // GLONASS Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 28 );
+   GNSSPRXTable.rows[27].cells[1].innerText = FieldVal;
+
+   // HBW Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 29 );
+   GNSSPRXTable.rows[29].cells[1].innerText = FieldVal;
+
+   // HBW Baseband Processor Coarse DC Mean I/Q
+   I = Fields.GetFieldValue( 30 );
+   Q = Fields.GetFieldValue( 31 );
+   GNSSPRXTable.rows[30].cells[1].innerText = I + " / " + Q;
+
+   // HBW Baseband Processor Pre-amplitude I/Q
+   I = Fields.GetFieldValue( 32 );
+   Q = Fields.GetFieldValue( 33 );
+   GNSSPRXTable.rows[31].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // HBW Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 34 );
+   GNSSPRXTable.rows[32].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // HBW Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 35 );
+   GNSSPRXTable.rows[33].cells[1].innerText = FieldVal;
+
+   // HBW Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 36 );
+   GNSSPRXTable.rows[34].cells[1].innerText = FieldVal;
+}
+
+// Populate the Primary RX RF and HW Status table
+function PopulatePRXRFStatusVersion1( Fields )
+{
+   var FieldVal;
+   if (Fields.GetFieldCount() < 45)
+   {
+      return;
+   }
+
+   // Callisto HW Version
+   FieldVal = Fields.GetFieldValueText( 1 );
+   GNSSPRXTable.rows[0].cells[1].innerText = FieldVal;
+
+   // FCount
+   FieldVal = Fields.GetFieldValueText( 2 );
+   GNSSPRXTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Main Clock M/N:D Counter
+   var M = Fields.GetFieldValueText( 42 );
+   var N = Fields.GetFieldValueText( 43 );
+   var D = Fields.GetFieldValueText( 44 );
+   FieldVal = M + ", " + N + ", " + D;
+   GNSSPRXTable.rows[2].cells[1].innerText = FieldVal;
+
+   // RFIC
+   FieldVal = Fields.GetFieldValueText( 3 );
+   GNSSPRXTable.rows[3].cells[1].innerText = FieldVal;
+
+   // RFIC Mode
+   FieldVal = Fields.GetFieldValueText( 4 );
+   GNSSPRXTable.rows[4].cells[1].innerText = FieldVal;
+
+   // RFIC Linearity States
+   var Lin1 = Fields.GetFieldValueText( 5 );
+   var Lin2 = Fields.GetFieldValueText( 6 );
+   GNSSPRXTable.rows[5].cells[1].innerText = Lin1 + " / " + Lin2;
+
+   // VCO Tuning Code
+   FieldVal = Fields.GetFieldValueText( 7 );
+   GNSSPRXTable.rows[6].cells[1].innerText = FieldVal;
+
+   // Coarse DC DAC I/Q
+   var I = Fields.GetFieldValueText( 8 );
+   var Q = Fields.GetFieldValueText( 10 );
+   GNSSPRXTable.rows[7].cells[1].innerText = I + " / " + Q;
+
+   // Fine DC DAC I/Q
+   I = Fields.GetFieldValueText( 9 );
+   Q = Fields.GetFieldValueText( 11 );
+   GNSSPRXTable.rows[8].cells[1].innerText = I + " / " + Q;
+
+   // PGA Gain
+   FieldVal = Fields.GetFieldValueText( 12 );
+   GNSSPRXTable.rows[9].cells[1].innerText = FieldVal;
+
+   // ADC Sample Rate
+   FieldVal = Fields.GetFieldValue( 13 );
+   GNSSPRXTable.rows[11].cells[1].innerText = FieldVal.toFixed( 2 );
+
+   // Preliminary ADC Mean I/Q
+   I = Fields.GetFieldValue( 14 );
+   Q = Fields.GetFieldValue( 15 );
+   GNSSPRXTable.rows[12].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // LBW Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 16 );
+   GNSSPRXTable.rows[14].cells[1].innerText = FieldVal;
+
+   // LBW Baseband Processor BP Mean I/Q
+   I = Fields.GetFieldValue( 17 );
+   Q = Fields.GetFieldValue( 18 );
+   GNSSPRXTable.rows[15].cells[1].innerText = I + " / " + Q;
+
+   // LBW Baseband Processor Pre-Amplitude I/Q
+   I = Fields.GetFieldValue( 19 );
+   Q = Fields.GetFieldValue( 20 );
+   GNSSPRXTable.rows[16].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // LBW Baseband Processor Amplitude I/Q
+   I = Fields.GetFieldValue( 21 );
+   Q = Fields.GetFieldValue( 22 );
+   GNSSPRXTable.rows[17].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // LBW Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 23 );
+   GNSSPRXTable.rows[18].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // LBW Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 24 );
+   GNSSPRXTable.rows[19].cells[1].innerText = FieldVal;
+
+   // LBW Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 25 );
+   GNSSPRXTable.rows[20].cells[1].innerText = FieldVal;
+
+   // GLONASS Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 26 );
+   GNSSPRXTable.rows[22].cells[1].innerText = FieldVal;
+
+   // GLONASS Baseband Processor BP Mean I/Q
+   I = Fields.GetFieldValue( 27 );
+   Q = Fields.GetFieldValue( 28 );
+   GNSSPRXTable.rows[23].cells[1].innerText = I + " / " + Q;
+
+   // GLONASS Baseband Processor Amplitude I/Q
+   I = Fields.GetFieldValue( 29 );
+   Q = Fields.GetFieldValue( 30 );
+   GNSSPRXTable.rows[24].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // GLONASS Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 31 );
+   GNSSPRXTable.rows[25].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // GLONASS Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 32 );
+   GNSSPRXTable.rows[26].cells[1].innerText = FieldVal;
+
+   // GLONASS Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 33 );
+   GNSSPRXTable.rows[27].cells[1].innerText = FieldVal;
+
+   // HBW Baseband Processor Sample Rate
+   FieldVal = Fields.GetFieldValueText( 34 );
+   GNSSPRXTable.rows[29].cells[1].innerText = FieldVal;
+
+   // HBW Baseband Processor BP Mean I/Q
+   I = Fields.GetFieldValue( 35 );
+   Q = Fields.GetFieldValue( 36 );
+   GNSSPRXTable.rows[30].cells[1].innerText = I + " / " + Q;
+
+   // HBW Baseband Processor Amplitude I/Q
+   I = Fields.GetFieldValue( 37 );
+   Q = Fields.GetFieldValue( 38 );
+   GNSSPRXTable.rows[31].cells[1].innerText = I.toFixed( 2 ) + " / " + Q.toFixed( 2 );
+
+   // HBW Baseband Processor Fine Frequency Adjust
+   FieldVal = Fields.GetFieldValue( 39 );
+   GNSSPRXTable.rows[32].cells[1].innerText = FieldVal.toFixed( 3 );
+
+   // HBW Baseband Processor Active Notch Filters
+   FieldVal = Fields.GetFieldValueText( 40 );
+   GNSSPRXTable.rows[33].cells[1].innerText = FieldVal;
+
+   // HBW Baseband Processor Group Delay
+   FieldVal = Fields.GetFieldValueText( 41 );
+   GNSSPRXTable.rows[34].cells[1].innerText = FieldVal;
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Multilink Multi-Flow RLP Forward Statistics" />
+   <meta name="DMViewWidth" content="500" />
+   <meta name="DMViewHeight" content="810" />
+   <title>HDR Multilink Multi-Flow RLP Forward Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">Flow Information</div>
+<table width="100%" id="ForwardStatsTable">
+   <colgroup span="2">
+      <col width="60%" />
+      <col width="40%" />
+   </colgroup>
+   <tr>
+      <th>Flow ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Route Number</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Version</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Flow Protocol</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Route Protocol</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Flow Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Sequencing Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AT Quick NAK Indications Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AT Quick NAK Records</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AT Delayed NAK Records</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AT Delayed NAK Bytes Requested</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Retransmitted Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Retransmitted Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX New Data Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX New Data Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX First Data Unit Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Last Data Unit Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Duplicate Data Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Duplicate Data Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Retransmission Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Total Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Total Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>NAK Aborts</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>NAK Aborts Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Resets</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AT Reset Request Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AN Reset ACK Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AN Reset Request Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Last RLP Reset Time</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Resequence Queue Size</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX NAK Abort Queue Size</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX Delayed NAK Queue Size</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Statistics Reset Time</th>
+      <td id="ResetTime">-</td>
+   </tr>
+</table>
+
+<br />
+
+<div class="label">Queue Information</div>
+<table width="100%" id="QueueStatsTable">
+   <colgroup span="2">
+      <col width="60%" />
+      <col width="40%" />
+   </colgroup>
+   <tr>
+      <th>QN ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Scheduler Group ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Number Of Carriers</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Creation Time</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Deletion Time</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX New Data Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RX New Data Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Quick NAK Indication Count</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<input type="button" value="Reset Statistics" onclick="ResetStats();"/>
+<input type="checkbox" id="IgnoreCheck" value="Ignore Empty Data" onclick="IgnoreEmptyData();"/><label>Ignore Empty Data</label>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var TIMEOUT_MS     = 500;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+// Column index for given flow ID 
+var gForwardFlowIDs = new Array();
+
+var RESET_MRLP_REQ  = "CDMA 1xEV/Reset MRLP Stats Request";
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure item
+   ClientObject.AddLog( 0x12A5 );
+
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client view
+function ProcessItems()
+{
+   // We process all logs since we search for new flow ID's
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+
+      // Update table
+      PopulateStatsTable( ItemFields );
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Return column index to update for a given flow ID and route
+// else return -1 (create new column)
+function GetFlowColumnIndex( FlowID, Route )
+{
+   var column = -1;
+
+   var bExistingFlow = false;
+   var ExistingID;
+   for (ExistingID in gForwardFlowIDs)
+   {
+      if (ExistingID == FlowID)
+      {
+         bExistingFlow = true;
+         var Routes = gForwardFlowIDs[FlowID];
+         var ExistingRoute;
+         for (ExistingRoute in Routes)
+         {
+            if (ExistingRoute == Route)
+            {
+               column = gForwardFlowIDs[FlowID][Route];
+               break;
+            }
+         }
+      }
+   }
+
+   var TableRow;
+   var TableCell;
+
+   if (column == -1)
+   {
+      // Create new column for new flow ID?
+      column = ForwardStatsTable.rows[0].cells.length;
+      if (column == 2 && ForwardStatsTable.rows[0].cells[1].innerText == "-")
+      {
+         // Use the placeholder
+         column--;
+      }
+      else
+      {
+         var Rows = ForwardStatsTable.rows.length;
+         for (var r = 0; r < Rows - 1; r++)
+         {
+            TableRow = ForwardStatsTable.rows[r];
+            TableCell = TableRow.insertCell();
+
+            TableCell.innerText = "-";
+         }
+      }
+
+      ResetTime.colSpan = column;
+
+      if (bExistingFlow == false)
+      {
+         gForwardFlowIDs[FlowID] = new Array();
+      }
+
+      gForwardFlowIDs[FlowID][Route] = column;
+   }
+
+   return column;
+}
+
+// Return column index to update for a given QN ID
+// else return -1 (create new column)
+function GetQueueColumnIndex( QNID )
+{
+   var column = -1;
+
+   var Cols = QueueStatsTable.rows[0].cells.length;
+   for (var Col = 1; Col < Cols; Col++)
+   {
+      var ColQNID = QueueStatsTable.rows[0].cells[Col].innerText;
+      if (isNaN(ColQNID))
+      {
+         column = Col;
+         break;
+      }
+
+      if (QNID == ColQNID)
+      {
+         column = Col;
+         break;
+      }
+   }
+
+   var TableRow;
+   var TableCell;
+
+   if (column == -1)
+   {
+      // Create new column for new QN ID?
+      column = QueueStatsTable.rows[0].cells.length;
+      if (column == 2 && QueueStatsTable.rows[0].cells[1].innerText == "-")
+      {
+         // Use the placeholder
+         column = 1;
+      }
+      else
+      {
+         var Rows = QueueStatsTable.rows.length;
+         for (var r = 0; r < Rows; r++)
+         {
+            TableRow = QueueStatsTable.rows[r];
+            TableCell = TableRow.insertCell();
+
+            TableCell.innerText = "-";
+         }
+      }
+   }
+
+   return column;
+}
+
+function ResetTable()
+{
+   var Cols = ForwardStatsTable.rows[0].cells.length;
+   var Rows = ForwardStatsTable.rows.length;
+
+   ResetTime.colSpan = 1;
+   ForwardStatsTable.rows[Rows - 1].cells[1].innerText = "-";
+
+   var cell;
+   for (var r = 0; r < Rows - 1; r++)
+   {
+      for (var c = Cols - 1; c > 0; c--)
+      {
+         if (c > 1)
+         {
+            cell = ForwardStatsTable.rows[r].cells[c];
+            ForwardStatsTable.rows[r].removeChild( cell );
+         }
+         else
+         {
+            ForwardStatsTable.rows[r].cells[c].innerText = "-";
+         }
+      }
+   }
+
+   gForwardFlowIDs = new Array();
+
+   Cols = QueueStatsTable.rows[0].cells.length;
+   Rows = QueueStatsTable.rows.length;
+
+   var cell;
+   for (var r = 0; r < Rows; r++)
+   {
+      for (var c = Cols - 1; c > 0; c--)
+      {
+         if (c > 1)
+         {
+            cell = QueueStatsTable.rows[r].cells[c];
+            QueueStatsTable.rows[r].removeChild( cell );
+         }
+         else
+         {
+            QueueStatsTable.rows[r].cells[c].innerText = "-";
+         }
+      }
+   }
+}
+
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_MRLP_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+   ResetTable();
+}
+
+function IgnoreEmptyData()
+{
+   ResetTable();
+}
+
+function PopulateStatsTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+
+   // Version
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+
+   // Check if we atleast have fields for flow info ?
+   if (FieldCount < 33)
+   {
+      return;
+   }
+
+   // Ignore empty data if option is checked
+   if (IgnoreCheck.checked == true)
+   {
+      var bIgnore = true;
+      for (var i = 10; i < 27; i++)
+      {
+         var FieldVal = Fields.GetFieldValue( i );
+         if (FieldVal != 0)
+         {
+            bIgnore = false;
+            break;
+         }
+      }
+
+      if (bIgnore == true)
+      {
+         return;
+      }
+   }
+
+   // Flow ID
+   var FlowID = Fields.GetFieldValue( 1 );
+
+   // Route Number
+   var Route = Fields.GetFieldValue( 2 );
+
+   // Check for a new combination, if one is found store the column index
+   // else use the existing column
+   var column = GetFlowColumnIndex( FlowID, Route );
+
+   // Flow ID
+   ForwardStatsTable.rows[0].cells[column].innerText = FlowID;
+
+   // Route Number
+   var FieldVal = Fields.GetFieldValueText( 2 );
+   ForwardStatsTable.rows[1].cells[column].innerText = FieldVal;
+
+   // Version
+   ForwardStatsTable.rows[2].cells[column].innerText = Version;
+
+   // Reset Time
+   var AsDate;
+   FieldVal = Fields.GetFieldValueText( 9 );
+   FieldVal = new Number( FieldVal );
+   if (FieldVal == 0)
+   {
+      ForwardStatsTable.rows[32].cells[1].innerText = "-";
+   }
+   else
+   {
+      FieldVal = Fields.GetFieldValueText( 9 );
+      AsDate = ConvertCDMATime( FieldVal );
+      FieldVal = AsDate.toUTCString();
+      ForwardStatsTable.rows[32].cells[1].innerText = FieldVal;
+   }
+
+   // RX Retransmitted Bytes
+   var RXRetransmittedBytes = Fields.GetFieldValueText( 14 );
+   ForwardStatsTable.rows[11].cells[column].innerText = RXRetransmittedBytes;
+   RXRetransmittedBytes = new Number( RXRetransmittedBytes );
+
+   // RX New Data Bytes
+   var NewDataBytes = Fields.GetFieldValueText( 16 );
+   ForwardStatsTable.rows[13].cells[column].innerText = NewDataBytes;
+   NewDataBytes = new Number( NewDataBytes );
+
+   // RX Duplicate Data Bytes
+   var DupDataBytes = Fields.GetFieldValueText( 20 );
+   ForwardStatsTable.rows[17].cells[column].innerText = DupDataBytes;
+   DupDataBytes = new Number( DupDataBytes );
+
+   // RX Total Bytes
+   var RXTotalBytes = RXRetransmittedBytes + NewDataBytes + DupDataBytes;
+   RXTotalBytes = new Number( RXTotalBytes );
+   ForwardStatsTable.rows[20].cells[column].innerText = RXTotalBytes;
+   if (RXTotalBytes > 0)
+   {
+      var Rate = (100 * RXRetransmittedBytes / RXTotalBytes);
+      ForwardStatsTable.rows[19].cells[column].innerText = Rate.toFixed( 2 );
+   }
+   else
+   {
+      ForwardStatsTable.rows[19].cells[column].innerText = "0.00";
+   }
+
+   // RX Retransmitted Frames
+   var RXRetransmittedFrames = Fields.GetFieldValueText( 15 );
+   ForwardStatsTable.rows[12].cells[column].innerText = RXRetransmittedFrames;
+   RXRetransmittedFrames = new Number( RXRetransmittedFrames );
+
+   // RX New Data Frames
+   var NewDataFrames = Fields.GetFieldValueText( 17 );
+   ForwardStatsTable.rows[14].cells[column].innerText = NewDataFrames;
+   NewDataFrames = new Number( NewDataFrames );
+
+   // RX Duplicate Data Frames
+   var DupDataFrames = Fields.GetFieldValueText( 21 );
+   ForwardStatsTable.rows[18].cells[column].innerText = DupDataFrames;
+   DupDataFrames = new Number( DupDataFrames );
+
+   // RX Total Frames
+   var RXTotalFrames = RXRetransmittedFrames + NewDataFrames + DupDataFrames;
+   RXTotalFrames = new Number( RXTotalFrames );
+   ForwardStatsTable.rows[21].cells[column].innerText = RXTotalFrames;
+
+   var f;
+   for (f = 3; f < 7; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      ForwardStatsTable.rows[f].cells[column].innerText = FieldVal;
+   }
+
+   for (f = 10; f < 14; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      ForwardStatsTable.rows[f - 3].cells[column].innerText = FieldVal;
+   }
+
+   for (f = 18; f < 20; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      ForwardStatsTable.rows[f - 3].cells[column].innerText = FieldVal;
+   }
+
+   for (f = 22; f < 28; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      ForwardStatsTable.rows[f].cells[column].innerText = FieldVal;
+   }
+
+   // Last RLP Reset Time
+   FieldVal = Fields.GetFieldValueText( 28 );
+   FieldVal = new Number( FieldVal );
+   if (FieldVal == 0)
+   {
+      ForwardStatsTable.rows[28].cells[1].innerText = "-";
+   }
+   else
+   {
+      FieldVal = Fields.GetFieldValueText( 28 );
+      AsDate = ConvertCDMATime( FieldVal );
+      FieldVal = AsDate.toUTCString();
+      ForwardStatsTable.rows[28].cells[1].innerText = FieldVal;
+   }
+
+   for (f = 29; f < 32; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      ForwardStatsTable.rows[f].cells[column].innerText = FieldVal;
+   }
+
+   var QNInstances = Fields.GetFieldValue( 32 );
+   if (FieldCount < (33 + (8 * QNInstances)))
+   {
+      return;
+   }
+
+   // Skip to index of first field of QN array
+   f = 33;
+
+   for (var q = 0; q < QNInstances; q++)
+   {
+      var QNID = Fields.GetFieldValueText( f + 2 );
+
+      // Check for QN ID, if one is found store the column index
+      // else use the existing column
+      column = GetQueueColumnIndex( QNID );
+
+      // QN ID
+      QueueStatsTable.rows[0].cells[column].innerText = QNID;
+
+      // Scheduler group ID
+      var GroupID = Fields.GetFieldValueText( f++ );
+      QueueStatsTable.rows[1].cells[column].innerText = GroupID;
+
+      // Number Of Carriers
+      var NumCarriers = Fields.GetFieldValueText( f++ );
+      QueueStatsTable.rows[2].cells[column].innerText = NumCarriers;
+
+      // Skip to index of QN Creation Time
+      f++;
+
+      // QN Creation Time
+      FieldVal = Fields.GetFieldValueText( f );
+      FieldVal = new Number( FieldVal );
+      if (FieldVal == 0)
+      {
+         QueueStatsTable.rows[3].cells[column].innerText = "-";
+      }
+      else
+      {
+         FieldVal = Fields.GetFieldValueText( f );
+         AsDate = ConvertCDMATime( FieldVal );
+         FieldVal = AsDate.toUTCString();
+         QueueStatsTable.rows[3].cells[column].innerText = FieldVal;
+      }
+
+      // Skip to index of QN Deletion Time
+      f++;
+
+      // QN Deletion Time
+      FieldVal = Fields.GetFieldValueText( f );
+      FieldVal = new Number( FieldVal );
+      if (FieldVal == 0)
+      {
+         QueueStatsTable.rows[4].cells[column].innerText = "-";
+      }
+      else
+      {
+         FieldVal = Fields.GetFieldValueText( f );
+         AsDate = ConvertCDMATime( FieldVal );
+         FieldVal = AsDate.toUTCString();
+         QueueStatsTable.rows[4].cells[column].innerText = FieldVal;
+      }
+
+      // Skip to next field index
+      f++;
+
+      for (var r = 0; r < 3; r++)
+      {
+         FieldVal = Fields.GetFieldValueText( f++ );
+         QueueStatsTable.rows[r + 5].cells[column].innerText = FieldVal;
+      }
+   }
+}
+
+</script>
+</body>
+</html>

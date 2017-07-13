@@ -1,0 +1,484 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA RLC AM Channel Stats" />
+   <meta name="DMViewWidth" content="440" />
+   <meta name="DMViewHeight" content="574" />
+
+   <title>WCDMA RLC AM Channel Stats</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%">
+   <tr>
+      <th colspan="5"> Uplink </th>
+   </tr>
+   <tbody id="BodyUplink">
+      <tr>
+         <th width=40%>Logical Data Channel ID</th>
+         <td width=15%>-</td>
+         <td width=15%>-</td>
+         <td width=15%>-</td>
+         <td width=15%>-</td>
+      </tr>
+      <tr>
+         <th>Logical Control Channel ID</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Channel Type</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>RLC Resets</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>PDU Bytes TX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>SDU Bytes TX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs TX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs ReTX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>NAKed PDUs</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Control PDUs TX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Last TX PDU Seq</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Last Acked Inseq PDU</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>TX Window Size</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Buffer Status</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs 3 ReTX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs 4 ReTX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs 5 ReTX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs 6 ReTX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs 7+ ReTX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<br/>
+
+<table width="100%">
+   <tr>
+      <th colspan="5"> Downlink </th>
+   </tr>
+   <tbody id="BodyDownlink">
+      <tr>
+         <th width=40%>Logical Data Channel ID</th>
+         <td width=15%>-</td>
+         <td width=15%>-</td>
+         <td width=15%>-</td>
+         <td width=15%>-</td>
+      </tr>
+      <tr>
+         <th>Logical Control Channel ID</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Channel Type</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>PDU Bytes RX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>SDU Bytes RX</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Error PDUs</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Data PDUs</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Control PDUs</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>NAKed PDUs</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Last Inseq PDU</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+      <tr>
+         <th>Highest PDU Seq</th>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var UPDATE_MS         = 2000;
+var PrevIndex         = -1;
+
+var log4149 = "[0x4149]";
+var log4138 = "[0x4138]";
+var log4139 = "[0x4139]";
+var log414A = "[0x414A]";
+
+var MAX_ENTITIES = 4;
+
+// Register the client, configure the client, initialiaze display objects
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br /Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs  
+   clientObject.AddLog( 0x4149 );
+   clientObject.AddLog( 0x4138 );
+   clientObject.AddLog( 0x4139 );
+   clientObject.AddLog( 0x414A );
+   
+   clientObject.CommitConfig();   
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Periodic update of the display
+function ProcessLogs()
+{
+   // Keep track if populate attempt succeeds
+   var b4149 = false;   
+   var b4138 = false;   
+   var b4139 = false;   
+   var b414A = false;
+         
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case log4149:
+         {
+            if (b4149 == false)
+            {
+               ClearTable( BodyUplink );
+               PopulateBodyUplink( Fields, false );
+               b4149 = true;
+            }
+         }
+         break;        
+
+         case log4138:
+         {
+            if (b4138 == false)
+            {
+               ClearTable( BodyUplink );
+               PopulateBodyUplink( Fields, true );
+               b4138 = true;
+            }
+         }
+         break;        
+
+         case log4139:
+         {
+            if (b4139 == false)
+            {
+               ClearTable( BodyUplink );
+               PopulateBodyUplink( Fields, false );
+               b4139 = true;
+            }
+         }
+         break;        
+
+         case log414A:
+         {
+            if (b414A == false)
+            {
+               ClearTable( BodyDownlink );
+               PopulateBodyDownlink( Fields );
+               b414A = true;
+            }
+         }
+         break; 
+      }
+
+      if ((b4138 == true || b4139 == true || b4149 == true) && b414A == true)
+      {
+         // We processed the last instance of each log so exit early
+         break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function ClearTable( Table )
+{
+   var Cols;
+   var Rows = Table.rows.length;
+   for (var r = 0; r < Rows; r++)
+   {
+      var Cols = Table.rows[r].cells.length;
+      for (var c = 1; c < 5; c++)
+      {
+         Table.rows[r].cells[c].innerText = "-";
+      }
+   }
+}
+
+function PopulateBodyUplink( Fields, bRetrans )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+
+   var FO = 14;
+   if (bRetrans == true)
+   {
+      FO = 19;
+   }
+   
+   var numEntities = Fields.GetFieldValueText( 0 );
+   var fi = 1;
+   for (var i = 0; i < numEntities; i++)
+   {
+      if (FieldCount < fi + FO || i >= MAX_ENTITIES)
+      {
+         break;
+      }
+
+      var FieldVal;
+      
+      for (var j = 0; j < FO; j++, fi++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi );   
+         BodyUplink.rows[j].cells[i + 1].innerText = FieldVal;
+      }
+   }
+}
+
+function PopulateBodyDownlink( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+      
+   var numEntities = Fields.GetFieldValueText( 0 );
+   var fi = 1;
+   for (var i = 0; i < numEntities; i++)
+   {
+      if (FieldCount < fi + 11 || i >= MAX_ENTITIES)
+      {
+         break;
+      }
+
+      var FieldVal;
+      
+      for (var j = 0; j < 11; j++, fi++)
+      {
+         FieldVal = Fields.GetFieldValueText( fi );
+         BodyDownlink.rows[j].cells[i + 1].innerText = FieldVal;
+      }
+   }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <title>HDR Session Configuration</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Session Configuration" />
+   <meta name="DMViewWidth" content="500" />
+   <meta name="DMViewHeight" content="695" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" id="CurrentPSTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+
+   <tr>
+      <th>Current PS Index</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>PS Count</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+<input type="checkbox" onclick="Toggle( this.checked )" checked id="Toggled"/>Show All Personalities
+
+<table border="0" width="100%" id="ProtocolTable">
+   <colgroup span="6">
+      <col width="30%" />
+      <col width="20%" />
+      <col width="12.5%" />
+      <col width="12.5%" />
+      <col width="12.5%" />
+      <col width="12.5%" />
+   </colgroup>
+
+   <tr>
+      <th>Protocol</th>
+      <th>State</th>
+      <th>PS 0</th>
+      <th>PS 1</th>
+      <th>PS 2</th>
+      <th>PS 3</th>
+   </tr>
+
+   <tr>
+      <th>Physical Layer</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>CC MAC</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AC MAC</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>FTC MAC</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>RTC MAC</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Key Exchange</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Authentication</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Encryption</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Security</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Packet Consolidation</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Air Link Management</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Initialization</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Idle</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Connected</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Route Update</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Overhead Message</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Session Management</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Address Management</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Session Configuration</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream 0 App (Signaling)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream 1 App</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream 2 App</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Stream 3 App</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Broadcast Multicast</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Virtual Stream</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Virtual Stream App VS</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Generic Multinmode</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+<tr>
+      <th>Stream 0 App Type</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+<tr>
+      <th>Stream 1 App Type</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+<tr>
+      <th>Stream 2 App Type</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+<tr>
+      <th>Stream 3 App Type</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+
+   <tr>
+      <td valign="top" class="noborder" colspan="2"  style="font-weight: bold; color: red">
+      <b>-H is hardlinked value to personality 0</b></td>
+   <tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1000;
+var gMainTickID       = 0;
+
+var LOG_ON_DEMAND_REQ = "Log On Demand Request";
+var PrevIndex         = -1;
+
+var gCurrPSIndex      = 0;
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (ClientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure event
+   ClientObject.AddEvent( 334 );
+
+   // Configure logs
+   ClientObject.AddLog( 0x107E );
+   ClientObject.AddLog( 0x128A );
+
+   ClientObject.CommitConfig();
+
+   // Show only current personality index
+   Toggle( false );
+
+   // Request state and subtype stream config immediately
+   IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, "0x107E", 1, TIMEOUT_MS, 1, 1 );
+   IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, "0x128A", 1, TIMEOUT_MS, 1, 1 );
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client view
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // We have to process all new items
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {
+         case "[0x107E]":
+            ProcessState( Fields );
+            break;
+
+         case "[0x128A]":
+            ProcessSubtypesInfo( Fields );
+            break;
+
+         case "[00334]":
+            ProcessEvent( Fields );
+            break;
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function ProcessSubtypesInfo( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 3)
+   {
+      return;
+   }
+
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+
+   var NumPersonalities = Fields.GetFieldValue( 2 );
+   if (FieldCount < (3 + NumPersonalities * 33))
+   {
+      return;
+   }
+
+   var CurrPSIndex = Fields.GetFieldValue( 1 );
+   CurrentPSTable.rows[0].cells[1].innerText = CurrPSIndex;
+
+   // Maintain a global personality index
+   gCurrPSIndex = CurrPSIndex
+
+   // Which personality to show/hide
+   Toggle( Toggled.checked );
+
+   CurrentPSTable.rows[1].cells[1].innerText = NumPersonalities;
+
+   if (NumPersonalities > 4)
+   {
+      NumPersonalities = 4;
+   }
+
+   // Array of personality indexes
+   var pIndexArray = new Array;
+
+   // Array of protocol values for first personality
+   var pOneArray = new Array;
+
+   var f = 4;
+   var FieldVal;
+   var Personality;
+   var Rows = ProtocolTable.rows.length;
+   for (var c = 2; c < (2 + NumPersonalities); c++)
+   {
+      Personality = Fields.GetFieldValue( f - 1 );
+      pIndexArray[Personality] = 1;
+
+      for (var r = 1; r < Rows - 2; r++)
+      {
+         FieldVal = Fields.GetFieldValue( f );
+
+         // Stores personality "0" values
+         if (Personality == 0)
+         {
+            pOneArray[r] = FieldVal;
+         }
+
+         // If invalid value then hardlink to personality "0" values
+         if (FieldVal == 65534 && pOneArray[r] != 65534)
+         {
+            var txt = pOneArray[r] + " -H";
+            ProtocolTable.rows[r].cells[c].innerText = txt;
+         }
+         else
+         {
+            FieldVal = Fields.GetFieldValueText( f );
+            ProtocolTable.rows[r].cells[c].innerText = FieldVal;
+         }
+
+         f++;
+      }
+
+      f++;
+   }
+
+   // Clear out remaining personalities entries
+   if (NumPersonalities < 4)
+   {
+      var Cells = ProtocolTable.rows[0].cells.length;
+      for (var c = 2; c < Cells; c++)
+      {
+         if (pIndexArray[c - 2] != 1)
+         {
+            for (var r = 1; r < Rows - 2; r++)
+            {
+               ProtocolTable.rows[r].cells[c].innerText = "-";
+            }
+         }
+      }
+   }
+}
+
+function ProcessState( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 9)
+   {
+      return;
+   }
+
+   var FieldVal;
+   var RowIdx = 11;
+   for (var f = 2; f < 8; f++)
+   {
+      FieldVal = Fields.GetFieldValueText( f );
+      ProtocolTable.rows[RowIdx++].cells[1].innerText = FieldVal;
+   }
+
+   FieldVal = Fields.GetFieldValueText( 1 );
+   ProtocolTable.rows[RowIdx + 2].cells[1].innerText = FieldVal;
+}
+
+function ProcessEvent( Fields )
+{
+   if (Fields == null)
+   {
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 3)
+   {
+      return;
+   }
+
+   var State3 = Fields.GetFieldValueText( 2 );
+   var Protocol = Fields.GetFieldValue( 0 );
+   switch(Protocol)
+   {
+      case 1:
+         ProtocolTable.rows[2].cells[1].innerText = State3;
+         break;
+
+      case 2:
+         ProtocolTable.rows[3].cells[1].innerText = State3;
+         break;
+
+      case 3:
+         ProtocolTable.rows[4].cells[1].innerText = State3;
+         break;
+
+      case 4:
+         ProtocolTable.rows[5].cells[1].innerText = State3;
+         break;
+
+      case 16:
+         ProtocolTable.rows[17].cells[1].innerText = State3;
+         break;
+
+      case 17:
+         ProtocolTable.rows[18].cells[1].innerText = State3;
+         break;
+
+      case 24:
+         ProtocolTable.rows[27].cells[1].innerText = State3;
+         break;
+   }
+}
+
+// Show or hide columns
+function Toggle( bChecked )
+{
+   var Rows = ProtocolTable.rows.length;
+   if (bChecked == false)
+   {
+      Toggled.checked = false;
+      for (var r = 0; r < Rows; r++)
+      {
+         var Cells = ProtocolTable.rows[r].cells.length;
+         for (var c = 2; c < Cells; c++)
+         {
+            if (c != (2 + gCurrPSIndex))
+            {
+               ProtocolTable.rows[r].cells[c].style.display = "none";
+            }
+            else
+            {
+               ProtocolTable.rows[r].cells[c].style.display = "";
+            }
+         }
+      }
+   }
+   else
+   {
+      Toggled.checked = true;
+      for (var r = 0; r < Rows - 2; r++)
+      {
+         var Cells = ProtocolTable.rows[r].cells.length;
+         for (var c = 2; c < Cells; c++)
+         {
+            ProtocolTable.rows[r].cells[c].style.display = "";
+         }
+      }
+   }
+
+   ProtocolTable.refresh();
+}
+
+</script>
+</body>
+</html>

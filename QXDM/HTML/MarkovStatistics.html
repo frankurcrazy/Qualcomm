@@ -1,0 +1,615 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Markov" />
+   <meta name="DMViewWidth" content="650" />
+   <meta name="DMViewHeight" content="270" />
+   <meta name="DMViewKey" content="F7" />
+   <title>Markov</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="SummaryTable">
+   <colgroup span="4">
+      <col width="15%" />
+      <col width="50%" />
+      <col width="20%" />
+      <col width="15%" />
+   </colgroup>
+   <tr>
+      <th>Mode</th>
+      <td>-</td>
+      <th>Total Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>State</th>
+      <td>-</td>
+      <th>Bad Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Rate</th>
+      <td>-</td>
+      <th>Error Rate</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<br>
+
+<table width="100%" id="StatsTable">
+   <colgroup span="8">
+      <col width="16%" />
+      <col width="12%" />
+      <col width="12%" />
+      <col width="12%" />
+      <col width="12%" />
+      <col width="12%" />
+      <col width="12%" />
+      <col width="12%" />
+   </colgroup>
+   <tr>
+      <th colspan="1"><input type="button" value="Reset" onclick="ResetStats();"></th>
+      <th colspan="7">Received</th>
+   </tr>   
+   <tr>
+      <th>Expected</th>
+      <th>Full</th>
+      <th>Half</th>
+      <th>Quarter</th>
+      <th>Eighth</th>
+      <th>Signaling</th>
+      <th>Bit Errors</th>
+      <th>Erasures</th>
+   </tr>
+   <tr>
+      <th>Full</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Half</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Quarter</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Eighth</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Zero</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<br>
+<div class="label">Good Frames</div>
+<table width="100%" id="GoodFrames">
+   <colgroup span="6">
+      <col width="20%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+   </colgroup>
+       <tr>
+          <th colspan="1"/>
+          <th colspan="5">Marked</th>
+       </tr>   
+       <tr>
+          <th>Expected</th>
+          <th>Full</th>
+          <th>Half</th>
+          <th>Quarter</th>
+          <th>Eighth</th>
+          <th>Erasures</th>
+       </tr>
+       <tr>
+          <th>Full</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Half</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Quarter</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Eighth</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Zero</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+</table>
+
+<br>
+<div class="label">Bad Frames</div>
+<table width="100%" id="BadFrames">
+   <colgroup span="6">
+      <col width="20%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+      <col width="16%" />
+   </colgroup>
+       <tr>
+          <th colspan="1"/>
+          <th colspan="5">Marked</th>
+       </tr>   
+       <tr>
+          <th>Expected</th>
+          <th>Full</th>
+          <th>Half</th>
+          <th>Quarter</th>
+          <th>Eighth</th>
+          <th>Erasures</th>
+       </tr>
+       <tr>
+          <th>Full</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Half</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Quarter</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Eighth</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+       <tr>
+          <th>Zero</th>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+       </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1000;
+var MARKOV_REQ        = "Markov Statistics Request";
+var RESET_REQ         = "Reset Markov Statistics Request";
+
+var gReqID            = 0;
+var gMainTickID       = 0;
+var gIndexArray       = new Array();
+
+var PrevIndex         = -1;
+
+var gReqID_Enhanced = 0;
+var MARKOV_REQ_ENHANCED = "CDMA 1x Call Processing/Enhanced Markov Statistics Request";
+
+var gReqID_RDA = 0;
+var MARKOV_RDA_REQ = "CDMA 1x Call Processing/Markov RDA Test Request";
+
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure ourselves for the DIAG response     
+   clientObject.AddDIAGResponse( 26 ); 
+   // Configure: CDMA 1x Call Processing/Enhanced Markov Statistics Response
+   clientObject.AddSubsysResponse(30, 11);  
+   // Configure: CDMA 1x Call Processing/Markov RDA Test Response
+   clientObject.AddSubsysResponse(30, 12);  
+   clientObject.CommitConfig();
+   
+   // Set up an infinite request to obtain markov stats (every second)
+   gReqID = IQXDM2.RequestItem( MARKOV_REQ,
+                                "",
+                                1,
+                                TIMEOUT_MS,
+                                0xFFFFFFFF,
+                                UPDATE_MS );
+   if (gReqID == 0)
+   {
+      window.document.write( "<br /> Error scheduling markov request" );
+      return;
+   }
+            
+   // Set up an infinite request to obtain enhanced markov stats (every second)
+   gReqID_Enhanced = IQXDM2.RequestItem( MARKOV_REQ_ENHANCED,
+                                "",
+                                1,
+                                TIMEOUT_MS,
+                                0xFFFFFFFF,
+                                UPDATE_MS );     
+   if (gReqID_Enhanced == 0)
+   {
+      window.document.write( "<br /> Error scheduling enhanced markov request" );
+      return;
+   }
+   
+   // Set up an infinite request to obtain enhanced markov stats (every second)
+   gReqID_RDA = IQXDM2.RequestItem( MARKOV_RDA_REQ,
+                                "",
+                                1,
+                                TIMEOUT_MS,
+                                0xFFFFFFFF,
+                                UPDATE_MS );     
+   if (gReqID_RDA == 0)
+   {
+      window.document.write( "<br /> Error scheduling markov rate determination algorithm request" );
+      return;
+   }                        
+   
+   // Populate the table column to markov stats field index array
+   gIndexArray[1] = 0;  // Full
+   gIndexArray[2] = 5;  // Half
+   gIndexArray[3] = 6;  // Quarter
+   gIndexArray[4] = 7;  // Eighth
+   gIndexArray[5] = 3;  // Signaling
+   gIndexArray[6] = 8;  // Bit errors
+   gIndexArray[7] = 9;  // Erasures
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessResponses()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+   
+   // Remove all outstanding periodic requests
+   if (gReqID != 0)
+   {
+      IQXDM2.RemoveRequest( gReqID );
+   }      
+
+    if (gReqID_Enhanced != 0)
+   {
+      IQXDM2.RemoveRequest( gReqID_Enhanced );
+   }
+   
+   if (gReqID_RDA != 0)
+   {
+      IQXDM2.RemoveRequest( gReqID_RDA );
+   }
+   
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Reset statistics
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+}
+
+// Process new/last response in our client view
+function ProcessResponses()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   for (var i = PrevIndex+1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetItemFields();
+      if (Fields == null)
+      {
+         continue;
+      }     
+      
+      var ItemType = Item.GetItemType();
+      switch (ItemType)
+      {              
+        case 1: //eITEM_TYPE_DIAG_RX
+        {
+            UpdateTables ( Fields );       
+        }
+        break; 
+        case 9: //eITEM_TYPE_SUBSYS_RX
+        {
+            var keyName = Item.GetItemKeyText(); 
+            if (keyName == "[0030/0011]")
+            { 
+               UpdateEnhanceTables(Fields) ;
+            } 
+            else if (keyName == "[0030/0012]" )
+            {
+              UpdateRADTables(Fields) ;
+            }   
+            else
+            {
+            }   
+        } 
+        break;  
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Update our tables with the given field values
+function UpdateTables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 50)
+   {
+      return;
+   }
+   
+   // Mode
+   var FieldVal = Fields.GetFieldValueText( 0 );
+   SummaryTable.rows[0].cells[1].innerText = FieldVal;
+   
+   // Rate
+   FieldVal = Fields.GetFieldValueText( 1 );
+   SummaryTable.rows[2].cells[1].innerText = FieldVal;
+
+   // State
+   FieldVal = Fields.GetFieldValueText( 2 );
+   SummaryTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Total frames
+   var Total = Fields.GetFieldValue( 3 );
+   SummaryTable.rows[0].cells[3].innerText = Total;
+
+   // Bad frames
+   var Bad = Fields.GetFieldValue( 4 );
+   SummaryTable.rows[1].cells[3].innerText = Bad;
+
+   // Compute error rate
+   var Rate = 0.0;
+   if (Total > 0)
+   {
+      Rate = Bad/Total;
+   }   
+   
+   // Keep 2 decimal places
+   var tmp = result = Precision( Rate, 2, true );
+   SummaryTable.rows[2].cells[3].innerText = tmp;   
+   
+   // Now do the stats (four rows - 2, 3, 4, and 5)
+   var Row;
+   var Col;
+   
+   // We start at field index 5 and then go from there
+   var OffsetFI = 5;
+   
+   for (Row = 2; Row <= 5; Row++)
+   {
+      for (Col in gIndexArray)
+      {
+         FieldVal = Fields.GetFieldValue( gIndexArray[Col] + OffsetFI );
+         StatsTable.rows[Row].cells[Col].innerText = FieldVal;
+      }
+      
+      // Ten fields in each rate set group
+      OffsetFI += 10;
+   }
+}
+
+// Update our tables with the given field values
+function UpdateEnhanceTables( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 60)
+   {
+      return;
+   }
+   
+   // Mode
+   var FieldVal = Fields.GetFieldValueText( 0 );
+   SummaryTable.rows[0].cells[1].innerText = FieldVal;
+   
+   // Rate
+   FieldVal = Fields.GetFieldValueText( 1 );
+   SummaryTable.rows[2].cells[1].innerText = FieldVal;
+
+   // State
+   FieldVal = Fields.GetFieldValueText( 2 );
+   SummaryTable.rows[1].cells[1].innerText = FieldVal;
+
+   // Total frames
+   var Total = Fields.GetFieldValue( 3 );
+   SummaryTable.rows[0].cells[3].innerText = Total;
+
+   // Bad frames
+   var Bad = Fields.GetFieldValue( 4 );
+   SummaryTable.rows[1].cells[3].innerText = Bad;
+
+   // Compute error rate
+   var Rate = 0.0;
+   if (Total > 0)
+   {
+      Rate = Bad/Total;
+   }   
+   
+   // Keep 2 decimal places
+   var tmp = result = Precision( Rate, 2, true );
+   SummaryTable.rows[2].cells[3].innerText = tmp;   
+   
+   // Now do the stats (four rows - 2, 3, 4, and 5)
+   var Row;
+   var Col;
+   
+   // We start at field index 5 and then go from there
+   var OffsetFI = 5;
+   
+   for (Row = 2; Row <= 6; Row++)
+   {
+      for (Col in gIndexArray)
+      {
+         FieldVal = Fields.GetFieldValue( gIndexArray[Col] + OffsetFI );
+         StatsTable.rows[Row].cells[Col].innerText = FieldVal;
+      }
+      
+      // Ten fields in each rate set group
+      OffsetFI += 10;
+   }
+}
+
+function UpdateRADTables( Fields )
+{
+  var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 52)
+   {
+      return;
+   }
+   
+   // Now do the stats (four rows - 2, 3, 4, and 5)
+   var Row;
+   var Col;
+   
+   // We start at field index 5 and then go from there
+   var nIndex = 2;
+   
+   for (Row = 2; Row <= 6; Row++)
+   {
+      for (Col = 1 ; Col <= 5 ; Col++)
+      {
+         FieldVal = Fields.GetFieldValue( nIndex++ );
+         GoodFrames.rows[Row].cells[Col].innerText = FieldVal;
+      }      
+   }
+   
+   for (Row = 2; Row <= 6; Row++)
+   {
+      for (Col = 1 ; Col <= 5 ; Col++)
+      {
+         FieldVal = Fields.GetFieldValue( nIndex++ );
+         BadFrames.rows[Row].cells[Col].innerText = FieldVal;
+      }      
+   }
+}
+
+
+</script>
+
+</body>
+</HTML>

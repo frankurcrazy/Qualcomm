@@ -1,0 +1,1787 @@
+0x1000^"Obsolete - Temporal Analyzer"^"4096"^1
+0x1001^"Obsolete - AGC Power Control"^"4096"^1
+0x1002^"Obsolete - Forward Link Frame Types"^"4096"^1
+0x1003^"Obsolete - Reverse Link Frame Types"^"4096"^1
+0x1004^"Access Channel"^"4100"^1
+0x1005^"Reverse Link Channel Traffic"^"4100"^1
+0x1006^"Sync Channel"^"4100"^1
+0x1007^"Paging Channel"^"4100"^1
+0x1008^"Forward Link Channel Traffic"^"4100"^1
+0x1009^"Forward Link Vocoder"^"4100"^1
+0x100A^"Reverse Link Vocoder"^"4100"^1
+0x100B^"Obsolete - Finger"^"4096"^1
+0x100C^"Obsolete - Searcher"^"4096"^1
+0x100D^"Internal - ETAK"^"4100"^1
+0x100E^"Markov Frame Rate Statistics"^"4100"^1
+0x100F^"Obsolete - Searcher, Version 2"^"4096"^1
+0x1010^"Obsolete - Handset Status"^"4096"^1
+0x1011^"Vocoder Error Mask"^"4100"^1
+0x1012^"Analog Voice Channel"^"4100"^1
+0x1013^"Access Channel Probe"^"4100"^1
+0x1014^"Internal - GPS Info"^"4116"^1
+0x1015^"Obsolete - Test Mobile Command"^"4096"^1
+0x1016^"Sparse AGC / Closed Loop Power Control"^"4100"^1
+0x1017^"Band Change"^"4100"^1
+0x1018^"Encapsulated Debug Message"^"101"^0
+0x1019^"General Temporal Analyzer"^"4602"^1
+0x101A^"General Temporal Analyzer With Supplemental Channels"^"4602"^1
+0x101C^"Analog Forward Channel"^"4100"^1
+0x101D^"Analog Reverse Channel"^"4100"^1
+0x101E^"Analog Handoff"^"4100"^1
+0x101F^"FM Slot Statistics"^"4100"^1
+0x1020^"FOCC Word Sync Count"^"4100"^1
+0x1025^"Partial RLP RX Frames"^"4101"^1
+0x1026^"Partial RLP TX Frames"^"4101"^1
+0x1028^"Channel Configuration"^"4100"^1
+0x1029^"Obsolete - Forward Link Frame Types, Version 1"^"4100"^1
+0x102A^"Obsolete - Reverse Link Frame Types, Version 1"^"4100"^1
+0x102B^"Obsolete - Fast Forward Power Control"^"4139"^1
+0x102C^"Obsolete - Reverse Power Control"^"4139"^1
+0x102D^"Searcher and Finger"^"4602"^1
+0x102E^"Service Configuration"^"4100"^1
+0x102F^"Obsolete - Active Set and Channel Configuration"^"4096"^1
+0x1030^"Quick Paging Channel"^"4602"^1
+0x1031^"RLP Statistics"^"4101"^1
+0x1032^"Simple Test Data Service Option Counters"^"4100"^1
+0x1033^"Internal - Pilot Phase Measurement Results"^"4147"^1
+0x1034^"Internal - Pilot Phase Measurement Database"^"4147"^1
+0x1035^"Internal - Pilot Phase Measurement Search Results"^"4147"^1
+0x1036^"GPS IS-801 Forward Link"^"4116"^1
+0x1037^"GPS IS-801 Reverse Link"^"4116"^1
+0x1038^"Internal - GPS Search Session Statistics"^"4116"^1
+0x1039^"Internal - GPS Search Results"^"4116"^1
+0x103A^"Internal - Factory Test Mode Forward CRC Summary"^"4100"^1
+0x103B^"Internal - GPS Multipeaks Information"^"4116"^1
+0x103C^"Internal - GPS Post Processed Search Results"^"4116"^1
+0x103D^"Full Test Data Service Option Counters"^"4100"^1
+0x103E^"BT General"^"4158"^1
+0x103F^"BT Baseband General"^"4158"^1
+0x1040^"BT Baseband Device-Specific"^"4158"^1
+0x1041^"BT Link Manager Protocol"^"4158"^1
+0x1042^"BT L2CAP"^"4158"^1
+0x1043^"BT Service Discovery"^"4158"^1
+0x1044^"BT RFCOMM Session-Specific"^"4158"^1
+0x1045^"BT RFCOMM DLCI Connection-Specific"^"4158"^1
+0x1046^"BT Audio Gateway"^"4158"^1
+0x104A^"BT Baseband (L2CAP only) Received"^"4158"^1
+0x104B^"BT Baseband (L2CAP only) Transmitted"^"4158"^1
+0x104E^"BT L2CAP Data Received"^"4158"^1
+0x104F^"BT L2CAP Data Transmitted"^"4158"^1
+0x1050^"BT SDP Signaling Received"^"4158"^1
+0x1051^"BT SDP Signaling Transmitted"^"4158"^1
+0x1054^"BT RFCOMM Data Received"^"4158"^1
+0x1055^"BT RFCOMM Data Transmitted"^"4158"^1
+0x105D^"Obsolete - 1xEV-DO Searcher"^"4190"^1
+0x105E^"1xEV-DO Handoff State"^"4189"^1
+0x105F^"1xEV-DO Active Set Pilot"^"4189"^1
+0x1060^"1xEV-DO Reverse Link Packet Summary"^"4189"^1
+0x1061^"Obsolete - 1xEV-DO Data Rate Control Channel - ARQ Buffer"^"4190"^1
+0x1062^"1xEV-DO Reverse Traffic Rate Count"^"4189"^1
+0x1063^"1xEV-DO Reverse Power Control"^"4189"^1
+0x1064^"Obsolete - 1xEV-DO Finger"^"4190"^1
+0x1065^"1xEV-DO Debug Hex Dump"^"4189"^1
+0x1066^"1xEV-DO ARQ Effective Receive Rate"^"4189"^1
+0x1067^"Obsolete - 1xEV-DO Forward Traffic Rate Slot Count"^"4190"^1
+0x1068^"1xEV-DO Air Link Summary"^"4189"^1
+0x1069^"1xEV-DO Power"^"4189"^1
+0x106A^"1xEV-DO Forward Link Packet Snapshot"^"4189"^1
+0x106B^"Obsolete - 1xEV-DO Session Attempt"^"4190"^1
+0x106C^"1xEV-DO Access Attempt"^"4189"^1
+0x106D^"1xEV-DO Reverse Activity Bits Buffer"^"4189"^1
+0x106E^"1xEV-DO Connection Attempt"^"4189"^1
+0x106F^"1xEV-DO Page Message"^"4189"^1
+0x1070^"1xEV-DO RLP Statistics"^"4189"^1
+0x1071^"1xEV-DO Connection Release"^"4189"^1
+0x1072^"1xEV-DO Reverse Activity Bits"^"4189"^1
+0x1073^"1xEV-DO High Resolution Temporal Analyzer"^"4189"^1
+0x1074^"1xEV-DO Reverse Link Packet Snapshot"^"4189"^1
+0x1076^"1xEV-DO Signaling Access Channel"^"4189"^1
+0x1077^"1xEV-DO Signaling Reverse Traffic Channel"^"4189"^1
+0x1078^"1xEV-DO Signaling Control Channel Directed"^"4189"^1
+0x1079^"1xEV-DO Signaling Forward Traffic Channel"^"4189"^1
+0x107A^"Obsolete - 1xEV-DO Pilot Sets"^"4190"^1
+0x107B^"1xEV-DO Traffic Channel Assignment"^"4189"^1
+0x107C^"1xEV-DO Signaling Control Channel Broadcast"^"4189"^1
+0x107D^"Obsolete - 1xEV-DO General Temporal Analyzer"^"4190"^1
+0x107E^"1xEV-DO State"^"4189"^1
+0x107F^"Obsolete - 1xEV-DO Forward Rate Statistics"^"4190"^1
+0x1080^"1xEV-DO Sector"^"4189"^1
+0x1082^"1xEV-DO RX Partial RLP"^"4189"^1
+0x1083^"1xEV-DO TX Partial RLP"^"4189"^1
+0x1084^"1xEV-DO Forward Statistics Summary"^"4189"^1
+0x1085^"1xEV-DO Access Channel MAC Capsule"^"4189"^1
+0x1086^"1xEV-DO Control Channel MAC Packets"^"4189"^1
+0x1087^"1xEV-DO Receive ATI List"^"4189"^1
+0x1088^"1xEV-DO Session Attempt, Version 2"^"4189"^1
+0x1089^"1xEV-DO Searcher, Version 2"^"4189"^1
+0x108A^"1xEV-DO Finger, Version 2"^"4189"^1
+0x108B^"1xEV-DO Pilot Sets, Version 2"^"4189"^1
+0x108C^"1xEV-DO Data Rate Control Channel - ARQ Buffer, Version 2"^"4189"^1
+0x108D^"1xEV-DO Acquire Information"^"4189"^1
+0x108E^"1xEV-DO Reacquire Information"^"4189"^1
+0x108F^"1xEV-DO Sleep Information"^"4189"^1
+0x1090^"Forward Dedicated Control Channel"^"4100"^1
+0x1091^"Reverse Dedicated Control Channel"^"4100"^1
+0x1092^"Internal - MSP Logging"^"4100"^1
+0x1093^"Active Set"^"4100"^1
+0x1094^"Internal - Pilot Phase Measurement 4-Shoulder Results"^"4147"^1
+0x1095^"Internal - Extended Pilot Phase Measurement Database"^"4147"^1
+0x1096^"GPS Visit Parameters"^"4116"^1
+0x1097^"GPS Measurement"^"4116"^1
+0x1098^"UIM Application Protocol Data Unit"^"1"^1
+0x1099^"Obsolete - Simple TDSO Counter for DCCH"^"4096"^1
+0x109A^"Obsolete - Full TDSO Counter for DCCH"^"4096"^1
+0x109B^"Internal - Search PPM Statistics"^"4147"^1
+0x109C^"Legacy UM PPP TX Frames"^"4371"^1
+0x109D^"Legacy UM PPP RX Frames"^"4371"^1
+0x109E^"Security PKX ModMath Statistics"^"4254"^1
+0x109F^"Security PKX ModMath Operation"^"4254"^1
+0x10A0^"Security Encoding Statistics"^"4254"^1
+0x10A1^"Security Encoding Operation Destination Statistics"^"4254"^1
+0x10A2^"Security Encoding Operation ARC4 Statistics"^"4254"^1
+0x10A3^"Security Encoding Operation Plaintext"^"4254"^1
+0x10A4^"Security Encoding Operation Ciphertext"^"4254"^1
+0x10A5^"Security Encoding Operation Msg Auth Code"^"4254"^1
+0x10A6^"Security Hashing Statistics"^"4254"^1
+0x10A7^"Security Hashing Operation Input"^"4254"^1
+0x10A8^"Security Hashing Operation Hash"^"4254"^1
+0x10A9^"Security SSL Session"^"4254"^1
+0x10AA^"Security SSL Session Server Certification"^"4254"^1
+0x10AB^"Security SSL Session Cipherdata"^"4254"^1
+0x10AC^"Security SSL Session Statistics"^"4254"^1
+0x10AD^"Security SSL TX Statistics"^"4254"^1
+0x10AE^"Security SSL RX Statistics"^"4254"^1
+0x10AF^"Security SSL HSP Hello Request"^"4254"^1
+0x10B0^"Security SSL HSP Client Hello"^"4254"^1
+0x10B1^"Security SSL HSP Server Hello"^"4254"^1
+0x10B2^"Security SSL HSP Server DH Key Exchange"^"4254"^1
+0x10B3^"Security SSL HSP Server RSA Key Exchange"^"4254"^1
+0x10B4^"Security SSL HSP Server Hello Done"^"4254"^1
+0x10B5^"Security SSL HSP Client DH Key Exchange"^"4254"^1
+0x10B6^"Security SSL HSP Client RSA Key Exchange"^"4254"^1
+0x10B7^"Security SSL HSP Client Finished"^"4254"^1
+0x10B8^"Security SSL HSP Server Finished"^"4254"^1
+0x10B9^"Security SSL Cipherspec Protocol Change"^"4254"^1
+0x10BA^"Security SSL Alert Protocol Alert"^"4254"^1
+0x10BC^"Obsolete - Quick Paging Channel, Version 2"^"4602"^1
+0x10BD^"Enhanced Access Probe Information"^"4100"^1
+0x10BE^"BCCH Frame Information"^"4100"^1
+0x10BF^"FCCCH Frame Information"^"4100"^1
+0x10C0^"FDCH Frame Information"^"4100"^1
+0x10C1^"RDCH Frame Information"^"4100"^1
+0x10C2^"Fast Forward Power Control Statistics"^"4139"^1
+0x10C3^"Reverse Power Control Statistics"^"4139"^1
+0x10C4^"Obsolete - Searcher And Finger, Version 2"^"4602"^1
+0x10C5^"Service Configuration, Version 2"^"4100"^1
+0x10C6^"Active Set, Version 2"^"4100"^1
+0x10C7^"Reduced Active Set"^"4100"^1
+0x10C8^"Triage"^"4602"^1
+0x10C9^"Internal - RDA Frame Information V1"^"4100"^1
+0x10CA^"Internal - gpsOne Fatpath"^"4100"^1
+0x10CB^"Internal - Extended AGC"^"4100"^1
+0x10CC^"Internal - Transmit AGC"^"4100"^1
+0x10CD^"Internal - I/Q Offset Registers"^"4100"^1
+0x10CE^"Internal - DACC I/Q Accum Registers"^"4100"^1
+0x10CF^"Internal - Register Polling Results"^"4100"^1
+0x10D0^"System Arbitration Module"^"4100"^1
+0x10D1^"Internal - Diablo Searcher Finger"^"4100"^1
+0x10D2^"System Determination Last Main Action"^"4100"^1
+0x10D3^"System Determination Last Hybrid Action"^"4100"^1
+0x10D6^"Internal - BCCH Signaling"^"4100"^1
+0x10D7^"Internal - REACH Signaling"^"4100"^1
+0x10D8^"Internal - FCCCH Signaling"^"4100"^1
+0x10D9^"RDA Frame Information V2"^"4100"^1
+0x10DA^"Internal - GPS Bit Edge Results"^"4116"^1
+0x10DB^"Obsolete - Position Engine Full"^"4096"^1
+0x10DC^"Obsolete - Position Engine Partial"^"4096"^1
+0x10DD^"Internal - GPS Single Peak Search Results"^"4116"^1
+0x10DE^"Internal - SRCH4_SAMPRAM"^"4100"^1
+0x10DF^"Internal - 1xEV-DO AN PPP TX Frames"^"4189"^1
+0x10E0^"Internal - 1xEV-DO AN PPP RX Frames"^"4189"^1
+0x10E1^"Internal - GPS Scheduler Trace"^"4116"^1
+0x10E2^"MPEG4 YUV Frame"^"4322"^1
+0x10E3^"MPEG4 Clip Statistics V1"^"4322"^1
+0x10E4^"MPEG4 Clip Statistics V2"^"4322"^1
+0x10F2^"Internal - BREW Bucket 0"^"4338"^1
+0x10F3^"Internal - BREW Bucket 1"^"4338"^1
+0x10F4^"Internal - BREW Bucket 2"^"4338"^1
+0x10F5^"Internal - BREW Bucket 3"^"4338"^1
+0x10F6^"Internal - BREW Bucket 4"^"4338"^1
+0x10F7^"Internal - BREW Bucket 5"^"4338"^1
+0x10F8^"Internal - BREW Bucket 6"^"4338"^1
+0x10F9^"Internal - BREW Bucket 7"^"4338"^1
+0x10FA^"Internal - BREW Bucket 8"^"4338"^1
+0x10FB^"Internal - BREW Bucket 9"^"4338"^1
+0x10FC^"Internal - BREW Bucket 10"^"4338"^1
+0x10FD^"Internal - BREW Bucket 11"^"4338"^1
+0x10FE^"Internal - BREW Bucket 12"^"4338"^1
+0x10FF^"Internal - BREW Bucket 13"^"4338"^1
+0x1100^"Internal - BREW Bucket 14"^"4338"^1
+0x1101^"Internal - BREW Bucket 15"^"4338"^1
+0x1102^"Internal - BREW Bucket 16"^"4338"^1
+0x1103^"Internal - BREW Bucket 17"^"4338"^1
+0x1104^"Internal - BREW Bucket 18"^"4338"^1
+0x1105^"Internal - BREW Bucket 19"^"4338"^1
+0x1106^"Internal - BREW Bucket 20"^"4338"^1
+0x1107^"Internal - BREW Bucket 21"^"4338"^1
+0x1108^"Internal - BREW Bucket 22"^"4338"^1
+0x1109^"Internal - BREW Bucket 23"^"4338"^1
+0x110A^"Internal - BREW Bucket 24"^"4338"^1
+0x110B^"Internal - BREW Bucket 25"^"4338"^1
+0x110C^"Internal - BREW Bucket 26"^"4338"^1
+0x110D^"Internal - BREW Bucket 27"^"4338"^1
+0x110E^"Internal - BREW Bucket 28"^"4338"^1
+0x110F^"Internal - BREW Bucket 29"^"4338"^1
+0x1110^"Internal - BREW Bucket 30"^"4338"^1
+0x1111^"Internal - BREW Bucket 31"^"4338"^1
+0x1112^"Internal - BREW Bucket 32 - 255"^"4338"^1
+0x1113^"Internal - Framed UM Received"^"4375"^1
+0x1114^"Internal - Framed RM Received"^"4379"^1
+0x1115^"Internal - Framed AN Received"^"4377"^1
+0x1123^"Internal - Framed UM Transmitted"^"4376"^1
+0x1124^"Internal - Framed RM Transmitted"^"4380"^1
+0x1125^"Internal - Framed AN Transmitted"^"4378"^1
+0x1133^"Internal - Unframed UM Received"^"4375"^1
+0x1134^"Internal - Unframed RM Received"^"4379"^1
+0x1135^"Internal - Unframed AN Received"^"4377"^1
+0x1143^"Internal - Unframed UM Transmitted"^"4376"^1
+0x1144^"Internal - Unframed RM Transmitted"^"4380"^1
+0x1145^"Internal - Unframed AN Transmitted"^"4378"^1
+0x1154^"GPS Position Engine Full, Version 2"^"4116"^1
+0x1155^"Memory Debug"^"4437"^1
+0x1156^"MPU Task Profiling - System Info"^"4437"^1
+0x1157^"MPU Task Profiling - Task Info"^"4437"^1
+0x1158^"Internal - Core Dump"^"4437"^1
+0x115E^"GPS Position Engine Partial, Version 2"^"4116"^1
+0x115F^"Internal - Diag Stress Test"^"4100"^1
+0x1160^"WMS Read"^"16"^1
+0x1161^"Search Triage Info Version 2"^"4602"^1
+0x1162^"RLP Fundicated Rx Frames"^"4101"^1
+0x1163^"RLP Fundicated Tx Frames"^"4101"^1
+0x1164^"QTV Streaming RX Statistics"^"4500"^1
+0x1165^"QTV RTSP Describe Request"^"4502"^1
+0x1166^"QTV RTSP Setup Request"^"4502"^1
+0x1167^"QTV RTSP Play Request"^"4502"^1
+0x1168^"QTV RTSP Pause Request"^"4502"^1
+0x1169^"QTV RTSP Teardown Request"^"4502"^1
+0x116A^"QTV RTSP Server Response"^"4502"^1
+0x116B^"QTV RTCP Receiver Report"^"4503"^1
+0x116C^"QTV RTCP Sender Report"^"4503"^1
+0x116D^"QTV RTP Statistics"^"4504"^1
+0x116E^"QTV SDP File"^"4501"^1
+0x116F^"QTV RTSP Client Response"^"4502"^1
+0x1170^"QTV RTP Header Only"^"4504"^1
+0x1171^"QTV RTP Entire Packet"^"4504"^1
+0x1172^"QTV RTP Audio Sample"^"4504"^1
+0x1173^"QTV RTP Video Sample"^"4504"^1
+0x1174^"1X Searcher 4 Parameters"^"4602"^1
+0x1175^"Searcher Sleep Statistics"^"4602"^1
+0x1176^"Service Configuration, Version 3"^"4100"^1
+0x1177^"1xEV-DO Searcher 4 Parameters"^"4601"^1
+0x1178^"AFLT Searcher 4 Parameters"^"4601"^1
+0x1179^"Enhanced Finger Information"^"4602"^1
+0x117A^"DV Information Enabled"^"4191"^1
+0x117B^"WMS Set Routes Information"^"16"^1
+0x117C^"Factory Test Mode V2"^"1"^1
+0x117D^"Internal - GPS Simplified Multipeak Version 2"^"4116"^1
+0x117E^"Internal - GPS Verbose Multipeak Version 2"^"4116"^1
+0x117F^"1xEV-DO Multicast Packet Rate Metrics"^"4189"^1
+0x1180^"1xEV-DO Multicast Physical Channel Metrics"^"4189"^1
+0x1181^"1xEV-DO Multicast ECB Status"^"4189"^1
+0x1182^"1xEV-DO Multicast Logical Channel Metrics"^"4189"^1
+0x1183^"1xEV-DO Debug Display"^"4189"^1
+0x1184^"1xEV-DO Tune Away Information"^"4189"^1
+0x1185^"1xEV-DO Tune Away RRI Information"^"4189"^1
+0x1186^"1xEV-DO Connection Termination Statistics"^"4189"^1
+0x1187^"1xEV-DO Connected State Protocol Stack Statistics"^"4189"^1
+0x1188^"1xEV-DO Connected State Transmit Statistics"^"4189"^1
+0x1189^"1xEV-DO Connected State RMAC Statistics"^"4189"^1
+0x118A^"1xEV-DO Connected State Search Statistics"^"4189"^1
+0x118B^"1xEV-DO FTC Physical Layer"^"4189"^1
+0x118C^"1xEV-DO RTC Physical Layer"^"4189"^1
+0x118D^"1xEV-DO Reserved"^"4189"^1
+0x118E^"1xEV-DO Reserved"^"4189"^1
+0x118F^"1xEV-DO Reserved"^"4189"^1
+0x1190^"1xEV-DO Reserved"^"4189"^1
+0x1191^"1xEV-DO Reserved"^"4189"^1
+0x1192^"1xEV-DO Rev. A Single-User Packet Forward Statistics"^"4189"^1
+0x1193^"1xEV-DO Rev. A Multi-User Packet Forward Statistics"^"4189"^1
+0x1194^"RLP RX  PDCH Partial MuxPDU5 Frames"^"4101"^1
+0x1195^"RLP TX  PDCH Partial MuxPDU5 Frames"^"4101"^1
+0x1196^"RLP RX Internal Details"^"4101"^1
+0x1197^"RLP TX Internal Details"^"4101"^1
+0x1198^"MPEG4 Clip Statistics V3"^"4322"^1
+0x1199^"Mobile IP Performance"^"1"^1
+0x119A^"Srch TNG Finger Status"^"4601"^1
+0x119B^"Srch TNG 1x Searcher Dump"^"4601"^1
+0x119C^"Srch TNG General Status"^"4601"^1
+0x119D^"Srch TNG Demod Status"^"4601"^1
+0x119E^"Srch TNG Sleep Statistics"^"4601"^1
+0x119F^"Srch TNG Quick Paging Channel Info"^"4601"^1
+0x11A0^"Srch TNG AFC Info"^"4601"^1
+0x11A1^"Srch TNG Acquisition Info"^"4601"^1
+0x11A2^"Srch TNG Finger Channel Estimate"^"4601"^1
+0x11A3^"Srch TNG QLIC Info"^"4601"^1
+0x11A4^"Reserved"^"4604"^1
+0x11A5^"Reserved"^"4604"^1
+0x11A6^"Reserved"^"4604"^1
+0x11A7^"Internal - Srch RDDS"^"4603"^1
+0x11A8^"Reserved"^"4604"^1
+0x11A9^"Internal - Srch TNG TC Statistics"^"4603"^1
+0x11AA^"Internal - Srch TC Set Maintenance"^"4603"^1
+0x11AB^"Internal - Srch TNG ZZ Profile"^"4603"^1
+0x11AC^"Internal - Srch TNG Triage"^"4603"^1
+0x11AD^"Internal - Srch Non-Slotted Idle"^"4603"^1
+0x11AE^"Internal - Srch Sect Dump"^"4603"^1
+0x11AF^"Internal - Srch Finger Driver Dump"^"4603"^1
+0x11B0^"QTV RTP Text Sample"^"4504"^1
+0x11B1^"QTV Player Timed Text"^"4452"^1
+0x11B2^"QTV Frame Decode Information"^"4452"^1
+0x11B3^"QTV Frame Render Information"^"4452"^1
+0x11B4^"QTV Audio Video Sync"^"4452"^1
+0x11B5^"Internal - QTV Streaming SDP Parameters"^"4452"^1
+0x11B6^"QTV Pseudo Streaming 2 Statistics"^"4452"^1
+0x11B7^"QTV Pseudo Streaming 2 Get Request"^"4452"^1
+0x11B8^"QTV Pseudo Streaming 2 Get Response Header"^"4452"^1
+0x11B9^"Obsolete - QTV Pseudo Streaming 2 Get Response Packet"^"4452"^1
+0x11BA^"QTV CMX Audio Input Data"^"4452"^1
+0x11BB^"QTV RTSP Options"^"4502"^1
+0x11BC^"QTV RTSP Get Parameter"^"4502"^1
+0x11BD^"QTV RTSP Set Parameter"^"4502"^1
+0x11BE^"QTV Video Bitstream"^"4452"^1
+0x11BF^"QTV ARM Video Decode Statistics"^"4452"^1
+0x11C0^"QTV DSP Slice Buffer"^"4452"^1
+0x11C1^"QTV Command Logging"^"4452"^1
+0x11C2^"Internal - QTV Audio Frame PTS Information"^"4452"^1
+0x11C3^"QTV Video Frame Decode Information"^"4452"^1
+0x11C4^"QTV RTCP Compound RR Packet"^"4503"^1
+0x11C5^"Internal - QTV Frame Buffer Release Reason"^"4452"^1
+0x11C6^"Internal - QTV Audio Channel Switch Frame"^"4452"^1
+0x11C7^"Internal - QTV RTP Decrypted Packet"^"4504"^1
+0x11C8^"QTV PCR Drift Rate"^"4452"^1
+0x11E1^"GPS PDSM Position Report Callback"^"4116"^1
+0x11E2^"GPS PDSM PD Event Callback"^"4116"^1
+0x11E3^"GPS PDSM PA Event Callback"^"4116"^1
+0x11E4^"GPS PDSM Notify Verify Request"^"4116"^1
+0x11E5^"Internal - GPS Bandwidth Test Info"^"4116"^1
+0x11E6^"GPS PDSM Reserved 2"^"4116"^1
+0x11E7^"Srch Reserved"^"4604"^1
+0x11E8^"Srch Reserved"^"4604"^1
+0x11E9^"GPS MS-MPC Forward Link"^"4116"^1
+0x11EA^"GPS MS-MPC Reverse Link"^"4116"^1
+0x11EB^"Protocol Services Data"^"4300"^1
+0x11EC^"Internal - MFLO AGC Dynamic Params"^"4700"^1
+0x11ED^"Internal - MFLO AFC IFT Dynamic Params"^"4700"^1
+0x11EE^"Internal - MFLO DMTT Full Channel Params"^"4700"^1
+0x11EF^"Obsolete - MFLO MLC Location Dynamic Params"^"4700"^1
+0x11F0^"Internal - MFLO Turbo Decoder Dynamic Params"^"4700"^1
+0x11F1^"Internal - MFLO AGC Loop Static Params"^"4700"^1
+0x11F2^"Internal - MFLO TDM1 AFC Static Params"^"4700"^1
+0x11F3^"Internal - MFLO Timing Sync Static Params"^"4700"^1
+0x11F4^"Internal - MFLO Channel Estimation Static Params"^"4700"^1
+0x11F5^"MFLO RSSI Value Dynamic Params"^"4700"^1
+0x11F6^"MFLO CB Info Dynamics Params"^"4700"^1
+0x11F7^"Internal - MFLO Wide Local Static Params"^"4700"^1
+0x11F8^"MFLO Wide Local Dynamic Params"^"4700"^1
+0x11F9^"MFLO MLC PLP Statistics Per Frame PRE Params"^"4700"^1
+0x11FA^"Obsolete - MFLO OIS PLP Statistics Dynamic Params"^"4700"^1
+0x11FB^"Internal - MFLO INIT Acq Test Dynamic Params"^"4700"^1
+0x11FC^"Obsolete - MFLO OIS Info Static Params"^"4700"^1
+0x11FD^"Internal - MFLO Flow Activation Dynamic Params"^"4700"^1
+0x11FE^"Internal - MFLO DMTT Dynamic Params"^"4700"^1
+0x11FF^"Obsolete - MFLO Stream Info Static Params"^"4700"^1
+0x1200^"MFLO MAC Info Static Params"^"4700"^1
+0x1202^"Internal - MFLO IFT Channel Params"^"4700"^1
+0x1203^"Internal - MFLO IM2 Calibration Params"^"4700"^1
+0x1204^"Internal - MFLO DMTT Short Channel Params"^"4700"^1
+0x1205^"Internal - MFLO Sleep Dynamic Params"^"4700"^1
+0x1206^"Internal - MFLO Sleep FEE Dynamic Params"^"4700"^1
+0x1207^"Internal - MFLO DC Correction Static Params"^"4700"^1
+0x1208^"Internal - MFLO DC Correction Dynamic Params"^"4700"^1
+0x1209^"Internal - MFLO Digital Filter Params"^"4700"^1
+0x120A^"Obsolete - MFLO Bound Stream List Params"^"4700"^1
+0x120B^"Obsolete - MFLO MLC PLP Statistics Post Params"^"4700"^1
+0x120C^"MFLO FTAP Packet Record Header Params"^"4700"^1
+0x120D^"MFLO FTAP Packet Records Params"^"4700"^1
+0x120E^"MFLO FTAP WOIS Params"^"4700"^1
+0x120F^"MFLO FTAP LOIS Params"^"4700"^1
+0x1210^"MFLO FTAP WID LID Params"^"4700"^1
+0x1211^"MFLO OIS PLP Statistics Dynamic Params"^"4700"^1
+0x1212^"MFLO OIS Info Static Params"^"4700"^1
+0x1213^"MFLO MLC PLP Statistics Post Params"^"4700"^1
+0x1214^"MFLO MLC Location Dynamic Params"^"4700"^1
+0x1215^"MFLO Bound Stream List Params"^"4700"^1
+0x1216^"MFLO Stream Info Static Params"^"4700"^1
+0x1218^"Internal - MFLO Profile Data"^"4700"^1
+0x1219^"MFLO Stream PLP Statistics"^"4700"^1
+0x121A^"Internal - MFLO Control Channel Data"^"4700"^1
+0x121B^"Internal - MFLO FMS Message Data"^"4700"^1
+0x121C^"Internal - MFLO Sleep Table"^"4700"^1
+0x121D^"Internal - MFLO Inter-Superframe Sleep Distance"^"4700"^1
+0x121E^"Internal - MFLO Raw PLP Data"^"4700"^1
+0x121F^"Internal - MFLO FDM Records"^"4700"^1
+0x1220^"Internal - MFLO UBM AGC Static Parameters"^"4700"^1
+0x1221^"Internal - MFLO UBM Background Monitoring Static Parameters"^"4700"^1
+0x1222^"Internal - MFLO UBM Interference Cancellation Static Parameters"^"4700"^1
+0x1223^"Internal - MFLO UBM TDM1 AFC Static Parameters"^"4700"^1
+0x1224^"Internal - MFLO UBM IFT Timing Synchronization Static Parameters"^"4700"^1
+0x1225^"Internal - MFLO UBM DMTT Timing Synchronization Static Parameters"^"4700"^1
+0x1226^"Internal - MFLO UBM EDMTT Timing Synchronization Static Parameters"^"4700"^1
+0x1227^"Internal - MFLO UBM Channel Estimation Static Parameters"^"4700"^1
+0x1228^"Internal - MFLO UBM Wide Local Static Parameters"^"4700"^1
+0x1229^"Internal - MFLO UBM AGC Dynamic Parameters"^"4700"^1
+0x122A^"MFLO UBM Wide Local Dynamic Parameters"^"4700"^1
+0x122B^"Internal - MFLO UBM Sleep Dynamic Parameters"^"4700"^1
+0x122C^"Internal - MFLO UBM IFT Dynamic Parameters"^"4700"^1
+0x122D^"Internal - MFLO UBM AFC Dynamic Parameters"^"4700"^1
+0x122E^"Internal - MFLO UBM DMTT Dynamic Parameters"^"4700"^1
+0x122F^"Internal - MFLO UBM IC Dynamic Parameters"^"4700"^1
+0x1230^"Internal - MFLO UBM MFN RF Table Parameters"^"4700"^1
+0x1231^"Internal - MFLO UBM RSSI Value Dynamic Parameters"^"4700"^1
+0x1232^"Internal - MFLO UBM Channel Estimation Log Buffer"^"4700"^1
+0x1233^"Internal - MFLO UBM DVGA2 Log Buffer"^"4700"^1
+0x1234^"Internal - MFLO UBM Sleep Static Parameters"^"4700"^1
+0x1235^"Internal - MFLO UBM Flow Group Parameters"^"4700"^1
+0x1236^"Internal - MFLO UMB2 PPC Data Parameters"^"4700"^1
+0x1237^"Internal - MFLO UBM FDM Message"^"4700"^1
+0x1238^"Internal - MFLO UBM NDM Message"^"4700"^1
+0x1239^"Internal - MFLO UBM2 SPC Parameters"^"4700"^1
+0x123A^"MFLO UBM2 DSP Channel Estimates"^"4700"^1
+0x123B^"Internal - MFLO UBM2 Jammer Params"^"4700"^1
+0x123C^"Internal - MFLO UBM2 Doppler Params"^"4700"^1
+0x123D^"MFLO Superframe Error Rate (SFER)"^"4700"^1
+0x1250^"GPS Demodulation Tracking Header"^"4116"^1
+0x1251^"GPS Demodulation Tracking Results"^"4116"^1
+0x1252^"GPS Demodulation Bit Edge"^"4116"^1
+0x1253^"GPS Demodulation Soft Decisions"^"4116"^1
+0x1254^"GPS Post-Processed Demodulation Tracking Results"^"4116"^1
+0x1255^"GPS Demodulation Subframe"^"4116"^1
+0x1256^"F-CPCCH Quality Information"^"4100"^1
+0x1257^"Reverse PDCCH - PDCH Frame Information"^"4100"^1
+0x1258^"Forward G Channel Information"^"4100"^1
+0x1259^"Forward G Channel Frame Information"^"4100"^1
+0x125A^"Forward RC Channel Information"^"4100"^1
+0x125B^"Forward ACK Channel Information"^"4100"^1
+0x125C^"Forward ACK Channel ACKDA Information"^"4100"^1
+0x125D^"Reverse REQ Channel Information"^"4100"^1
+0x125E^"Sleep Task Statistics"^"1"^1
+0x125F^"1x Sleep Controller Statistics"^"1"^1
+0x1260^"1xEV-DO Sleep Controller Statistics"^"1"^1
+0x1261^"GSM Sleep Controller Statistics"^"1"^1
+0x1262^"WCDMA Sleep Controller Statistics"^"1"^1
+0x1263^"Sleep Application Statistics"^"1"^1
+0x1264^"Sleep Statistics Reserved"^"1"^1
+0x1265^"Sleep Statistics Reserved"^"1"^1
+0x1266^"PDCCH LO Selected"^"4191"^1
+0x1267^"PDCCH HI Selected"^"4191"^1
+0x1268^"WALSH Selected"^"4191"^1
+0x1269^"PDCH BE Selected"^"4191"^1
+0x126A^"PDCCH LLR Selected"^"4191"^1
+0x126B^"CQI-ACK LO Selected"^"4191"^1
+0x126C^"CQI-ACK HI Selected"^"4191"^1
+0x126D^"RL-GAIN Selected"^"4191"^1
+0x126E^"PDCCH0-SNDA Selected"^"4191"^1
+0x126F^"PDCCH1-SNDA Selected"^"4191"^1
+0x1270^"WMS Message List"^"16"^1
+0x1271^"Multimode Generic SIM Driver Interface"^"28673"^1
+0x1272^"Generic SIM Toolkit Task"^"28673"^1
+0x1273^"Call Manager Phone Events"^"1"^1
+0x1274^"WMS Set Message List"^"16"^1
+0x1275^"1xEV-DO MultiRLP Reverse Statistics"^"4189"^1
+0x1276^"1xEV-DO MultiRLP Forward Statistics"^"4189"^1
+0x1277^"1xEV-DO MultiRLP RX Partial Frames"^"4189"^1
+0x1278^"1xEV-DO MultiRLP TX Partial Frames"^"4189"^1
+0x1279^"1xEV-DO Equalizer Data"^"4189"^1
+0x127A^"1xEV-DO Equalizer C/I"^"4189"^1
+0x127B^"1xEV-DO Reserved"^"4189"^1
+0x127C^"1xEV-DO Searcher, Version 3"^"4189"^1
+0x127D^"1xEV-DO Rev. A RL Gains"^"4189"^1
+0x127E^"1xEV-DO Rev. A Reverse Link Metrics"^"4189"^1
+0x127F^"1xEV-DO Rev. A RMAC3 T2P Resource"^"4189"^1
+0x1280^"1xEV-DO Rev. A RMAC3 Packet Information"^"4189"^1
+0x1281^"1xEV-DO Rev. A RAB Update Information"^"4189"^1
+0x1282^"1xEV-DO DRC ARQ DSC Buffer"^"4189"^1
+0x1283^"Internal - 1xEV-DO Rev. A Multi-User Packet User Statistics"^"4189"^1
+0x1284^"1xEV-DO Forward Link Packet Header Information"^"4189"^1
+0x1285^"1xEV-DO Rev. A Reverse Link ARQ Status"^"4189"^1
+0x1286^"1xEV-DO Rev. A Reverse Link Packet Status"^"4189"^1
+0x1289^"1xEV-DO Rev. A PCP Packet Statistics"^"4189"^1
+0x128A^"1xEV-DO Subtype Stream Config"^"4189"^1
+0x128B^"1xEV-DO Rev. A Route Update Trigger Code List"^"4189"^1
+0x128C^"1xEV-DO Enhanced MultiRLP Forward Statistics"^"4189"^1
+0x128D^"1xEV-DO Enhanced MultiRLP Reverse Statistics"^"4189"^1
+0x128E^"1xEV-DO Enhanced MultiRLP RX Partial Frames"^"4189"^1
+0x128F^"1xEV-DO Enhanced MultiRLP TX Partial Frames"^"4189"^1
+0x1290^"Internal - 1xEV-DO Platinum Multicast Rate Metrics"^"4189"^1
+0x1291^"1xEV-DO Platinum Multicast Timing Synchronization Algorithm"^"4189"^1
+0x1292^"1xEV Enhanced Access Attempt"^"4189"^1
+0x1293^"1xEV Access Probe"^"4189"^1
+0x1294^"1xEV-DO Multi Carrier Forward Link Packet Header Info"^"4189"^1
+0x1295^"1xEV-DO Multi Carrier Finger Data"^"4189"^1
+0x1296^"1xEV-DO Multi Carrier Air Link Summary"^"4189"^1
+0x1297^"1xEV-DO Multi Carrier Searcher Data"^"4189"^1
+0x1298^"1xEV-DO Multi Carrier DRC ARQ DSC Buffer"^"4189"^1
+0x1299^"1xEV-DO Multi Carrier RMAC4 T2P Resource Info"^"4189"^1
+0x129A^"1xEV-DO Multi Carrier RMAC4 Packet Info"^"4189"^1
+0x129B^"Internal - 1xEV-DO Multi Carrier RMAC Packet Build/Load Time Info"^"4189"^1
+0x129C^"1xEV-DO Multi Carrier Power"^"4189"^1
+0x129D^"1xEV-DO Multi Carrier Reverse Link Gains"^"4189"^1
+0x129E^"1xEV-DO Multi Carrier Reverse Link ARQ Status"^"4189"^1
+0x129F^"1xEV-DO Multi Carrier Reverse Link Metrics"^"4189"^1
+0x12A0^"1xEV-DO Multi Carrier RAB Update Info"^"4189"^1
+0x12A1^"1xEV-DO Multi Carrier Pilot Sets"^"4189"^1
+0x12A2^"1xEV-DO Multi Carrier Single User Packet Forward Statistics"^"4189"^1
+0x12A3^"1xEV-DO Multi Carrier Multi-User Packet Forward Statistics"^"4189"^1
+0x12A4^"1xEV-DO Enhanced Sleep Information"^"4189"^1
+0x12A5^"1xEV-DO Multilink Multiflow RLP Forward Statistics"^"4189"^1
+0x12A6^"1xEV-DO Multilink Multiflow RLP Reverse Statistics"^"4189"^1
+0x12A7^"1xEV-DO Multilink Multiflow RLP RX Packet"^"4189"^1
+0x12A8^"1xEV-DO Multilink Multiflow RLP TX Packet"^"4189"^1
+0x12A9^"1xEV-DO Multilink Multiflow RLP RX Processing"^"4189"^1
+0x12AA^"1xEV-DO Multi Carrier Reverse Link Packet Status"^"4189"^1
+0x12AB^"1xEV-DO Multi Carrier Equalizer C2I Buffer"^"4189"^1
+0x12AC^"Internal - 1xEV-DO Platinum Multicast Noise Variance Estimation Algorithm"^"4189"^1
+0x12AD^"1xEV-DO Multi Carrier Equalizer Data"^"4189"^1
+0x12AE^"1xEV-DO Platinum Multicast Channel Estimation Algorithm"^"4189"^1
+0x12AF^"Internal - 1xEV-DO Multi Carrier PA Headroom And Carrier Management"^"4189"^1
+0x12B0^"1xEV-DO Multi Carrier Forward Link Physical Layer Packet"^"4189"^1
+0x12B1^"1xEV-DO Multi Carrier Reverse Link Physical Layer Packet"^"4189"^1
+0x12B2^"Internal - 1xEV-DO Multi Carrier Multi-User Packet User Statistics"^"4189"^1
+0x12B3^"1xEV-DO Multi Carrier PCP Packet Statistics"^"4189"^1
+0x12B4^"Internal - 1xEV-DO Platinum Multicast Pilot Detection Algorithm"^"4189"^1
+0x12B5^"1xEV-DO Overhead Cache Summary"^"4189"^1
+0x12B6^"1xEV-DO Pilot Sets, Version 3"^"4189"^1
+0x12C1^"Call Manager Call Event"^"1"^1
+0x12E3^"GPS PE Position Report"^"4116"^1
+0x12E4^"Internal - GPS PE Position Report Extended"^"4116"^1
+0x12E5^"Mobile Display Digital Interface Host Statistics"^"1"^1
+0x12E6^"GPS Decoded Ephemeris"^"4116"^1
+0x12E7^"GPS Decoded Almanac"^"4116"^1
+0x12E8^"Transceiver Resource Manager"^"1"^1
+0x12E9^"Internal - GPS Position Engine Info"^"4116"^1
+0x12F1^"Mobile View GPS Position"^"1"^1
+0x132B^"QoS Requested"^"4192"^1
+0x132C^"QoS Granted"^"4192"^1
+0x132D^"QoS State"^"4192"^1
+0x132E^"QoS Modified"^"4192"^1
+0x132F^"QDJ Enqueue"^"1"^1
+0x1330^"QDJ Dequeue"^"1"^1
+0x1331^"QDJ Update"^"1"^1
+0x1332^"QDTX Encoder"^"1"^1
+0x1333^"QDTX Decoder"^"1"^1
+0x1334^"Port Assignment Status"^"1"^1
+0x1335^"Global IPv4 Statistics"^"4800"^1
+0x1336^"Global IPv6 Statistics"^"4800"^1
+0x1337^"Global ICMPv4 Statistics"^"4800"^1
+0x1338^"Global ICMPv6 Statistics"^"4800"^1
+0x1339^"Global TCP Statistics"^"4800"^1
+0x133A^"Global UDP Statistics"^"4800"^1
+0x133B^"PS Statistics Describe All TCP Instances"^"4800"^1
+0x133C^"PS Statistics Describe All Memory Pool Instances"^"4800"^1
+0x133D^"PS Statistics Describe All IFACE Instances"^"4800"^1
+0x133E^"PS Statistics Describe All PPP Instances"^"4800"^1
+0x133F^"PS Statistics Describe All ARP Instances"^"4800"^1
+0x1340^"PS Statistics Describe Delta Instances"^"4800"^1
+0x1341^"PS Statistics Describe Instance TCP Statistics"^"4800"^1
+0x1342^"PS Statistics Describe Instance UDP Statistics"^"4800"^1
+0x1343^"PS Statistics Describe Instance PPP Statistics"^"4800"^1
+0x1344^"PS Statistics Describe Instance IFACE Statistics"^"4800"^1
+0x1345^"PS Statistics Describe Instance Memory Statistics"^"4800"^1
+0x1346^"PS Statistics Describe Instance Flow Statistics"^"4800"^1
+0x1347^"PS Statistics Describe Instance Physical Link Statistics"^"4800"^1
+0x1348^"PS Statistics Describe Instance ARP Statistics"^"4800"^1
+0x1349^"PS Statistics Describe Instance LLC Statistics"^"4800"^1
+0x134A^"PS Statistics Describe Instance IPHC Statistics"^"4800"^1
+0x134B^"PS Statistics Describe Instance ROHC Statistics"^"4800"^1
+0x134C^"PS Statistics Describe Instance RSVP Statistics"^"4800"^1
+0x134D^"PS Statistics Describe All LLC Instances"^"4800"^1
+0x134E^"PS Statistics Describe All RSVP Instances"^"4800"^1
+0x134F^"Call Manager Serving System Event"^"1"^1
+0x1350^"VcTcxo Manager Automatic Frequency Control"^"1"^1
+0x1351^"Internal - Clock Transaction And Status"^"1"^1
+0x1352^"GPS Processed Peak"^"4116"^1
+0x1353^"MDSP Log Chunks"^"1"^1
+0x1354^"WLAN RSSI Update"^"100011"^1
+0x1355^"WLAN LL Statistics"^"100011"^1
+0x1356^"QoS State Information"^"4192"^1
+0x1357^"BT Host HCI TX Data"^"4158"^1
+0x1358^"BT Host HCI RX Data"^"4158"^1
+0x1359^"Internal - GPS PE Position Report Part 3"^"4116"^1
+0x135A^"QoS Extended Requested"^"4192"^1
+0x135B^"QoS Extended Granted"^"4192"^1
+0x135C^"QoS Extended Modified"^"4192"^1
+0x135D^"Bus Monitor Profiling Info"^"4900"^1
+0x135E^"Internal - Pilot Phase Measurement Search Results V2"^"4147"^1
+0x135F^"Internal - Pilot Phase Measurement Database V2"^"4147"^1
+0x1360^"Internal - Pilot Phase Measurement State Machine"^"4147"^1
+0x1361^"ROHC Compressor"^"4850"^1
+0x1362^"ROHC Decompressor"^"4850"^1
+0x1363^"ROHC Feedback Compressor"^"4850"^1
+0x1364^"ROHC Feedback Decompressor"^"4850"^1
+0x1365^"BT HCI Command"^"4158"^1
+0x1366^"BT HCI Event"^"4158"^1
+0x1367^"BT HCI TX ACL Data"^"4158"^1
+0x1368^"BT HCI RX ACL Data"^"4158"^1
+0x1369^"BT SOC H4 Deep Sleep"^"4158"^1
+0x136A^"Obsolete - UMTS To CDMA Handover Message"^"4096"^1
+0x136B^"QX Profiler Graphic Event Data"^"5000"^1
+0x136C^"QX Profiler Audio Event Data"^"5000"^1
+0x136D^"Internal - GPS Spectral Information"^"4116"^1
+0x136E^"AHB Performance Monitor"^"1"^1
+0x136F^"CGPS Clock Report"^"4116"^1
+0x1370^"CGPS Position Report"^"4116"^1
+0x1371^"CGPS Measurement Report"^"4116"^1
+0x1372^"CGPS RF Status"^"4116"^1
+0x1373^"Obsolete - VOIP To CDMA Handover Message"^"4096"^1
+0x1374^"CGPS Prescribed Dwell Result"^"4116"^1
+0x1375^"Internal - CGPS IPC Data"^"4116"^1
+0x1376^"Internal - CGPS Non IPC Data"^"4116"^1
+0x1377^"Internal - CGPS Session Report"^"4116"^1
+0x1378^"Internal - CGPS PDSM Get Position"^"4116"^1
+0x1379^"Internal - CGPS PDSM Set Parameters"^"4116"^1
+0x137A^"Internal - CGPS PDSM End Session"^"4116"^1
+0x137B^"Internal - CGPS PDSM Notify Verify Response"^"4116"^1
+0x137C^"CGPS PDSM Position Report Callback"^"4116"^1
+0x137D^"Internal - CGPS PDSM PD Event Callback"^"4116"^1
+0x137E^"Internal - CGPS PDSM PA Event Callback"^"4116"^1
+0x137F^"Internal - CGPS PDSM Notify Verify Request Callback"^"4116"^1
+0x1380^"Internal - CGPS PDSM PD Command Error Callback"^"4116"^1
+0x1381^"Internal - CGPS PDSM PA Command Error Callback"^"4116"^1
+0x1382^"Internal - CGPS PDSM Position Error"^"4116"^1
+0x1383^"CGPS PDSM Extended Status Position Report"^"4116"^1
+0x1384^"CGPS PDSM Extended Status NMEA Report"^"4116"^1
+0x1385^"Internal - CGPS PDSM Extended Status Measurement Report"^"4116"^1
+0x1386^"Internal - CGPS Report Server TX Packet"^"4116"^1
+0x1387^"Internal - CGPS Report Server RX Packet"^"4116"^1
+0x138A^"CGPS IQ Report"^"4116"^1
+0x138E^"QMI Link 1 RX PDU"^"5020"^1
+0x138F^"QMI Link 1 TX PDU"^"5020"^1
+0x1390^"QMI Link 2 RX PDU"^"5020"^1
+0x1391^"QMI Link 2 TX PDU"^"5020"^1
+0x1392^"QMI Link 3 RX PDU"^"5020"^1
+0x1393^"QMI Link 3 TX PDU"^"5020"^1
+0x1394^"QMI Link 4 RX PDU"^"5020"^1
+0x1395^"QMI Link 4 TX PDU"^"5020"^1
+0x1396^"QMI Link 5 RX PDU"^"5020"^1
+0x1397^"QMI Link 5 TX PDU"^"5020"^1
+0x1398^"QMI Link 6 RX PDU"^"5020"^1
+0x1399^"QMI Link 6 TX PDU"^"5020"^1
+0x139A^"QMI Link 7 RX PDU"^"5020"^1
+0x139B^"QMI Link 7 TX PDU"^"5020"^1
+0x13AF^"QoS Information Code Update"^"4192"^1
+0x13B0^"Audio Vocoder Data Paths"^"1"^1
+0x13B2^"Decoded Video Frame CRC"^"4322"^1
+0x13B3^"FLUTE Session Info"^"5040"^1
+0x13B4^"FLUTE ADP File Info"^"5040"^1
+0x13B5^"FLUTE File Request Info"^"5040"^1
+0x13B6^"FLUTE FDT Instance Info"^"5040"^1
+0x13B7^"FLUTE FDT Info"^"5040"^1
+0x13B8^"FLUTE File Info"^"5040"^1
+0x13B9^"VOIP To CDMA 3G1X Parameters"^"1"^1
+0x13BA^"Internal - CGPS ME Job Info"^"4116"^1
+0x13BB^"Internal - CGPS ME SV Lists"^"4116"^1
+0x13BC^"Flexible Profiling Generic Status"^"1"^1
+0x13BD^"Flexible Profiling Generic Results"^"1"^1
+0x13BE^"FLUTE ADP File Content Info"^"5040"^1
+0x13BF^"FLUTE FDT Instance File Content Info"^"5040"^1
+0x13C0^"FLUTE FDT Entries Info"^"5040"^1
+0x13C1^"FLUTE File Contents Info"^"5040"^1
+0x13C2^"Internal - CGPS ME Time Transfer Information"^"4116"^1
+0x13C3^"Internal - CGPS ME UMTS Time Tagging Information"^"4116"^1
+0x13C4^"Internal - CGPS ME Generic Time Estimate Put lnformation"^"4116"^1
+0x13C5^"Internal - CGPS ME Generic Frequency Estimate Put lnformation"^"4116"^1
+0x13C6^"Internal - CGPS Slow Clock Report"^"4116"^1
+0x13C7^"Internal - CGPS Medium Grid"^"4116"^1
+0x13C8^"SNSD Information"^"1"^1
+0x13C9^"SNSD State"^"1"^1
+0x13CA^"SNSD Data"^"1"^1
+0x13CB^"Internal - CGPS Cell DB Cell Change Information"^"4116"^1
+0x13CC^"X Scale YUV Frame"^"4452"^1
+0x13CD^"X Scale CRC Frame"^"4452"^1
+0x13CE^"Internal - CGPS Frequency Estimate Report"^"4116"^1
+0x13CF^"Internal - GPS DCME Srch Job Completed"^"4116"^1
+0x13D0^"Internal - CGPS ME Fast Scan Results"^"4116"^1
+0x13D1^"XO Frequency Estimation"^"1"^1
+0x13D2^"TCXO Manager Field Calibration Data"^"1"^1
+0x13D3^"UMB Call Processing Connection Attempt"^"29000"^1
+0x13D4^"UMB Call Processing Connection Release"^"29000"^1
+0x13D5^"UMB Call Processing Page Message"^"29000"^1
+0x13D6^"UMB Call Processing OVHD Information"^"29000"^1
+0x13D7^"UMB Call Processing Session Attempt"^"29000"^1
+0x13D8^"UMB Call Processing Route Information"^"29000"^1
+0x13D9^"UMB Call Processing State Information"^"29000"^1
+0x13DA^"UMB Call Processing SNP"^"29000"^1
+0x13DB^"Internal - CGPS Session Early Exit Decision"^"4116"^1
+0x13DC^"CGPS ME RF Linearity Status"^"4116"^1
+0x13DD^"Internal - CGPS ME 5ms IQ Sums"^"4116"^1
+0x13DE^"Internal - CGPS ME 20ms IQ Sums"^"4116"^1
+0x13DF^"ROHC Compressor Statistics"^"4850"^1
+0x13E0^"ROHC Decompressor Statistics"^"4850"^1
+0x13E1^"Sensor Kalman Filter Information"^"4116"^1
+0x13E2^"Sensor Integrated Measurements"^"4116"^1
+0x13E3^"Sensor Bias Calibration Values"^"4116"^1
+0x13E4^"DTV ISDB-T Transport Stream Packets"^"50000"^1
+0x13E5^"DTV ISDB-T PES Packets"^"50000"^1
+0x13E6^"DTV ISDB-T Sections"^"50000"^1
+0x13E7^"DTV ISDB-T Buffering"^"50000"^1
+0x13E8^"WLAN System Acquisition And Handoff"^"100011"^1
+0x13E9^"WLAN General Configurable Parameters"^"100011"^1
+0x13EA^"Internal - UMB Physical Layer Channel And Interference Estimation"^"29001"^1
+0x13EB^"Internal - UMB Physical Layer MMSE/MRC Demodulated Data Symbols (Low)"^"29001"^1
+0x13EC^"Internal - UMB Physical Layer MMSE/MRC Demodulated Data Symbols (High)"^"29001"^1
+0x13ED^"Internal - UMB Physical Layer DCH Decoder"^"29001"^1
+0x13EE^"Internal - UMB Physical Layer DCH Statistics"^"29001"^1
+0x13EF^"Internal - UMB Physical Layer CQI PICH Processing"^"29001"^1
+0x13F0^"Internal - UMB Physical Layer MIMO/SIMO In CQI PICH (High)"^"29001"^1
+0x13F1^"Internal - UMB Physical Layer MIMO/SIMO In CQI PICH (Low)"^"29001"^1
+0x13F2^"Internal - UMB Physical Layer Time-Domain Channel Taps (High)"^"29001"^1
+0x13F3^"Internal - UMB Physical Layer Time-Domain Channel Taps (Low)"^"29001"^1
+0x13F4^"Internal - UMB Physical Layer AT Modulator"^"29001"^1
+0x13F5^"Internal - UMB Physical Layer AT Modulator For R-ACK (High)"^"29001"^1
+0x13F6^"Internal - UMB Physical Layer AT Modulator For R-ACK (Low)"^"29001"^1
+0x13F7^"Internal - UMB Physical Layer AT Modulator For R-PICH"^"29001"^1
+0x13F8^"Internal - UMB Physical Layer AT Modulator For R-ACH (Access)"^"29001"^1
+0x13F9^"Internal - UMB Physical Layer AT Modulator For R-ODDCCH (High)"^"29001"^1
+0x13FA^"Internal - UMB Physical Layer AT Modulator For R-ODDCCH (Low)"^"29001"^1
+0x13FB^"Internal - UMB Physical Layer AT Modulator For R-CDCCH"^"29001"^1
+0x13FC^"Internal - UMB Physical Layer AT Modulator For Non FLSS CQI Sent On RCDCCH"^"29001"^1
+0x13FD^"Internal - UMB Physical Layer AT Modulator For FLSS CQI Sent On RCDCCH"^"29001"^1
+0x13FE^"Internal - UMB Physical Layer AT Modulator For PACH Sent On RCDCCH"^"29001"^1
+0x13FF^"Internal - UMB Physical Layer AT Modulator For REQ Sent On RCDCCH"^"29001"^1
+0x1400^"Internal - UMB Physical Layer AT Modulator For PSD Sent On RCDCCH"^"29001"^1
+0x1401^"Internal - UMB Physical Layer AT Modulator For R-DCH"^"29001"^1
+0x1402^"Internal - UMB Physical Layer Time/Frequency/RX Power Estimate"^"29001"^1
+0x1403^"Internal - UMB Physical Layer FLCS Processing"^"29001"^1
+0x1404^"Internal - UMB Physical Layer PBCCH Processing"^"29001"^1
+0x1405^"Internal - UMB Physical Layer SBCCH Processing"^"29001"^1
+0x1406^"Internal - UMB Physical Layer QPCH Processing"^"29001"^1
+0x1407^"Internal - UMB Physical Layer MRC Demodulated Data Symbols (Preamble SBCCH/QPCH)"^"29001"^1
+0x1408^"Internal - UMB Physical Layer MRC Demodulated Data Symbols (Preamble PBCCH)"^"29001"^1
+0x1409^"Internal - UMB Physical Layer VCQI"^"29001"^1
+0x140A^"Internal - UMB Physical Layer Acquisition Algorithm"^"29001"^1
+0x140B^"Internal - UMB Physical Layer Handoff Search Algorithm"^"29001"^1
+0x140C^"Internal - UMB RF RFFE Configuration Info"^"29002"^1
+0x140D^"Internal - UMB RF Calibrated Values After Powerup"^"29002"^1
+0x140E^"Internal - UMB RF AGC Block In Acquisition Mode"^"29002"^1
+0x140F^"Internal - UMB RF AGC Block In Idle Mode"^"29002"^1
+0x1410^"Internal - UMB RF AGC Block In Connected Mode"^"29002"^1
+0x1411^"Internal - UMB RF AGC Block In Connected Mode (FTM)"^"29002"^1
+0x1412^"Internal - UMB RF Jammer Detector Functionality"^"29002"^1
+0x1413^"Internal - UMB RF Jammer Detector Response"^"29002"^1
+0x1414^"Internal - UMB RF RFFE TX Power Control"^"29002"^1
+0x1415^"Internal - UMB Searcher Dump"^"29004"^1
+0x1416^"Internal - UMB System Acquire"^"29004"^1
+0x1417^"Internal - UMB Set Maintenance"^"29004"^1
+0x1418^"Internal - UMB QPCH"^"17"^1
+0x1419^"Internal - UMB RLL Forward Partial RP Packet"^"29003"^1
+0x141A^"Internal - UMB RLL Reverse Partial RP Packet"^"29003"^1
+0x141D^"Internal - UMB RLL Forward Statistics"^"29003"^1
+0x141E^"Internal - UMB RLL Reverse Statistics"^"29003"^1
+0x141F^"Internal - UMB RLL IRTP"^"29003"^1
+0x1420^"Internal - UMB AP Forward Link MAC Packets"^"17"^1
+0x1421^"Internal - UMB AP Reverse Link MAC Packets"^"17"^1
+0x1422^"Internal - CGPS Performance Statistics"^"4116"^1
+0x1423^"Internal - UMB Searcher General Status"^"29004"^1
+0x1424^"Internal - UMB Superframe Scheduler"^"17"^1
+0x1425^"Internal - UMB Sector List"^"17"^1
+0x1426^"Internal - UMB MAC Access Attempt Command"^"29005"^1
+0x1427^"Internal - UMB MAC Access Probe Information"^"29005"^1
+0x1428^"Internal - UMB MAC RTCMAC Package Information"^"29005"^1
+0x1429^"Internal - UMB MAC Super Frame Information"^"29005"^1
+0x142A^"Internal - UMB MAC Quick Channel Information"^"29005"^1
+0x142B^"Internal - UMB MAC Paging ID List"^"29005"^1
+0x142C^"Internal - UMB MAC Quick Paging Channel Information"^"29005"^1
+0x142D^"Internal - UMB MAC FTCMAC Information"^"29005"^1
+0x142E^"Internal - UMB MAC Access Grant Receiving"^"29005"^1
+0x142F^"Internal - UMB MAC Generic Debug"^"29005"^1
+0x1430^"Internal - CGPS MC Frequency Bias Estimate"^"4116"^1
+0x1431^"Internal - UMB MAC Request Report Information"^"29005"^1
+0x1432^"Internal - UMB MAC Reverse Link QoS Token Bucket Information"^"29005"^1
+0x1433^"Internal - UMB MAC Reverse Link QoS Stream Information"^"29005"^1
+0x1434^"Internal - UMB MAC Reverse Link QoS Allotment Information"^"29005"^1
+0x1435^"Internal - UMB Searcher Recent State Machine Transactions"^"29004"^1
+0x1436^"ARM 11 Performance Counters Profiling Information"^"1"^1
+0x1437^"PS Statistics Describe All Flow Instances"^"4800"^1
+0x1438^"PS Statistics Describe All Physical Link Instances"^"4800"^1
+0x1439^"PS Statistics Describe All UDP Instances"^"4800"^1
+0x143A^"Searcher 4 Multi Carrier HDR"^"4600"^1
+0x143B^"PS Statistics Describe All IPHC Instances"^"4800"^1
+0x143C^"PS Statistics Describe All ROHC Instances"^"4800"^1
+0x143D^"Internal - BCast Security Add Program Information"^"10"^1
+0x143E^"Internal - BCast Security Add Program Complete"^"10"^1
+0x143F^"Internal - BCast Security SDP Parse"^"10"^1
+0x1440^"CGPS ME Dynamic Power Optimization Status"^"4116"^1
+0x1441^"Internal - CGPS PDSM On Demand Session Start"^"4116"^1
+0x1442^"Internal - CGPS PDSM On Demand Session Stop"^"4116"^1
+0x1443^"Internal - CGPS PDSM On Demand Session Not Started"^"4116"^1
+0x1444^"Internal - CGPS PDSM Extern Coarse Position Inject Start"^"4116"^1
+0x1445^"DTV ISDB-T TMCC Information"^"50001"^1
+0x1446^"Internal - RF Development"^"5061"^1
+0x1447^"RF RFM API"^"5061"^1
+0x1448^"RF RFM State"^"5061"^1
+0x1449^"1X RF Warmup"^"5062"^1
+0x144A^"1X RF Power Limiting"^"5062"^1
+0x144B^"1X RF State"^"5062"^1
+0x144C^"1X RF Sleep"^"5062"^1
+0x144D^"1X RF TX State"^"5062"^1
+0x144E^"1X RF IntelliCeiver State"^"5062"^1
+0x144F^"1X RF RX ADC Clock"^"5062"^1
+0x1450^"1X RF LNA Switch Point"^"5062"^1
+0x1451^"1X RF RX Calibration"^"5062"^1
+0x1452^"1X RF API"^"5062"^1
+0x1453^"1X RF RX PLL Locking Status"^"5062"^1
+0x1454^"1X RF Voltage Regulator"^"5062"^1
+0x1455^"CGPS DIAG Successful Fix Count"^"4116"^1
+0x1456^"CGPS MC Track Dynamic Power Optimization Status"^"4116"^1
+0x1457^"CGPS MC SBAS Demodulated Bits"^"4116"^1
+0x1458^"Internal - CGPS MC SBAS Demodulated Soft Symbols"^"4116"^1
+0x1459^"Data Services PPP Configuration Parameters"^"4381"^1
+0x145A^"Data Services Physical Link Configuration Parameters"^"4381"^1
+0x145B^"Internal - PPP Device Configuration Parameters"^"4300"^1
+0x145C^"Internal - CGPS PDSM GPS State Information"^"4116"^1
+0x145D^"Internal - CGPS PDSM EXT Status GPS State Information"^"4116"^1
+0x145E^"Internal - CGPS ME Rapid Search Report"^"4116"^1
+0x145F^"Internal - CGPS PDSM XTRA_T Session"^"4116"^1
+0x1460^"Internal - CGPS PDSM XTRA_T Upload"^"4116"^1
+0x1461^"Internal - GPS Wiper Position Report"^"4116"^1
+0x1462^"DTV DVBH Security SmartCard HTTP Digest Request"^"100002"^1
+0x1463^"DTV DVBH Security SmartCard HTTP Digest Response"^"100002"^1
+0x1464^"DTV DVBH Security SmartCard Services Registration Request"^"100002"^1
+0x1465^"DTV DVBH Security SmartCard Services Registration Complete"^"100002"^1
+0x1466^"DTV DVBH Security SmartCard Services Deregistration Request"^"100002"^1
+0x1467^"DTV DVBH Security SmartCard Services Deregistration Complete"^"100002"^1
+0x1468^"DTV DVBH Security SmartCard LTKM Request"^"100002"^1
+0x1469^"DTV DVBH Security SmartCard LTKM Request Complete"^"100002"^1
+0x146A^"DTV DVBH Security SmartCard Program Selection"^"100002"^1
+0x146B^"DTV DVBH Security SmartCard Program Selection Complete"^"100002"^1
+0x146C^"DTV DVBH Security SmartCard LTKM"^"100002"^1
+0x146D^"DTV DVBH Security SmartCard LTKM Verification Message"^"100002"^1
+0x146F^"DTV DVBH Security SmartCard STKM"^"100002"^1
+0x1470^"PS Statistics Global Sock"^"4800"^1
+0x1471^"MCS Application Manager"^"1"^1
+0x1472^"MCS MSGR"^"1"^1
+0x1473^"MCS QTF"^"1"^1
+0x1474^"Internal - Stationary Dectector Output"^"4116"^1
+0x1475^"CGPS PDSM EXT Status MEAS Report PPM"^"4116"^1
+0x1476^"GNSS Position Report"^"4116"^1
+0x1477^"GNSS GPS Measurement Report"^"4116"^1
+0x1478^"GNSS Clock Report"^"4116"^1
+0x1479^"Internal - GNSS Demod Soft Decisions"^"4116"^1
+0x147A^"Internal - GNSS ME 5ms IQ Sums"^"4116"^1
+0x147B^"Internal - GNSS CD Database Report"^"4116"^1
+0x147C^"Internal - GNSS Position Engine WLS Position Report"^"4116"^1
+0x147D^"Internal - GNSS Kalman Filter Position Report"^"4116"^1
+0x147E^"GNSS PRX RF HW Status Report"^"4116"^1
+0x147F^"GNSS DRX RF HW Status Report"^"4116"^1
+0x1480^"GNSS GLONASS Measurement Report"^"4116"^1
+0x1481^"GNSS GPS High Bandwidth Receive Diversity Measurement"^"4116"^1
+0x1482^"GNSS PDSM Position Report Callback"^"4116"^1
+0x1483^"Internal - ISense Request String"^"100015"^1
+0x1484^"Internal - ISense Response String"^"100015"^1
+0x1485^"Internal - BT SOC General"^"4158"^1
+0x1486^"QCRIL Call Flow"^"1"^1
+0x1487^"CGPS WB FFT Stats"^"4116"^1
+0x1488^"CGPS Slow Clock Calibration Report"^"4116"^1
+0x1489^"Internal - SNS GPS Timestamp"^"100015"^1
+0x148A^"Internal - GNSS Search Strategy Task Allocation"^"4116"^1
+0x148C^"Internal - CGPS Sparse Network DB Record"^"4116"^1
+0x148D^"Internal - CGPS Sparse Network DB Record Remove"^"4116"^1
+0x148E^"Internal - GNSS Channel Controller Performance Statistics"^"4116"^1
+0x148F^"GNSS PDSM Set Parameters"^"4116"^1
+0x1490^"GNSS PDSM PD Event Callback"^"4116"^1
+0x1491^"GNSS PDSM PA Event Call back"^"4116"^1
+0x1494^"GNSS PDSM Ext Status MEAS Report"^"4116"^1
+0x1495^"GNSS SM Error"^"4116"^1
+0x1496^"Internal - WLAN Scan"^"100011"^1
+0x1497^"Internal - WLAN IBSS"^"100011"^1
+0x1498^"Internal - WLAN 802.11d"^"100011"^1
+0x1499^"Internal - WLAN Handoff"^"100011"^1
+0x149A^"Internal - WLAN QoS EDCA"^"100011"^1
+0x149B^"Internal - WLAN Beacon Update"^"100011"^1
+0x149C^"Internal - WLAN Powersave WOW Add Pattern"^"100011"^1
+0x149D^"Internal - WLAN WCM Linkmetrics"^"100011"^1
+0x149E^"Internal - WLAN WPS Scan Complete"^"100011"^1
+0x14A0^"Internal - WLAN WPS Credentials"^"100011"^1
+0x14A1^"Internal - WLAN Linklayer Stat"^"100011"^1
+0x14A2^"Internal - WLAN QoS TSPEC"^"100011"^1
+0x14A6^"Internal - CGPS SM Ephemeris Randomization Information"^"4116"^1
+0x14A7^"Internal - QACT Data"^"1"^1
+0x14A8^"Internal - SNS VCPS Compass 2D Tracked Calibration Set"^"100015"^1
+0x14A9^"Internal - SNS VCPS Compass 3D Tracked Calibration Set"^"100015"^1
+0x14AA^"Internal - SNS VCPS Calibration Set Quantifying Metric"^"100015"^1
+0x14AB^"Internal - SNS VCPS Filtered Accelerometer Data Distance"^"100015"^1
+0x14AC^"Internal - SNS VCPS Plane Update"^"100015"^1
+0x14AD^"Internal - SNS VCPS Location Report"^"100015"^1
+0x14B0^"Internal - Sensor MobiSens Ouput"^"100015"^1
+0x14B1^"Internal - Accelerometer Data"^"100015"^1
+0x14B2^"Internal - Accelerometer Compensated Data"^"100015"^1
+0x14B3^"Internal - Motion State Data"^"100015"^1
+0x14B4^"Internal - Stationary Position Indicator"^"100015"^1
+0x14B5^"Internal - Motion State Features"^"100015"^1
+0x14B6^"Internal - Motion State Hard Decision"^"100015"^1
+0x14B7^"Internal - Motion State Soft Decision"^"100015"^1
+0x14B8^"Internal - Sensors Software Version"^"100015"^1
+0x14B9^"Internal - MobiSens Stationary Position Indicator"^"100015"^1
+0x14BA^"XO IQ Data"^"1"^1
+0x14BB^"DTV CMMB Control Table Updated"^"100014"^1
+0x14BC^"DTV CMMB Media API Buffering Status"^"100014"^1
+0x14BD^"DTV CMMB Emergency Broadcast Data"^"100014"^1
+0x14BE^"DTV CMMB EMM/ECM Data"^"100014"^1
+0x14BF^"DTV CMMB HW Status"^"100014"^1
+0x14C0^"DTV CMMB ESSG Program Indication Information"^"100014"^1
+0x14C1^"Internal - SNS Converted Sensor Data"^"100015"^1
+0x14C2^"CM Subscription Event"^"1"^1
+0x14C3^"Internal - SNS Ambient Light Data"^"100015"^1
+0x14C4^"Internal - SNS Ambient Light Adaptive Data"^"100015"^1
+0x14C5^"Internal - SNS Proximity Distance Data"^"100015"^1
+0x14C6^"Internal - SNS Proximity Data"^"100015"^1
+0x14C7^"Internal - GNSS SBAS Report"^"4116"^1
+0x14C8^"Internal - CPU Monitor Modem"^"4437"^1
+0x14C9^"Internal - CPU Monitor Apps"^"4437"^1
+0x14CA^"BLAST Task Profiling"^"4437"^1
+0x14CB^"BLAST System Profiling"^"4437"^1
+0x14CC^"FM Radio FTM Messages"^"1"^1
+0x14CD^"FM Radio Debug Messages"^"1"^1
+0x14CE^"Internal - UIM DS Data"^"1"^1
+0x14CF^"QMI Call Flow"^"1"^1
+0x14D0^"Internal - APR Modem"^"100016"^1
+0x14D1^"Internal - APR Apps"^"100016"^1
+0x14D2^"Internal - APR ADSP"^"100016"^1
+0x14D3^"Data MUX RX Raw Packet"^"100017"^1
+0x14D4^"Data MUX TX Raw Packet"^"100017"^1
+0x14D5^"Data MUX RX Frame Packet"^"100017"^1
+0x14D6^"Data MUX TX Frame Packet"^"100017"^1
+0x14D7^"Internal - CGPS PDSM EXT Status Pos Inj Request Info"^"4116"^1
+0x14D8^"Temperature Monitor Log"^"1"^1
+0x14D9^"Internal - SNS Gestures Rest Detect"^"100015"^1
+0x14DA^"Internal - SNS Gestures Orientation"^"100015"^1
+0x14DB^"Internal - SNS Gestures Facing"^"100015"^1
+0x14DC^"Internal - SNS Gestures Basic"^"100015"^1
+0x14DD^"Internal - SNS Gestures HinBye"^"100015"^1
+0x14DE^"GNSS OEMDRE Measurement Report"^"4116"^1
+0x14E0^"GNSS OEMDRE Position Report"^"4116"^1
+0x14E1^"GNSS OEMDRE SVPoly Report"^"4116"^1
+0x14E2^"GNSS OEMDRE Sync"^"4116"^1
+0x14E3^"Internal - Motion Detect Notification"^"100015"^1
+0x14E4^"Internal - Motion Detect Registration"^"100015"^1
+0x14E5^"Internal - GNSS PDSM PPM Session Begin"^"4116"^1
+0x14E6^"Internal - GNSS PDSM PPM Session PPM Suspend"^"4116"^1
+0x14E7^"Internal - GNSS PDSM PPM Report Throttled"^"4116"^1
+0x14E8^"Internal - GNSS PDSM PPM Report Fired"^"4116"^1
+0x14E9^"Internal - GNSS PDSM PPM Session End"^"4116"^1
+0x14EA^"Internal - SNS Registry Operation"^"100015"^1
+0x14EB^"Internal - Watermarks Tracing Log Packet Common"^"1"^1
+0x14EC^"1x ADV Frame Early Termination Stats"^"100018"^1
+0x14ED^"1x ADV L1 PERF"^"100018"^1
+0x14EF^"Internal - BLAST PM"^"4437"^1
+0x1FEA^"Encapsulated DIAG Request"^"101"^0
+0x1FEB^"Encapsulated Extended Message"^"101"^0
+0x1FEC^"Encapsulated Legacy Message"^"101"^0
+0x1FED^"PC Polling Time"^"101"^0
+0x1FEF^"HTML Page"^"101"^0
+0x1FF0^"Encapsulated DIAG Response"^"101"^0
+0x1FF1^"GPS Information"^"101"^0
+0x1FF7^"Status Snapshot"^"101"^0
+0x1FF9^"Encapsulated Log Mask"^"101"^0
+0x1FFB^"Encapsulated Event"^"101"^0
+0x1FFC^"Log Annotation"^"101"^0
+0x1FFD^"Tool Version"^"101"^0
+0x1FFE^"Tool Generated Status"^"101"^0
+0x4000^"WCDMA Compressed Mode GSM Measurements"^"16389"^1
+0x4001^"Obsolete - WCDMA Power Control"^"16387"^1
+0x4002^"WCDMA UL MAC Traffic Volume Measurement Parameters"^"16385"^1
+0x4003^"WCDMA Finger Info For TA - Finger/Pilot Channel Parameters"^"16384"^1
+0x4004^"WCDMA DRX Mode"^"16384"^1
+0x4005^"UMTS Cell Reselection"^"16384"^1
+0x4006^"WCDMA Active/Neighbor Finger TA Info"^"16384"^1
+0x4008^"WCDMA RX Diversity Antenna Radiation Status"^"16384"^1
+0x4010^"WCDMA Power Control with Compressed Mode"^"16384"^1
+0x4011^"Internal - WCDMA Multi-Combiner Power Control"^"16384"^1
+0x4013^"WCDMA Compressed Mode Block Error Rate"^"16384"^1
+0x4014^"Internal - WCDMA RX Diversity Controller Info"^"16384"^1
+0x4015^"WCDMA AGC, Version 3"^"16384"^1
+0x4016^"WCDMA Active/Neighbor Finger TA Info, Version 2"^"16384"^1
+0x4017^"WCDMA List Search, Version 4"^"16384"^1
+0x4018^"WCDMA Step 1 Search, Version 3"^"16384"^1
+0x4019^"WCDMA Step 2 Search, Version 3"^"16384"^1
+0x401A^"WCDMA Step 3 Search, Version 3"^"16384"^1
+0x401B^"Internal - WCDMA RX Diversity Capacity/Quality Measurements"^"16384"^1
+0x401C^"WCDMA List Search, Version 5"^"16384"^1
+0x401D^"Internal - WCDMA F-DPCH Debug"^"16384"^1
+0x401E^"Internal - WCDMA PSC Scanner Pilot Info"^"16384"^1
+0x401F^"WCDMA CLTD Parameters"^"16384"^1
+0x4031^"WCDMA AGC, Version 4"^"16384"^1
+0x4100^"Obsolete - WCDMA Step 1 Search"^"16387"^1
+0x4101^"Obsolete - WCDMA Step 2 Search"^"16387"^1
+0x4102^"Obsolete - WCDMA Step 3 Search"^"16387"^1
+0x4103^"Obsolete - WCDMA List Search"^"16387"^1
+0x4104^"Obsolete - WCDMA Finger Info For TA"^"16387"^1
+0x4105^"WCDMA AGC"^"16384"^1
+0x4106^"Obsolete - WCDMA RACH Parameters"^"16387"^1
+0x4107^"Obsolete - WCDMA DRX Mode"^"16387"^1
+0x4108^"WCDMA Transport Channels Downlink"^"16384"^1
+0x4109^"WCDMA Transport Channels Uplink"^"16384"^1
+0x410A^"WCDMA Common Physical Channels Downlink"^"16384"^1
+0x410B^"WCDMA Dedicated Physical Channels Downlink"^"16384"^1
+0x410C^"WCDMA Physical Channels Uplink"^"16384"^1
+0x410D^"WCDMA PRACH"^"16384"^1
+0x410E^"WCDMA RM UL"^"16384"^1
+0x4110^"WCDMA Active Set"^"16384"^1
+0x4111^"WCDMA Neighbor Set"^"16384"^1
+0x4112^"WCDMA Downlink Transport Channel Debugging"^"16384"^1
+0x4113^"WCDMA TB Set Status (CRC)"^"16384"^1
+0x4114^"Obsolete - WCDMA Uplink And Downlink Power Control"^"16387"^1
+0x4115^"WCDMA Downlink Transport Format Combination"^"16384"^1
+0x4116^"WCDMA Block Error Rate"^"16384"^1
+0x4117^"WCDMA MAC Uplink Logical Channel Parameters"^"16385"^1
+0x4118^"Obsolete - WCDMA RLC UL Ciphering"^"16387"^1
+0x4119^"WCDMA RLC UL States"^"16385"^1
+0x411A^"WCDMA RLC UL TM"^"16385"^1
+0x411B^"WCDMA RLC UL UM"^"16385"^1
+0x411C^"Obsolete - WCDMA RLC UL AM Configuration"^"16387"^1
+0x411D^"WCDMA MAC Downlink Logical Channel Parameters"^"16385"^1
+0x411E^"Obsolete - WCDMA RLC DL Ciphering"^"16387"^1
+0x411F^"WCDMA RLC DL States"^"16385"^1
+0x4120^"WCDMA RLC DL TM"^"16385"^1
+0x4121^"WCDMA RLC DL UM"^"16385"^1
+0x4122^"Obsolete - WCDMA RLC DL AM Configuration"^"16387"^1
+0x4123^"WCDMA RACH Control Parameters"^"16385"^1
+0x4124^"WCDMA Uplink Transport Format Combination"^"16385"^1
+0x4125^"WCDMA RRC States"^"16386"^1
+0x4126^"WCDMA RRC Protocol Errors"^"16386"^1
+0x4127^"WCDMA Cell ID"^"16386"^1
+0x4128^"WCDMA UL Channel Mapping"^"16386"^1
+0x4129^"WCDMA DL Channel Mapping"^"16386"^1
+0x412B^"Internal - WCDMA SIB"^"16386"^1
+0x412E^"Obsolete - WCDMA Reference Position"^"16387"^1
+0x412F^"WCDMA RRC Signaling Messages"^"16386"^1
+0x4132^"WCDMA RLC DL AM Configuration"^"16385"^1
+0x4133^"WCDMA RLC UL AM Configuration"^"16385"^1
+0x4134^"WCDMA DL AM Data PDU"^"16385"^1
+0x4135^"WCDMA DL AM Signaling PDU"^"16385"^1
+0x4138^"WCDMA RLC UL AM Statistics, Version 2"^"16385"^1
+0x4139^"Obsolete - WCDMA RLC UL AM Statistics"^"16387"^1
+0x413A^"WCDMA Radio Bearer Rates"^"16385"^1
+0x413B^"WCDMA UL AM Data PDU"^"16385"^1
+0x413C^"WCDMA UL AM Signaling PDU"^"16385"^1
+0x413F^"WCDMA List Search, Version 3"^"16384"^1
+0x4141^"Obsolete - WCDMA RLC UL AM Statistics"^"16387"^1
+0x4142^"Obsolete - WCDMA RLC DL AM Statistics"^"16387"^1
+0x4143^"Obsolete - WCDMA RLC UL AM PDU"^"16387"^1
+0x4144^"Obsolete - WCDMA RLC DL AM PDU"^"16387"^1
+0x4145^"WCDMA RLC UL AM Control PDU"^"16385"^1
+0x4146^"WCDMA RLC DL AM Control PDU"^"16385"^1
+0x4147^"Obsolete - WCDMA Finger Info For TA - Finger/Pilot Channel Parameters"^"16387"^1
+0x4148^"Obsolete - WCDMA List Search"^"16387"^1
+0x4149^"Obsolete - WCDMA RLC UL AM Statistics V2"^"16387"^1
+0x414A^"WCDMA RLC DL AM Statistics"^"16385"^1
+0x414B^"Obsolete - WCDMA RLC UL AM PDU V2"^"16387"^1
+0x414C^"WCDMA Step 1 Search, Version 2"^"16384"^1
+0x414D^"WCDMA Step 2 Search, Version 2"^"16384"^1
+0x414E^"WCDMA Step 3 Search, Version 2"^"16384"^1
+0x414F^"WCDMA List Search, Version 2"^"16384"^1
+0x4150^"Obsolete - WCDMA Uplink And Downlink Power Control V2"^"16387"^1
+0x4151^"Obsolete - WCDMA RLC UL Ciphering V2"^"16387"^1
+0x4152^"Obsolete - WCDMA RLC DL Ciphering V2"^"16387"^1
+0x4153^"Reserved - WCDMA L1 Ciphering"^"16384"^1
+0x4155^"WCDMA CM Interfrequency Step 1 Search"^"16384"^1
+0x4156^"WCDMA CM Interfrequency List Search"^"16384"^1
+0x4158^"Obsolete - WCDMA DL RLC Cipher PDU Configuration"^"16387"^1
+0x4159^"Obsolete - WCDMA UL RLC Cipher PDU Configuration"^"16387"^1
+0x4160^"WCDMA RACH Parameters"^"16384"^1
+0x4161^"WCDMA RLC UL Ciphering"^"16385"^1
+0x4162^"WCDMA RLC DL Ciphering"^"16385"^1
+0x4163^"Internal - WCDMA L1 UL TFC Power Limiting"^"16384"^1
+0x4165^"WCDMA AGC, Version 2"^"16384"^1
+0x4166^"WCDMA UL DPCH Power Information"^"16384"^1
+0x4168^"WCDMA DL RLC Cipher PDU Configuration"^"16385"^1
+0x4169^"WCDMA UL RLC Cipher PDU Configuration"^"16385"^1
+0x416B^"Internal - WCDMA Combiner Timing"^"16384"^1
+0x4170^"WCDMA List Search, Version 6"^"16384"^1
+0x4171^"WCDMA Downlink Transport Channels V2"^"16450"^1
+0x4172^"WCDMA Downlink Transport Channel Debugging V2"^"16450"^1
+0x4173^"WCDMA Downlink Transport Format Combination V2"^"16450"^1
+0x4174^"Internal - WCDMA CM Interfrequency Step 1 Search, Version 2"^"16384"^1
+0x4175^"Internal - WCDMA CM Interfrequency PN, Version 2"^"16384"^1
+0x4176^"WCDMA AGC Edition 2"^"16384"^1
+0x4177^"WCDMA Step 1 Search Edition 2"^"16384"^1
+0x4178^"WCDMA Search NASTT Edition 2"^"16384"^1
+0x4179^"WCDMA PN Search Edition 2"^"16384"^1
+0x4180^"WCDMA RACH Preamble"^"4"^1
+0x4181^"WCDMA RACH Timing"^"4"^1
+0x4182^"Internal - WCDMA TX Config"^"4"^1
+0x4183^"WCDMA Step 1 Search, Version 10"^"16384"^1
+0x4184^"WCDMA Search NASTT"^"16384"^1
+0x4185^"WCDMA PN Search"^"16384"^1
+0x4186^"WCDMA Finger Temporal Analysis V2"^"16384"^1
+0x4188^"Internal - WCDMA EQ Reconfig"^"16450"^1
+0x4189^"Internal - WCDMA QICE Debug Info"^"16450"^1
+0x418B^"WCDMA Flexible RLC DL AM PDU"^"16385"^1
+0x4200^"WCDMA HSDPA Configuration"^"16450"^1
+0x4201^"WCDMA HSDPA UL Beta Gain Table"^"16450"^1
+0x4202^"WCDMA Finger TA - HS Information"^"16450"^1
+0x4203^"WCDMA HSDPA Demodulator Control Table"^"16450"^1
+0x4204^"WCDMA HSDPA Modulator Control Table"^"16450"^1
+0x4205^"Obsolete - WCDMA HS Decode Status"^"16387"^1
+0x4206^"WCDMA HS Decode Status With Data V1"^"16450"^1
+0x4207^"WCDMA HS-SCCH Statistics"^"16450"^1
+0x4208^"WCDMA HS-DSCH HARQ Statistics"^"16450"^1
+0x4209^"Internal - WCDMA HS CQI Statistics"^"16450"^1
+0x420A^"Obsolete - WCDMA Compact UL HS DPCCH Information"^"16387"^1
+0x420B^"WCDMA UL HS DPCCH Information"^"16450"^1
+0x420C^"WCDMA TB Set Status V2"^"16450"^1
+0x420D^"Internal - WCDMA HS Pessimistic CQI"^"16450"^1
+0x420E^"Obsolete - WCDMA HS Amplitude And Energy Estimation V1"^"16387"^1
+0x420F^"Internal - WCDMA HS Pessimistic CQI Log Packet Version 2"^"16450"^1
+0x4210^"WCDMA MAC HS Configuration"^"16451"^1
+0x4211^"WCDMA MAC HS Headers"^"16451"^1
+0x4212^"WCDMA MAC HS Status"^"16451"^1
+0x4213^"WCDMA MAC HS Reset"^"16451"^1
+0x4214^"WCDMA HS Decode Status With Data V2"^"16450"^1
+0x4215^"Internal - WCDMA HS Equalizer Debug"^"16450"^1
+0x4216^"Internal - WCDMA HS Equalizer Reconfiguration"^"16450"^1
+0x4217^"Internal - WCDMA TB Set Status V3"^"16450"^1
+0x4218^"Internal - WCDMA HS Amplitude And Energy Estimation V2"^"16450"^1
+0x4219^"Internal - WCDMA HS Amplitude And Energy Estimation V3"^"16450"^1
+0x421A^"Internal - WCDMA TB Set Status V4"^"16450"^1
+0x421B^"Internal - WCDMA Downlink TB Set Status"^"16450"^1
+0x421C^"WCDMA UL HS DPCCH Information V2"^"16450"^1
+0x421D^"Internal - WCDMA HS Amplitude and Energy Estimation V1"^"16450"^1
+0x421E^"WCDMA MAC-ehs Reassembly"^"16450"^1
+0x421F^"WCDMA HS-SCCH Statistics Edition 2"^"16450"^1
+0x4220^"WCDMA MAC HS Configuration V2"^"16451"^1
+0x4221^"WCDMA HS-DSCH HARQ Statistics V2"^"16450"^1
+0x4222^"WCDMA HS Decode Status With Data V3"^"16450"^1
+0x4223^"Internal - WCDMA MIMO Channel Analysis"^"16450"^1
+0x4224^"Internal - WCDMA MIMO Demod"^"16450"^1
+0x4225^"WCDMA HSDPA Configuration V2"^"16450"^1
+0x4226^"Internal - WCDMA Equalizer Debug"^"16450"^1
+0x4227^"Internal - WCDMA SCHIC Debug"^"4"^1
+0x4228^"Internal - WCDMA QDSP6 MIPS Profiling"^"4"^1
+0x4229^"Internal - WCDMA QDSP6 All-Wait Percent"^"4"^1
+0x422A^"Internal - Watermarks Tracing Log Packet"^"4"^1
+0x422E^"WCDMA HS CQI Statistics Edition 2"^"16450"^1
+0x4230^"WCDMA MBMS Configuration"^"16384"^1
+0x4231^"WCDMA MBMS MICH Demodulation Information"^"16384"^1
+0x4233^"Internal - EWC Debug Info Version 1"^"4"^1
+0x4235^"WCDMA CSoHS Downlink Voice Data Information"^"16385"^1
+0x4236^"WCDMA CSoHS Uplink Voice Data Information"^"16385"^1
+0x4238^"Internal - EWC Regular Info Version 1"^"4"^1
+0x4239^"Downlink Datapath Log Packet"^"16385"^1
+0x423A^"CPC-DRX State Machine Log Packet"^"4"^1
+0x4301^"WCDMA EUL DL Channel Configuration"^"16460"^1
+0x4302^"Internal - WCDMA EUL DL Decode Information"^"16460"^1
+0x4303^"WCDMA EUL UL Channel Configuration"^"16460"^1
+0x4304^"Internal - WCDMA EUL R Combo Table"^"16460"^1
+0x4305^"WCDMA EUL UL E-DPCH"^"16460"^1
+0x4306^"Internal - WCDMA EUL UL E-DPCH Debug"^"16460"^1
+0x4307^"Internal - WCDMA EUL E-TFC Restriction"^"16460"^1
+0x4308^"Internal - WCDMA EUL Rate Matching"^"16460"^1
+0x4309^"WCDMA EUL Combined L1/MAC"^"16461"^1
+0x4310^"WCDMA EUL Ciphering"^"16461"^1
+0x4311^"WCDMA EUL Link Statistics"^"16461"^1
+0x4312^"Internal - WCDMA EUL Uplink Physical Channel TX Information"^"16460"^1
+0x4313^"Internal - WCDMA Uplink TX RF Debug"^"16460"^1
+0x4321^"WCDMA EUL MAC E/ES Configuration"^"16461"^1
+0x4322^"WCDMA EUL MAC E/ES Header"^"16461"^1
+0x4323^"Internal - WCDMA EUL E-TFC Selection"^"16461"^1
+0x4324^"Internal - EUL E-HICH Decoding"^"16460"^1
+0x4325^"Internal - EUL E-RGCH Decoding"^"16460"^1
+0x4326^"Internal - EUL E-AGCH Decoding"^"16460"^1
+0x4331^"WCDMA UL UM PDU Data"^"16461"^1
+0x4332^"WCDMA DL UM PDU Data"^"16461"^1
+0x4333^"Internal - WCDMA EUL IRQ Flow Control"^"16461"^1
+0x4336^"WCDMA EUL E-TFC Restriction Version 1"^"16460"^1
+0x4770^"WCDMA DL TFCI Status"^"16384"^1
+0x4771^"Internal - WCDMA HS Equalizer Debug V1"^"16450"^1
+0x4773^"WCDMA TFCI Log Packet"^"4"^1
+0x4776^"WCDMA XO Log Packet"^"16384"^1
+0x4900^"H324 Downlink 223 MUX PDU"^"16388"^1
+0x4901^"H324 Downlink Audio SDU"^"16388"^1
+0x4902^"H324 Downlink Video SDU"^"16388"^1
+0x4903^"H324 Downlink 245 SIG SDU"^"16388"^1
+0x4904^"H324 Uplink 223 MUX PDU"^"16388"^1
+0x4905^"H324 Uplink Audio SDU"^"16388"^1
+0x4906^"H324 Uplink Video SDU"^"16388"^1
+0x4907^"H324 Uplink 245 SIG SDU"^"16388"^1
+0x4908^"H324 Uplink Adaptation Layer 245"^"16388"^1
+0x4909^"H324 Downlink Adaptation Layer 245"^"16388"^1
+0x490A^"H324 Video Statistics"^"16388"^1
+0x490B^"H324 Video Encoder"^"16388"^1
+0x490C^"H324 Video Decoder"^"16388"^1
+0x490D^"H324 Uplink Audio Sequence Number Time Stamp"^"16388"^1
+0x490E^"H324 Downlink Audio Sequence Number Time Stamp"^"16388"^1
+0x490F^"H324 Uplink Video Time Stamp"^"16388"^1
+0x4910^"H324 Downlink Video Time Stamp"^"16388"^1
+0x4911^"Reserved - QVP"^"16388"^1
+0x4912^"Reserved - QVP"^"16388"^1
+0x4913^"Reserved - QVP"^"16388"^1
+0x4914^"Reserved - QVP"^"16388"^1
+0x4915^"Reserved - QVP"^"16388"^1
+0x4916^"Reserved - QVP"^"16388"^1
+0x4917^"Reserved - QVP"^"16388"^1
+0x4918^"Reserved - QVP"^"16388"^1
+0x4919^"Reserved - QVP"^"16388"^1
+0x491A^"Reserved - QVP"^"16388"^1
+0x491B^"Reserved - QVP"^"16388"^1
+0x491C^"Reserved - QVP"^"16388"^1
+0x491D^"Reserved - QVP"^"16388"^1
+0x491E^"Reserved - QVP"^"16388"^1
+0x491F^"Reserved - QVP"^"16388"^1
+0x4920^"Reserved - QVP"^"16388"^1
+0x4FF6^"Tool Generated WCDMA Status"^"104"^0
+0x5000^"GSM PLT Packet"^"20480"^1
+0x5001^"GSM CFA Packet"^"20480"^1
+0x5064^"GSM L1 Power Scan Results"^"20480"^1
+0x5065^"GSM L1 FCCH Acquisition"^"20480"^1
+0x5066^"GSM L1 SCH Acquisition"^"20480"^1
+0x506B^"Obsolete - GSM L1 Message Metrics"^"20485"^1
+0x506C^"GSM L1 Burst Metrics"^"20480"^1
+0x506F^"GSM L1 Paging Data"^"20480"^1
+0x5070^"GSM L1 Surround Cell Engine Mode"^"20480"^1
+0x5071^"GSM L1 Surround Cell BA List"^"20480"^1
+0x5072^"GSM L1 Serving Cell Info"^"20480"^1
+0x5073^"GSM L1 GSTMR Adjust"^"20480"^1
+0x5074^"Obsolete - GSM L1 PDM Adjust"^"20485"^1
+0x5075^"GSM L1 Neighbor Cell Acquisition"^"20480"^1
+0x5076^"GSM L1 TxLev/Timing Advance"^"20480"^1
+0x5077^"Obsolete - GSM L1 Neighbor BCCH Decode"^"20485"^1
+0x5078^"GSM L1 PDM Adjust V2"^"20480"^1
+0x5079^"GSM L1 Enhanced Message Metrics"^"20480"^1
+0x507A^"GSM L1 Serving Auxiliary Measurments"^"20480"^1
+0x507B^"GSM L1 Neighbor Cell Auxiliary Measurments"^"20480"^1
+0x507C^"GSM AFC Adjust"^"20480"^1
+0x507D^"GSM Ncell Metrics"^"5"^1
+0x5082^"GSM Monitor Bursts V2"^"20480"^1
+0x5083^"GSM L1 Neighbor Cell SCH Burst Metrics"^"20480"^1
+0x5084^"GSM L1 Neighbor Cell SCH Message Metrics"^"20480"^1
+0x5085^"GSM L1 Neighbor Cell BCCH Burst Metrics"^"20480"^1
+0x5086^"GSM L1 Neighbor Cell BCCH Message Metrics"^"20480"^1
+0x5087^"GSM L1 Neighbor Cell SCH Metrics V2"^"20480"^1
+0x5088^"GSM L1 Transmit Burst Metrics"^"20480"^1
+0x508C^"GSM MDSP Command Information"^"20480"^1
+0x508D^"GSM GL1 Hardware Command"^"20480"^1
+0x508E^"GSM MDSP Scaling Factors"^"20480"^1
+0x5090^"GSM MDSP Applications"^"20480"^1
+0x5091^"GSM SAIC Metrics"^"20480"^1
+0x50C8^"GSM L2 States"^"20481"^1
+0x50C9^"GSM L2 Transmission Status"^"20481"^1
+0x50CA^"GSM L2 Outstanding Frame"^"20481"^1
+0x512C^"GSM RR State"^"20482"^1
+0x512D^"Obsolete - GSM RR Link Failure Detection"^"20485"^1
+0x512E^"GSM RR Protocol Error"^"20482"^1
+0x512F^"GSM RR Signaling Message"^"20482"^1
+0x5130^"GSM RR Cell Selection & Reselection Parameters"^"20482"^1
+0x5131^"GSM RR RACH Control Parameters"^"20482"^1
+0x5132^"GSM RR Control Channel Desc Parameters"^"20482"^1
+0x5133^"GSM RR Cell Options"^"20482"^1
+0x5134^"GSM RR Cell Information"^"20482"^1
+0x5135^"GSM RR Channel Configuration"^"20482"^1
+0x5136^"GSM RR Ciphering Mode"^"20482"^1
+0x5137^"GSM RR Cell Selection And Reselection Measurements"^"20482"^1
+0x5138^"GSM RR Downlink Signaling Counter"^"20482"^1
+0x5139^"GSM RR Radio Link Timeout Counter"^"20482"^1
+0x513A^"GSM RR SACCH Measurement Report"^"20482"^1
+0x513C^"GSM RR BA List"^"20482"^1
+0x5190^"Obsolete - GSM Circuit Switched Data RX Frame"^"20485"^1
+0x5191^"Obsolete - GSM Circuit Switched Data TX Frame"^"20485"^1
+0x51F4^"GPRS Indicators"^"20490"^1
+0x51F5^"GPRS General Parameters"^"20490"^1
+0x51F6^"GPRS Cell Options"^"20490"^1
+0x51F7^"GPRS Power Control Parameters"^"20490"^1
+0x51F8^"GPRS Mobile Allocation"^"20490"^1
+0x51F9^"GPRS PBCCH Description"^"20490"^1
+0x51FA^"GPRS GRR State"^"20490"^1
+0x51FB^"GPRS GRR Cell Reselection Parameters"^"20490"^1
+0x51FC^"GPRS GRR Cell Reselection Measurements"^"20490"^1
+0x51FD^"GPRS Packet System Information 1"^"20484"^1
+0x51FE^"GPRS Packet System Information 2"^"20484"^1
+0x51FF^"GPRS Packet System Information 3"^"20484"^1
+0x5200^"GPRS RLC UL Abnormal Release Counts"^"20491"^1
+0x5201^"GPRS RLC UL Event Counts"^"20491"^1
+0x5202^"GPRS RLC UL Statistics"^"20491"^1
+0x5205^"GPRS/EGPRS UL RLC Header"^"20497"^1
+0x5206^"GPRS/EGPRS DL RLC Header"^"20497"^1
+0x5207^"GPRS/EGPRS RLC UL Statistics"^"20497"^1
+0x5208^"GPRS/EGPRS RLC DL Statistics"^"20497"^1
+0x5209^"EGPRS RLC UL Ack/Nack"^"20497"^1
+0x520A^"GPRS RLC DL Statistics"^"20491"^1
+0x520B^"Obsolete - GPRS RLC UL Ack/Nack Parameters"^"20491"^1
+0x520C^"Obsolete - GPRS RLC DL Ack/Nack Parameters"^"20491"^1
+0x520D^"GPRS RLC UL Release Indicator"^"20491"^1
+0x520E^"GPRS RLC DL Release Indicator"^"20491"^1
+0x520F^"GPRS RLC UL Ack/Nack Parameters"^"20491"^1
+0x5210^"GPRS RLC DL Ack/Nack Parameters"^"20491"^1
+0x5211^"EGPRS RLC DL Ack/Nack"^"20497"^1
+0x5212^"GPRS LLC ME (LLME) Information"^"20492,20500"^1
+0x5213^"GPRS LLC SAPI States"^"20492,20500"^1
+0x5214^"GPRS LLC XID Information"^"20492,20500"^1
+0x5215^"GPRS LLC PDU Statistics"^"20492,20500"^1
+0x5216^"GPRS LLC Periodic Statistics"^"20492,20500"^1
+0x5217^"GPRS LLC Ready Timer Status"^"20492,20500"^1
+0x5218^"GPRS LLC UI Send PDU"^"20492,20500"^1
+0x5219^"GPRS LLC UI Receive PDU"^"20492,20500"^1
+0x521A^"GPRS LLC Ready Timer Status V2"^"20492"^1
+0x521C^"GPRS SNDCP Active PDP Contexts"^"20493,20501"^1
+0x521D^"GPRS SNDCP PDP Context Information"^"20493,20501"^1
+0x521E^"GPRS SNDCP States"^"20493,20501"^1
+0x521F^"GPRS SNDCP PDU Statistics"^"20493,20501"^1
+0x5220^"GPRS SNDCP UL TCP Header"^"20493,20501"^1
+0x5221^"GPRS SNDCP DL TCP Header"^"20493,20501"^1
+0x5226^"GPRS MAC Signaling Messages"^"20494"^1
+0x5227^"GPRS MAC State"^"20494"^1
+0x5228^"GPRS MAC UL TBF Establish"^"20494"^1
+0x5229^"GPRS MAC UL TBF Release"^"20494"^1
+0x522A^"GPRS MAC DL TBF Establish"^"20494"^1
+0x522B^"GPRS MAC DL TBF Release"^"20494"^1
+0x522C^"GPRS/EGPRS UL MAC Ack/Nack"^"20498"^1
+0x522D^"GPRS/EGPRS DL MAC Ack/Nack"^"20498"^1
+0x522E^"GPRS DL SRB Loopback Mode Bit Stream"^"20495"^1
+0x5230^"GPRS SM/GMM OTA Signaling Messages"^"20492,20500"^1
+0x5231^"GPRS Air Interface Summary"^"20492,20500"^1
+0x5232^"GPRS L1 AGC"^"20495"^1
+0x5233^"GPRS Timing Advance"^"20495"^1
+0x5234^"GPRS Power Control"^"20495"^1
+0x5235^"GPRS L1 Transfer Summary"^"20495"^1
+0x5236^"GPRS L1 Hopping ARFCNs"^"20495"^1
+0x5237^"GPRS TX Schedule Results"^"20495"^1
+0x523A^"GPRS Frame Scheduler Information"^"20495"^1
+0x523F^"GPRS UL TBF Data Block Count"^"20495"^1
+0x5245^"GPRS L1 Burst Metrics A"^"20495"^1
+0x5246^"GPRS L1 Burst Metrics B"^"20495"^1
+0x5247^"GPRS L1 Burst Metrics C"^"20495"^1
+0x5248^"GPRS L1 Burst Metrics D"^"20495"^1
+0x5249^"GPRS L1 Burst Metrics E"^"20495"^1
+0x524D^"GPRS L1 Message Metrics A, Version 2"^"20495"^1
+0x524E^"GPRS L1 Message Metrics B, Version 2"^"20495"^1
+0x524F^"GPRS L1 Message Metrics C, Version 2"^"20495"^1
+0x5250^"GPRS L1 Message Metrics D, Version 2"^"20495"^1
+0x5251^"GPRS DLPTCCH Burst Metric"^"20495"^1
+0x5252^"GPRS DLPTCCH Message Metric"^"20495"^1
+0x5253^"GPRS L1 Message Metrics E, Version 2"^"20495"^1
+0x5258^"GSM Idle Mode WCDMA Known List"^"5"^1
+0x5259^"GSM Dedicated Mode Fill Sample RAM"^"5"^1
+0x525A^"GSM Dedicated Mode WCDMA Cell List"^"5"^1
+0x525B^"GSM RR 3G Measurement Report"^"20482"^1
+0x525C^"GSM Idle Mode 3G Reselect Reject"^"20482"^1
+0x525D^"GSM G2W Searcher Step 1"^"20480"^1
+0x525E^"GSM G2W Searcher Step 2"^"20480"^1
+0x525F^"GSM G2W Searcher Step 3"^"20480"^1
+0x5260^"GSM G2W Searcher List"^"20480"^1
+0x5262^"GPRS GRR 3G Measurement Parameter"^"20490"^1
+0x5263^"GPRS GRR 3G Reselection Measurements"^"20490"^1
+0x5384^"WMS Receive CB"^"16"^1
+0x5400^"Internal - GSM Frame Number Adjustment"^"20487"^1
+0x5408^"Obsolete - GSM Monitor Bursts"^"20485"^1
+0x5410^"Obsolete - GSM SACCH Reports Rev 0"^"20485"^1
+0x5411^"Obsolete - GSM SACCH Reports Rev 1"^"20485"^1
+0x5A64^"GSM DSDS Power Scan Results"^"100012"^1
+0x5A65^"GSM DSDS L1 FCCH Acquisition"^"100012"^1
+0x5A66^"GSM DSDS L1 SCH Acquisition"^"100012"^1
+0x5A6C^"GSM DSDS L1 Burst Metrics"^"100012"^1
+0x5A6F^"GSM DSDS Paging Data"^"100012"^1
+0x5A70^"GSM DSDS Surround Cell Engine Mode"^"100012"^1
+0x5A71^"GSM DSDS Surround Cell BA List"^"100012"^1
+0x5A72^"GSM DSDS L1 Serving Cell Info"^"100012"^1
+0x5A73^"GSM DSDS L1 GSTMR ADJ"^"100012"^1
+0x5A75^"GSM DSDS L1 Neighbor Cell Acquisition"^"100012"^1
+0x5A76^"GSM DSDS L1 TxLev Timing Advance"^"100012"^1
+0x5A78^"GSM DSDS L1 PDM Adjust, Ver2"^"100012"^1
+0x5A79^"GSM DSDS L1 Enhanced Message Metrics"^"100012"^1
+0x5A7A^"GSM DSDS L1 Serving Auxiliary Measurements"^"100012"^1
+0x5A7B^"GSM DSDS L1 Neighbor Cell Auxiliary Measurements"^"100012"^1
+0x5A7C^"GSM DSDS AFC Adjust"^"100012"^1
+0x5A82^"GSM DSDS L1 Monitor Bursts"^"100012"^1
+0x5A83^"GSM DSDS L1 Neighbor Cell SCH Burst Metrics"^"100012"^1
+0x5A84^"GSM DSDS L1 Neighbor Cell SCH Message Metrics"^"100012"^1
+0x5A85^"GSM DSDS L1 Neighbor Cell BCCH Burst Metrics"^"100012"^1
+0x5A86^"GSM DSDS L1 Neighbor Cell BCCH Message Metrics"^"100012"^1
+0x5A87^"GSM DSDS L1 neighbor cell SCH Metrics V2"^"100012"^1
+0x5A8C^"GSM DSDS MDSP Command"^"100012"^1
+0x5A8D^"GSM DSDS GL1 HW Command"^"100012"^1
+0x5A8E^"GSM DSDS MDSP scaling factors"^"100012"^1
+0x5AC8^"GSM DSDS L2 States"^"100012"^1
+0x5AC9^"GSM DSDS L2 Transmission Status"^"100012"^1
+0x5ACA^"GSM DSDS L2 Outstanding Frame"^"100012"^1
+0x5B2C^"GSM DSDS RR State"^"100012"^1
+0x5B2E^"GSM DSDS RR Protocol Error"^"100012"^1
+0x5B2F^"GSM DSDS RR Signaling Message"^"100012"^1
+0x5B30^"GSM DSDS RR Cell Selection And Reselection Parameters"^"100012"^1
+0x5B31^"GSM DSDS RR RACH Control Parameters"^"100012"^1
+0x5B32^"GSM DSDS RR Control Channel Desc Parameters"^"100012"^1
+0x5B33^"GSM DSDS RR Cell Options"^"100012"^1
+0x5B34^"GSM DSDS RR Cell Information"^"100012"^1
+0x5B35^"GSM DSDS RR Channel Configuration"^"100012"^1
+0x5B36^"GSM DSDS RR Ciphering Mode"^"100012"^1
+0x5B37^"GSM DSDS RR Cell Selection and Reselection Measurements"^"100012"^1
+0x5B38^"GSM DSDS RR Downlink Signaling Counter"^"100012"^1
+0x5B39^"GSM DSDS RR Radio Link Timeout"^"100012"^1
+0x5B3A^"GSM DSDS RR SACCH Report"^"100012"^1
+0x5B3C^"GSM DSDS RR BA List"^"100012"^1
+0x5C5C^"GSM DSDS RR 3G Rejected Cells"^"100012"^1
+0x5FF6^"Tool Generated GSM Status"^"105"^0
+0x6000^"Atlantis NI Start Parameters TSn3"^"6"^1
+0x6001^"Atlantis NI MLP LIR TSn4"^"6"^1
+0x6002^"Atlantis NI MLP LIA TSn5"^"6"^1
+0x6003^"Atlantis NI Per Attempt Statistics TSn5"^"6"^1
+0x6004^"Atlantis NI Final Statistics TSn6"^"6"^1
+0x6005^"Atlantis NI Test Completion Notification TSn7"^"6"^1
+0x6014^"Atlantis WAP Based Start Parameters TSw3"^"6"^1
+0x6015^"Atlantis WAP Based MLP LIR TSw4"^"6"^1
+0x6016^"Atlantis WAP Based Trigger Of LBS TSw5"^"6"^1
+0x6017^"Atlantis WAP Based MLP LIA TSw6"^"6"^1
+0x6018^"Atlantis WAP Based Trigger Of LBS TSw7"^"6"^1
+0x6019^"Atlantis WAP Based Per Attempt Statistics TSw8"^"6"^1
+0x601A^"Atlantis WAP Based Final Statistics TSw8"^"6"^1
+0x601B^"Atlantis WAP Based Test Completion Notification TSw9"^"6"^1
+0x7001^"UMTS Call Flow Analysis"^"28675"^1
+0x7002^"AAGPS Report Clock"^"28674"^1
+0x7003^"AAGPS Report Position"^"28674"^1
+0x7004^"AAGPS Report Position Status"^"28674"^1
+0x7005^"AAGPS Report Measurement"^"28674"^1
+0x7006^"AAGPS Report Measurement Status"^"28674"^1
+0x7007^"AAGPS Report Asynchronous Receiver Event"^"28674"^1
+0x7008^"AAGPS Report RF Status"^"28674"^1
+0x7009^"AAGPS Report Frequency Calibration"^"28674"^1
+0x700A^"Internal - AAGPS LSM Server Transmit"^"28674"^1
+0x700B^"Internal - AAGPS LSM Server Receive"^"28674"^1
+0x700C^"AAGPS Report Measurement Version 2"^"28674"^1
+0x700D^"AAGPS Report Prescribed Dwell"^"28674"^1
+0x700E^"AAGPS Report Time Tag"^"28674"^1
+0x7010^"AAGPS LSM Report GPS Interface Transmit"^"28674"^1
+0x7011^"AAGPS LSM Report GPS Interface Receive"^"28674"^1
+0x7012^"UMTS LSM Report Event"^"7"^1
+0x7013^"Internal - UMTS LSM Get Position Request"^"7"^1
+0x7014^"Internal - UMTS LSM Set Parameters Request"^"7"^1
+0x7015^"Internal - UMTS LSM End Session"^"7"^1
+0x7016^"Internal - UMTS LSM Notify Verify Response"^"7"^1
+0x7017^"UMTS LSM PDSM Position Report Callback"^"7"^1
+0x7018^"Internal - UMTS LSM PDSM PD Event Callback"^"7"^1
+0x7019^"Internal - UMTS LSM PDSM PA Event Callback"^"7"^1
+0x701A^"Internal - UMTS LSM PDSM Notify Verify Request"^"7"^1
+0x701B^"Internal - UMTS LSM PD Command Error"^"7"^1
+0x701C^"Internal - UMTS LSM PDSM PA Command Error"^"7"^1
+0x701D^"Internal - AAGPS Report Uncertainty Ellipse"^"28674"^1
+0x701E^"AAGPS Report Position Version 2"^"28674"^1
+0x701F^"AAGPS Report Measurement Version 3"^"28674"^1
+0x7130^"UMTS NAS GMM State"^"28672"^1
+0x7131^"UMTS NAS MM State"^"28672"^1
+0x7132^"UMTS NAS REG State"^"28672"^1
+0x7133^"UMTS NAS CS Connection Management Call Setup"^"28672"^1
+0x7134^"UMTS NAS PS Connection Management"^"28672"^1
+0x7135^"UMTS NAS MM Characteristics"^"28672"^1
+0x7136^"UMTS NAS QoS"^"28672"^1
+0x7137^"UMTS NAS Connection Bearer Capability"^"28672"^1
+0x7138^"UMTS UE Dynamic ID"^"28672"^1
+0x7139^"UMTS UE Static ID"^"28672"^1
+0x713A^"UMTS NAS Signaling Messages"^"28672"^1
+0x713B^"WCDMA Call Flow Analyzer (Unused)"^"28672"^1
+0x713C^"Internal - UMTS NAS Error Message"^"28672"^1
+0x713D^"UMTS NAS CS Connection Management Call Release Info"^"28672"^1
+0x713E^"UMTS NAS CS Connection Management Call Change Info"^"28672"^1
+0x713F^"UMTS TX Vocoder Frame"^"28673"^1
+0x7140^"UMTS RX Vocoder Frame"^"28673"^1
+0x7141^"UMTS CS Data RX Frames"^"28680"^1
+0x7142^"UMTS CS Data TX Frames"^"28680"^1
+0x7143^"UMTS TX Vocoder Frame Version 2"^"28673"^1
+0x7144^"UMTS RX Vocoder Frame Version 2"^"28673"^1
+0x7150^"UMTS NAS EPLMN List"^"28672"^1
+0x7151^"UMTS NAS FPLMN List Update"^"28672"^1
+0x7152^"UMTS NAS FPLMN List"^"28672"^1
+0x7153^"UMTS NAS HPLMN Search Timer Start"^"28672"^1
+0x7154^"UMTS NAS HPLMN Search Timer Expire"^"28672"^1
+0x7155^"UMTS NAS HPLMN Search Start"^"28672"^1
+0x7156^"UMTS NAS HPLMN Search End"^"28672"^1
+0x7200^"High Volume"^"28675"^1
+0x7201^"CC_MM"^"28676"^1
+0x7202^"MN_CM"^"28676"^1
+0x7203^"MN_CC"^"28676"^1
+0x7204^"MN_SS"^"28676"^1
+0x7205^"MN_SMS"^"28676"^1
+0x7206^"Timer"^"28675"^1
+0x7207^"CM_REG"^"28676"^1
+0x7208^"MN_REG"^"28676"^1
+0x7209^"MM_RR"^"28676"^1
+0x720A^"MM_REG"^"28676"^1
+0x720C^"GHDI_EXPORT"^"28676"^1
+0x720D^"GSDI"^"28676"^1
+0x7211^"RR_L2"^"28678"^1
+0x7212^"RR_L1"^"28678"^1
+0x7219^"L2_L1"^"28678"^1
+0x721B^"L1_L1"^"28678"^1
+0x721D^"RABM_SM"^"28676"^1
+0x721E^"SNDCP_SM"^"28676"^1
+0x721F^"CM_SM"^"28676"^1
+0x7220^"CNM_RABM"^"28676"^1
+0x7221^"RABM_RRC"^"28676"^1
+0x7222^"MN_UASMS"^"28676"^1
+0x7230^"RRC_MAC"^"28679"^1
+0x7231^"RRC_RLC"^"28679"^1
+0x7232^"RRC_RR"^"28679"^1
+0x725A^"L1_LOCAL"^"28679"^1
+0x725B^"L1_EXT"^"28679"^1
+0x725C^"L2DL"^"28679"^1
+0x725D^"L2UL"^"28679"^1
+0x725E^"RRC_INT"^"28679"^1
+0x725F^"RRC_L1"^"28679"^1
+0x7264^"MM_RRC"^"28676"^1
+0x7265^"GMM_SMS"^"28676"^1
+0x7266^"GMM_SM"^"28676"^1
+0x7267^"GMM_RABM"^"28676"^1
+0x726D^"CM_RABM"^"28676"^1
+0x72C8^"MAC_L1"^"28677"^1
+0x72C9^"MAC_RR"^"28677"^1
+0x72CA^"RLC_L1"^"28677"^1
+0x72CB^"MAC_RLC"^"28677"^1
+0x72CC^"MAC_MAC"^"28677"^1
+0x72CD^"RLC_LLC"^"28677"^1
+0x72CE^"LLC_GMM"^"28677"^1
+0x72CF^"LLC_SNDCP"^"28677"^1
+0x72D0^"SNDCP_PS"^"28677"^1
+0x7404^"UMTS Call Info"^"7"^1
+0x7B30^"UMTS DS NAS GMM State"^"100013"^1
+0x7B31^"UMTS DS NAS MM State"^"100013"^1
+0x7B32^"UMTS DS NAS REG State"^"100013"^1
+0x7B33^"UMTS DS NAS CS Connection Management Call Setup"^"100013"^1
+0x7B34^"UMTS DS NAS PS Connection Management"^"100013"^1
+0x7B35^"UMTS DS NAS MM Characteristics"^"100013"^1
+0x7B36^"UMTS DS NAS QoS"^"100013"^1
+0x7B37^"UMTS DS NAS Connection Bearer Capability"^"100013"^1
+0x7B38^"UMTS DS UE Dynamic ID"^"100013"^1
+0x7B39^"UMTS DS UE Static ID"^"100013"^1
+0x7B3A^"UMTS DS NAS Signaling Messages"^"100013"^1
+0x7B3C^"Internal - UMTS DS NAS Error Message"^"100013"^1
+0x7B3D^"UMTS DS NAS CS Connection Management Call Release Info"^"100013"^1
+0x7B3E^"UMTS DS NAS CS Connection Management Call Change Info"^"100013"^1
+0x7B50^"UMTS DS NAS EPLMN List"^"100013"^1
+0x7B51^"UMTS DS NAS FPLMN List Update"^"100013"^1
+0x7B52^"UMTS DS NAS FPLMN List"^"100013"^1
+0x7B53^"UMTS DS NAS HPLMN Search Timer Start"^"100013"^1
+0x7B54^"UMTS DS NAS HPLMN Search Timer Expire"^"100013"^1
+0x7B55^"UMTS DS NAS HPLMN Search Start"^"100013"^1
+0x7B56^"UMTS DS NAS HPLMN Search End"^"100013"^1
+0xA104^"Internal - ESG Provider Discovery Descriptor"^"10"^1
+0xA105^"Internal - ESG Access Descriptor"^"10"^1
+0xA106^"Internal - ESG Fragment Management Information"^"10"^1
+0xA107^"Internal - ESG Main Fragment"^"10"^1
+0xA108^"Internal - ESG Content Fragment"^"10"^1
+0xA109^"Internal - ESG Schedule Event Fragment"^"10"^1
+0xA10A^"Internal - ESG Service Fragment"^"10"^1
+0xA10B^"Internal - ESG Service Bundle Fragment"^"10"^1
+0xA10C^"Internal - ESG Acquisition Fragment"^"10"^1
+0xA10D^"Internal - ESG Purchase Fragment"^"10"^1
+0xA10E^"Internal - ESG Purchase Channel Fragment"^"10"^1
+0xA10F^"Internal - ESG Auxiliary Data Fragment"^"10"^1
+0xA110^"Internal - ESG Private Auxiliary Data Fragment"^"10"^1
+0xA120^"DTV DVBH MPE Frame Statistics"^"10"^1
+0xA121^"DVB-H MPE Service Info"^"50001"^1
+0xA122^"DVB-H Platform List"^"50001"^1
+0xA150^"Internal - DTV DVBH Security STKM Information"^"10"^1
+0xA151^"Internal - DTV DVBH Security CID Information"^"10"^1
+0xA152^"Internal - DTV DVBH Security STKM Parse"^"10"^1
+0xA209^"Internal - DTV DVB-H Transport Stream Packet"^"10"^1
+0xA301^"Internal - DVB-H UBM L1 Control PID Information"^"50001"^1
+0xA302^"Internal - DVB-H UBM L1 Raw Data PID Information"^"50001"^1
+0xA303^"Internal - DVB-H UBM L1 CRC Data PID Information"^"50001"^1
+0xA304^"DVB-H UBM L1 Transport Stream(TPS) Information"^"50001"^1
+0xA305^"DVB-H UBM L1 MPE-FEC Information"^"50001"^1
+0xA306^"DVB-H UBM L1 Status Information"^"50001"^1
+0xA307^"Internal - DVB-H UBM L1 CPCE Path Information"^"50001"^1
+0xA308^"Internal - DVB-H UBM L1 CPCE Utilized Pathlist Information"^"50001"^1
+0xA309^"Internal - DVB-H UBM L1 CPCE Candidate Pathlist Information"^"50001"^1
+0xA30A^"DVB-H UBM L1 Channel Impulse Response Information"^"50001"^1
+0xA30B^"DVB-H UBM L1 Acquisition Information"^"50001"^1
+0xA30C^"Internal - DVB-H UBM L1 Acquisition Likelihood Information"^"50001"^1
+0xA30D^"Internal - DVB-H UBM L1 Jammer FFT Output Information"^"50001"^1
+0xA30E^"Internal - DVB-H UBM L1 Sample Server RAM Information"^"50001"^1
+0xA30F^"DVB-H UBM L1 Periodic RDSP Logging Information"^"50001"^1
+0xA310^"Internal - DVB-H UBM L1 Decimated CIR Information"^"50001"^1
+0xA311^"DVB-H UBM L1 One Bit Error Test Result"^"50001"^1
+0xA312^"DVB-H UBM L1 Continuous Jammer Detection"^"50001"^1
+0xA313^"ISDB-T UBM L1 During Acqusition Information"^"50001"^1
+0xA314^"ChOrd Status V1"^"50001"^1
+0xA315^"ChOrd Tx Activity"^"50001"^1
+0xB001^"APU Task Profiling - System Info"^"45057"^1
+0xB002^"APU Task Profiling - Task Info"^"45057"^1
+0xB010^"Internal - LTE Searcher Initial Acquisition"^"100003"^1
+0xB011^"Internal - LTE PCFICH Decode Report"^"100003"^1
+0xB012^"Internal - LTE PHICH Decode Report"^"100003"^1
+0xB013^"Internal - LTE PDCCH Decode Report"^"100003"^1
+0xB014^"Internal - LTE PBCH Decode Report"^"100003"^1
+0xB015^"Internal - LTE PBCH Channel Estimation"^"100003"^1
+0xB016^"Internal - LTE PBCH Interference Covariance"^"100003"^1
+0xB017^"Internal - LTE PDSCH Decode Report"^"100003"^1
+0xB018^"Internal - LTE RS Time Aligned CIR"^"100003"^1
+0xB019^"Internal - LTE Filtered CIR"^"100003"^1
+0xB01A^"Internal - LTE CIR Information"^"100003"^1
+0xB01B^"Internal - LTE Per RB Pilot Energy"^"100003"^1
+0xB01C^"Internal - LTE Interference Estimation"^"100003"^1
+0xB01D^"Internal - LTE Per RB Whitening Matrix"^"100003"^1
+0xB01E^"Internal - LTE Traffic Energy"^"100003"^1
+0xB01F^"Internal - LTE Frequency Tracking Report"^"100003"^1
+0xB020^"Internal - LTE Time Tracking Report Primary"^"100003"^1
+0xB021^"Internal - LTE Time Tracking Report PDP Display"^"100003"^1
+0xB022^"Internal - LTE Time Tracking Report Floating PDP"^"100003"^1
+0xB023^"Internal - LTE Time Tracking Report Quantity"^"100003"^1
+0xB024^"Internal - LTE PUSCH Transmit Report"^"100003"^1
+0xB025^"Internal - LTE PUCCH Transmit Report"^"100003"^1
+0xB026^"Internal - LTE PRACH Transmit Report"^"100003"^1
+0xB027^"Internal - LTE Analog Converter Card Information"^"100003"^1
+0xB028^"Internal - LTE PDSCH Decoder Statistics Display"^"100003"^1
+0xB029^"Internal - LTE Constellation And SINR Display"^"100003"^1
+0xB030^"Internal - LTE Channel State Feedback"^"100003"^1
+0xB031^"Internal - LTE Neighbor Search Packet"^"100003"^1
+0xB032^"Internal - LTE RSRP Log Packet"^"100003"^1
+0xB033^"Internal - LTE RLM Doppler Log Packet"^"100003"^1
+0xB060^"LTE MAC Configuration"^"100006"^1
+0xB061^"LTE MAC RACH Trigger"^"100006"^1
+0xB062^"LTE MAC RACH Attempt"^"100006"^1
+0xB063^"LTE MAC DL Transport Block"^"100006"^1
+0xB064^"LTE MAC UL Transport Block"^"100006"^1
+0xB065^"Internal - LTE MAC QoS"^"100006"^1
+0xB066^"Internal - LTE MAC Buffer Status"^"100006"^1
+0xB067^"LTE MAC UL Tx Statistics"^"100006"^1
+0xB081^"LTE RLC DL Configuration"^"100007"^1
+0xB082^"LTE RLC DL AM All PDU"^"100007"^1
+0xB083^"LTE RLC DL AM Control PDU"^"100007"^1
+0xB084^"LTE RLC DL AM Polling PDU"^"100007"^1
+0xB085^"LTE RLC DL AM Signaling PDU"^"100007"^1
+0xB086^"LTE RLC DL UM Data PDU"^"100007"^1
+0xB087^"LTE RLC DL Statistics"^"100007"^1
+0xB088^"Internal - LTE RLC DL AM State"^"100007"^1
+0xB089^"Internal - LTE RLC DL UM State"^"100007"^1
+0xB091^"LTE RLC UL Configuration"^"100007"^1
+0xB092^"LTE RLC UL AM All PDU"^"100007"^1
+0xB093^"LTE RLC UL AM Control PDU"^"100007"^1
+0xB094^"LTE RLC UL AM Polling PDU"^"100007"^1
+0xB095^"LTE RLC UL AM Signalling PDU"^"100007"^1
+0xB096^"LTE RLC UL UM Data PDU"^"100007"^1
+0xB097^"LTE RLC UL Statistics"^"100007"^1
+0xB098^"Internal - LTE RLC UL AM State"^"100007"^1
+0xB099^"Internal - LTE RLC UL UM State"^"100007"^1
+0xB0A0^"LTE PDCP DL Config"^"100008"^1
+0xB0A1^"LTE PDCP DL Data PDU"^"100008"^1
+0xB0A2^"LTE PDCP DL Control PDU"^"100008"^1
+0xB0A4^"LTE PDCP DL Statistics"^"100008"^1
+0xB0A5^"LTE PDCP DL SRB Integrity Data PDU"^"100008"^1
+0xB0B0^"LTE PDCP UL Config"^"100008"^1
+0xB0B1^"LTE PDCP UL Data PDU"^"100008"^1
+0xB0B2^"LTE PDCP UL Control PDU"^"100008"^1
+0xB0B4^"LTE PDCP UL Statistics"^"100008"^1
+0xB0B5^"LTE PDCP UL SRB Integrity Data PDU"^"100008"^1
+0xB0C0^"LTE RRC OTA Message"^"100009"^1
+0xB0C1^"LTE RRC MIB Message"^"100009"^1
+0xB0C2^"LTE RRC Serving Cell Info"^"100009"^1
+0xB0E0^"LTE NAS ESM Security Protected OTA Incoming Message"^"100010"^1
+0xB0E1^"LTE NAS ESM Security Protected OTA Outgoing Message"^"100010"^1
+0xB0E2^"LTE NAS ESM Plain OTA Incoming Message"^"100010"^1
+0xB0E3^"LTE NAS ESM Plain OTA Outgoing Message"^"100010"^1
+0xB0E4^"LTE NAS ESM Bearer Context State"^"100010"^1
+0xB0E5^"LTE NAS ESM Bearer Context Info"^"100010"^1
+0xB0E6^"LTE NAS ESM Procedure State"^"100010"^1
+0xB0EA^"LTE NAS EMM Secuirty Protected OTA Incoming Message"^"100010"^1
+0xB0EB^"LTE NAS EMM Secuirty Protected OTA Outgoing Message"^"100010"^1
+0xB0EC^"LTE NAS EMM Plain OTA Incoming Message"^"100010"^1
+0xB0ED^"LTE NAS EMM Plain OTA Outgoing Message"^"100010"^1
+0xB0EE^"LTE NAS EMM State"^"100010"^1
+0xB0EF^"LTE NAS EMM USIM Card Mode"^"100010"^1
+0xB0F2^"LTE NAS EMM Current Security Context"^"100010"^1
+0xB0F3^"Internal - LTE NAS EMM Ciphering And Integrity Keys For Packet Switched Domain"^"100010"^1
+0xB0F4^"Internal - LTE NAS EMM Native Security ContexT"^"100010"^1
+0xB0F5^"LTE NAS EMM USIM Service Table"^"100010"^1
+0xB111^"LTE LL1 RX AGC"^"100004"^1
+0xB112^"Internal - LTE LL1 RX AGC"^"100004"^1
+0xB113^"LTE LL1 PSS Results"^"100004"^1
+0xB114^"LTE LL1 Serving Cell Frame Timing"^"100004"^1
+0xB115^"LTE LL1 SSS Results"^"100004"^1
+0xB116^"LTE LL1 Serving Cell Measurement Results"^"100004"^1
+0xB119^"LTE LL1 Neighbor Cell Measurements and Tracking Results"^"100004"^1
+0xB11B^"Internal - LTE LL1 Serving Cell FTL Results"^"100004"^1
+0xB11D^"Internal - LTE LL1 Serving Cell TTL Results"^"100004"^1
+0xB120^"LTE LL1 Antenna Correlation Results"^"100004"^1
+0xB121^"Internal - LTE LL1 Serving Cell CIR"^"100004"^1
+0xB122^"LTE LL1 Serving Cell CER"^"100004"^1
+0xB123^"LTE LL1 Neighbor Cell CER"^"100004"^1
+0xB124^"Internal - LTE LL1 Serving Cell Interf Estimation"^"100004"^1
+0xB125^"Internal - LTE LL1 Neighbor PBCH Interf Estimation"^"100004"^1
+0xB126^"LTE LL1 PDSCH Demapper Configuration"^"100004"^1
+0xB128^"Internal - LTE LL1 UERS Channel Estimation"^"100004"^1
+0xB129^"Internal - LTE LL1 Radio Link Monitoring"^"100004"^1
+0xB12A^"LTE LL1 PCFICH Decoding Results"^"100004"^1
+0xB12B^"Internal - LTE LL1 PCFICH Decoding Results"^"100004"^1
+0xB12C^"LTE LL1 PHICH Decoding Results"^"100004"^1
+0xB12D^"Internal - LTE LL1 PHICH Decoding Results"^"100004"^1
+0xB12E^"LTE LL1 PBCH Decoding Results"^"100004"^1
+0xB12F^"Internal - LTE LL1 PBCH Decoding Results"^"100004"^1
+0xB130^"LTE LL1 PDCCH Decoding Results"^"100004"^1
+0xB131^"Internal - LTE LL1 PDCCH Decoding Results"^"100004"^1
+0xB132^"LTE LL1 PDSCH Decoding Results"^"100004"^1
+0xB133^"Internal - LTE LL1 Unicast PDSCH Decoding Results"^"100004"^1
+0xB134^"Internal - LTE LL1 Serving Cell RS"^"100004"^1
+0xB135^"Internal - LTE LL1 Serving Cell Window Gain"^"100004"^1
+0xB139^"LTE LL1 PUSCH Tx Report"^"100004"^1
+0xB13B^"Internal - LTE LL1 PUSCH Power Control Report"^"100004"^1
+0xB13C^"LTE LL1 PUCCH Tx Report"^"100004"^1
+0xB13D^"Internal - LTE LL1 PUCCH Tx Report"^"100004"^1
+0xB13F^"Internal - LTE LL1 PUCCH Power Control Report"^"100004"^1
+0xB140^"LTE LL1 SRS Tx Report"^"100004"^1
+0xB141^"Internal - LTE LL1 SRS Tx Report"^"100004"^1
+0xB143^"Internal - LTE LL1 SRS Power Control Report"^"100004"^1
+0xB144^"LTE LL1 RACH Tx Report"^"100004"^1
+0xB145^"Internal - LTE LL1 RACH Tx Report"^"100004"^1
+0xB146^"LTE LL1 AGC Tx Report"^"100004"^1
+0xB147^"Internal - LTE LL1 Tx AGC"^"100004"^1
+0xB149^"LTE LL1 CSF Spectral Efficiency Log for TxMode 4, 5, 6 Rank 1"^"100004"^1
+0xB14A^"LTE LL1 CSF Spectral Efficiency Log for TxMode 4 Rank 2"^"100004"^1
+0xB14B^"LTE LL1 CSF Spectral Efficiency Log for TxMode 1, 2, 7"^"100004"^1
+0xB14C^"LTE LL1 Whitened matrices log"^"100004"^1
+0xB14D^"LTE LL1 PUCCH CSF Log"^"100004"^1
+0xB14E^"LTE LL1 PUSCH CSF Log"^"100004"^1
+0xB160^"LTE ML1 Downlink Common Configuration"^"100005"^1
+0xB161^"LTE ML1 Downlink Dedicated Configuration"^"100005"^1
+0xB162^"LTE ML1 Uplink Common Configuration"^"100005"^1
+0xB163^"LTE ML1 Uplink Dedicated Configuration"^"100005"^1
+0xB164^"LTE ML1 Grant Manager Common Configuration"^"100005"^1
+0xB165^"LTE ML1 Grant Manager Dedicated Config"^"100005"^1
+0xB166^"LTE ML1 PRACH Configuration"^"100005"^1
+0xB167^"LTE ML1 Random Access Request (MSG1) Report"^"100005"^1
+0xB168^"LTE ML1 Random Access Response (MSG2) Report"^"100005"^1
+0xB169^"LTE ML1 UE Identification Message (MSG3) Report"^"100005"^1
+0xB16A^"LTE ML1 Contention Resolution Message (MSG4) Report"^"100005"^1
+0xB16B^"LTE ML1 PDCCH-PHICH Indication Report"^"100005"^1
+0xB16C^"LTE ML1 DCI Information Report"^"100005"^1
+0xB16D^"LTE ML1 GM TX Report"^"100005"^1
+0xB16E^"LTE ML1 PUSCH Power Control"^"100005"^1
+0xB16F^"LTE ML1 PUCCH Power Control"^"100005"^1
+0xB170^"LTE ML1 SRS TX Report"^"100005"^1
+0xB171^"LTE ML1 SRS Power Control Report"^"100005"^1
+0xB172^"LTE ML1 PKT Build Indication"^"100005"^1
+0xB173^"LTE ML1 PDSCH Stat Indication"^"100005"^1
+0xB174^"Internal - LTE ML1 List Frequency Scan Results"^"100005"^1
+0xB175^"Internal - LTE ML1 Full Frequency Scan Results"^"100005"^1
+0xB176^"LTE ML1 Initial Acquisition Results"^"100005"^1
+0xB177^"LTE ML1 Connected Mode Measurement Configuration"^"100005"^1
+0xB178^"Internal - LTE ML1 Connected Mode Measurement Report"^"100005"^1
+0xB179^"LTE ML1 Connected Mode LTE Intra-Frequency Measurement Results"^"100005"^1
+0xB17A^"LTE ML1 Cell Select/Reselect S check procedure"^"100005"^1
+0xB17C^"LTE ML1 Idle DRX Request"^"100005"^1
+0xB17D^"LTE ML1 Idle Measurement Request"^"100005"^1
+0xB17E^"LTE ML1 UE Mobility State change"^"100005"^1
+0xB17F^"LTE ML1 Serving Cell Measurements And Evaluation"^"100005"^1
+0xB180^"Internal - LTE ML1 Neighbor Measurements Packet"^"100005"^1
+0xB181^"LTE ML1 Cell Reselection Packet"^"100005"^1
+0xB183^"LTE ML1 PBCH Decode Packet"^"100005"^1
+0xB185^"LTE ML1 CDMA Neighbor Measurements Log Packet"^"100005"^1
+0xB186^"LTE ML1 Reselection Candidates Log Packet"^"100005"^1
+0xB187^"LTE ML1 IRAT Measurement Request"^"100005"^1
+0xB189^"LTE ML1 CDMA System Time"^"100005"^1
+0xB18A^"LTE ML1 Radio Link Monitoring"^"100005"^1
+0xB18B^"LTE ML1 Sleep"^"100005"^1
+0xB192^"LTE ML1 Idle Neighbor Cell Measurement Req/Resp"^"100005"^1
+0xB193^"LTE ML1 Serving Cell Measurement Result"^"100005"^1
+0xB195^"Internal - LTE ML1 Connected Mode Neighbor Meas Req/Resp"^"100005"^1
+0xB196^"Internal - LTE ML1 Cell Measurement Results"^"100005"^1
+0xB197^"Internal - LTE ML1 Serving Cell Information"^"100005"^1
+0xB198^"LTE ML1 CDRX Events Info"^"100005"^1
+0xB199^"LTE ML1 GM TDD Config"^"100005"^1
+0xB19A^"LTE ML1 TDD ACK NAK Report"^"100005"^1

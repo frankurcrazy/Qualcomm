@@ -1,0 +1,386 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GSM 3G Reject Database" />
+   <meta name="DMViewWidth" content="800" />
+   <meta name="DMViewHeight" content="440" />
+
+   <title>GSM 3G Reject Database</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<body onload="Initialize()" onunload="Unregister()">
+
+<table width="100%" id="OutTableTimer">
+   <colgroup span="7">
+      <col width="20%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+   </colgroup>
+   <tr>
+      <th colspan="7">3G Reject DB (Timer)</th>
+   </tr>
+   <tr>
+      <th>Parameter</th>
+      <th>Neighbor 1</th>
+      <th>Neighbor 2</th>
+      <th>Neighbor 3</th>
+      <th>Neighbor 4</th>
+      <th>Neighbor 5</th>
+      <th>Neighbor 6</th>
+   </tr>
+   <tr>
+      <th>UARFCN</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Scrambling Code</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Diversity</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Reject Timer Value</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Reject Reason</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<br />
+
+<table width="100%" id="OutTableThreshold">
+   <colgroup span="7">
+      <col width="20%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+      <col width="13%" />
+   </colgroup>
+   <tr>
+      <th colspan="7">3G Reject DB (Threshold)</th>
+   </tr>
+   <tr>
+      <th>Parameter</th>
+      <th>Neighbor 1</th>
+      <th>Neighbor 2</th>
+      <th>Neighbor 3</th>
+      <th>Neighbor 4</th>
+      <th>Neighbor 5</th>
+      <th>Neighbor 6</th>
+   </tr>
+   <tr>
+      <th>UARFCN</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Scrambling Code</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Diversity</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Srxlevmin</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Squalmin</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle       = 0xFFFFFFFF;
+var gMainTickID  = 0;
+var UPDATE_MS    = 500;
+
+var MaxNeighbors = 6;
+var RO           = 2;
+var CO           = 1;
+
+var PrevIndex    = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+var FieldsTimer;
+var FieldsThresh;
+
+function Initialize()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // Register a client view
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write("<br />Unable to register as client.\n");
+      return;
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x525C );
+   clientObject.CommitConfig();
+*/
+
+   FieldsTimer = new Array;
+   FieldsTimer[0] = "UMTS Carrier Channel Number";
+   FieldsTimer[1] = "Scrambling Code";
+   FieldsTimer[2] = "Diversity";
+   FieldsTimer[3] = "Reject Reason";
+   FieldsTimer[4] = "Reject Timer Value";
+   
+   FieldsThresh = new Array;
+   FieldsThresh[0] = "UMTS Carrier Channel Number";
+   FieldsThresh[1] = "Scrambling Code";
+   FieldsThresh[2] = "Diversity";
+   FieldsThresh[3] = "SRXLEVMIN";
+   FieldsThresh[4] = "SQUALMIN";   
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         var bTabs = false;
+         var ItemKey = Item.GetItemKeyText();
+         if (ItemKey == "[0x5C5C]")
+         {
+            bTabs = true;
+         }
+
+         ProcessLog( Fields, bTabs );      
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function ProcessLog( Fields, bTabs )
+{
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+   
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return;
+      }
+   }
+   
+   if (FieldCount < 2 + t)
+   {
+      return;
+   }
+      
+   var FieldName;
+   var FieldVal;
+   
+   // Get the number of threshold/timer entries and cap
+   var NumThresh = Fields.GetFieldValue( 0 + t );
+   if (NumThresh > MaxNeighbors)
+   {
+      NumThresh = MaxNeighbors;
+   }
+   
+   var NumTimer = Fields.GetFieldValue( 1 + t );
+   if (NumTimer > MaxNeighbors)
+   {
+      NumTimer = MaxNeighbors;
+   }   
+
+   var NumFieldsThresh = FieldsThresh.length;
+   var NumFieldsTimer = FieldsTimer.length;
+   
+   // Add in threshold entries
+   for (var th = 0; th < NumThresh; th++)
+   {
+      var PrefixThresh = "Threshold[" + th + "].";
+      for (var j = 0; j < NumFieldsThresh; j++)
+      {
+         FieldName = PrefixThresh + FieldsThresh[j];
+         FieldVal = GetTextFromName( Fields, FieldName );
+         
+         OutTableThreshold.rows[RO + j].cells[th + CO].innerText = FieldVal;
+      }   
+   }
+
+   // Empty out neighbors not present in log
+   for (var th = NumThresh; th < MaxNeighbors; th++)
+   {
+      for (var j = 0; j < NumFieldsThresh; j++)
+      {         
+         OutTableThreshold.rows[RO + j].cells[th + CO].innerText = "-";
+      }   
+   }
+   
+   // Add in timer entries
+   for (var ti = 0; ti < NumTimer; ti++)
+   {
+      var PrefixTimer = "Timer[" + ti + "].";      
+      for (var i = 0; i < NumFieldsTimer; i++)
+      {
+         FieldName = PrefixTimer + FieldsTimer[i];
+         FieldVal = GetTextFromName( Fields, FieldName );
+         
+         OutTableTimer.rows[RO + i].cells[ti + CO].innerText = FieldVal;  
+      }
+   }
+   
+   // Empty out neighbors not present in log
+   for (var ti = NumTimer; ti < MaxNeighbors; ti++)
+   {
+      for (var i = 0; i < NumFieldsTimer; i++)
+      {         
+         OutTableTimer.rows[RO + i].cells[ti + CO].innerText = "-";
+      }   
+   }   
+}
+
+</script>
+
+</body>
+</html>

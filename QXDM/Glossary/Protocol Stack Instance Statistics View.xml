@@ -1,0 +1,776 @@
+<!-- This file represents the description data of Protocol Stack 
+   Statistics Logging. -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TERMS>
+
+<!-- Buttons description -->
+   <TERM> Refresh Instance </TERM>
+   <DESCRIPTION> <![CDATA[
+     Clear the left pane and send obtain all instance subsystem command 
+     to all processors. 
+     <br /><br />
+     All of the subsystem commands that are defined for instance 
+     statistics are formed by pre-pending the processor ID to a 
+     base subsystem command value.  The variable subsystem command 
+     value is needed in order to support multiple processor 
+     architectures, to ensure that the command reaches the correct 
+     protocol stack instance.  In all of the following subsystem 
+     commands, the processor ID is a 4-bit value (the top 4 bits of 
+     the 2-byte value).
+     ]]>
+   </DESCRIPTION>
+
+   <TERM> Obtain Stats </TERM>
+   <DESCRIPTION> <![CDATA[
+      Send subsystem command with all requested instances to the 
+      MSM to obtain corresponding statistics. 
+      <br /><br />
+      This subsystem command packet is sent by QXDM to the MSM in 
+      order to request that a statistics log packet be generated
+      for the log handle included in the subsystem command request
+      message.  It is possible to specify multiple instances in 
+      this packet, and it is necessary to pair the instance handle
+      with its type since instance handles are not globally unique 
+      on their own.
+      ]]>
+   </DESCRIPTION>
+
+   <TERM> Obtain Interval </TERM>
+   <DESCRIPTION> Time interval for obtaining requested instance stats. 
+   </DESCRIPTION>
+
+   <TERM> Reset Stats On Phone </TERM>
+   <DESCRIPTION> Reset the PS stats pane and popup a confirmation option 
+      for use to confirm to reset the right pane  
+   </DESCRIPTION>
+
+<!-- PS Instance display pane description -->
+   <TERM> Processor </TERM>
+   <DESCRIPTION> Root category that shows ID of the processor on which 
+      instances are running
+   </DESCRIPTION> 
+
+   <TERM> IFace Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all IFace instances.  </DESCRIPTION> 
+   <TERM> Memory Instance(s)  </TERM>
+   <DESCRIPTION> Sub-category that contains all Memory instances. </DESCRIPTION> 
+   <TERM> UDP Instance(s)  </TERM>
+   <DESCRIPTION> Sub-category that contains all UDP instances. </DESCRIPTION> 
+   <TERM> TCP Instance(s)  </TERM>
+   <DESCRIPTION> Sub-category that contains all TCP instances. </DESCRIPTION> 
+   <TERM> RSVP Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all RSVP instances. </DESCRIPTION> 
+   <TERM> Physical Link Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all Physical Link instances. </DESCRIPTION> 
+   <TERM> Flow Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all Flow instances. </DESCRIPTION> 
+   <TERM> ARP Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all ARP instances. </DESCRIPTION> 
+   <TERM> PPP Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all PPP instances. </DESCRIPTION> 
+   <TERM> LLC Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all LLC instances. </DESCRIPTION> 
+   <TERM> IPHC Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all IPHC instances. </DESCRIPTION> 
+   <TERM> ROHC Instance(s) </TERM>
+   <DESCRIPTION> Sub-category that contains all ROHC instances. </DESCRIPTION> 
+
+   <TERM> Handle </TERM>
+   <DESCRIPTION> Handle to the instance (module) </DESCRIPTION> 
+
+   <TERM> IPv4 Address </TERM>
+   <DESCRIPTION> IPv4 address of the iface </DESCRIPTION> 
+
+   <TERM> Subnet Mask </TERM>
+   <DESCRIPTION> Subnet mask of this iface </DESCRIPTION> 
+
+   <TERM> Mac Address </TERM>
+   <DESCRIPTION> MAC address of the iface</DESCRIPTION> 
+
+   <TERM> MTU </TERM>
+   <DESCRIPTION> MTU of the iface </DESCRIPTION> 
+
+   <TERM> State </TERM>
+   <DESCRIPTION> <![CDATA[
+      IFACE_STATE_INVALID = 0x00 <br />
+      IFACE_DISABLED      = 0x01 <br />
+      IFACE_DOWN          = 0x02 <br />
+      IFACE_COMING_UP     = 0x04 <br />
+      IFACE_CONFIGURING   = 0x08 <br />
+      IFACE_ROUTEABLE     = 0x10 <br />
+      IFACE_UP            = 0x20 <br />
+      IFACE_GOING_DOWN    = 0x40 <br />
+      IFACE_LINGERING     = 0x80 <br />
+      ]]>
+   </DESCRIPTION> 
+
+   <TERM> BCast Capable </TERM>
+   <DESCRIPTION> <![CDATA[
+      Is interface broadcast capable? <br />
+         Yes = 0 <br />
+         No  = 1
+      ]]>
+   </DESCRIPTION> 
+
+   <TERM> IPv6 Address </TERM>
+   <DESCRIPTION> IPv6 Address </DESCRIPTION> 
+
+   <TERM> IPv6 Address Type </TERM>
+   <DESCRIPTION> <![CDATA[
+      IPV6_ADDR_TYPE_INVALID = 0,<br />
+	  IPV6_ADDR_TYPE_PUBLIC = 1,<br />
+	  IPV6_ADDR_TYPE_PRIV_SHARED = 2,<br />
+	  IPV6_ADDR_TYPE_PRIV_UNIQUE = 3
+	  ]]>
+   </DESCRIPTION> 
+
+   <TERM> IPv6 Address State</TERM>
+   <DESCRIPTION> 
+	   IPV6_ADDR_STATE_INVALID = 0,
+	   IPV6_ADDR_STATE_TENTATIVE = 1,
+	   IPV6_ADDR_STATE_UNASSIGNED = 2,
+	   IPV6_ADDR_STATE_VALID = 3,
+	   IPV6_ADDR_STATE_DEPRECATED = 4
+   </DESCRIPTION> 
+
+   <TERM> IP address </TERM>
+   <DESCRIPTION> IP address of the multicast group </DESCRIPTION> 
+  
+   <TERM> Name </TERM>
+   <DESCRIPTION>
+       Character string containing the name of the iface
+   </DESCRIPTION> 
+
+   <TERM> Local Address </TERM>
+   <DESCRIPTION> Local address of the connection </DESCRIPTION> 
+   <TERM> Remote Address </TERM>
+   <DESCRIPTION> Remote address of the connection </DESCRIPTION> 
+   <TERM> Local Port </TERM>
+   <DESCRIPTION> Local port of the connection </DESCRIPTION> 
+   <TERM> Remote Port </TERM>
+   <DESCRIPTION> Remote port of the connection </DESCRIPTION> 
+   <TERM> State (TCP)</TERM>
+   <DESCRIPTION>   <![CDATA[
+    TCP_CLOSED = 0<br />
+	TCP_LISTEN = 1<br />
+	TCP_SYN_SENT = 2<br />
+	TCP_SYN_RECEIVED = 3	<br />
+	TCP_ESTABLISHED = 4<br />
+	TCP_FINWAIT1 = 5<br />
+	TCP_FINWAIT2 = 6<br />
+	TCP_CLOSE_WAIT = 7<br />
+	TCP_LAST_ACK = 8<br />
+	TCP_CLOSING = 9<br />
+	TCP_TIME_WAIT = 10<br />
+    ]]>
+   </DESCRIPTION> 
+   <TERM> State (UDP)</TERM>
+   <DESCRIPTION> UDP_OPEN = 0 </DESCRIPTION> 
+
+   <TERM> Flow Handle </TERM>
+   <DESCRIPTION> Upper byte is the handle to the iface this flow is associated with
+Lower byte is the flow handle </DESCRIPTION> 
+   <TERM> Flow Capability </TERM>
+   <DESCRIPTION> Capability of the flow
+    PS_FLOW_CAPABILITY_DEFAULT  = 0x0
+	PS_FLOW_CAPABILITY_DELAY_SENSITIVE  = 
+   </DESCRIPTION> 
+   <TERM> Flow QoS Handle </TERM>
+   <DESCRIPTION> Handle to the QoS spec on this flow </DESCRIPTION> 
+
+   <TERM> Physical link Handle </TERM>
+   <DESCRIPTION> Upper byte is the handle to the iface this phys_link is associated with
+Lower byte is the phys_link handle </DESCRIPTION> 
+   <TERM> HDR Comp Type </TERM>
+   <DESCRIPTION> PS_PHYS_LINK_HDR_COMP_ PROTOCOL_NONE = 0  PS_PHYS_LINK_HDR_COMP_ PROTOCOL_ROHC  = 1
+PS_PHYS_LINK_HDR_COMP_ PROTOCOL_IPHC  = 2
+PS_PHYS_LINK_HDR_COMP_ PROTOCOL_VJ = 3 </DESCRIPTION> 
+   <TERM> HDR Comp handle </TERM>
+   <DESCRIPTION> Handle to the header compression instance associated with this phys_link </DESCRIPTION>
+
+   <TERM> PPP Handle </TERM>
+   <DESCRIPTION> PPP_UM_SN_DEV = 0, Um Service Network
+PPP_RM_DEV = 1,   RM
+PPP_UM_AN_DEV = 2,  Um AN </DESCRIPTION> 
+   <TERM> Authentication Mode</TERM>
+   <DESCRIPTION> NO_AUTH = 1,
+  DO_PAP  = 2,
+ DO_CHAP = 3 </DESCRIPTION> 
+   <TERM> Device Name </TERM>
+   <DESCRIPTION> Character name of the device (UM SN, RM, etc) </DESCRIPTION> 
+   <TERM> OUI </TERM>
+   <DESCRIPTION> Vendor-specific OUI </DESCRIPTION> 
+
+   <TERM> RSVP Family </TERM>
+   <DESCRIPTION> IPV4 = 4  IPV6 = 6
+   </DESCRIPTION> 
+
+   <TERM> Delta Type  </TERM>
+   <DESCRIPTION> <![CDATA[
+      Type of statistic, represented by the following enumeration.
+   <br />
+   PS_STAT_INST_TCP           = 0,  <br />
+   PS_STAT_INST_UDP           = 1,<br />
+   PS_STAT_INST_MEM           = 2,<br />
+   PS_STAT_INST_IFACE         = 3,<br />
+   PS_STAT_INST_FLOW          = 4,<br />
+   PS_STAT_INST_PHYS_LINK     = 5,<br />
+   PS_STAT_INST_PPP           = 6,<br />
+   PS_STAT_INST_ARP           = 7,<br />
+   PS_STAT_INST_LLC           = 8,<br />
+   PS_STAT_INST_RSVP          = 9,<br />
+   PS_STAT_INST_IPHC          = 10,<br />
+   PS_STAT_INST_ROHC          = 11  <br />
+   ]]>
+   </DESCRIPTION> 
+   <TERM> Deleted  </TERM>
+   <DESCRIPTION> Is this instance being deleted?  TRUE or FALSE </DESCRIPTION> 
+   <TERM> Delta Data </TERM>
+   <DESCRIPTION> <![CDATA[
+       Storage for data used to uniquely identify the instance.  Fields are defined based upon type:
+   <br />
+   TCP: PS_TCP_TYPE<br />
+   UDP: PS_UDP_TYPE<br />
+   PS_IFACE: PS_IFACE_TYPE<br />
+   PS_FLOW: PS_FLOW_TYPE<br />
+   PS_MEM: PS_MEM_TYPE<br />
+   PS_PHYSLINK: PS_PHYS_LINK_TYPE<br />
+   PPP: PS_PPP_TYPE<br />
+   ARP: PS_ARP_TYPE<br />
+   LLC: PS_LLC_TYPE<br />
+   RSVP: PS_RSVP_TYPE<br />
+   ROHC: PS_ROHC_TYPE<br />
+   IPHC: PS_IPHC_TYPE 
+   ]]>
+   </DESCRIPTION> 
+
+   <TERM>TX Packets </TERM>
+   <DESCRIPTION> Number of packets transmitted </DESCRIPTION> 
+   <TERM>TX Bytes </TERM>
+   <DESCRIPTION>Number of bytes transmitted </DESCRIPTION> 
+   <TERM>Default FLow For IFace </TERM>
+   <DESCRIPTION> Is this flow the default for the iface?</DESCRIPTION> 
+   <TERM>RX Packets </TERM>
+   <DESCRIPTION>Number of packets received </DESCRIPTION> 
+   <TERM>RX Bytes </TERM>
+   <DESCRIPTION>Number of bytes received </DESCRIPTION> 
+   <TERM>Flows On The Physical Link </TERM>
+   <DESCRIPTION>Number of flows on this phys link </DESCRIPTION> 
+   <TERM>Primary For IFace </TERM>
+   <DESCRIPTION> Is this physlink primary for the iface?</DESCRIPTION> 
+   <TERM>RX Multicast Packets </TERM>
+   <DESCRIPTION> Number of multicast packets received </DESCRIPTION> 
+   <TERM>RX Packets Dropped </TERM>
+   <DESCRIPTION> Number of packets dropped during received</DESCRIPTION> 
+   <TERM>TX Multicast Packets </TERM>
+   <DESCRIPTION> Number of multicast packets transmitted</DESCRIPTION> 
+   <TERM>TX Packets Dropped </TERM>
+   <DESCRIPTION>TX Packets Dropped </DESCRIPTION> 
+   <TERM>Memory Allocation Errors </TERM>
+   <DESCRIPTION>Number of memory allocation errors </DESCRIPTION> 
+   <TERM>High Watermark Exceeded </TERM>
+   <DESCRIPTION> Number of times the high watermark has been exceeded</DESCRIPTION> 
+   <TERM>Max Actively Allocated Buffers </TERM>
+   <DESCRIPTION>Maximum number of buffers that have been actively allocated at one time </DESCRIPTION> 
+   <TERM>Buffers In Use </TERM>
+   <DESCRIPTION>The number of buffers currently in use </DESCRIPTION> 
+
+   <TERM> Requested IPv4 Packets</TERM> 
+   <DESCRIPTION> Number of IPv4 packets that request transmission</DESCRIPTION> 
+   <TERM> Dropped IPv4 Packets On Arrival</TERM> 
+   <DESCRIPTION> Number of IPv4 packets that were dropped from the ARP cache on arrival of a new IPv4 packet for transmission</DESCRIPTION> 
+   <TERM> Dropped IPv4 Packets While Flushing the Cache Entry</TERM> 
+   <DESCRIPTION>Number of IPv4 packets that were dropped from the ARP cache while flushing the corresponding cache entry </DESCRIPTION> 
+   <TERM> TX ARP Packets</TERM> 
+   <DESCRIPTION>Number of ARP packets transmitted includes ARP requests and replies </DESCRIPTION>
+   <TERM> ARP Broadcast Requests</TERM> 
+   <DESCRIPTION> Number of ARP request packet broadcast</DESCRIPTION> 
+   <TERM> ARP Broadcast Request Probes</TERM> 
+   <DESCRIPTION>Number of ARP broadcast request probes transmitted in response to a DHCP client request </DESCRIPTION> 
+   <TERM> ARP Unicast Request Probes</TERM> 
+   <DESCRIPTION> Number of ARP unicast request probes transmitted in response to cache consistency maintenance requests</DESCRIPTION> 
+   <TERM> ARP ReTX Broadcast Requests</TERM> 
+   <DESCRIPTION> Number of ARP request packet broadcast as retransmits</DESCRIPTION> 
+   <TERM> ARP ReTX Broadcast Request Probes</TERM> 
+   <DESCRIPTION>Number of ARP broadcast request probes retransmitted in response to a DHCP client request </DESCRIPTION> 
+   <TERM> ARP ReTX Unicast Request Probes</TERM> 
+   <DESCRIPTION>Number of ARP unicast request probes retransmitted in response to cache consistency maintenance requests </DESCRIPTION> 
+   <TERM> ARP Requests Failed To Get Responses</TERM> 
+   <DESCRIPTION>Number of ARP requests that failed to get a response even after maximum number of retries and finally had to be timed out </DESCRIPTION> 
+   <TERM> ARP Timeout Retries</TERM> 
+   <DESCRIPTION> Number of ARP retries that timed out when in ARP_STATUS_PROBING mode</DESCRIPTION> 
+   <TERM> TX ARP Response Packets</TERM>
+   <DESCRIPTION> Number of ARP response packets transmitted i.e both requests and replies</DESCRIPTION> 
+   <TERM> TX ARP Broadcast Requests Failed</TERM> 
+   <DESCRIPTION>Number of ARP broadcast requests failed to transmit </DESCRIPTION> 
+   <TERM> ARP Broadcast Request Probes Failed To Transmit</TERM> 
+   <DESCRIPTION> Number of ARP broadcast request probes failed to transmit</DESCRIPTION> 
+   <TERM> TX ARP Unicast Request Probes Failed</TERM> 
+   <DESCRIPTION> Number of ARP unicast request probes failed to transmit</DESCRIPTION> 
+   <TERM> ReTX ARP Broadcast Requests Failed</TERM> 
+   <DESCRIPTION> Number of ARP broadcast requests failed to retransmit</DESCRIPTION> 
+   <TERM> ReTX ARP Broadcast Request Probes Failed</TERM> 
+   <DESCRIPTION>Number of ARP broadcast request probes failed to retransmit </DESCRIPTION> 
+   <TERM> ReTX ARP Unicast Request Probes Failed</TERM> 
+   <DESCRIPTION>Number of ARP unicast request probes failed to retransmit </DESCRIPTION> 
+   <TERM> TX ARP Responese Failed</TERM> 
+   <DESCRIPTION> Number of ARP response packets failed to transmit</DESCRIPTION> 
+   <TERM> RX ARP Packets</TERM>
+   <DESCRIPTION>Number of ARP packets received i.e both request and response </DESCRIPTION> 
+   <TERM> RX ARP Requests</TERM>
+   <DESCRIPTION> Number of ARP request packets received</DESCRIPTION> 
+   <TERM> RX ARP Responses</TERM> 
+   <DESCRIPTION> Number of ARP response packets received</DESCRIPTION> 
+   <TERM> RX ARP Responses For Pending Requests</TERM> 
+   <DESCRIPTION> Number of ARP response packets received corresponding to a pending request</DESCRIPTION> 
+   <TERM> RX Unknown Frames</TERM> 
+   <DESCRIPTION>Number of packets received of type unknown frame </DESCRIPTION> 
+   <TERM> RX ARP Packets Not For Us</TERM> 
+   <DESCRIPTION> Number of ARP packets received not destined to us</DESCRIPTION> 
+   <TERM> RX ARP Responses For No Pending Requests</TERM> 
+   <DESCRIPTION> Number of ARP packets received for which no request was pending</DESCRIPTION> 
+   <TERM> ARP Cache Hits</TERM> 
+   <DESCRIPTION> Number of successful ARP cache hits</DESCRIPTION> 
+   <TERM> ARP Cache Misses</TERM> 
+   <DESCRIPTION> Number of ARP cache misses</DESCRIPTION> 
+   <TERM> ARP Cache Hits On RX Requests</TERM>
+   <DESCRIPTION> Number of successful ARP cache hits on receiving ARP request packet</DESCRIPTION> 
+   <TERM> ARP Cache Misses On RX Requests</TERM> 
+   <DESCRIPTION>Number of ARP cache misses on receiving ARP request packet </DESCRIPTION> 
+   <TERM> Cache Entries Evicted By Timeout</TERM> 
+   <DESCRIPTION> Number of Cache entries evicted due to timeouts</DESCRIPTION> 
+   <TERM> Cache Entries Evicted By New Request</TERM> 
+   <DESCRIPTION>Number of Cache entries evicted due to arrival of new requests </DESCRIPTION> 
+   <TERM> Cache Entries Evicted By Responses For Broadcast Probes</TERM> 
+   <DESCRIPTION>Number of Cache entries evicted as response was received for a corresponding broadcast probe </DESCRIPTION> 
+   <TERM> Cache Entries Evicted By PS Entities</TERM> 
+   <DESCRIPTION>Number of cache entries evicted on request from a PS entity like the DHCP server </DESCRIPTION> 
+   <TERM> Cache Entries Updated By ARP Requests</TERM>
+   <DESCRIPTION> Number of cache entries updated on receiving the ARP request</DESCRIPTION> 
+   <TERM> Cache Entries Updated By Responses Of Unicast Check </TERM>
+   <DESCRIPTION> Number of cache entries updated on when a response frame is received corresponding to a unicast check request</DESCRIPTION>
+   <TERM> Cache Entries Updated By PS Entities</TERM>
+   <DESCRIPTION> Number of cache entries updated on request from an external PS entity like the DHCP server</DESCRIPTION> 
+   <TERM> TX LLC Frames</TERM>
+   <DESCRIPTION> Number of LLC frames transmitted</DESCRIPTION> 
+   <TERM> TX Mode 0 LLC Frames</TERM>
+   <DESCRIPTION>Number of Mode 0 LLC frames transmittedNumber of Mode 1 LLC frames transmitted </DESCRIPTION> 
+   <TERM> TX Mode 1 LLC Frames</TERM> 
+   <DESCRIPTION> Number of Mode 1 LLC frames transmitted</DESCRIPTION> 
+   <TERM> TX LLC Frames Failed</TERM> 
+   <DESCRIPTION>Number of LLC frames that failed transmission </DESCRIPTION> 
+   <TERM> TX LLC Frames Failed By Unknown Protocol</TERM> 
+   <DESCRIPTION> Number of LLC frames with Unknown protocol that failed transmission</DESCRIPTION> 
+   <TERM> TX LLC Frames Failed By Invalid Mode</TERM> 
+   <DESCRIPTION> Number of LLC frames with an invalid mode that failed transmission</DESCRIPTION> 
+   <TERM> RX LLC Frames</TERM>
+   <DESCRIPTION>Number of LLC frames received </DESCRIPTION> 
+   <TERM> RX Mode 0 LLC Frames</TERM>
+   <DESCRIPTION> Number of Mode 0 LLC frames received</DESCRIPTION> 
+   <TERM> RX Mode 1 LLC Frames</TERM> 
+   <DESCRIPTION> Number of Mode 1 LLC frames received</DESCRIPTION> 
+   <TERM> RX LLC Control Frames</TERM> 
+   <DESCRIPTION> Number of LLC Control frames recieved</DESCRIPTION> 
+   <TERM> Dropped Error LLC Frames</TERM> 
+   <DESCRIPTION> Number of LLC frames dropped due to errors</DESCRIPTION> 
+   <TERM> Dropped LLC Frames By LLC Instance Stop</TERM> 
+   <DESCRIPTION>Number of LLC frames dropped as LLC instance has stopped </DESCRIPTION> 
+   <TERM> RX LLC Frames With LLC Instance Start In Pending</TERM> 
+   <DESCRIPTION>Number of LLC frames received when the LLC instance start is still pendingNumber of LLC frames dropped with invalid destination address </DESCRIPTION> 
+   <TERM> Dropped LLC Frames By Invalid Destination Address</TERM> 
+   <DESCRIPTION>Number of LLC frames dropped with invalid destination address </DESCRIPTION> 
+   <TERM> Dropped LLC Frames By Invalid Source Address</TERM> 
+   <DESCRIPTION> Number of LLC frames with invalid source address dropped</DESCRIPTION> 
+   <TERM> Dropped LLC Frames By Invalid Mode</TERM> 
+   <DESCRIPTION> Number of LLC frames with invalid mode dropped</DESCRIPTION> 
+   <TERM> Dropped Mode 0 LLC Frames By Invalid Etherlen</TERM> 
+   <DESCRIPTION> Number of Mode 0 LLC frames with invalid etherlen dropped</DESCRIPTION> 
+   <TERM> Dropped Mode 1 LLC Frames By Invalid Snap Header Length</TERM> 
+   <DESCRIPTION> Number of LLC frames of type mode 1 with invalid snap header length dropped</DESCRIPTION> 
+   <TERM> Dropped Mode 1 LLC Frames By Invalid Snap Header</TERM> 
+   <DESCRIPTION> Number of Mode 1 LLC frames with invalid snap header dropped</DESCRIPTION> 
+   <TERM> Dropped Mode 1 LLC Frames By Invalid OUI</TERM> 
+   <DESCRIPTION> Number of Mode 1 LLC frames with Invalid OUI dropped</DESCRIPTION> 
+   <TERM> RX Mode 1 VLAN Frames</TERM> 
+   <DESCRIPTION>Number of Mode 1 VLAN frames received </DESCRIPTION> 
+   <TERM> Dropped Mode 1 LLC Frames By Invalid VLAN Length</TERM> 
+   <DESCRIPTION>Number of Mode 1 LLC frames with Invalid VLAN Length dropped </DESCRIPTION> 
+   <TERM> Dropped Mode 1 LLC Frames By Invalid VLAN Frames</TERM> 
+   <DESCRIPTION>Number of Mode 1 LLC frames with invalid VLAN frame dropped </DESCRIPTION> 
+   <TERM> Dropped Mode 1 LLC Frames By Invalid EtherLen</TERM> 
+   <DESCRIPTION> Number of Mode 1 LLC frames with invalud etherlen dropped</DESCRIPTION> 
+   <TERM> RX Unsupported 802.1X LLC Frames</TERM> 
+   <DESCRIPTION> Number of LLC frames of 802.1X protocol which is unsupported received</DESCRIPTION> 
+   <TERM> RX Unsupported 802.1X Preauth LLC Frames</TERM> 
+   <DESCRIPTION>Number of LLC frames of 802.1X preauth protocol which is unsupported received </DESCRIPTION> 
+
+   <TERM> Protocol Statistic Type</TERM>
+   <DESCRIPTION> <![CDATA[
+      Type of statistic, represented by the following enumeration.
+   <br />
+   PS_STAT_INST_TCP              = 0,  <br />
+   PS_STAT_INST_UDP              = 1,<br />
+   PS_STAT_INST_MEM             = 2,<br />
+   PS_STAT_INST_IFACE           = 3,<br />
+   PS_STAT_INST_FLOW          = 4,<br />
+   PS_STAT_INST_PHYS_LINK     = 5,<br />
+   PS_STAT_INST_PPP           = 6,<br />
+   PS_STAT_INST_ARP           = 7,<br />
+   PS_STAT_INST_LLC           = 8,<br />
+   PS_STAT_INST_RSVP          = 9,<br />
+   PS_STAT_INST_IPHC          = 10,<br />
+   PS_STAT_INST_ROHC          = 11 <br />
+   ]]>
+   </DESCRIPTION> 
+   <TERM>Data </TERM>
+   <DESCRIPTION> <![CDATA[
+      Storage for data used to uniquely identify the instance.  Fields are defined based upon type:
+   <br />
+   TCP: PS_TCP_TYPE<br />
+   UDP: PS_UDP_TYPE<br />
+   PS_IFACE: PS_IFACE_TYPE<br />
+   PS_FLOW: PS_FLOW_TYPE<br />
+   PS_MEM: PS_MEM_TYPE<br />
+   PS_PHYSLINK: PS_PHYS_LINK_TYPE<br />
+   PPP: PS_PPP_TYPE<br />
+   ARP: PS_ARP_TYPE<br />
+   LLC: PS_LLC_TYPE<br />
+   RSVP: PS_RSVP_TYPE<br />
+   ROHC: PS_ROHC_TYPE<br />
+   IPHC: PS_IPHC_TYPE<br />
+   ]]>
+   </DESCRIPTION> 
+
+      
+   <TERM> Segments Transmitted </TERM>
+   <DESCRIPTION> Number of segments transmitted
+   </DESCRIPTION>              
+   <TERM> Segments Received </TERM>
+   <DESCRIPTION> Number of segments received
+   </DESCRIPTION>              
+   <TERM> Bytes Retransmitted </TERM>
+   <DESCRIPTION> Number of bytes retransmitted
+   </DESCRIPTION>
+   <TERM> Segments Retransmitted</TERM>
+   <DESCRIPTION> Number of segments retransmitted
+   </DESCRIPTION>
+   <TERM> RX Duplicate Bytes</TERM>
+   <DESCRIPTION> Number of duplicate bytes received
+   </DESCRIPTION>          
+   <TERM> RX Duplicate Segments </TERM>
+   <DESCRIPTION> Number of duplicate segments received
+   </DESCRIPTION>           
+   <TERM>TX Windows Probe  </TERM>
+   <DESCRIPTION> Number of window probes transmitted
+   </DESCRIPTION>
+   <TERM> RX Out of Order Segments  </TERM>
+   <DESCRIPTION> Number of out of order segments received
+   </DESCRIPTION>
+   <TERM> RX Out of Order Bytes </TERM>
+   <DESCRIPTION> Number of out of order bytes received
+   </DESCRIPTION>
+   <TERM> Retransmitted Timeout       </TERM>
+   <DESCRIPTION> Number of retransmit timeouts that have occurred
+   </DESCRIPTION>
+   <TERM> TX Piggybacked Acks   </TERM>
+   <DESCRIPTION> Number of piggybacked acks transmitted
+   </DESCRIPTION>
+   <TERM> RX Piggybacked Acks   </TERM>
+   <DESCRIPTION> Number of piggybacked acks received
+   </DESCRIPTION>
+   <TERM> RX Duplicate ACKs </TERM>
+   <DESCRIPTION> Number of duplicate ack packets received
+   </DESCRIPTION>
+   <TERM> TX Duplicate ACKs </TERM>
+   <DESCRIPTION> Number of duplicate ack packets transmitted
+   </DESCRIPTION>
+   <TERM> State </TERM>
+   <DESCRIPTION> State of the TCP socket. Same as the state field of PS_CONN_TYPE described in section 2.1.
+   </DESCRIPTION>
+   <TERM> Local Address </TERM>
+   <DESCRIPTION> Local address of the connection
+   </DESCRIPTION>
+   <TERM> Local Port </TERM>
+   <DESCRIPTION> Local port of the connection
+   </DESCRIPTION>
+   <TERM> Remote Address</TERM>
+   <DESCRIPTION> Remote address of the connection
+   </DESCRIPTION>
+   <TERM> Remote Port </TERM>
+   <DESCRIPTION> Remote port of the connection
+   </DESCRIPTION>
+
+   <TERM> Default Flow for IFace </TERM>
+   <DESCRIPTION> Is this flow the default for the iface?
+   </DESCRIPTION>
+
+   <TERM> RX Out Of Order Segments </TERM>
+   <DESCRIPTION> Number of out of order segments received
+   </DESCRIPTION>
+   <TERM> RX Out Of Order Bytes </TERM>
+   <DESCRIPTION> Number of out of order bytes received
+   </DESCRIPTION>
+   <TERM> Retransmission Timeouts </TERM>
+   <DESCRIPTION> Retransmission Timeouts
+   </DESCRIPTION>
+   <TERM> TX Piggybacked ACKs </TERM>
+   <DESCRIPTION> Number of piggybacked acks transmitted
+   </DESCRIPTION>
+   <TERM> RX Piggybacked ACKs </TERM>
+   <DESCRIPTION> Number of piggybacked acks received
+   </DESCRIPTION>
+   <TERM> RX Duplicate ACKs </TERM>
+   <DESCRIPTION> Number of duplicate ack packets received
+   </DESCRIPTION>
+   <TERM> TX Duplicate ACKs </TERM>
+   <DESCRIPTION> Number of duplicate ack packets transmitted
+   </DESCRIPTION>
+   <TERM> Dropped RX UDP Datagrams </TERM>
+   <DESCRIPTION> Number of datagrams dropped on receive
+   </DESCRIPTION>
+
+   <TERM> Unsupported Protocol </TERM> 
+   <DESCRIPTION> Number of packets with an unsupported protocol
+   </DESCRIPTION> 
+   <TERM> Disabled Protocol </TERM> 
+   <DESCRIPTION> Number of packets with a disabled protocol
+   </DESCRIPTION> 
+   <TERM> Missing Address </TERM> 
+   <DESCRIPTION> Number of packets missing an address
+   </DESCRIPTION> 
+   <TERM> Missing Control Statement </TERM> 
+   <DESCRIPTION> Number of packets missing a control statement
+   </DESCRIPTION> 
+   <TERM> PPP Instance Dropped Received Packets </TERM> 
+   <DESCRIPTION> Number of received packets that the PPP instance dropped
+   </DESCRIPTION> 
+   <TERM> Packets Received </TERM> 
+   <DESCRIPTION> Number of packets received
+   </DESCRIPTION> 
+   <TERM> Framed Bytes Received </TERM> 
+   <DESCRIPTION> Number of framed bytes received
+   </DESCRIPTION> 
+   <TERM> Unframed Bytes Received </TERM> 
+   <DESCRIPTION> Number of unframed bytes received
+   </DESCRIPTION> 
+   <TERM> Packets Dropped During Transmission </TERM> 
+   <DESCRIPTION> Number of packets dropped during transmission
+   </DESCRIPTION> 
+   <TERM> Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of packets transmitted
+   </DESCRIPTION> 
+   <TERM> Framed Bytes Transmitted </TERM> 
+   <DESCRIPTION> Number of framed bytes transmitted
+   </DESCRIPTION> 
+   <TERM> Unframed Bytes Transmitted </TERM> 
+   <DESCRIPTION> Number of unframed bytes transmitted
+   </DESCRIPTION> 
+   <TERM> IPv4 Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv4 packets received
+   </DESCRIPTION> 
+   <TERM> IPv4 Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv4 packets transmitted
+   </DESCRIPTION> 
+   <TERM> VJ Compressed Packets Received </TERM> 
+   <DESCRIPTION> Number of VJ compressed packets received
+   </DESCRIPTION> 
+   <TERM> VJ Compressed Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of VJ compressed packets transmitted
+   </DESCRIPTION> 
+   <TERM> VJ Uncompressed Packets Received </TERM> 
+   <DESCRIPTION> Number of VJ uncompressed packets received
+   </DESCRIPTION> 
+   <TERM> VJ Uncompressed Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of VJ uncompressed packets transmitted
+   </DESCRIPTION> 
+   <TERM> PAP Packets Received </TERM> 
+   <DESCRIPTION> Number of PAP packets received
+   </DESCRIPTION> 
+   <TERM> PAP Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of PAP packets transmitted
+   </DESCRIPTION> 
+   <TERM> Failed PAP Authentication </TERM> 
+   <DESCRIPTION> Number of times PAP authentication has failed
+   </DESCRIPTION> 
+   <TERM> LCP Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP packets received
+   </DESCRIPTION> 
+   <TERM> LCP Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Config Request Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP configuration request packets received
+   </DESCRIPTION> 
+   <TERM> LCP Config ACK Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP configuration acknowledgment packets received
+   </DESCRIPTION> 
+   <TERM> LCP Config NACK Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP configuration negative acknowledgement packets received
+   </DESCRIPTION> 
+   <TERM> LCP Config Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP configuration reject packets received
+   </DESCRIPTION> 
+   <TERM> LCP Term Request Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP term request packets received
+   </DESCRIPTION> 
+   <TERM> LCP Term ACK Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP term acknowledgement packets received
+   </DESCRIPTION> 
+   <TERM> LCP Code Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP code reject packets received
+   </DESCRIPTION> 
+   <TERM> LCP Protocol Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP protocol reject packets received
+   </DESCRIPTION> 
+   <TERM> LCP Echo Request Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP echo request packets received
+   </DESCRIPTION> 
+   <TERM> LCP Echo Reply Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP echo reply packets received
+   </DESCRIPTION> 
+   <TERM> LCP Discard Request Packets Recieved </TERM> 
+   <DESCRIPTION> Number of LCP discard request packets were received
+   </DESCRIPTION> 
+   <TERM> LCP Identification Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP identification packets received
+   </DESCRIPTION> 
+   <TERM> LCP Time Remaining Packets Received </TERM> 
+   <DESCRIPTION> Number of LCP time remaining packets received
+   </DESCRIPTION> 
+   <TERM> LCP Config Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP configuration request packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Config ACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP configuration acknowledgement packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Config NACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP configuration negative acknowledgment packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Config Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP configuration reject packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Term Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP term request packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Term ACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP term acknowledgement packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Code Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP code reject packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Protocol Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP protocol reject packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Echo Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP echo request packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Echo Reply Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP echo request packets transmitted
+   </DESCRIPTION> 
+   <TERM> LCP Discard Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of LCP discard request packets were transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Config Request Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP configuration request packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Config ACK Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP configuration acknowledgment packets received
+   </DESCRIPTION> 
+      <TERM> IPCP Config NACK Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP configuration negative acknowledgement packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Config Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP configuration reject packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Term Request Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP term request packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Term ACK Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP term request packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Code Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of IPCP code reject packets received
+   </DESCRIPTION> 
+   <TERM> IPCP Config Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP configuration request packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Config ACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP configuration acknowledgement packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Config NACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP configuration negative acknowledgment packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Config Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP configuration reject packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Term Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP term request packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Term ACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP term acknowledgement packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPCP Code Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPCP code reject packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6 Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6 packets received
+   </DESCRIPTION> 
+   <TERM> IPv6 Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6 packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Config Request Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration request packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Config ACK Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration acknowledgment packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Config NACK Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration negative acknowledgement packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP  Config Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration reject packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Term Request Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP term request packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Term ACK Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP term acknowledgement packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Code Reject Packets Received </TERM> 
+   <DESCRIPTION> Number of IPv6CP code reject packets received
+   </DESCRIPTION> 
+   <TERM> IPv6CP Config Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration request packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Config NACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration negative acknowledgment packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Config Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP configuration request packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Term Request Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP code reject packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Term ACK Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP term acknowledgement packets transmitted
+   </DESCRIPTION> 
+   <TERM> IPv6CP Code Reject Packets Transmitted </TERM> 
+   <DESCRIPTION> Number of IPv6CP code reject packets transmitted
+   </DESCRIPTION> 
+
+
+</TERMS>
+

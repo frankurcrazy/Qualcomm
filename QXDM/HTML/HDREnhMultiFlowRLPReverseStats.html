@@ -1,0 +1,441 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Enhanced Multi-Flow RLP Reverse Statistics" />
+   <meta name="DMViewWidth" content="900" />
+   <meta name="DMViewHeight" content="445" />
+   <title>HDR Enhanced Multi-Flow RLP Reverse Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="ReverseStatsTable">
+   <colgroup span="2">
+      <col width="170" />
+      <col width="100" />
+   </colgroup>
+   <tr>
+      <th>Flow ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Route Number</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Version</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Flow Protocol</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Route Protocol</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Flow Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Sequencing Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Retransmissions Not Found</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AN NAK Bytes Requested</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AN NAK Records Requested</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX Retransmitted Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX Retransmission Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX Retransmitted Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX New Data Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX New Data Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX Total Bytes</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX Total Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX First Data Unit Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>TX Last Data Unit Frames</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Resets</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AT Reset Request Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AN Reset ACK Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AN Reset Request Count</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Reset Time</th>
+      <td id="ResetTime">-</td>
+   </tr>
+</table>
+
+<input type="button" value="Reset Statistics" onclick="ResetStats();"/>
+<input type="checkbox" id="IgnoreCheck" value="Ignore Empty Data" onclick="IgnoreEmptyData();"/><label>Ignore Empty Data</label>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var TIMEOUT_MS     = 500;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+// Column index for given flow ID
+var gReverseFlowIDs = new Array();
+
+var RESET_MRLP_REQ  = "CDMA 1xEV/Reset MRLP Stats Request";
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure item
+   clientObject.AddLog( 0x128D );
+
+   clientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client - we only update based on the last item
+// since the user cannot discern anything faster than our update
+// interval
+function ProcessItems()
+{
+   // We process all logs since we search for new flow ID's
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+
+      // Update table
+      PopulateStatsTable( ItemFields );
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Return column index to update for a given flow ID and route
+// else return -1 (create new column)
+function GetColumnIndex( FlowID, Route )
+{
+   var column = -1;
+
+   var bExistingFlow = false;
+   var ExistingID;
+   for (ExistingID in gReverseFlowIDs)
+   {
+      if (ExistingID == FlowID)
+      {
+         bExistingFlow = true;
+         var Routes = gReverseFlowIDs[FlowID];
+         var ExistingRoute;
+         for (ExistingRoute in Routes)
+         {
+            if (ExistingRoute == Route)
+            {
+               column = gReverseFlowIDs[FlowID][Route];
+               break;
+            }
+         }
+      }
+   }
+
+   var TableRow;
+   var TableCell;
+
+   if (column == -1)
+   {
+      // Create new column for new flow ID?
+      column = ReverseStatsTable.rows[0].cells.length;
+      if (column == 2 && ReverseStatsTable.rows[0].cells[1].innerText == "-")
+      {
+         // Use the placeholder
+         column--;
+      }
+      else
+      {
+         var Rows = ReverseStatsTable.rows.length;
+         for (var r = 0; r < Rows - 1; r++)
+         {
+            TableRow = ReverseStatsTable.rows[r];
+            TableCell = TableRow.insertCell();
+            
+            if (r == 0)
+            {
+               TableCell.width = "100";
+            }
+         }
+      }
+
+      ResetTime.colSpan = column;
+      
+      if (bExistingFlow == false)
+      {
+         gReverseFlowIDs[FlowID] = new Array();
+      }
+      gReverseFlowIDs[FlowID][Route] = column;
+   }
+
+   return column;
+}
+
+function ResetTable()
+{
+   var Cols = ReverseStatsTable.rows[0].cells.length;
+   var Rows = ReverseStatsTable.rows.length;
+
+   ResetTime.colSpan = 1;
+   ReverseStatsTable.rows[Rows - 1].cells[1].innerText = "-";
+
+   var cell;
+   for (var r = 0; r < Rows - 1; r++)
+   {
+      for (var c = Cols - 1; c > 0; c--)
+      {
+         if (c > 1)
+         {
+            cell = ReverseStatsTable.rows[r].cells[c];
+            ReverseStatsTable.rows[r].removeChild( cell );
+         }
+         else
+         {
+            ReverseStatsTable.rows[r].cells[c].innerText = "-";
+         }
+      }
+   }
+
+   gReverseFlowIDs = new Array();
+}
+
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_MRLP_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+   ResetTable();
+}
+
+function IgnoreEmptyData()
+{
+   ResetTable();
+}
+
+function PopulateStatsTable( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+
+   // Version
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version != 0)
+   {
+      return;
+   }
+
+   if (FieldCount < 23)
+   {
+      return;
+   }
+   
+   // Ignore empty data if option is checked
+   if (IgnoreCheck.checked == true)
+   {
+      var bIgnore = true;
+      for (var i = 8; i < 23; i++)
+      {
+         var Val = Fields.GetFieldValueText( i );
+         if (Val != 0)
+         {
+            bIgnore = false;
+            break;
+         }
+      }
+      
+      if (bIgnore == true)
+      {
+         return;
+      }
+   }
+   
+   // Flow ID
+   var FlowID = Fields.GetFieldValue( 1 );
+   
+   // Route Number
+   var Route = Fields.GetFieldValue( 2 );
+
+   // Check for a new combination, if one is found store the column index
+   // else use the existing column
+   var column = GetColumnIndex( FlowID, Route );
+
+   // Flow ID
+   ReverseStatsTable.rows[0].cells[column].innerText = FlowID;
+
+   // Route Number
+   var FieldVal = Fields.GetFieldValueText( 2 );
+   ReverseStatsTable.rows[1].cells[column].innerText = FieldVal;
+
+   // Version
+   ReverseStatsTable.rows[2].cells[column].innerText = Version;
+
+   // Reset Time
+   FieldVal = Fields.GetFieldValueText( 7 );
+   var AsDate = ConvertCDMATime( FieldVal );
+   FieldVal = AsDate.toUTCString();
+   ReverseStatsTable.rows[23].cells[1].innerText = FieldVal;
+
+   // TX Retransmitted Bytes
+   var TXRetransmittedBytes = Fields.GetFieldValueText( 11 );
+   ReverseStatsTable.rows[10].cells[column].innerText = TXRetransmittedBytes;
+   TXRetransmittedBytes = new Number( TXRetransmittedBytes );
+
+   // TX Total Bytes
+   var TXTotalBytes = Fields.GetFieldValueText( 13 );
+   TXTotalBytes = new Number( TXTotalBytes );
+   if (TXRetransmittedBytes > 0 && TXTotalBytes > 0)
+   {
+      var Rate = (TXRetransmittedBytes / TXTotalBytes) * 100.0;
+      ReverseStatsTable.rows[11].cells[column].innerText = Rate.toFixed( 2 ) + " %";
+   }
+   else
+   {
+      ReverseStatsTable.rows[11].cells[column].innerText = "0 %";
+   }
+
+   for (var f = 3; f < 23; f++)
+   {
+      if (f == 7 || f == 11)
+      {
+         // Skip reset time and retransmitted bytes
+         continue;
+      }
+      
+      var i = 0;
+      if (f > 7 && f < 11)
+      {
+         i = 1;
+      }
+
+      FieldVal = Fields.GetFieldValueText( f );
+      ReverseStatsTable.rows[f - i].cells[column].innerText = FieldVal;
+   }
+}
+
+</script>
+</body>
+</html>

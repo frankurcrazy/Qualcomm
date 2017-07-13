@@ -1,0 +1,57 @@
+<job id="QXDM LicenseDaysLeft Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e. CScript QXDMLicenseDaysLeft.wsf
+
+// This script demostrates usage of the QXDM automation
+// interface method LicenseDaysLeft
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM License Days Left
+   var Days = QXDM.LicenseDaysLeft;
+   var Txt = "QXDM License Days Left: " + Days;
+   WScript.StdOut.WriteLine( Txt );
+}
+
+Execute();
+
+</script>
+</job>

@@ -1,0 +1,98 @@
+<job id="QXDM ExportViewText Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMExportViewText.wsf
+
+// This example demonstrates the usage of the QXDM automation
+// interface method ExportViewText
+
+// Global variable
+var QXDM;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Export all items from item view to a text file
+function ExportViewText()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create the view first
+   RC = QXDM.CreateView( "Item View", "" );
+   if (RC == false)
+   {
+      Txt = "Failed to create \'Item View\'";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   // Get path for QXDM installation
+   var FileName = GenerateFileName( "", ".txt" );
+   if (FileName == "")
+   {
+      return;
+   }
+
+   // Export all items from item view
+   RC = QXDM.ExportViewText( "Item View", FileName );
+   if (RC == false)
+   {
+      Txt = "Unable to export items, \'Item View\' not found";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "Items exported to text file:\n";
+   WScript.StdOut.WriteLine( Txt + FileName );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Export all items from item view to a text file
+   ExportViewText();
+}
+
+Execute();
+
+</script>
+</job>

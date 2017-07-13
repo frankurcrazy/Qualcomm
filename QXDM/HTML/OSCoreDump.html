@@ -1,0 +1,117 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="OS Core Dump" />
+   <meta name="DMViewWidth" content="500" />
+   <meta name="DMViewHeight" content="250" />
+   <title>OS Core Dump</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div id="InformationalDisplay">
+This view registers interest in the OS Core Dump log.<br />
+If a target that supports this log experiences failure<br />
+it attempts to send this log.  Upon receipt, the raw log<br />
+contents are displayed in this view.<br />
+<br />
+To disable OS Core Dump View registration, uncheck<br />
+'Auto-Launch Core Dump' View from the Options menu.
+</div>
+
+<div id="OSCoreDumpDisplay">
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var UPDATE_MS         = 5000;
+var gMainTickID       = 0;
+var PrevIndex         = -1;
+
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x1158 );
+   clientObject.CommitConfig();
+
+   // Show the informational display and hide the the core dump display.
+   InformationalDisplay.style.display = "block";
+   OSCoreDumpDisplay.style.display = "none";
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      // Get raw buffer including header
+      InformationalDisplay.innerText = Item.GetItemBufferText(true);
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+</script>
+</div>
+
+</body>
+</html>

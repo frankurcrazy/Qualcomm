@@ -1,0 +1,356 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="Common Channel Statistics" />
+   <meta name="DMViewWidth" content="360" />
+   <meta name="DMViewHeight" content="690" />
+   <title>Markov</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="StatsTable">
+   <colgroup span="2">
+      <col width="75%" />
+      <col width="25%" />
+   </colgroup>
+   <tr>
+      <th colspan="2"><input type="button" value="Reset (Affects All)" onclick="ResetStats();"></th>
+   </tr>         
+   <tr>
+      <th colspan="2">Forward Broadcast Control Channel (F-BCCH)</th>
+   </tr>
+   <tr>
+      <td>Encapsulated PDU - Attempts</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Encapsulated PDUs - CRC Mismatch</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Partial Frames - Total</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Partial Frames - CRC Match</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>F-BCCH Loss</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>19.2 Kbps, 40 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>9.6 Kbps, 80 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>4.8 Kbps, 160 ms Frames </td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Insufficient Physical Layer Frame Quality</td>
+      <td>-</td>
+   </tr>
+
+   <tr>
+      <th colspan="2">Forward Common Control Channel (F-CCCH)</th>
+   </tr>
+   <tr>
+      <td>Encapsulated PDUs - Attempts</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Encapsulated PDUs - CRC Mismatch</td>
+      <td>-</td>
+   </tr>
+   <tr>   
+      <td>Messages/Records Addressed To Mobile</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>F-CCCH Loss</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>38.4 Kbps, 5 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>19.2 Kbps, 10 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>38.4 Kbps, 10 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>9.6 Kbps, 20 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>19.2 Kbps, 20 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>38.4 Kbps, 20 ms Frames</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Insufficient Physical Layer Frame Quality</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <th colspan="2">Reverse Enhanced Access Channel (R-EACH)</th>
+   </tr>
+   <tr>
+      <th colspan="2"><i>Basic Access Mode</i></th>
+   </tr>   
+   <tr>
+      <td>Request Type SDSUs</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Response Type SDSUs</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Access Probe - 2 Or More Times</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Access Probe - 3 Or More Times</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Access Probe - 4 Or More Times</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Access Probe - 5 Or More Times</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Access Probe - 6 Or More Times</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Unsuccessful Access Attempts</td>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1500;
+var EX_PARAM_REQ      = "Extensible Parameter Retrieval Request";
+var RESET_REQ         = "Parameter Set Request";
+
+var gMainTickID       = 0;
+var gRequestIDs       = new Array;
+var gParamMap         = new Array;
+
+var PrevIndex         = -1;
+
+
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure ourselves for the DIAG response
+   clientObject.AddDIAGResponse( 98 );   
+   clientObject.CommitConfig();
+   
+   // Set up infinite requests to obtain the parameters
+   RequestParameters( 259, 267 );
+   RequestParameters( 470, 477 );
+   RequestParameters( 493, 496 );
+   RequestParameters( 499, 505 );
+   
+   // Set up the parameter index to table index map
+   gParamMap[259] = 2;
+   gParamMap[260] = 3;
+   gParamMap[261] = 4;
+   gParamMap[262] = 5;
+   gParamMap[263] = 6;
+   gParamMap[493] = 7;
+   gParamMap[494] = 8;
+   gParamMap[495] = 9;
+   gParamMap[496] = 10;   
+   gParamMap[264] = 12;
+   gParamMap[265] = 13;
+   gParamMap[266] = 14;
+   gParamMap[267] = 15;
+   gParamMap[499] = 16;
+   gParamMap[500] = 17;
+   gParamMap[501] = 18;
+   gParamMap[502] = 19;
+   gParamMap[503] = 20;
+   gParamMap[504] = 21;
+   gParamMap[505] = 22;
+   gParamMap[470] = 25;
+   gParamMap[471] = 26;
+   gParamMap[472] = 27;
+   gParamMap[473] = 28;
+   gParamMap[474] = 29;
+   gParamMap[475] = 30;
+   gParamMap[476] = 31;
+   gParamMap[477] = 32;
+
+   if (gRequestIDs.length < 4)
+   {
+      window.document.write( "<br /> Error scheduling requests" );
+      return;
+   }       
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessResponses()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+   
+   // Remove all outstanding periodic requests
+   for (var s = 0; s < gRequestIDs.length; ++s)
+   {
+      IQXDM2.RemoveRequest( gRequestIDs[s] );
+   }      
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Set up a repetitive request for the given extended parameters
+function RequestParameters( StartIdx, EndIdx )
+{
+   // Assume failure
+   var bOK = false;
+   
+   var ReqArgs = "1" + " " + StartIdx + " " + EndIdx;
+   var ReqID = IQXDM2.RequestItem( EX_PARAM_REQ,
+                                   ReqArgs,
+                                   1,
+                                   TIMEOUT_MS,
+                                   0xFFFFFFFF,
+                                   UPDATE_MS );
+
+   if (ReqID != 0)
+   {
+      gRequestIDs[gRequestIDs.length] = ReqID;
+      bOK = true;
+   }  
+  
+   return bOK;
+} 
+
+// Reset statistics (apparently *ALL* stats)
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_REQ, "0xFFFFFFFF 0", 1, TIMEOUT_MS, 1, 1 );
+}
+
+// Process new responses in our client view
+function ProcessResponses()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }
+      
+      // Check command
+      var Cmd = ItemFields.GetFieldValue( 0 );
+      if (Cmd != 1)
+      {
+         continue;
+      }
+            
+      // Grab array bounds
+      var StartIdx = ItemFields.GetFieldValue( 1 );
+      var EndIdx = ItemFields.GetFieldValue( 2 );
+
+      var ParamIdx;      
+      var RowIdx;
+      var Val;
+      
+      // If one of our indices is contained in this response then
+      // update the associated table cell with the value
+      for (ParamIdx in gParamMap)
+      {         
+         if (StartIdx <= ParamIdx && ParamIdx <= EndIdx)
+         {
+            Val = ItemFields.GetFieldValueText( ParamIdx - StartIdx + 4 );            
+            StatsTable.rows[gParamMap[ParamIdx]].cells[1].innerText = Val;
+         }
+      }
+   }
+   
+   PrevIndex = CurrIndex;       
+}
+
+</script>
+
+</body>
+</html>

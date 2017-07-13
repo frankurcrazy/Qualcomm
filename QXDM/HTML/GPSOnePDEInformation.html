@@ -1,0 +1,634 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <title>GPSOne PDE Information</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPSOne PDE Information" />
+   <meta name="DMViewWidth" content="680" />
+   <meta name="DMViewHeight" content="320" />
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td width="50%" valign="top" class="noborder">
+
+         <div class="label-left">Calculated Location</div>
+         <table width="100%" id="LocationTable">
+            <colgroup span="3">
+               <col width="30%" />
+               <col width="35%" />
+               <col width="35%" />
+            </colgroup>
+            <tr>
+               <th>CDMA Time</th>
+               <td colspan="2">-</td>
+            </tr>            
+            <tr>
+               <th>Latitude</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Longitude</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Altitude</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Speed</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Heading</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Fix Type</th>
+               <td colspan="2">-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label-left">Satellite Information</div>
+         <table width="100%">
+            <colgroup span="2">
+               <col width="50%" />
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th>Satellite PRN</th>
+               <th>C/N (dB-Hz)</th>
+            </tr>
+            <tbody id="SatelliteTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+        
+      </td>
+
+      <td width="50%" valign="top" class="noborder">
+
+         <div class="label-left">Pilot Phase Measurement</div>
+         <table width="100%" id="PilotMeasTable">
+            <colgroup span="3">
+               <col width="40%" />
+               <col width="30%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>Time Reference (ms)</th>
+               <td colspan="2">-</td>
+            </tr>
+            <tr>
+               <th>Time Offset</th>
+               <td colspan="2">-</td>
+            </tr>
+            <tr>
+               <th>Reference PN</th>
+               <td colspan="2">-</td>
+            </tr>
+            <tr>
+               <th>Reference Strength</th>
+               <td colspan="2">-</td>
+            </tr>
+            <tr>
+               <th>Band Class</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>CDMA Frequency</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Total RX Power</th>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+
+         <br />
+
+         <div class="label-left">Pilot Information</div>
+         <table width="100%">
+            <colgroup span="3">
+               <col width="33%" />
+               <col width="33%" />
+               <col width="34%" />
+            </colgroup>
+            <tr>
+               <th>Phase</th>
+               <th>Strength (dB)</th>
+               <th>RMS Error (m)</th>
+            </tr>
+            <tbody id="PilotTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+
+      </td>
+
+    </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle          = 0xFFFFFFFF;
+var gMainTickID     = 0;
+var PrevIndex       = -1;
+var LogCode1036     = "[0x1036]";
+var LogCode1037     = "[0x1037]";
+
+// Update interval and the maximum number of items we will
+// ever attempt to process during an update
+var UPDATE_MS            = 1000;
+var MAX_ITEMS_PER_UPDATE = 12;
+
+var FORWARD_LINK  = 0;
+var REVERSE_LINK  = 1;
+
+var LOCATION_RSP = 1;
+var PSEUDO_MEAS  = 4;
+var PILOT_PHASE  = 5;
+
+var FPrev = 0;
+var FCurr = 0;
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write( "<br />Failed to get client interface pointer" );
+      return;
+   }
+
+   // Configure items
+   clientObject.AddLog( 0x1036 );
+   clientObject.AddLog( 0x1037 );
+
+   clientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process our client
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // In order to avoid tying up the display we honor an upper bound on 
+   // the number of items we will process per update - generally this is 
+   // only a concern when replaying a file at a greater than 1X speed 
+   if ((CurrIndex - PrevIndex) > MAX_ITEMS_PER_UPDATE)
+   {
+      PrevIndex = CurrIndex - MAX_ITEMS_PER_UPDATE;
+   } 
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var Fields = Item.GetConfiguredItemFields( "", true, false );
+      if (Fields == null)
+      {
+         continue;
+      }
+      
+      var FieldCount = Fields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == LogCode1036)
+      {
+         PopulateCalcLocation( Fields, FORWARD_LINK );
+      }
+      else if (ItemKey == LogCode1037)
+      {
+         PopulateCalcLocation( Fields, REVERSE_LINK );
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+// Calculate RMS error
+function CalcRMSError( Exponent, Mantissa )
+{
+   var RMS = "Unknown";
+   var Tmp = 0.0;
+   
+   if (Exponent == 0)
+   {
+      if (Mantissa == 0)
+      {
+         RMS = "< 1.0";
+      }
+      else if (Mantissa == 1)
+      {
+         RMS = "< 1.125";
+      }
+      else
+      {
+         Tmp = 1.0 + ((Mantissa / 8.0) * Math.pow( 2.0, Exponent ));
+         RMS = "< " + Tmp.toString();
+      }
+   }
+   else if (Exponent == 7)
+   {
+      if (Mantissa == 6)
+      {
+         RMS = "< 224.0";
+      }
+      else if (Mantissa == 7)
+      {
+         RMS = ">= 224.0";
+      }
+      else
+      {
+         Tmp = 1.0 + ((Mantissa / 8.0) * Math.pow( 2.0, Exponent ));
+         RMS = "< " + Tmp.toString();
+      } 
+   }
+   else
+   {
+      Tmp = 1.0 + ((Mantissa / 8.0) * Math.pow( 2.0, Exponent ));
+      RMS = "< " + Tmp.toString();
+   }
+
+   return RMS;
+}
+
+function PopulateCalcLocation( Fields, Type )
+{
+   var Txt;
+
+   // Get header length
+   var HeaderLength = Fields.GetFieldValue( 0 );
+
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < ( 8 + HeaderLength ))
+   {
+      return;
+   }
+
+   // Number of responses
+   var ResponseCount = Fields.GetFieldValue( 7 + HeaderLength );
+   if (ResponseCount == 0)
+   {
+      return;
+   }
+
+   var FieldVal;
+   var FieldIndex = 7 + HeaderLength;
+   for (var r = 0; r < ResponseCount; r++)
+   {
+      if (Type == FORWARD_LINK)
+      {
+         // Index of field "Response Type" of log 0x1036
+         FieldIndex = Fields.GetFieldIndexFromByID( 9312, FieldIndex, false );
+      }
+      else if (Type == REVERSE_LINK)
+      {
+         // Index of field "Response Type" of log 0x1037
+         FieldIndex = Fields.GetFieldIndexFromByID( 9142, FieldIndex, false );
+      }
+
+      if (FieldIndex == 0xFFFFFFFF)
+      {
+         break;
+      }
+
+      // Provide location response for logs 0x1036 & 0x1037?
+      var ResponseType = Fields.GetFieldValue( FieldIndex++ );
+      if (ResponseType == LOCATION_RSP)
+      {
+         // Index of field "CDMA System Time Reference"
+         FieldIndex = Fields.GetFieldIndexFromByID( 9269, FieldIndex, false );
+         if (FieldIndex == 0xFFFFFFFF)
+         {
+            break;
+         }
+
+         // CDMA system time reference
+         FieldVal = Fields.GetFieldValue( FieldIndex++ );
+         LocationTable.rows[0].cells[1].innerText = FieldVal;
+
+         // Latitude
+         FieldVal = Fields.GetFieldValue( FieldIndex++ );
+
+         // Translate from units of 180 / 2^25 degrees
+         FieldVal = FieldVal * (180 / 33554432);
+         Txt = FieldVal.toFixed( 4 ) + " Degrees"
+         LocationTable.rows[1].cells[1].innerText = Txt;
+
+         // Hours, minutes, seconds format
+         FieldVal = LatOrLongToString( FieldVal, true);
+         LocationTable.rows[1].cells[2].innerText = FieldVal;
+
+         // Longitude
+         FieldVal = Fields.GetFieldValue( FieldIndex );
+
+         // Translate from units of 360 / 2^26 degrees
+         FieldVal = FieldVal * (360 / 67108864);
+         Txt = FieldVal.toFixed( 4 ) + " Degrees"
+         LocationTable.rows[2].cells[1].innerText = Txt;
+
+         // Hours, minutes, seconds format
+         FieldVal = LatOrLongToString( FieldVal, false);
+         LocationTable.rows[2].cells[2].innerText = FieldVal;
+
+         // Skip location uncertainty information
+         FieldIndex += 4;
+
+         // Fix type
+         FieldVal = Fields.GetFieldValueText( FieldIndex++ );
+         LocationTable.rows[6].cells[1].innerText = FieldVal;
+
+         // Velocity information included ?
+         if (Fields.GetFieldValue( FieldIndex++ ) == 1)
+         {
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+
+            // Convert from 0.25 m/s to KPH
+            FieldVal = FieldVal * 0.9;
+            Txt = FieldVal.toFixed( 4 ) + " KPH";
+            LocationTable.rows[4].cells[1].innerText = Txt;
+
+            // Convert from KPH to MPH
+            FieldVal *= 0.62137;
+            Txt = FieldVal.toFixed( 4 ) + " MPH";
+            LocationTable.rows[4].cells[2].innerText = Txt;
+
+            // Heading
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+            FieldVal = FieldVal * (360 / 1024);
+            Txt = FieldVal.toFixed( 4 ) + " Degrees";
+            LocationTable.rows[5].cells[1].innerText = Txt;
+            
+            FieldVal = CourseToString( FieldVal );
+            LocationTable.rows[5].cells[2].innerText = FieldVal;
+
+            // Skip vertical velocity
+            FieldIndex++;
+         }
+
+         // Clock information included ?
+         if (Fields.GetFieldValue( FieldIndex++ ) == 1)
+         {
+            // Skip clock information
+            FieldIndex += 2;
+         }
+
+         // Height information included ?
+         if (Fields.GetFieldValue( FieldIndex++ ) == 1)
+         {
+            // Height 
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+
+            // Convert from height above the WGS-84 reference 
+            // ellipsoid - 500 meters
+            FieldVal = FieldVal - 500;
+            Txt = FieldVal + " Meters";
+            LocationTable.rows[3].cells[1].innerText = Txt;
+
+            // Height in feet
+            FieldVal *= 3.28084;
+            Txt = FieldVal.toFixed( 4 ) + " Feet";
+            LocationTable.rows[3].cells[2].innerText = Txt;
+         }
+      }
+      else if (ResponseType == PSEUDO_MEAS && Type == REVERSE_LINK)
+      {
+         // Index of field "Part Number"
+         FieldIndex = Fields.GetFieldIndexFromByID( 9220, FieldIndex, false );
+         if (FieldIndex == 0xFFFFFFFF)
+         {
+            break;
+         }
+
+         // Skip part number and total parts
+         FieldIndex += 2;
+
+         // Always +1 of the value sent
+         var PseudoRanges = Fields.GetFieldValue( FieldIndex++ ) + 1;
+         if (PseudoRanges == 0)
+         {
+            continue;
+         }
+
+         // Skip time reference and source
+         FieldIndex += 2;
+
+         // Offset included
+         if( Fields.GetFieldValue( FieldIndex++ ) == 1)
+         {
+            // Skip time reference PN sequence offset and
+            // MS system time offset
+            FieldIndex += 2;
+         }
+
+         var CurRows = SatelliteTable.rows.length;
+         ManageRows( SatelliteTable, 0, CurRows, PseudoRanges, 2, true );
+
+         for (var p = 0; p < PseudoRanges; p++)
+         {
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+            SatelliteTable.rows[p].cells[0].innerText = FieldVal;
+
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+            SatelliteTable.rows[p].cells[1].innerText = FieldVal;
+
+            // Skip fields not required for display
+            FieldIndex += 6;
+         }
+      }
+      else if (ResponseType == PILOT_PHASE && Type == REVERSE_LINK)
+      {
+         // Index of field "Time Reference"
+         FieldIndex = Fields.GetFieldIndexFromByID( 9240, FieldIndex, false );
+         if (FieldIndex == 0xFFFFFFFF)
+         {
+            break;
+         }
+
+         var TimeReference = Fields.GetFieldValue( FieldIndex++ );
+         PilotMeasTable.rows[0].cells[1].innerText = TimeReference;
+
+         var OffsetIncluded = Fields.GetFieldValue( FieldIndex++ );
+         if (OffsetIncluded)
+         {
+            var MSSysTimeOffset = Fields.GetFieldValue( FieldIndex++ );
+            PilotMeasTable.rows[1].cells[1].innerText = MSSysTimeOffset;
+         }
+         else
+         {
+            PilotMeasTable.rows[1].cells[1].innerText = "-";
+         }
+
+         var PNSequenceOffset = Fields.GetFieldValue( FieldIndex++ );
+         PilotMeasTable.rows[2].cells[1].innerText = PNSequenceOffset;
+
+         // Pilot strength
+         FieldVal = Fields.GetFieldValue( FieldIndex++ );
+         PilotMeasTable.rows[3].cells[1].innerText = FieldVal / -2.0;
+
+         // Band class
+         FieldVal = Fields.GetFieldValue( FieldIndex++ );
+         PilotMeasTable.rows[4].cells[1].innerText = FieldVal;
+         
+         // CDMA Frequency
+         FieldVal = Fields.GetFieldValue( FieldIndex++ );
+         PilotMeasTable.rows[5].cells[1].innerText = FieldVal;
+
+         // Total RX Power
+         FieldIndex += 3;
+         FieldVal = Fields.GetFieldValue( FieldIndex++ );
+         PilotMeasTable.rows[6].cells[1].innerText = FieldVal;
+
+         // Grab number of pilots
+         FieldIndex += 2;
+         var NumPilots = Fields.GetFieldValue( FieldIndex++ );
+         if (NumPilots == 0)
+         {
+            continue;
+         }
+
+         var CurRows = PilotTable.rows.length;
+         ManageRows( PilotTable, 0, CurRows, NumPilots, 3, true );
+
+         for (var n = 0; n < NumPilots; n++)
+         {
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+            PilotTable.rows[n].cells[0].innerText = FieldVal;
+
+            FieldVal = Fields.GetFieldValue( FieldIndex++ );
+            var PilotStrength = FieldVal / -2.0;
+            PilotTable.rows[n].cells[1].innerText = PilotStrength;
+
+            var Exponent = Fields.GetFieldValue( FieldIndex++ );
+            var Mantissa = Fields.GetFieldValue( FieldIndex++ );
+            FieldVal = CalcRMSError( Exponent, Mantissa );
+            PilotTable.rows[n].cells[2].innerText = FieldVal;
+         }
+
+         var AddPilotsIncl = Fields.GetFieldValue( FieldIndex++ );
+         if (AddPilotsIncl == 1)
+         {
+            var BandClass = Fields.GetFieldValue( FieldIndex++ );
+            PilotMeasTable.rows[4].cells[2].innerText = BandClass;
+
+            var CDMAFreq = Fields.GetFieldValue( FieldIndex++ );
+            PilotMeasTable.rows[5].cells[2].innerText = CDMAFreq;
+
+            var TXPower = Fields.GetFieldValue( FieldIndex++ );
+            PilotMeasTable.rows[9].cells[2].innerText = TXPower;
+
+            var MorePilots = Fields.GetFieldValue( FieldIndex++ );
+            if (MorePilots == 0)
+            {
+               continue;
+            }
+
+            var CurRows = PilotTable.rows.length;
+            var TotalRows = MorePilots + NumPilots;
+            ManageRows( PilotTable, 0, CurRows, TotalRows, 3, true );
+            for (var a = CurRows; a < TotalRows; a++)
+            {
+               FieldVal = Fields.GetFieldValue( FieldIndex++ );
+               PilotTable.rows[a].cells[0].innerText = FieldVal;
+
+               FieldVal = Fields.GetFieldValue( FieldIndex++ );
+               var PilotStrength = FieldVal / -2.0;
+               PilotTable.rows[a].cells[1].innerText = PilotStrength;
+
+               var Exponent = Fields.GetFieldValue( FieldIndex++ );
+               var Mantissa = Fields.GetFieldValue( FieldIndex++ );
+               FieldVal = CalcRMSError( Exponent, Mantissa );
+               PilotTable.rows[a].cells[2].innerText = FieldVal;
+            }
+         }
+         else
+         {
+            PilotMeasTable.rows[4].cells[2].innerText = "-";
+            PilotMeasTable.rows[5].cells[2].innerText = "-";
+            PilotMeasTable.rows[6].cells[2].innerText = "-";
+         }
+      }
+   }
+}
+
+</script>
+</body>
+</html>

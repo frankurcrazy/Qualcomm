@@ -1,0 +1,299 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA EUL L1 UL Configuration" />
+   <meta name="DMViewWidth" content="450" />
+   <meta name="DMViewHeight" content="215" />
+
+   <title>WCDMA EUL L1 UL Configuration</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="DataTable">
+   <colgroup span="2">
+      <col width="40%" />
+      <col width="60%" />
+   </colgroup>
+   <tr>
+      <th>E-DPCCH Power Offset</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>PL Non-Max</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Two Step Index</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Three Step Index</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Combining Type</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Max Spreading Factor</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Max Tx Power (dBm)</th>
+      <td>-</td>
+   </tr>
+</table>     
+<br />
+<table width="100%" id="RefTable">
+   <colgroup span="9">
+      <col width="20%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+      <col width="10%" />
+   </colgroup>
+   <tr>
+      <th>Reference</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+   </tr>
+   <tr>
+      <th>E-TFCI</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Power Offset</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+</table>     
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle              = 0xFFFFFFFF;
+var gMainTickID         = 0;
+
+var UPDATE_MS           = 1000;
+var PrevIndex           = -1;
+
+var STATE               = "[4]";
+var LOG_ON_DEMAND_REQ   = "Log On Demand Request";
+var SVR_STATE_CONNECTED = 2;
+var TIMEOUT_MS          = 500;
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure connection string
+   clientObject.AddString( 4 );
+
+   // Configure logs
+   clientObject.AddLog( 0x4303 );
+   clientObject.CommitConfig();
+
+   // Are we currently connected
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED)
+   {
+      // Request log
+      IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, 
+                          "0x4303", 
+                          1,
+                          TIMEOUT_MS, 
+                          1,
+                          1 );
+   }
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var bFound = false;
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         // Check for a state notification 
+         var ItemKey = Item.GetItemKeyText();
+         if (ItemKey == STATE)
+         {
+            var ServerState = IQXDM2.GetServerState();
+            if (ServerState == SVR_STATE_CONNECTED)
+            {
+               var Txt = Item.GetItemSummary();
+
+               var bConnect = (Txt.indexOf( "Connected to" ) >= 0);
+               if (bConnect == true)
+               {  
+                  // Request log
+                  IQXDM2.RequestItem( LOG_ON_DEMAND_REQ, 
+                                      "0x4303", 
+                                      1,
+                                      TIMEOUT_MS, 
+                                      1,
+                                      1 );
+               }
+            }
+         }
+         else if (bFound == false)
+         {      
+            var Fields = Item.GetConfiguredItemFields( "", true, false );
+            if (Fields != null)
+            {
+               PopulateTable( Fields );
+               bFound = true;
+            }
+         }
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+ 
+function PopulateTable( Fields )
+{  
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 42)
+   {
+      return;
+   }
+
+   // Power Offset
+   var FieldVal = Fields.GetFieldValueText( 10 );   
+   DataTable.rows[0].cells[1].innerText = FieldVal;    
+   
+   // PL Non-Max
+   FieldVal = Fields.GetFieldValueText( 11 );
+   DataTable.rows[1].cells[1].innerText = FieldVal;    
+   
+   // Two Step Index
+   FieldVal = Fields.GetFieldValueText( 15 );
+   DataTable.rows[2].cells[1].innerText = FieldVal;    
+   
+   // Three Step Index
+   FieldVal = Fields.GetFieldValueText( 16 );
+   DataTable.rows[3].cells[1].innerText = FieldVal;    
+   
+   // Combining Type
+   FieldVal = Fields.GetFieldValueText( 4 );
+   DataTable.rows[4].cells[1].innerText = FieldVal;    
+   
+   // Max SF
+   FieldVal = Fields.GetFieldValueText( 7 );
+   DataTable.rows[5].cells[1].innerText = FieldVal;    
+   
+   // Max Tx Power
+   FieldVal = Fields.GetFieldValueText( 17 );
+   DataTable.rows[6].cells[1].innerText = FieldVal;    
+   
+   var fi = 18;
+   for (var i = 1; i <= 8; i++)
+   {
+      // TFCI Configured
+      var config = Fields.GetFieldValueText( fi + 1 );
+      var tfci = "-";
+      var offset = "-";
+
+      if (config != 0)
+      {      
+         // Reference E-TFCI
+         tfci = Fields.GetFieldValueText( fi );
+         
+         // Reference Power Offset
+         offset = Fields.GetFieldValueText( fi + 2 );
+      }
+      
+      RefTable.rows[1].cells[i].innerText = tfci;    
+      RefTable.rows[2].cells[i].innerText = offset;    
+      
+      fi += 3;
+   }   
+}
+
+</script>
+</body>
+</html>

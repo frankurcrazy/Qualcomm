@@ -1,0 +1,462 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA NAS QoS" />
+   <meta name="DMViewWidth" content="400" />
+   <meta name="DMViewHeight" content="460" />
+   <title>WCDMA NAS QoS</title>
+   <link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="QoSPacketMgmtTable">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>Connection ID Filter</th>
+      <td>
+         <select onchange="SetIDFilter(this.value);" id="IDSelect" NAME="IDSelect">
+            <option value='2048' selected>Conn ID (NSAPI)</option>
+         </select>
+      </td>
+   </tr>
+   <tr>
+      <th>Connection ID</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Delay Class</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Reliability Class</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Peak Throughput</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Precedence Class</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Mean Throughput</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Traffic Class</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Delivery Order</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Delivery/Erroneous SDU</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Maximum SDU Size</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Maximum Bit Rate - UL</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Maximum Bit Rate - DL</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Residual Bit Error Rate</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>SDU Error Ratio</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Transfer Delay</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Traffic Handling Priority</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Guarantee Bit Error Rate UL</th>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>Guarantee Bit Error Rate DL</th>
+      <td>-</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+// None selected/current Connection ID
+var gNoConnectionID = 2048;
+var gConnectionID = 2048;
+
+// Index of last log for given connection ID 
+var gConnectionIDs = new Array();
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+         
+   // Configure items
+   clientObject.AddLog( 0x7134 );
+   clientObject.AddLog( 0x7136 );
+
+   clientObject.CommitConfig();
+*/
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+// Process our client - we only update based on the last item
+// since the user cannot discern anything faster than our update
+// interval
+function ProcessItems()
+{
+   var NASPSLogCode   = "[0x7134]";
+   var NASQoSLogCode  = "[0x7136]";
+   var NASPSLogCodeB  = "[0x7B34]";
+   var NASQoSLogCodeB = "[0x7B36]";
+      
+   // We process all logs since we search for new Connection IDs   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }
+      
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+      
+      var bTabs = false;
+      var ItemKey = Item.GetItemKeyText();  
+      switch (ItemKey)
+      {
+         case NASPSLogCode:
+         case NASPSLogCodeB:
+         {     
+            if (ItemKey == NASPSLogCodeB)
+            {
+               bTabs = true;
+            }
+            
+            // Check for a new Connection ID
+            UpdateConnectionIDs( ItemFields, i, bTabs );
+         }
+         break;  
+         
+         case NASQoSLogCode:
+         case NASQoSLogCodeB:
+         {     
+            // Get connection ID, update last log index received?
+            var ConnectionID = ItemFields.GetFieldValue( 0 );
+            if (ConnectionID in gConnectionIDs)
+            {
+               gConnectionIDs[ConnectionID] = i; 
+            }
+            
+            // Check against current user selection
+            if (ConnectionID == gConnectionID)
+            {
+               if (ItemKey == NASQoSLogCodeB)
+               {
+                  bTabs = true;
+               }
+            
+               PopulateQoSTable( ItemFields, bTabs );
+            }
+         }
+         break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Check for a new Connection ID, if one is found update the filter 
+// combo-box and our internal arrays
+function UpdateConnectionIDs( Fields, Index, bTabs )
+{
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return;
+      }
+   }
+   
+   if (FieldCount < 2 + t)
+   {
+      return;
+   }
+   
+   // Get Number of Connection ID's
+   var NumConnections = Fields.GetFieldValue( 0 + t );
+   
+   // Connection ID
+   var ConnectionID;
+   var ExistingID;
+   
+   // NSAPI value
+   var NSAPI;
+   
+   var bFound;
+   var DataIndex = 1 + t;
+   
+   for (var c = 0; c < NumConnections; c++)
+   {      
+      // Get Connection ID and check
+      ConnectionID = Fields.GetFieldValue( DataIndex++ );
+      
+      // Get NSAPI value
+      NSAPI = Fields.GetFieldValue( DataIndex++ );
+      
+      bFound = false;
+      for (ExistingID in gConnectionIDs)
+      {
+         if (ExistingID == ConnectionID)
+         {
+            bFound = true;
+            break;
+         }
+      }
+      
+      // New Connection ID?
+      if (bFound == false)
+      {
+         var newOption = document.createElement( "option" );
+         newOption.text = "Conn ID " +ConnectionID + " (NSAPI " + NSAPI + " )";
+         newOption.value = ConnectionID;
+
+         IDSelect.add( newOption );
+         
+         gConnectionIDs[ConnectionID] = -1;
+      }
+   }
+}
+
+// User has updated the connection ID filter
+function SetIDFilter( ConnectionID )
+{
+   // Save
+   gConnectionID = ConnectionID;
+   
+   // Nothing selected?
+   if (gConnectionID == gNoConnectionID)
+   {
+      ResetTable();
+      return;
+   }
+   
+   // Grab index of item
+   var Idx = gConnectionIDs[gConnectionID];
+   if (Idx == -1) 
+   {
+      ResetTable();
+      return;   
+   }
+   
+   // Grab item
+   var Item = IQXDM2.GetClientItem( Handle, Idx );
+   if (Item == null)
+   {
+      ResetTable();
+      return;
+   }
+   
+   var Fields = Item.GetItemFields();
+   if (Fields == null)
+   {
+      ResetTable();      
+      return;
+   }   
+   
+   var NASQoSLogCodeB = "[0x7B36]";
+   var bTabs = false;
+   var ItemKey = Item.GetItemKeyText();  
+   if (ItemKey == NASQoSLogCodeB)
+   {
+      bTabs = true;
+   }
+   PopulateQoSTable( Fields, bTabs );
+}
+
+function ResetTable()
+{
+   var Rows = QoSPacketMgmtTable.rows.length;
+   for (var r = 1; r < Rows; r++)
+   {      
+      QoSPacketMgmtTable.rows[r].cells[1].innerText = "-";
+   }
+}
+
+function PopulateQoSTable( Fields, bTabs )
+{
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return;
+   }
+
+   var FieldCount = Fields.GetFieldCount();
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return;
+      }
+   }
+   
+   if (FieldCount == 0 + t)
+   {
+      return;
+   }
+   
+   // Make sure we don't try to write to rows that don't exist
+   var Rows = QoSPacketMgmtTable.rows.length;
+   if (FieldCount > Rows - 1)
+   {
+      FieldCount = Rows;
+   }
+   
+   for (var f = t; f < FieldCount; f++)
+   {
+      var FieldVal = Fields.GetFieldValueText( f );
+      QoSPacketMgmtTable.rows[f + 1].cells[1].innerText = FieldVal;
+   }
+}
+
+</script>
+</body>
+</html>

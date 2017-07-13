@@ -1,0 +1,1987 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Rev. A Reverse Link Metrics" />
+   <meta name="DMViewWidth" content="1000" />
+   <meta name="DMViewHeight" content="525" />
+   <title>HDR Rev. A Reverse Link Metrics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />  
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+<table width="100%" id="DataTable">
+   <tr>
+      <th width="28.5%" style="cursor : pointer" 
+         onclick="SetDataTableDisplay();">Expand All</th>
+      <th width="5.5%">PS 1 <br /> (128)</th>
+      <th width="5.5%">PS 2 <br /> (256)</th>
+      <th width="5.5%">PS 3 <br /> (512)</th>
+      <th width="5.5%">PS 4 <br /> (768)</th>
+      <th width="5.5%">PS 5 <br /> (1024)</th>
+      <th width="5.5%">PS 6 <br /> (1536)</th>
+      <th width="5.5%">PS 7 <br /> (2048)</th>
+      <th width="5.5%">PS 8 <br /> (3072)</th>
+      <th width="5.5%">PS 9 <br /> (4096)</th>
+      <th width="5.5%">PS 10 <br /> (6144)</th>
+      <th width="5.5%">PS 11 <br /> (8192)</th>
+      <th width="5.5%">PS 12 <br /> (12288)</th>
+      <th width="5.5%">Total </th>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 1, 3 );">HiCap SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 5, 3 );">HiCap SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 9, 3 );">HiCap SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 13, 3 );">HiCap SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 17, 3 );">HiCap PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 21, 3 );">LoLat SP0 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 25, 3 );">LoLat SP1 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 29, 3 );">LoLat SP2 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 33, 3 );">LoLat SP3 ACKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 37, 3 );">LoLat PARQ NAKs</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 0</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>Interlace 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 41, 2 );">Packets Sent</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 44, 2 );">Good Packets</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+     <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 47, 2 );">Avg. Packet Termination</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 50, 2 );">PER (%)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 53, 2 );">Total Packet TX Time (ms)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 56, 2 );">Transmitted Throughput (kbps)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 59, 2 );">Overall Throughput (kbps)</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th style="cursor : pointer" 
+         onclick="ToggleIndividuals( 62, 2 );">Session % Packets Sent</th>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>HiCap</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr style="display : none">
+      <td>LoLat</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+
+   <tr>
+      <th>&nbsp;</th>
+      <th colspan="5">Total</th>
+      <th colspan="4">HiCap</th>
+      <th colspan="4">LoLat</th>
+   </tr>
+   <tr>
+      <th>Total PER (%)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr">
+      <th>Total Instantaneous PER (%)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr>
+      <th>Total Transmitted Throughput (kbps)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>   </tr>
+   <tr>
+      <th>Total Overall Throughput (kbps)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr>
+      <th>Total Instantaneous Throughput (kbps)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   <tr>
+      <th>Average Latency (ms)</th>
+      <td colspan="5">-</td>
+      <td colspan="4">-</td>
+      <td colspan="4">-</td>
+   </tr>
+   
+   <tr>
+      <th>&nbsp;</th>
+      <th colspan="4">Total</th>
+      <th colspan="3">Interlace 0</th>
+      <th colspan="3">Interlace 1</th>
+      <th colspan="3">Interlace 2</th>
+   </tr>   
+   
+   <tr>
+      <th>Total Packets Sent</th>
+      <td colspan="4">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+   </tr>
+   <tr>
+      <th>Unexpected PARQ NAKs</th>
+      <td colspan="4">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+      <td colspan="3">-</td>
+   </tr>
+   <tr>
+      <th>HARQ-PARQ Mismatch Rate (%)</th>
+      <td colspan="4">-</td>
+      <td colspan="9"><input type="button" value="Reset" onclick="ResetStats();"></td>
+   </tr>
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle              = 0xFFFFFFFF;
+var gMainTickID         = 0;
+
+var TIMEOUT_MS          = 500;
+var UPDATE_MS           = 1000;
+var RESET_TRAFFIC_REQ   = "CDMA 1xEV/Reset Reverse Stats Request";
+
+var PrevIndex           = -1;
+
+var gPrevHiCapPARQNaks           = 0;
+var gPrevLoLatPARQNaks           = 0;
+var gPrevHiCapTotalPacketsSent   = 0;
+var gPrevLoLatTotalPacketsSent   = 0;
+
+var gPrevHiCapScaledGoodPackets   = 0;
+var gPrevLoLatScaledGoodPackets   = 0;
+var gPrevTotalTime                = 0;
+
+var gbDataDisplay = "none";
+var gbOverallDisplay = "none";
+
+var BIT_PS = new Array();
+BIT_PS[1] = 128;
+BIT_PS[2] = 256;
+BIT_PS[3] = 512;
+BIT_PS[4] = 768;
+BIT_PS[5] = 1024;
+BIT_PS[6] = 1536;
+BIT_PS[7] = 2048;
+BIT_PS[8] = 3072;
+BIT_PS[9] = 4096;
+BIT_PS[10] = 6144;
+BIT_PS[11] = 8192;
+BIT_PS[12] = 12288;
+
+
+function SafeDivide( Num, Den )
+{
+   var Result = "-";
+   if (isNaN( Num ) == false && isNaN( Den ) == false && Den != 0)
+   {
+      Result = Num / Den;
+   }
+   return Result;
+}
+
+function SafeAdd( X, Y )
+{
+   var Result = "-";
+   if (isNaN( X ) == true && isNaN( Y ) == true)
+   {
+      // Both values invalid
+      return Result;
+   }
+
+   if (isNaN( X ) == true)
+   {
+      // X invalid, so use Y
+      return Y;
+   }
+   
+   if (isNaN( Y ) == true)
+   {
+      // Y invalid, so use X
+      return X;
+   }
+
+   // Add X and Y
+   Result = X + Y
+   return Result;
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x127E );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process the last received log
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item != null)
+   {
+      var Fields = Item.GetItemFields();
+      if (Fields != null)
+      {
+         UpdateDisplay( Fields );
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Show or hide constituent rows under the given base row
+function ToggleIndividuals( BaseIdx, RowCount )
+{
+   var CurRows = DataTable.rows.length;
+   for (var r = BaseIdx + RowCount; r > BaseIdx; r--)
+   {
+      if (r < CurRows)
+      {
+         if (DataTable.rows[r].style.display == "none")
+         {
+            DataTable.rows[r].style.display = "";
+         }
+         else
+         {
+            DataTable.rows[r].style.display = "none";
+         }   
+      }
+   }
+   
+   DataTable.refresh();
+}
+
+// Show or hide all rows
+function SetDataTableDisplay( Str )
+{
+   gbDataDisplay = (gbDataDisplay == "none" ? "" : "none");
+
+   var Str = "Collapse All";
+   if (gbDataDisplay == "none")
+   {
+      Str = "Expand All";
+   }
+
+   DataTable.rows[0].cells[0].innerText = Str;
+
+   for (var r = 1; r < 65; r++)
+   {
+      if (DataTable.rows[r].cells[0].style.cursor != "pointer")
+      {
+         DataTable.rows[r].style.display = gbDataDisplay;
+      }
+   }
+
+   DataTable.refresh();
+}
+
+// Update Display
+function UpdateDisplay( Fields )
+{  
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 1)
+   {
+      return;
+   }
+     
+   // Get version
+   var Version = Fields.GetFieldValue( 0 );
+   if (Version == 1)
+   {
+      if (FieldCount < 2 + 3 * (6 * 24 + 1))
+      {
+         return;
+      }
+      
+      var fi = 2;
+      var rHigh = 1;
+      var rLow = 21;
+      var Value = 0;
+      var RowTotal = new Array();
+
+      var HiCapTotal = new Array();
+      var LoLatTotal = new Array();
+
+      var InterlacePacketsSent = new Array();
+      var TotalUnexpected = 0;
+
+      var HiCapValue = 0;
+      var LoLatValue = 0;
+
+      var HiCapTotalPacketsSent = 0;
+      var LoLatTotalPacketsSent = 0;
+
+      var HiCapTotalTermination = 0;
+      var LoLatTotalTermination = 0;
+
+      var HiCapScaledGoodPackets = 0;
+      var LoLatScaledGoodPackets = 0;
+
+      var HiCapSumGoodPackets = 0;
+      var LoLatSumGoodPackets = 0;
+
+      var HiCapSumTxTime = 0;
+      var LoLatSumTxTime = 0;
+
+      var HiCapPARQNaks = 0;
+      var LoLatPARQNaks = 0;
+
+      var R1 = 41;
+      var R2 = 66;
+      var R3 = 73;
+
+      // Get total time from sequence number
+      var TotalTime = Fields.GetFieldValue( 1 );
+
+      for (var ps = 1; ps <= 12; ps++)
+      {
+         HiCapTotal[ps] = new Array();
+         LoLatTotal[ps] = new Array();
+
+         for (var f = 0; f < 6; f++)
+         {
+            HiCapTotal[ps][f] = 0;
+            LoLatTotal[ps][f] = 0;
+         }
+      }
+
+      for (var i = 0; i < 3; i++)
+      {
+         InterlacePacketsSent[i] = 0;
+      }
+      
+      for (var i = 1; i <= 64; i++)
+      {
+         RowTotal[i] = 0;
+      }
+      
+      // Get values for each interlace
+      for (var i = 0; i < 3; i++)
+      {
+         for (var ps = 1; ps <= 12; ps++)
+         {
+            for (var f = 0; f < 6; f++)
+            {
+               Value = Fields.GetFieldValue( fi++ );
+               HiCapTotal[ps][f] += Value;
+               if (f < 4)
+               {
+                  // SP ACKs
+                  InterlacePacketsSent[i] += Value;
+                  DataTable.rows[4 * f + i + rHigh + 1].cells[ps].innerText = Value;
+                  RowTotal[4 * f + i + rHigh + 1] += Value;
+               }
+
+               if (f == 4)
+               {
+                  // PARQ Naks
+                  InterlacePacketsSent[i] += Value;
+                  HiCapPARQNaks += Value;
+                  DataTable.rows[4 * f + i + rHigh + 1].cells[ps].innerText = Value;
+                  RowTotal[4 * f + i + rHigh + 1] += Value;
+               }
+
+            }
+         }
+         for (var ps = 1; ps <= 12; ps++)
+         {
+            for (var f = 0; f < 6; f++)
+            {
+               Value = Fields.GetFieldValue( fi++ );
+               LoLatTotal[ps][f] += Value;
+               if (f < 4)
+               {
+                  // SP ACKs
+                  InterlacePacketsSent[i] += Value;
+                  DataTable.rows[4 * f + i + rLow + 1].cells[ps].innerText = Value;
+                  RowTotal[4 * f + i + rLow + 1] += Value;
+               }
+
+               if (f == 4)
+               {
+                  // PARQ Naks
+                  InterlacePacketsSent[i] += Value;
+                  LoLatPARQNaks += Value;
+                  DataTable.rows[4 * f + i + rLow + 1].cells[ps].innerText = Value;
+                  RowTotal[4 * f + i + rLow + 1] += Value;
+               }
+
+            }
+         }
+
+         // Unexpected PARQ Naks
+         Value = Fields.GetFieldValue( fi++ );
+         DataTable.rows[R3 + 1].cells[i+2].innerText = Value;
+
+         TotalUnexpected += Value;
+      }
+
+      
+      // Populate table
+      for (var ps = 1; ps <= 12; ps++)
+      {
+         var HiCapPacketsSent = 0;
+         var LoLatPacketsSent = 0;
+         
+         for (var f = 0; f < 5; f++)
+         {
+            DataTable.rows[4 * f + rHigh].cells[ps].innerText = HiCapTotal[ps][f];
+            RowTotal[4 * f + rHigh] += HiCapTotal[ps][f];
+
+            DataTable.rows[4 * f + rLow].cells[ps].innerText = LoLatTotal[ps][f];
+            RowTotal[4 * f + rLow] += LoLatTotal[ps][f];
+
+            HiCapPacketsSent += HiCapTotal[ps][f];
+            LoLatPacketsSent += LoLatTotal[ps][f];
+         }
+
+         // Packets Sent
+         DataTable.rows[R1].cells[ps].innerText = HiCapPacketsSent + LoLatPacketsSent;
+         RowTotal[R1] += HiCapPacketsSent + LoLatPacketsSent;
+
+         DataTable.rows[R1 + 1].cells[ps].innerText = HiCapPacketsSent;
+         RowTotal[R1 + 1] += HiCapPacketsSent;
+         HiCapTotalPacketsSent += HiCapPacketsSent;
+
+         DataTable.rows[R1 + 2].cells[ps].innerText = LoLatPacketsSent;
+         RowTotal[R1 + 2] += LoLatPacketsSent;
+         LoLatTotalPacketsSent += LoLatPacketsSent;
+
+         // RL PER = PARQ Naks / Packets Sent
+         Value = SafeDivide( HiCapTotal[ps][4], HiCapPacketsSent );
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 10] += Value * 100;
+            Value = (Value * 100).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 10].cells[ps].innerText = Value;
+
+         Value = SafeDivide( LoLatTotal[ps][4], LoLatPacketsSent );
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 11] += Value * 100;
+            Value = (Value * 100).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 11].cells[ps].innerText = Value;
+
+         Value = SafeDivide( HiCapTotal[ps][4] + LoLatTotal[ps][4], 
+                             HiCapPacketsSent + LoLatPacketsSent );
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 9] += Value * 100;
+            Value = (Value * 100).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 9].cells[ps].innerText = Value;
+
+         // Total Packet Tx Time = (SP0 + 2*SP1 + 3*SP2 + 4*(SP3 + PARQNaks)) * 2 / 300
+         var HiCapTxTime = (HiCapTotal[ps][0] + 
+                            2 * HiCapTotal[ps][1] + 
+                            3 * HiCapTotal[ps][2] + 
+                            4 * (HiCapTotal[ps][3] + HiCapTotal[ps][4])) * 2 / 300;
+         DataTable.rows[R1 + 13].cells[ps].innerText = (HiCapTxTime * 1000).toFixed( 0 );
+         RowTotal[R1 + 13] += HiCapTxTime * 1000;
+
+         var LoLatTxTime = (LoLatTotal[ps][0] + 
+                            2 * LoLatTotal[ps][1] + 
+                            3 * LoLatTotal[ps][2] + 
+                            4 * (LoLatTotal[ps][3] + LoLatTotal[ps][4])) * 2 / 300;
+         DataTable.rows[R1 + 14].cells[ps].innerText = (LoLatTxTime * 1000).toFixed( 0 );
+         RowTotal[R1 + 14] += LoLatTxTime * 1000;
+
+         Value = HiCapTxTime + LoLatTxTime;
+         DataTable.rows[R1 + 12].cells[ps].innerText = (Value * 1000).toFixed( 0 );
+         RowTotal[R1 + 12] += Value * 1000;
+      
+         // Avg. Packet Termination
+         var HiCapNum = HiCapTotal[ps][0] + 
+                        2 * HiCapTotal[ps][1] + 
+                        3 * HiCapTotal[ps][2] + 
+                        4 * HiCapTotal[ps][3];
+         HiCapTotalTermination += HiCapNum;
+
+         HiCapValue = SafeDivide( HiCapNum, HiCapPacketsSent );
+         if (isNaN( HiCapValue ) == false)
+         {
+            RowTotal[R1 + 7] += HiCapValue;
+            HiCapValue = HiCapValue.toFixed( 2 );
+         }
+         DataTable.rows[R1 + 7].cells[ps].innerText = HiCapValue;
+
+         var LoLatNum = LoLatTotal[ps][0] + 
+                        2 * LoLatTotal[ps][1] + 
+                        3 * LoLatTotal[ps][2] + 
+                        4 * LoLatTotal[ps][3];
+         LoLatTotalTermination += LoLatNum;
+
+
+         LoLatValue = SafeDivide( LoLatNum, LoLatPacketsSent );
+         if (isNaN( LoLatValue ) == false)
+         {
+            RowTotal[R1 + 8] += LoLatValue;
+            LoLatValue = LoLatValue.toFixed( 2 );
+         }
+         DataTable.rows[R1 + 8].cells[ps].innerText = LoLatValue;
+
+         Value = SafeDivide( HiCapNum + LoLatNum, 
+                             HiCapPacketsSent + LoLatPacketsSent );
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 6] += Value;
+            Value = Value.toFixed( 2 );
+         }
+         DataTable.rows[R1 + 6].cells[ps].innerText = Value;
+
+         // Calculation for Total Transmitted Throughput
+         HiCapSumTxTime += HiCapTxTime;
+         LoLatSumTxTime += LoLatTxTime;
+
+         // Good Packets
+         var HiCapGoodPackets = HiCapTotal[ps][0] + HiCapTotal[ps][1] + 
+                                HiCapTotal[ps][2] + HiCapTotal[ps][3];
+         DataTable.rows[R1 + 4].cells[ps].innerText = HiCapGoodPackets;
+         RowTotal[R1 + 4] += HiCapGoodPackets;
+
+         var LoLatGoodPackets = LoLatTotal[ps][0] + LoLatTotal[ps][1] + 
+                                LoLatTotal[ps][2] + LoLatTotal[ps][3];
+         DataTable.rows[R1 + 5].cells[ps].innerText = LoLatGoodPackets;
+         RowTotal[R1 + 5] += LoLatGoodPackets;
+
+         Value = SafeAdd( HiCapGoodPackets, LoLatGoodPackets );
+         DataTable.rows[R1 + 3].cells[ps].innerText = Value;
+         RowTotal[R1 + 3] += Value;
+
+         // Calculation for Total RL Throughputs
+         HiCapScaledGoodPackets += HiCapGoodPackets * BIT_PS[ps];
+         LoLatScaledGoodPackets += LoLatGoodPackets * BIT_PS[ps];
+
+         // Calculation for Average RL Latency
+         HiCapSumGoodPackets += HiCapGoodPackets;
+         LoLatSumGoodPackets += LoLatGoodPackets;
+
+         // Transmitted Throughput
+         HiCapValue = SafeDivide( HiCapGoodPackets * BIT_PS[ps], HiCapTxTime );
+         Value = HiCapValue;
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 16] += Value / 1000;
+            Value = (Value / 1000).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 16].cells[ps].innerText = Value;
+
+         LoLatValue = SafeDivide( LoLatGoodPackets * BIT_PS[ps], LoLatTxTime );
+         Value = LoLatValue;
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 17] += Value / 1000;
+            Value = (Value / 1000).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 17].cells[ps].innerText = Value;
+
+         Value = SafeDivide( HiCapGoodPackets * BIT_PS[ps] + LoLatGoodPackets * BIT_PS[ps], 
+                             HiCapTxTime + LoLatTxTime );
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 15] += Value / 1000;
+            Value = (Value / 1000).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 15].cells[ps].innerText = Value;
+
+         // Overall Throughput
+         HiCapValue = SafeDivide( HiCapGoodPackets * BIT_PS[ps], TotalTime );
+         Value = HiCapValue;
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 19] += Value / 1000;
+            Value = (Value / 1000).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 19].cells[ps].innerText = Value;
+
+         LoLatValue = SafeDivide( LoLatGoodPackets * BIT_PS[ps], TotalTime );
+         Value = LoLatValue;
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 20] += Value / 1000;
+            Value = (Value / 1000).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 20].cells[ps].innerText = Value;
+         
+         Value = SafeAdd( HiCapValue, LoLatValue );
+         if (isNaN( Value ) == false)
+         {
+            RowTotal[R1 + 18] += Value / 1000;
+            Value = (Value / 1000).toFixed( 2 );
+         }
+         DataTable.rows[R1 + 18].cells[ps].innerText = Value;
+
+      }
+
+      // Session % Packets Sent
+      for (var ps = 1; ps <= 12; ps++)
+      {
+         for (var i = 0; i < 3; i++)
+         {
+            if (RowTotal[R1] == 0)
+            {
+               // Denominator = 0
+               Value = "-";
+            }
+            else
+            {
+               Value = DataTable.rows[R1 + i].cells[ps].innerText;
+               Value /= RowTotal[R1];
+               Value *= 100;
+
+               RowTotal[R1 + 21 + i] += Value;
+               Value = Value.toFixed( 2 );
+            }
+
+            DataTable.rows[R1 + 21 + i].cells[ps].innerText = Value;
+         }
+      }
+
+      // Print total column
+      for (var i = 1; i <= 64; i++)
+      {
+         Value = RowTotal[i];
+         
+         // Average Packet Termination
+         if (i == 47)
+         {
+            Value = SafeDivide( HiCapTotalTermination + LoLatTotalTermination, 
+                                HiCapTotalPacketsSent + LoLatTotalPacketsSent );
+         }
+         if (i == 48)
+         {
+            Value = SafeDivide( HiCapTotalTermination, HiCapTotalPacketsSent );
+         }
+         if (i == 49)
+         {
+            Value = SafeDivide( LoLatTotalTermination, LoLatTotalPacketsSent );
+         }
+
+         // Total PER
+         if (i == 50)
+         {
+            Value = SafeDivide( HiCapPARQNaks + LoLatPARQNaks, 
+                                HiCapTotalPacketsSent + LoLatTotalPacketsSent );
+         }
+         if (i == 51)
+         {
+            Value = SafeDivide( HiCapPARQNaks, HiCapTotalPacketsSent );
+         }
+         if (i == 52)
+         {
+            Value = SafeDivide( LoLatPARQNaks, LoLatTotalPacketsSent );
+         }
+
+         // Total Transmitted Throughput
+         if (i == 56)
+         {
+            Value = SafeDivide( HiCapScaledGoodPackets + LoLatScaledGoodPackets, 
+                                HiCapSumTxTime + LoLatSumTxTime );
+         }
+         if (i == 57)
+         {
+            Value = SafeDivide( HiCapScaledGoodPackets, HiCapSumTxTime );
+         }
+         if (i == 58)
+         {
+            Value = SafeDivide( LoLatScaledGoodPackets, LoLatSumTxTime );
+         }
+
+         // Adjust value as necessary
+         if (isNaN( Value ) == false)
+         {
+            if (i >= 50 && i <= 52)
+            {
+               Value *= 100;
+            }
+            else if (i >= 56 && i <= 58)
+            {
+               Value /= 1000;
+            }
+
+            if (i >= 53 && i <= 55)
+            {
+               Value = Value.toFixed( 0 );
+            }
+            else if (i >= 47)
+            {
+               Value = Value.toFixed( 2 );
+            }
+         }
+
+         DataTable.rows[i].cells[13].innerText = Value;
+      }
+      
+      var TotalInterlacePacketsSent = 0;
+      for (var i = 0; i < 3; i++)
+      {
+         // Total Packets Sent by Interlace
+         DataTable.rows[R3].cells[i+2].innerText = InterlacePacketsSent[i];
+         TotalInterlacePacketsSent += InterlacePacketsSent[i];
+      }
+
+      DataTable.rows[R3].cells[1].innerText = TotalInterlacePacketsSent;
+      DataTable.rows[R3 + 1].cells[1].innerText = TotalUnexpected;
+
+      // Calculate HARQ-PARQ Mismatch Rate
+      Value = SafeDivide( TotalUnexpected, TotalInterlacePacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      DataTable.rows[R3 + 2].cells[1].innerText = Value;
+
+      // Total PER
+      DataTable.rows[R2].cells[2].innerText = DataTable.rows[51].cells[13].innerText;
+      DataTable.rows[R2].cells[3].innerText = DataTable.rows[52].cells[13].innerText;
+      DataTable.rows[R2].cells[1].innerText = DataTable.rows[50].cells[13].innerText;
+
+      // Total Instantaneous PER
+      Value = SafeDivide( HiCapPARQNaks - gPrevHiCapPARQNaks, 
+                          HiCapTotalPacketsSent - gPrevHiCapTotalPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      else
+      {
+         Value = "0.00";
+      }
+      DataTable.rows[R2 + 1].cells[2].innerText = Value;
+
+      Value = SafeDivide( LoLatPARQNaks - gPrevLoLatPARQNaks, 
+                          LoLatTotalPacketsSent - gPrevLoLatTotalPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      else
+      {
+         Value = "0.00";
+      }
+      DataTable.rows[R2 + 1].cells[3].innerText = Value;
+
+      Value = SafeDivide( HiCapPARQNaks + LoLatPARQNaks - 
+                          gPrevHiCapPARQNaks - gPrevLoLatPARQNaks, 
+                          HiCapTotalPacketsSent + LoLatTotalPacketsSent - 
+                          gPrevHiCapTotalPacketsSent - gPrevLoLatTotalPacketsSent );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 100).toFixed( 2 );
+      }
+      else
+      {
+         Value = "0.00";
+      }
+      DataTable.rows[R2 + 1].cells[1].innerText = Value;
+
+      gPrevHiCapPARQNaks = HiCapPARQNaks;
+      gPrevLoLatPARQNaks = LoLatPARQNaks;
+      gPrevHiCapTotalPacketsSent = HiCapTotalPacketsSent;
+      gPrevLoLatTotalPacketsSent = LoLatTotalPacketsSent;
+
+      // Total Transmitted Throughput
+      DataTable.rows[R2 + 2].cells[2].innerText = DataTable.rows[57].cells[13].innerText;
+      DataTable.rows[R2 + 2].cells[3].innerText = DataTable.rows[58].cells[13].innerText;
+      DataTable.rows[R2 + 2].cells[1].innerText = DataTable.rows[56].cells[13].innerText;
+
+      // Total Overall Throughput
+      Value = SafeDivide( HiCapScaledGoodPackets, TotalTime );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 3].cells[2].innerText = Value;
+
+      Value = SafeDivide( LoLatScaledGoodPackets, TotalTime );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 3].cells[3].innerText = Value;
+
+      Value = SafeDivide( HiCapScaledGoodPackets + LoLatScaledGoodPackets, 
+                          TotalTime );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 3].cells[1].innerText = Value;
+
+      // Total Instantaneous Throughput
+      Value = SafeDivide( HiCapScaledGoodPackets - gPrevHiCapScaledGoodPackets, 
+                          TotalTime - gPrevTotalTime );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 4].cells[2].innerText = Value;
+
+      Value = SafeDivide( LoLatScaledGoodPackets - gPrevLoLatScaledGoodPackets,
+                          TotalTime - gPrevTotalTime );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 4].cells[3].innerText = Value;
+
+      Value = SafeDivide( HiCapScaledGoodPackets + LoLatScaledGoodPackets -
+                          gPrevHiCapScaledGoodPackets - gPrevLoLatScaledGoodPackets, 
+                          TotalTime - gPrevTotalTime );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value / 1000).toFixed( 2 );
+      }
+      DataTable.rows[R2 + 4].cells[1].innerText = Value;
+
+      gPrevHiCapScaledGoodPackets   = HiCapScaledGoodPackets;
+      gPrevLoLatScaledGoodPackets   = LoLatScaledGoodPackets;
+      gPrevTotalTime                = TotalTime;
+
+      // Average Latency
+      Value = SafeDivide( HiCapSumTxTime, HiCapSumGoodPackets );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 1000).toFixed( 4 );
+      }
+      DataTable.rows[R2 + 5].cells[2].innerText = Value;
+
+      Value = SafeDivide( LoLatSumTxTime, LoLatSumGoodPackets );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 1000).toFixed( 4 );
+      }
+      DataTable.rows[R2 + 5].cells[3].innerText = Value;
+
+      Value = SafeDivide( HiCapSumTxTime + LoLatSumTxTime,
+                          HiCapSumGoodPackets + LoLatSumGoodPackets );
+      if (isNaN( Value ) == false)
+      {
+         Value = (Value * 1000).toFixed( 4 );
+      }
+      DataTable.rows[R2 + 5].cells[1].innerText = Value;
+   }
+}
+
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_TRAFFIC_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+   
+   gPrevHiCapPARQNaks = 0;
+   gPrevLoLatPARQNaks = 0;
+   gPrevHiCapTotalPacketsSent = 0;
+   gPrevLoLatTotalPacketsSent = 0;
+
+   gPrevHiCapScaledGoodPackets   = 0;
+   gPrevLoLatScaledGoodPackets   = 0;
+   gPrevTotalTime                = 0;
+
+   var r = 0;
+   var i = 0;
+
+   for (var c = 1; c <= 13; c++)
+   {
+      for (r = 1; r < 65; r++)
+      {
+         DataTable.rows[r].cells[c].innerText = "-";
+      }
+   }
+
+   for (i = 1; i <= 3; i++)
+   {
+      for (r = 66; r < 72; r++)
+      {
+         DataTable.rows[r].cells[i].innerText = "-";
+      }
+   }
+
+   for (i = 1; i <= 4; i++)
+   {
+      for (r = 73; r < 75; r++)
+      {
+         DataTable.rows[r].cells[i].innerText = "-";
+      }
+   }
+
+   DataTable.rows[75].cells[1].innerText = "-";
+
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="WCDMA EUL Link Statistics" />
+   <meta name="DMViewWidth" content="820" />
+   <meta name="DMViewHeight" content="540" />
+
+   <title>WCDMA EUL Link Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <colgroup span="2">
+      <col width="56%" />
+      <col width="44%" />
+   </colgroup>
+   <tr>
+      <td valign="top" class="noborder">
+         <table border="0" width="100%" cellpadding="2">
+            <tr>
+               <td valign="top" class="noborder">
+                  <table width="100%" id="TPTable">
+                     <colgroup span="3">
+                        <col width="50%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                     </colgroup>
+                     <tr>
+                        <th colspan="3">Throughput</th>
+                     </tr>
+                     <tr>
+                        <th></th>
+                        <th>Last Second</th>
+                        <th>Total</th>
+                     </tr>
+                     <tr>
+                        <th>Avg Raw TP</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg Total TP</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg Scheduled TP </th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg TP Supported by SG</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg TP Supported by Avail Power</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg TP Supported by Sched Data</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Limited by SG</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Limited by Power</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Limited by Sched Data</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                  </table>               
+               </td>
+            </tr>
+            <tr>
+               <td valign="top" class="noborder">
+                  <table width="100%" id="GrantTable">
+                     <colgroup span="3">
+                        <col width="50%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                     </colgroup>
+                     <tr>
+                        <th colspan="3">Grants</th>
+                     </tr>
+                     <tr>
+                        <th></th>
+                        <th>Last Second</th>
+                        <th>Total</th>
+                     </tr>
+                     <tr>
+                        <th>Number of AGs</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Mean AG</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Serving RG Down</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Serving RG Hold</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Serving RG Up</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Non-Serving RG Down</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Non-Serving RG Hold</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg Serving Grant</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                  </table>               
+               </td>
+            </tr>
+            <tr>
+               <td valign="top" class="noborder">
+                  <table width="100%" id="BufferTable">
+                     <colgroup span="3">
+                        <col width="50%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                     </colgroup>
+                     <tr>
+                        <th colspan="3">Buffer Status</th>
+                     </tr>
+                     <tr>
+                        <th></th>
+                        <th>Last Second</th>
+                        <th>Total</th>
+                     </tr>
+                     <tr>
+                        <th>Avg Scheduled Buffer Status</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Avg Non-Scheduled Buffer Status</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Scheduled Buffers Empty</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Non-Scheduled Buffers Empty</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Happy</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Number of SIs</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% of TTIs with SI</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                  </table>              
+               </td>
+            </tr>
+         </table>
+      </td>
+      
+      <td valign="top" class="noborder">
+         <table border="0" width="100%" cellpadding="2">
+            <tr>
+               <td valign="top" class="noborder">
+                  <table width="100%" id="TXTable">
+                     <colgroup span="3">
+                        <col width="50%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                     </colgroup>
+                     <tr>
+                        <th colspan="3">UL Transmission</th>
+                     </tr>
+                     <tr>
+                        <th></th>
+                        <th>Last Second</th>
+                        <th>Total</th>
+                     </tr>
+                     <tr>
+                        <th>% New Transmissions</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% Retransmissions</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>% DTX</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>BLER</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Residual BLER</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>MAC-e Resets</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                  </table>               
+               </td>
+            </tr>
+            <tr>
+               <td valign="top" class="noborder">
+                  <table width="100%" id="PowerTable">
+                     <colgroup span="3">
+                        <col width="50%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                     </colgroup>
+                     <tr>
+                        <th colspan="3">UL Power</th>
+                     </tr>
+                     <tr>
+                        <th></th>
+                        <th>Last Second</th>
+                        <th>Total</th>
+                     </tr>
+                     <tr>
+                        <th>DPCCH</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>DPCCH %</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>DPDCH T/P</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>DPDCH %</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>HS-DPCCH T/P</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>HS-DPCCH %</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>E-DPCCH T/P</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>E-DPCCH %</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>E-DPDCH T/P</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>E-DPDCH %</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Power Remaining</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                     <tr>
+                        <th>Power Remaining %</th>
+                        <td>-</td>
+                        <td>-</td>
+                     </tr>
+                  </table>               
+               </td>
+            </tr>
+         </table>
+      </td>
+   </tr>      
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+var gData          = new Array();
+gData[0]           = new Array();
+gData[1]           = new Array();
+
+var I_COUNT                = 0;   
+var I_FRAMES               = 1;   
+var I_DENOM                = 2;   
+
+var I_TP_RAW               = 3;   
+var I_TP_TOTAL             = 4;   
+var I_TP_SCHED             = 5;   
+var I_TP_SUP_SG            = 6;   
+var I_TP_SUP_PWR           = 7;   
+var I_TP_SUP_SCHED         = 8;   
+var I_LTD_SG               = 9;   
+var I_LTD_PWR              = 10;   
+var I_LTD_SCHED            = 11;   
+
+var I_TX_NEW               = 12;   
+var I_TX_RETX              = 13;   
+var I_TX_DTX               = 14;   
+var I_TX_RETX_NAK          = 15;   
+var I_RESETS               = 16;   
+
+var I_NUM_AGCH             = 17;   
+var I_SUM_AGCH             = 18;   
+var I_S_RG_DOWN            = 19;   
+var I_S_RG_HOLD            = 20;   
+var I_S_RG_UP              = 21;   
+var I_NS_RG_DOWN           = 22;   
+var I_NS_RG_HOLD           = 23;   
+var I_SG                   = 24;   
+
+var I_S_BUF                = 25;   
+var I_NS_BUF               = 26;   
+var I_S_BUF_EMPTY          = 27;   
+var I_NS_BUF_EMPTY         = 28;   
+var I_HAPPY                = 29;   
+var I_SI                   = 30; 
+  
+var I_DPCCH                = 31;
+var I_T2P_D                = 32;   
+var I_T2P_HS               = 33;   
+var I_T2P_EC               = 34;   
+var I_T2P_ED               = 35;   
+var I_MAX_PWR              = 36;   
+var I_FACTOR               = 37;   
+
+var I_END                  = 38;
+
+function RoundDivide( Num, Den, Units )
+{
+   var Result = "-";
+   if (isNaN( Num ) == false && isNaN( Den ) == false && Den != 0)
+   {
+      Result = (Num / Den).toFixed( 2 ) + Units;
+   }
+   return Result;
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Initialize totals
+   for (var r = 0; r < I_END; r++)
+   {
+      gData[1][r] = 0;
+   }
+   
+   // Configure logs
+   clientObject.AddLog( 0x4311 );
+   clientObject.CommitConfig();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+function ProcessLogs()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is a new item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }
+   
+   // Reset statistics for last period
+   for (var r = 0; r < I_END; r++)
+   {
+      gData[0][r] = 0;
+   }
+   
+   // Process all logs
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetConfiguredItemFields( "", true, false );
+         if (Fields != null)
+         {
+            gData[0][I_COUNT]++;
+            PopulateData( Fields );
+         }
+      }
+   }
+
+   for (var r = 0; r < I_END; r++)
+   {
+      gData[1][r] += gData[0][r];
+   }
+   
+   PopulateTable();
+   
+   PrevIndex = CurrIndex;
+}
+ 
+function PopulateData( Fields )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 55)
+   {
+      return;
+   }
+
+   // Number of Frames
+   var Frames = Fields.GetFieldValue( 3 );
+   gData[0][I_FRAMES] += Frames;
+   
+   // TTI
+   var TTI = Fields.GetFieldValue( 1 );
+   
+   var TTIPerSec = 500;
+   if (TTI == 1)
+   {
+      TTIPerSec = 100;
+   }
+   
+   // Throughput
+   gData[0][I_TP_RAW] += Fields.GetFieldValue( 19 ) * TTIPerSec;
+   gData[0][I_TP_TOTAL] += (Fields.GetFieldValue( 20 ) + 
+                            Fields.GetFieldValue( 21 )) * TTIPerSec;
+   gData[0][I_TP_SCHED] += Fields.GetFieldValue( 20 ) * TTIPerSec;
+   gData[0][I_TP_SUP_SG] += Fields.GetFieldValue( 23 ) * TTIPerSec;
+   gData[0][I_TP_SUP_PWR] += Fields.GetFieldValue( 22 ) * TTIPerSec;
+   gData[0][I_TP_SUP_SCHED] += Fields.GetFieldValue( 24 ) * TTIPerSec;
+   gData[0][I_LTD_SG] += Fields.GetFieldValue( 32 );
+   gData[0][I_LTD_PWR] += Fields.GetFieldValue( 31 );
+   gData[0][I_LTD_SCHED] += Fields.GetFieldValue( 33 );
+
+   // UL Transmission
+   gData[0][I_TX_NEW] += Fields.GetFieldValue( 12 );
+   gData[0][I_TX_RETX] += Fields.GetFieldValue( 13 );
+   gData[0][I_TX_DTX] += Fields.GetFieldValue( 14 );
+   gData[0][I_TX_RETX_NAK] += Fields.GetFieldValue( 15 );
+   gData[0][I_RESETS] += Fields.GetFieldValue( 16 );
+
+   // Grants
+   gData[0][I_NUM_AGCH] += Fields.GetFieldValue( 9 );
+   gData[0][I_SUM_AGCH] += Fields.GetFieldValue( 10 );
+   
+   var n = 1;
+   gData[0][I_DENOM] += Frames * n;
+
+   gData[0][I_S_RG_DOWN] += Fields.GetFieldValue( 5 );
+   gData[0][I_S_RG_HOLD] += Fields.GetFieldValue( 6 );
+   gData[0][I_S_RG_UP] += Fields.GetFieldValue( 4 );
+
+   gData[0][I_NS_RG_DOWN] += Fields.GetFieldValue( 7 );
+   gData[0][I_NS_RG_HOLD] += Fields.GetFieldValue( 8 );
+   gData[0][I_SG] += Fields.GetFieldValue( 11 );
+   
+   // Buffer Status
+   gData[0][I_S_BUF] += Fields.GetFieldValue( 37 );
+   gData[0][I_NS_BUF] += Fields.GetFieldValue( 38 );
+   gData[0][I_S_BUF_EMPTY] += Fields.GetFieldValue( 35 );
+   gData[0][I_NS_BUF_EMPTY] += Fields.GetFieldValue( 36 );
+   gData[0][I_HAPPY] += Fields.GetFieldValue( 40 );
+   gData[0][I_SI] += Fields.GetFieldValue( 39 );
+ 
+   // UL Power
+   var dpcch = Fields.GetFieldValue( 25 );
+   gData[0][I_DPCCH] += dpcch;
+
+   var maxPower = Fields.GetFieldValue( 30 );
+
+   gData[0][I_MAX_PWR] = +maxPower;
+
+      var Factor = 0;
+      var AvgDpcch = 0;
+      if (Frames != 0)
+      {
+          AvgDpcch = dpcch / Frames;
+         Factor = AvgDpcch - maxPower;
+      }
+  
+   gData[0][I_FACTOR] += Factor;
+
+   for (var i = 0; i < 4; i++)
+   {
+      var Val = Fields.GetFieldValue( 26 + i );
+      gData[0][I_T2P_D + i] += Val;
+   }
+}
+
+function PopulateTable()
+{
+   for (var i = 0; i < 2; i++)
+   {
+      var Val;
+      var r;
+      
+      // Throughput
+      for (r = I_TP_RAW; r <= I_LTD_SCHED; r++)
+      {
+         Val = gData[i][r];
+         if (r <= I_TP_SUP_SCHED)
+         {
+            var den = 0;
+            if (r == I_TP_RAW)
+            {
+               den = (gData[i][I_FRAMES] - gData[i][I_TX_DTX]) * 1000;
+            }
+            else
+            {
+               den = gData[i][I_TX_NEW] * 1000;
+            }
+            
+            if (den != 0)
+            {
+               Val = RoundDivide( Val * 64, den, " kbps" );
+            }
+            else
+            {
+               Val = "0 kbps";
+            }
+         }
+         else if (r <= I_LTD_SCHED)
+         {
+            Val = RoundDivide( Val * 100, gData[i][I_FRAMES], " %" );
+         }
+         
+         TPTable.rows[r - I_TP_RAW + 2].cells[i + 1].innerText = Val;
+      }
+
+      var NewTx = gData[i][I_TX_NEW];
+      var ReTx = gData[i][I_TX_RETX];
+      var Dtx = gData[i][I_TX_DTX];
+      
+      var TxVal = new Array();
+            
+      // % New Transmissions   
+      TXTable.rows[2].cells[i + 1].innerText 
+         = RoundDivide( NewTx * 100, 
+                        NewTx + ReTx + Dtx,
+                        " %" );
+      
+      // % Retransmissions   
+      TXTable.rows[3].cells[i + 1].innerText 
+         = RoundDivide( ReTx * 100, 
+                        NewTx + ReTx + Dtx,
+                        " %" );
+
+      // % DTX
+      TXTable.rows[4].cells[i + 1].innerText 
+         = RoundDivide( Dtx * 100,
+                        NewTx + ReTx + Dtx,
+                        " %" );
+
+      // BLER
+      TXTable.rows[5].cells[i + 1].innerText 
+         = RoundDivide( (ReTx + gData[i][I_TX_RETX_NAK]) * 100, 
+                        NewTx + ReTx,
+                        " %" );
+
+      // Residual BLER
+      TXTable.rows[6].cells[i + 1].innerText 
+         = RoundDivide( gData[i][I_TX_RETX_NAK] * 100,
+                        NewTx,
+                        " %" );
+
+      // MAC-e Resets
+      TXTable.rows[7].cells[i + 1].innerText = gData[i][I_RESETS];
+
+      // Grants
+      for (r = I_NUM_AGCH; r <= I_SG; r++)
+      {
+         Val = gData[i][r];
+         if (r == I_SUM_AGCH)
+         {
+            Val = RoundDivide( Val, gData[i][I_NUM_AGCH], "" );
+         }
+         else if (r >= I_S_RG_DOWN && r <= I_S_RG_UP)
+         {
+            Val = RoundDivide( Val * 100, gData[i][I_DENOM], " %" );
+         }
+         else if (r >= I_NS_RG_DOWN && r <= I_NS_RG_HOLD)
+         {
+            Val = RoundDivide( Val * 100, gData[i][I_FRAMES], " %" );
+         }
+         else if (r == I_SG)
+         {
+            Val = RoundDivide( Val, gData[i][I_FRAMES], " dB" );
+         }
+         
+         GrantTable.rows[r - I_NUM_AGCH + 2].cells[i + 1].innerText = Val;
+      }
+
+      // Buffer Status
+      for (r = I_S_BUF; r <= I_SI; r++)
+      {
+         Val = gData[i][r];
+         if (r <= I_NS_BUF)
+         {
+            Val = RoundDivide( Val * 64, gData[i][I_TX_NEW], " byte(s)" );
+         }
+         else if (r >= I_S_BUF_EMPTY && r <= I_HAPPY)
+         {
+            Val = RoundDivide( Val * 100, gData[i][I_DENOM], " %" );
+         }
+         
+         BufferTable.rows[r - I_S_BUF + 2].cells[i + 1].innerText = Val;
+      }
+
+      Val = RoundDivide( gData[i][I_SI] * 100, gData[i][I_DENOM], " %" );
+      BufferTable.rows[8].cells[i + 1].innerText = Val;
+      
+      // UL Power
+      Val = RoundDivide( gData[i][I_DPCCH], gData[i][I_FRAMES], " dBm" );
+      PowerTable.rows[2].cells[i + 1].innerText = Val;
+      
+      var Factor = 0;
+      if (gData[i][I_COUNT] != 0)
+      {
+         Factor = gData[i][I_FACTOR] / gData[i][I_COUNT];
+         Factor = Math.pow( 10, Factor / 10.0 );
+      }
+      
+      Val = (Factor * 100).toFixed( 4 ) + " %";
+      PowerTable.rows[3].cells[i + 1].innerText = Val;
+      
+      var TotalT2P = Factor;
+      for (var j = 0; j < 4; j++)
+      {
+         Val = "-";
+         if (gData[i][I_T2P_D + j] > 0 && gData[i][I_FRAMES] != 0)
+         {
+            Val = 10 * Math.LOG10E * 
+                  Math.log( gData[i][I_T2P_D + j] * 64 / (225 * gData[i][I_FRAMES]));
+            Val = Val.toFixed( 4 ) + " dB";
+         }
+         PowerTable.rows[j * 2 + 4].cells[i + 1].innerText = Val;
+         
+         Val = "-";
+         if (gData[i][I_FRAMES] != 0)
+         {
+            Val = gData[i][I_T2P_D + j] * 64 * Factor / (225 * gData[i][I_FRAMES]);
+            TotalT2P += Val;
+            Val = (Val * 100).toFixed( 4 ) + " %";
+         }
+         PowerTable.rows[j * 2 + 5].cells[i + 1].innerText = Val;
+      }
+      
+      var AvgMaxPower = gData[i][I_MAX_PWR] / gData[i][I_COUNT]  ; 
+      var AvgMaxPowerInWatt = Math.pow( 10, AvgMaxPower / 10.0 ) / 1000;
+      var TxPowerInWatt = AvgMaxPowerInWatt * TotalT2P ;
+      var TxPower =10 * Math.LOG10E * Math.log(TxPowerInWatt*1000,10)
+            
+      Val = "-";
+      Val = (AvgMaxPower - TxPower).toFixed( 2 ) + "dB";
+      PowerTable.rows[12].cells[i + 1].innerText = Val ;  
+      
+      var PowerRemaining = 1 - TotalT2P;  
+      Val = (PowerRemaining * 100).toFixed( 4 ) + " %";
+      PowerTable.rows[13].cells[i + 1].innerText = Val;
+      
+   
+      
+      
+   }
+}
+
+</script>
+</body>
+</html>

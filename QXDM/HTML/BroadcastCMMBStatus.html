@@ -1,0 +1,1420 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Broadcast CMMB A/V Buffers LDPC and RSSI</title>
+		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+		<meta name="DMViewName" content="Broadcast CMMB A/V Buffers and LDPC and RSSI">
+		<meta name="DMViewWidth" content="400">
+		<meta name="DMViewHeight" content="400">
+		<link rel="stylesheet" href="QXDMStyle.css">
+		<style type="text/css"> body { background-color: black; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; }
+	td { font-size: 8pt; font-family: Tahoma; background-color: black; bgColor: black border: 1px #808080 solid; text-align: left; padding: 1; }
+		</style>
+		<script type="text/jscript" src="BroadcastBaseView.js"></script>
+	</head>
+	<body onload="Register()" onunload="Unregister()" dir="ltr">
+		<OBJECT id="Object1" classid="clsid:5220cb21-c88d-11cf-b347-00aa00a28331" VIEWASTEXT>
+		</OBJECT>
+		<OBJECT id="audio_video_graph" height="42%" width="100%" classid="clsid:1791C036-8981-492A-BD28-F2331BC9B7C7"
+			viewastext>
+			<PARAM NAME="DataViewZHorz" VALUE="1">
+			<PARAM NAME="DataViewZVert" VALUE="1">
+			<PARAM NAME="XYAxesReverse" VALUE="0">
+			<PARAM NAME="OuterMarginLeft" VALUE="5">
+			<PARAM NAME="OuterMarginTop" VALUE="5">
+			<PARAM NAME="OuterMarginRight" VALUE="5">
+			<PARAM NAME="OuterMarginBottom" VALUE="5">
+			<PARAM NAME="PrintOrientation" VALUE="1">
+			<PARAM NAME="PrintMarginLeft" VALUE="1">
+			<PARAM NAME="PrintMarginTop" VALUE="1">
+			<PARAM NAME="PrintMarginRight" VALUE="1">
+			<PARAM NAME="PrintMarginBottom" VALUE="1">
+			<PARAM NAME="PrintShowDialog" VALUE="-1">
+			<PARAM NAME="UpdateFrameRate" VALUE="60">
+			<PARAM NAME="BackGroundColor" VALUE="0">
+			<PARAM NAME="BorderStyle" VALUE="2">
+			<PARAM NAME="AutoFrameRate" VALUE="-1">
+			<PARAM NAME="HintsShow" VALUE="-1">
+			<PARAM NAME="HintsPause" VALUE="500">
+			<PARAM NAME="HintsHidePause" VALUE="2500">
+			<PARAM NAME="TitleVisible" VALUE="-1">
+			<PARAM NAME="TitleText" VALUE="Untitled">
+			<PARAM NAME="TitleMargin" VALUE="0">
+			<PARAM NAME="TitleFont" VALUE="Arial">
+			<PARAM NAME="TitleFontColor" VALUE="16777215">
+			<PARAM NAME="UserCanEditObjects" VALUE="-1">
+			<PARAM NAME="LogFileName" VALUE="">
+			<PARAM NAME="LogBufferSize" VALUE="0">
+			<PARAM NAME="OptionSaveAllProperties" VALUE="0">
+			<PARAM NAME="HintsFont" VALUE="MS Sans Serif">
+			<PARAM NAME="HintsFontColor" VALUE="2147483656">
+			<PARAM NAME="AnnotationDefaultFont" VALUE="MS Sans Serif">
+			<PARAM NAME="AnnotationDefaultFontColor" VALUE="16777215">
+			<PARAM NAME="AnnotationDefaultBrushStlye" VALUE="0">
+			<PARAM NAME="AnnotationDefaultBrushColor" VALUE="16777215">
+			<PARAM NAME="AnnotationDefaultPenStlye" VALUE="0">
+			<PARAM NAME="AnnotationDefaultPenColor" VALUE="16777215">
+			<PARAM NAME="AnnotationDefaultPenWidth" VALUE="1">
+			<PARAM NAME="Width" VALUE="1254">
+			<PARAM NAME="Height" VALUE="319">
+			<PARAM NAME="UserCanAddRemoveChannels" VALUE="0">
+			<PARAM NAME="Visible" VALUE="-1">
+			<PARAM NAME="Enabled" VALUE="-1">
+			<PARAM NAME="EditorFormStyle" VALUE="0">
+			<PARAM NAME="CopyToClipBoardFormat" VALUE="0">
+			<PARAM NAME="PrintDocumentName" VALUE="Untitled">
+			<PARAM NAME="PrinterName" VALUE="">
+			<PARAM NAME="ClipAnnotationsToAxes" VALUE="-1">
+			<PARAM NAME="BackGroundGradientEnabled" VALUE="0">
+			<PARAM NAME="BackGroundGradientDirection" VALUE="0">
+			<PARAM NAME="BackGroundGradientStartColor" VALUE="16711680">
+			<PARAM NAME="BackGroundGradientStopColor" VALUE="0">
+			<PARAM NAME="DataFileColumnSeparator" VALUE="0">
+			<PARAM NAME="DataFileFormat" VALUE="0">
+			<PARAM NAME="AnnotationDefaultReference" VALUE="0">
+			<PARAM NAME="AnnotationDefaultReferencePositionX" VALUE="2">
+			<PARAM NAME="AnnotationDefaultReferencePositionY" VALUE="2">
+			<PARAM NAME="AnnotationDefaultReferenceSizeX" VALUE="2">
+			<PARAM NAME="AnnotationDefaultReferenceSizeY" VALUE="2">
+			<PARAM NAME="ChannelCount" VALUE="1">
+			<PARAM NAME="XAxisCount" VALUE="1">
+			<PARAM NAME="YAxisCount" VALUE="1">
+			<PARAM NAME="ToolBarCount" VALUE="1">
+			<PARAM NAME="LegendCount" VALUE="1">
+			<PARAM NAME="DataViewCount" VALUE="1">
+			<PARAM NAME="DataCursorCount" VALUE="1">
+			<PARAM NAME="LimitCount" VALUE="0">
+			<PARAM NAME="LabelCount" VALUE="1">
+			<PARAM NAME="TableCount" VALUE="0">
+			<PARAM NAME="TranslationCount" VALUE="0">
+			<PARAM NAME="ToolBar0.Name" VALUE="Toolbar 1">
+			<PARAM NAME="ToolBar0.Visible" VALUE="1">
+			<PARAM NAME="ToolBar0.Enabled" VALUE="1">
+			<PARAM NAME="ToolBar0.Layer" VALUE="100">
+			<PARAM NAME="ToolBar0.PopupEnabled" VALUE="1">
+			<PARAM NAME="ToolBar0.CanFocus" VALUE="1">
+			<PARAM NAME="ToolBar0.Horizontal" VALUE="1">
+			<PARAM NAME="ToolBar0.ZOrder" VALUE="3">
+			<PARAM NAME="ToolBar0.StartPercent" VALUE="0">
+			<PARAM NAME="ToolBar0.StopPercent" VALUE="100">
+			<PARAM NAME="ToolBar0.ShowResumeButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowPauseButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowAxesModeButtons" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowZoomInOutButtons" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowSelectButton" VALUE="0">
+			<PARAM NAME="ToolBar0.ShowZoomBoxButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowCursorButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowEditButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowCopyButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowSaveButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowPrintButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowPreviewButton" VALUE="0">
+			<PARAM NAME="ToolBar0.ZoomInOutFactor" VALUE="2">
+			<PARAM NAME="ToolBar0.FlatBorder" VALUE="0">
+			<PARAM NAME="ToolBar0.FlatButtons" VALUE="0">
+			<PARAM NAME="ToolBar0.SmallButtons" VALUE="0">
+			<PARAM NAME="Legend0.Name" VALUE="Legend 1">
+			<PARAM NAME="Legend0.Visible" VALUE="1">
+			<PARAM NAME="Legend0.Enabled" VALUE="1">
+			<PARAM NAME="Legend0.Layer" VALUE="100">
+			<PARAM NAME="Legend0.PopupEnabled" VALUE="1">
+			<PARAM NAME="Legend0.CanFocus" VALUE="1">
+			<PARAM NAME="Legend0.Horizontal" VALUE="0">
+			<PARAM NAME="Legend0.ZOrder" VALUE="2">
+			<PARAM NAME="Legend0.StartPercent" VALUE="0">
+			<PARAM NAME="Legend0.StopPercent" VALUE="100">
+			<PARAM NAME="Legend0.MarginLeft" VALUE="1">
+			<PARAM NAME="Legend0.MarginTop" VALUE="1">
+			<PARAM NAME="Legend0.MarginRight" VALUE="1">
+			<PARAM NAME="Legend0.MarginBottom" VALUE="1">
+			<PARAM NAME="Legend0.BackGroundColor" VALUE="8421504">
+			<PARAM NAME="Legend0.BackGroundTransparent" VALUE="1">
+			<PARAM NAME="Legend0.SelectedItemBackGroundColor" VALUE="65535">
+			<PARAM NAME="Legend0.SelectedItemFont.Charset" VALUE="1">
+			<PARAM NAME="Legend0.SelectedItemFont.Color" VALUE="0">
+			<PARAM NAME="Legend0.SelectedItemFont.Height" VALUE="-11">
+			<PARAM NAME="Legend0.SelectedItemFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Legend0.SelectedItemFont.Pitch" VALUE="0">
+			<PARAM NAME="Legend0.SelectedItemFont.Style" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnLine" VALUE="1">
+			<PARAM NAME="Legend0.ShowColumnMarker" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnXAxisTitle" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYAxisTitle" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnXValue" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYValue" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYMax" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYMin" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYMean" VALUE="0">
+			<PARAM NAME="Legend0.CaptionColumnTitle" VALUE="Title">
+			<PARAM NAME="Legend0.CaptionColumnXAxisTitle" VALUE="X-Axis">
+			<PARAM NAME="Legend0.CaptionColumnYAxisTitle" VALUE="Y-Axis">
+			<PARAM NAME="Legend0.CaptionColumnXValue" VALUE="X">
+			<PARAM NAME="Legend0.CaptionColumnYValue" VALUE="Y">
+			<PARAM NAME="Legend0.CaptionColumnYMax" VALUE="Y-Max">
+			<PARAM NAME="Legend0.CaptionColumnYMin" VALUE="Y-Min">
+			<PARAM NAME="Legend0.CaptionColumnYMean" VALUE="Y-Mean">
+			<PARAM NAME="Legend0.Font.Charset" VALUE="1">
+			<PARAM NAME="Legend0.Font.Color" VALUE="16777215">
+			<PARAM NAME="Legend0.Font.Height" VALUE="-11">
+			<PARAM NAME="Legend0.Font.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Legend0.Font.Pitch" VALUE="0">
+			<PARAM NAME="Legend0.Font.Style" VALUE="0">
+			<PARAM NAME="Legend0.ColumnSpacing" VALUE="0.5">
+			<PARAM NAME="Legend0.RowSpacing" VALUE="0.25">
+			<PARAM NAME="Legend0.WrapColDesiredCount" VALUE="1">
+			<PARAM NAME="Legend0.WrapColAutoCountEnabled" VALUE="0">
+			<PARAM NAME="Legend0.WrapColAutoCountMax" VALUE="100">
+			<PARAM NAME="Legend0.WrapColSpacingMin" VALUE="2">
+			<PARAM NAME="Legend0.WrapColSpacingAuto" VALUE="1">
+			<PARAM NAME="Legend0.WrapRowDesiredCount" VALUE="5">
+			<PARAM NAME="Legend0.WrapRowAutoCountEnabled" VALUE="1">
+			<PARAM NAME="Legend0.WrapRowAutoCountMax" VALUE="100">
+			<PARAM NAME="Legend0.WrapRowSpacingMin" VALUE="0.25">
+			<PARAM NAME="Legend0.WrapRowSpacingAuto" VALUE="0">
+			<PARAM NAME="Legend0.ColumnTitlesVisible" VALUE="0">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Charset" VALUE="1">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Color" VALUE="16776960">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Height" VALUE="-11">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Pitch" VALUE="0">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Style" VALUE="1">
+			<PARAM NAME="Legend0.ChannelNameMaxWidth" VALUE="0">
+			<PARAM NAME="Legend0.ChannelNameColorStyle" VALUE="0">
+			<PARAM NAME="Legend0.LineColumnWidth" VALUE="13">
+			<PARAM NAME="Legend0.LineColumnHeight" VALUE="3">
+			<PARAM NAME="XAxis0.Name" VALUE="X-Axis 1">
+			<PARAM NAME="XAxis0.Visible" VALUE="1">
+			<PARAM NAME="XAxis0.Enabled" VALUE="1">
+			<PARAM NAME="XAxis0.Layer" VALUE="100">
+			<PARAM NAME="XAxis0.PopupEnabled" VALUE="1">
+			<PARAM NAME="XAxis0.CanFocus" VALUE="1">
+			<PARAM NAME="XAxis0.Horizontal" VALUE="1">
+			<PARAM NAME="XAxis0.ZOrder" VALUE="0">
+			<PARAM NAME="XAxis0.StartPercent" VALUE="0">
+			<PARAM NAME="XAxis0.StopPercent" VALUE="100">
+			<PARAM NAME="XAxis0.Min" VALUE="0">
+			<PARAM NAME="XAxis0.Span" VALUE="100">
+			<PARAM NAME="XAxis0.DesiredStart" VALUE="0">
+			<PARAM NAME="XAxis0.DesiredIncrement" VALUE="0">
+			<PARAM NAME="XAxis0.ReverseScale" VALUE="0">
+			<PARAM NAME="XAxis0.InnerMargin" VALUE="5">
+			<PARAM NAME="XAxis0.OuterMargin" VALUE="5">
+			<PARAM NAME="XAxis0.Title" VALUE="X-Axis 1">
+			<PARAM NAME="XAxis0.TitleMargin" VALUE="0.25">
+			<PARAM NAME="XAxis0.TitleFont.Charset" VALUE="1">
+			<PARAM NAME="XAxis0.TitleFont.Color" VALUE="16777215">
+			<PARAM NAME="XAxis0.TitleFont.Height" VALUE="-13">
+			<PARAM NAME="XAxis0.TitleFont.Name" VALUE="Arial">
+			<PARAM NAME="XAxis0.TitleFont.Pitch" VALUE="0">
+			<PARAM NAME="XAxis0.TitleFont.Style" VALUE="1">
+			<PARAM NAME="XAxis0.TitleShow" VALUE="0">
+			<PARAM NAME="XAxis0.TitleRotated" VALUE="0">
+			<PARAM NAME="XAxis0.MajorLength" VALUE="7">
+			<PARAM NAME="XAxis0.MinorLength" VALUE="3">
+			<PARAM NAME="XAxis0.MinorCount" VALUE="1">
+			<PARAM NAME="XAxis0.LabelsVisible" VALUE="1">
+			<PARAM NAME="XAxis0.LabelsMargin" VALUE="0.25">
+			<PARAM NAME="XAxis0.LabelsFont.Charset" VALUE="1">
+			<PARAM NAME="XAxis0.LabelsFont.Color" VALUE="16777215">
+			<PARAM NAME="XAxis0.LabelsFont.Height" VALUE="-11">
+			<PARAM NAME="XAxis0.LabelsFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="XAxis0.LabelsFont.Pitch" VALUE="0">
+			<PARAM NAME="XAxis0.LabelsFont.Style" VALUE="0">
+			<PARAM NAME="XAxis0.LabelSeparation" VALUE="2">
+			<PARAM NAME="XAxis0.LabelsRotation" VALUE="0">
+			<PARAM NAME="XAxis0.LabelsPrecision" VALUE="3">
+			<PARAM NAME="XAxis0.LabelsPrecisionStyle" VALUE="0">
+			<PARAM NAME="XAxis0.LabelsFormatStyle" VALUE="0">
+			<PARAM NAME="XAxis0.DateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="XAxis0.LabelsMinLength" VALUE="5">
+			<PARAM NAME="XAxis0.LabelsMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="XAxis0.ScaleLineShow" VALUE="1">
+			<PARAM NAME="XAxis0.ScaleLinesShow" VALUE="1">
+			<PARAM NAME="XAxis0.ScaleLinesColor" VALUE="16777215">
+			<PARAM NAME="XAxis0.StackingEndsMargin" VALUE="0.5">
+			<PARAM NAME="XAxis0.ScaleType" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingEnabled" VALUE="1">
+			<PARAM NAME="XAxis0.TrackingStyle" VALUE="3">
+			<PARAM NAME="XAxis0.TrackingIncrementStyle" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingAlignFirstStyle" VALUE="2">
+			<PARAM NAME="XAxis0.TrackingScrollCompressMax" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingSpanMinimum" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingMaxMargin" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingMinMargin" VALUE="0">
+			<PARAM NAME="XAxis0.CursorUseDefaultFormat" VALUE="1">
+			<PARAM NAME="XAxis0.CursorFormatStyle" VALUE="0">
+			<PARAM NAME="XAxis0.CursorDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="XAxis0.CursorPrecisionStyle" VALUE="0">
+			<PARAM NAME="XAxis0.CursorPrecision" VALUE="3">
+			<PARAM NAME="XAxis0.CursorMinLength" VALUE="5">
+			<PARAM NAME="XAxis0.CursorMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="XAxis0.LegendUseDefaultFormat" VALUE="1">
+			<PARAM NAME="XAxis0.LegendFormatStyle" VALUE="0">
+			<PARAM NAME="XAxis0.LegendDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="XAxis0.LegendPrecisionStyle" VALUE="0">
+			<PARAM NAME="XAxis0.LegendPrecision" VALUE="3">
+			<PARAM NAME="XAxis0.LegendMinLength" VALUE="5">
+			<PARAM NAME="XAxis0.LegendMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="XAxis0.CursorScaler" VALUE="1">
+			<PARAM NAME="XAxis0.ScrollMinMaxEnabled" VALUE="0">
+			<PARAM NAME="XAxis0.ScrollMax" VALUE="100">
+			<PARAM NAME="XAxis0.ScrollMin" VALUE="0">
+			<PARAM NAME="XAxis0.RestoreValuesOnResume" VALUE="1">
+			<PARAM NAME="XAxis0.MasterUIInput" VALUE="0">
+			<PARAM NAME="XAxis0.CartesianStyle" VALUE="0">
+			<PARAM NAME="XAxis0.CartesianChildRefAxisName" VALUE="<None>">
+			<PARAM NAME="XAxis0.CartesianChildRefValue" VALUE="0">
+			<PARAM NAME="XAxis0.AlignRefAxisName" VALUE="<None>">
+			<PARAM NAME="XAxis0.GridLinesVisible" VALUE="1">
+			<PARAM NAME="XAxis0.ForceStacking" VALUE="0">
+			<PARAM NAME="YAxis0.Name" VALUE="Y-Axis 1">
+			<PARAM NAME="YAxis0.Visible" VALUE="1">
+			<PARAM NAME="YAxis0.Enabled" VALUE="1">
+			<PARAM NAME="YAxis0.Layer" VALUE="100">
+			<PARAM NAME="YAxis0.PopupEnabled" VALUE="1">
+			<PARAM NAME="YAxis0.CanFocus" VALUE="1">
+			<PARAM NAME="YAxis0.Horizontal" VALUE="0">
+			<PARAM NAME="YAxis0.ZOrder" VALUE="0">
+			<PARAM NAME="YAxis0.StartPercent" VALUE="0">
+			<PARAM NAME="YAxis0.StopPercent" VALUE="100">
+			<PARAM NAME="YAxis0.Min" VALUE="0">
+			<PARAM NAME="YAxis0.Span" VALUE="100">
+			<PARAM NAME="YAxis0.DesiredStart" VALUE="0">
+			<PARAM NAME="YAxis0.DesiredIncrement" VALUE="0">
+			<PARAM NAME="YAxis0.ReverseScale" VALUE="0">
+			<PARAM NAME="YAxis0.InnerMargin" VALUE="5">
+			<PARAM NAME="YAxis0.OuterMargin" VALUE="5">
+			<PARAM NAME="YAxis0.Title" VALUE="Y-Axis 1">
+			<PARAM NAME="YAxis0.TitleMargin" VALUE="0.25">
+			<PARAM NAME="YAxis0.TitleFont.Charset" VALUE="1">
+			<PARAM NAME="YAxis0.TitleFont.Color" VALUE="16777215">
+			<PARAM NAME="YAxis0.TitleFont.Height" VALUE="-13">
+			<PARAM NAME="YAxis0.TitleFont.Name" VALUE="Arial">
+			<PARAM NAME="YAxis0.TitleFont.Pitch" VALUE="0">
+			<PARAM NAME="YAxis0.TitleFont.Style" VALUE="1">
+			<PARAM NAME="YAxis0.TitleShow" VALUE="0">
+			<PARAM NAME="YAxis0.TitleRotated" VALUE="0">
+			<PARAM NAME="YAxis0.MajorLength" VALUE="7">
+			<PARAM NAME="YAxis0.MinorLength" VALUE="3">
+			<PARAM NAME="YAxis0.MinorCount" VALUE="1">
+			<PARAM NAME="YAxis0.LabelsVisible" VALUE="1">
+			<PARAM NAME="YAxis0.LabelsMargin" VALUE="0.25">
+			<PARAM NAME="YAxis0.LabelsFont.Charset" VALUE="1">
+			<PARAM NAME="YAxis0.LabelsFont.Color" VALUE="16777215">
+			<PARAM NAME="YAxis0.LabelsFont.Height" VALUE="-11">
+			<PARAM NAME="YAxis0.LabelsFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="YAxis0.LabelsFont.Pitch" VALUE="0">
+			<PARAM NAME="YAxis0.LabelsFont.Style" VALUE="0">
+			<PARAM NAME="YAxis0.LabelSeparation" VALUE="2">
+			<PARAM NAME="YAxis0.LabelsRotation" VALUE="0">
+			<PARAM NAME="YAxis0.LabelsPrecision" VALUE="3">
+			<PARAM NAME="YAxis0.LabelsPrecisionStyle" VALUE="0">
+			<PARAM NAME="YAxis0.LabelsFormatStyle" VALUE="0">
+			<PARAM NAME="YAxis0.DateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="YAxis0.LabelsMinLength" VALUE="5">
+			<PARAM NAME="YAxis0.LabelsMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="YAxis0.ScaleLineShow" VALUE="1">
+			<PARAM NAME="YAxis0.ScaleLinesShow" VALUE="1">
+			<PARAM NAME="YAxis0.ScaleLinesColor" VALUE="16777215">
+			<PARAM NAME="YAxis0.StackingEndsMargin" VALUE="0.5">
+			<PARAM NAME="YAxis0.ScaleType" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingEnabled" VALUE="1">
+			<PARAM NAME="YAxis0.TrackingStyle" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingIncrementStyle" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingAlignFirstStyle" VALUE="3">
+			<PARAM NAME="YAxis0.TrackingScrollCompressMax" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingSpanMinimum" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingMaxMargin" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingMinMargin" VALUE="0">
+			<PARAM NAME="YAxis0.CursorUseDefaultFormat" VALUE="1">
+			<PARAM NAME="YAxis0.CursorFormatStyle" VALUE="0">
+			<PARAM NAME="YAxis0.CursorDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="YAxis0.CursorPrecisionStyle" VALUE="0">
+			<PARAM NAME="YAxis0.CursorPrecision" VALUE="3">
+			<PARAM NAME="YAxis0.CursorMinLength" VALUE="5">
+			<PARAM NAME="YAxis0.CursorMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="YAxis0.LegendUseDefaultFormat" VALUE="1">
+			<PARAM NAME="YAxis0.LegendFormatStyle" VALUE="0">
+			<PARAM NAME="YAxis0.LegendDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="YAxis0.LegendPrecisionStyle" VALUE="0">
+			<PARAM NAME="YAxis0.LegendPrecision" VALUE="3">
+			<PARAM NAME="YAxis0.LegendMinLength" VALUE="5">
+			<PARAM NAME="YAxis0.LegendMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="YAxis0.CursorScaler" VALUE="1">
+			<PARAM NAME="YAxis0.ScrollMinMaxEnabled" VALUE="0">
+			<PARAM NAME="YAxis0.ScrollMax" VALUE="100">
+			<PARAM NAME="YAxis0.ScrollMin" VALUE="0">
+			<PARAM NAME="YAxis0.RestoreValuesOnResume" VALUE="1">
+			<PARAM NAME="YAxis0.MasterUIInput" VALUE="0">
+			<PARAM NAME="YAxis0.CartesianStyle" VALUE="0">
+			<PARAM NAME="YAxis0.CartesianChildRefAxisName" VALUE="<None>">
+			<PARAM NAME="YAxis0.CartesianChildRefValue" VALUE="0">
+			<PARAM NAME="YAxis0.AlignRefAxisName" VALUE="<None>">
+			<PARAM NAME="YAxis0.GridLinesVisible" VALUE="1">
+			<PARAM NAME="YAxis0.ForceStacking" VALUE="0">
+			<PARAM NAME="DataView0.Name" VALUE="Data View 1">
+			<PARAM NAME="DataView0.Visible" VALUE="1">
+			<PARAM NAME="DataView0.Enabled" VALUE="1">
+			<PARAM NAME="DataView0.Layer" VALUE="100">
+			<PARAM NAME="DataView0.PopupEnabled" VALUE="1">
+			<PARAM NAME="DataView0.CanFocus" VALUE="1">
+			<PARAM NAME="DataView0.Horizontal" VALUE="0">
+			<PARAM NAME="DataView0.ZOrder" VALUE="0">
+			<PARAM NAME="DataView0.StartPercent" VALUE="0">
+			<PARAM NAME="DataView0.StopPercent" VALUE="100">
+			<PARAM NAME="DataView0.Title" VALUE="">
+			<PARAM NAME="DataView0.BackgroundTransparent" VALUE="1">
+			<PARAM NAME="DataView0.BackgroundColor" VALUE="8421376">
+			<PARAM NAME="DataView0.GridXAxisName" VALUE="X-Axis 1">
+			<PARAM NAME="DataView0.GridYAxisName" VALUE="Y-Axis 1">
+			<PARAM NAME="DataView0.GridShow" VALUE="1">
+			<PARAM NAME="DataView0.GridLineColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineShowLeft" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowRight" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowTop" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowBottom" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowXMajors" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowXMinors" VALUE="0">
+			<PARAM NAME="DataView0.GridLineShowYMajors" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowYMinors" VALUE="0">
+			<PARAM NAME="DataView0.GridLineMajorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineMinorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMajorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMajorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineXMajorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMajorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMinorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMinorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineXMinorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMinorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMajorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMajorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineYMajorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMajorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMinorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMinorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineYMinorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMinorStyle" VALUE="0">
+			<PARAM NAME="DataView0.AxesControlEnabled" VALUE="0">
+			<PARAM NAME="DataView0.AxesControlMouseStyle" VALUE="2">
+			<PARAM NAME="DataView0.AxesControlWheelStyle" VALUE="0">
+			<PARAM NAME="Channel0.Name" VALUE="Channel 1">
+			<PARAM NAME="Channel0.Visible" VALUE="1">
+			<PARAM NAME="Channel0.Enabled" VALUE="1">
+			<PARAM NAME="Channel0.Layer" VALUE="100">
+			<PARAM NAME="Channel0.PopupEnabled" VALUE="1">
+			<PARAM NAME="Channel0.CanFocus" VALUE="1">
+			<PARAM NAME="Channel0.TitleText" VALUE="Channel 1">
+			<PARAM NAME="Channel0.VisibleInLegend" VALUE="1">
+			<PARAM NAME="Channel0.ClipToAxes" VALUE="0">
+			<PARAM NAME="Channel0.ShowDataPointHints" VALUE="0">
+			<PARAM NAME="Channel0.UserCanMoveDataPoints" VALUE="0">
+			<PARAM NAME="Channel0.UserCanMoveDataPointsStyle" VALUE="0">
+			<PARAM NAME="Channel0.RingBufferSize" VALUE="0">
+			<PARAM NAME="Channel0.TraceVisible" VALUE="1">
+			<PARAM NAME="Channel0.Color" VALUE="255">
+			<PARAM NAME="Channel0.TraceLineStyle" VALUE="0">
+			<PARAM NAME="Channel0.TraceLineWidth" VALUE="1">
+			<PARAM NAME="Channel0.MarkersAllowIndividual" VALUE="0">
+			<PARAM NAME="Channel0.MarkersPenUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.MarkersBrushUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.MarkersTurnOffLimit" VALUE="0">
+			<PARAM NAME="Channel0.MarkersVisible" VALUE="0">
+			<PARAM NAME="Channel0.MarkersSize" VALUE="3">
+			<PARAM NAME="Channel0.MarkersStyle" VALUE="0">
+			<PARAM NAME="Channel0.MarkersPenColor" VALUE="255">
+			<PARAM NAME="Channel0.MarkersPenStyle" VALUE="0">
+			<PARAM NAME="Channel0.MarkersPenWidth" VALUE="0">
+			<PARAM NAME="Channel0.MarkersBrushColor" VALUE="255">
+			<PARAM NAME="Channel0.MarkersBrushStyle" VALUE="0">
+			<PARAM NAME="Channel0.MarkersFont.Charset" VALUE="1">
+			<PARAM NAME="Channel0.MarkersFont.Color" VALUE="16777215">
+			<PARAM NAME="Channel0.MarkersFont.Height" VALUE="-11">
+			<PARAM NAME="Channel0.MarkersFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Channel0.MarkersFont.Pitch" VALUE="0">
+			<PARAM NAME="Channel0.MarkersFont.Style" VALUE="1">
+			<PARAM NAME="Channel0.XAxisName" VALUE="X-Axis 1">
+			<PARAM NAME="Channel0.YAxisName" VALUE="Y-Axis 1">
+			<PARAM NAME="Channel0.XAxisTrackingEnabled" VALUE="1">
+			<PARAM NAME="Channel0.YAxisTrackingEnabled" VALUE="1">
+			<PARAM NAME="Channel0.LogFileName" VALUE="">
+			<PARAM NAME="Channel0.LogBufferSize" VALUE="0">
+			<PARAM NAME="Channel0.DataStyle" VALUE="0">
+			<PARAM NAME="Channel0.Tag" VALUE="0">
+			<PARAM NAME="Channel0.FastDrawEnabled" VALUE="1">
+			<PARAM NAME="Channel0.AllowOutOfOrderXValues" VALUE="1">
+			<PARAM NAME="Channel0.DrawOutOfOrderXValues" VALUE="0">
+			<PARAM NAME="Channel0.ResetStartTimeOnFirstDataPoint" VALUE="0">
+			<PARAM NAME="Channel0.InterpolationStyle" VALUE="0">
+			<PARAM NAME="Channel0.FillEnabled" VALUE="0">
+			<PARAM NAME="Channel0.FillReference" VALUE="0">
+			<PARAM NAME="Channel0.FillStyle" VALUE="0">
+			<PARAM NAME="Channel0.FillColor" VALUE="0">
+			<PARAM NAME="Channel0.FillUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.DigitalEnabled" VALUE="0">
+			<PARAM NAME="Channel0.DigitalReferenceStyle" VALUE="0">
+			<PARAM NAME="Channel0.DigitalReferenceLow" VALUE="10">
+			<PARAM NAME="Channel0.DigitalReferenceHigh" VALUE="90">
+			<PARAM NAME="Channel0.HighLowStyle" VALUE="0">
+			<PARAM NAME="Channel0.HighLowEnabled" VALUE="0">
+			<PARAM NAME="Channel0.HighLowBarColor" VALUE="16776960">
+			<PARAM NAME="Channel0.HighLowBarWidth" VALUE="0.5">
+			<PARAM NAME="Channel0.HighLowOpenShow" VALUE="1">
+			<PARAM NAME="Channel0.HighLowOpenColor" VALUE="65280">
+			<PARAM NAME="Channel0.HighLowOpenWidth" VALUE="1">
+			<PARAM NAME="Channel0.HighLowOpenHeight" VALUE="1">
+			<PARAM NAME="Channel0.HighLowCloseShow" VALUE="1">
+			<PARAM NAME="Channel0.HighLowCloseColor" VALUE="255">
+			<PARAM NAME="Channel0.HighLowCloseWidth" VALUE="1">
+			<PARAM NAME="Channel0.HighLowCloseHeight" VALUE="1">
+			<PARAM NAME="Channel0.HighLowShadowColor" VALUE="8421504">
+			<PARAM NAME="Channel0.HighLowBullishColor" VALUE="16777215">
+			<PARAM NAME="Channel0.HighLowBearishColor" VALUE="8421504">
+			<PARAM NAME="Channel0.BarEnabled" VALUE="0">
+			<PARAM NAME="Channel0.BarPenUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.BarBrushUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.BarReference" VALUE="0">
+			<PARAM NAME="Channel0.BarWidth" VALUE="5">
+			<PARAM NAME="Channel0.BarPenColor" VALUE="255">
+			<PARAM NAME="Channel0.BarPenWidth" VALUE="0">
+			<PARAM NAME="Channel0.BarPenStyle" VALUE="0">
+			<PARAM NAME="Channel0.BarBrushColor" VALUE="255">
+			<PARAM NAME="Channel0.BarBrushStyle" VALUE="0">
+			<PARAM NAME="Channel0.OPCGroupName" VALUE="">
+			<PARAM NAME="Channel0.OPCComputerName" VALUE="Local">
+			<PARAM NAME="Channel0.OPCServerName" VALUE="">
+			<PARAM NAME="Channel0.OPCItemName" VALUE="">
+			<PARAM NAME="Channel0.OPCUpdateRate" VALUE="500">
+			<PARAM NAME="Channel0.OPCScalar" VALUE="0">
+			<PARAM NAME="Channel0.OPCOffset" VALUE="0">
+			<PARAM NAME="Channel0.OPCAutoConnect" VALUE="1">
+			<PARAM NAME="Channel0.OPCXValueSource" VALUE="0">
+			<PARAM NAME="DataCursor0.Name" VALUE="Cursor 1">
+			<PARAM NAME="DataCursor0.Visible" VALUE="0">
+			<PARAM NAME="DataCursor0.Enabled" VALUE="1">
+			<PARAM NAME="DataCursor0.Layer" VALUE="100">
+			<PARAM NAME="DataCursor0.PopupEnabled" VALUE="1">
+			<PARAM NAME="DataCursor0.CanFocus" VALUE="1">
+			<PARAM NAME="DataCursor0.ChannelName" VALUE="Channel 1">
+			<PARAM NAME="DataCursor0.ChannelAllowAll" VALUE="1">
+			<PARAM NAME="DataCursor0.ChannelShowAllInLegend" VALUE="1">
+			<PARAM NAME="DataCursor0.Style" VALUE="0">
+			<PARAM NAME="DataCursor0.Font.Charset" VALUE="1">
+			<PARAM NAME="DataCursor0.Font.Color" VALUE="-2147483640">
+			<PARAM NAME="DataCursor0.Font.Height" VALUE="-11">
+			<PARAM NAME="DataCursor0.Font.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="DataCursor0.Font.Pitch" VALUE="0">
+			<PARAM NAME="DataCursor0.Font.Style" VALUE="0">
+			<PARAM NAME="DataCursor0.Color" VALUE="65535">
+			<PARAM NAME="DataCursor0.UseChannelColor" VALUE="1">
+			<PARAM NAME="DataCursor0.HintShow" VALUE="1">
+			<PARAM NAME="DataCursor0.HintHideOnRelease" VALUE="0">
+			<PARAM NAME="DataCursor0.HintOrientationSide" VALUE="0">
+			<PARAM NAME="DataCursor0.HintPosition" VALUE="50">
+			<PARAM NAME="DataCursor0.Pointer1Position" VALUE="50">
+			<PARAM NAME="DataCursor0.Pointer2Position" VALUE="60">
+			<PARAM NAME="DataCursor0.PointerPenWidth" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuUserCanChangeOptions" VALUE="1">
+			<PARAM NAME="DataCursor0.SnapToDataPoint" VALUE="0">
+			<PARAM NAME="DataCursor0.UseCachedInerpolatedData" VALUE="0">
+			<PARAM NAME="DataCursor0.MenuItemVisibleValueXY" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleValueX" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleValueY" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleDeltaX" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleDeltaY" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleInverseDeltaX" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemCaptionValueXY" VALUE="Value X-Y">
+			<PARAM NAME="DataCursor0.MenuItemCaptionValueX" VALUE="Value X">
+			<PARAM NAME="DataCursor0.MenuItemCaptionValueY" VALUE="Value Y">
+			<PARAM NAME="DataCursor0.MenuItemCaptionDeltaX" VALUE="Period">
+			<PARAM NAME="DataCursor0.MenuItemCaptionDeltaY" VALUE="Peak-Peak">
+			<PARAM NAME="DataCursor0.MenuItemCaptionInverseDeltaX" VALUE="Frequency">
+			<PARAM NAME="Label0.Name" VALUE="Title">
+			<PARAM NAME="Label0.Visible" VALUE="1">
+			<PARAM NAME="Label0.Enabled" VALUE="1">
+			<PARAM NAME="Label0.Layer" VALUE="100">
+			<PARAM NAME="Label0.PopupEnabled" VALUE="1">
+			<PARAM NAME="Label0.CanFocus" VALUE="1">
+			<PARAM NAME="Label0.Horizontal" VALUE="1">
+			<PARAM NAME="Label0.ZOrder" VALUE="2">
+			<PARAM NAME="Label0.StartPercent" VALUE="0">
+			<PARAM NAME="Label0.StopPercent" VALUE="100">
+			<PARAM NAME="Label0.MarginLeft" VALUE="0">
+			<PARAM NAME="Label0.MarginTop" VALUE="0">
+			<PARAM NAME="Label0.MarginRight" VALUE="0">
+			<PARAM NAME="Label0.MarginBottom" VALUE="0">
+			<PARAM NAME="Label0.Caption" VALUE="Untitled">
+			<PARAM NAME="Label0.Alignment" VALUE="0">
+			<PARAM NAME="Label0.Font.Charset" VALUE="1">
+			<PARAM NAME="Label0.Font.Color" VALUE="16777215">
+			<PARAM NAME="Label0.Font.Height" VALUE="-19">
+			<PARAM NAME="Label0.Font.Name" VALUE="Arial">
+			<PARAM NAME="Label0.Font.Pitch" VALUE="0">
+			<PARAM NAME="Label0.Font.Style" VALUE="1">
+		</OBJECT>
+		<FONT color="#ff66ff" size="2">&nbsp; Under Flows : Video</FONT>&nbsp; <input type="text" size="7" ID="front_VideoUnderflowCount" value="0">&nbsp;&nbsp;&nbsp;<FONT color="#ff66ff" size="2">
+			Audio</FONT>&nbsp; <input type="text" size="7" ID="front_AudioUnderflowCount" value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<FONT color="#ff66ff" size="2">&nbsp;Over Flows : Video</FONT>&nbsp;&nbsp;&nbsp;
+		<input type="text" size="7" ID="front_VideoOverflowCount" value="0">&nbsp;&nbsp;&nbsp;&nbsp;
+		<FONT color="#ff66ff" size="2">Audio</FONT> <input type="text" size="7" ID="front_AudioOverflowCount" value="0">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <FONT color="#ff66ff" size="2">QTV:&nbsp;Frame/Sec
+		</FONT><input type="text" size="7" ID="QTV_fps" value="0">&nbsp; <FONT color="#ff66ff" size="2">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; QTV:&nbsp;AV Sync </FONT><input type="text" size="7" ID="QTV_AV_Sync" value="0" NAME="Text1">
+		<OBJECT id="LDPC_Error_Rate_graph" height="42%" width="100%" classid="clsid:1791C036-8981-492A-BD28-F2331BC9B7C7"
+			viewastext>
+			<PARAM NAME="DataViewZHorz" VALUE="1">
+			<PARAM NAME="DataViewZVert" VALUE="1">
+			<PARAM NAME="XYAxesReverse" VALUE="0">
+			<PARAM NAME="OuterMarginLeft" VALUE="5">
+			<PARAM NAME="OuterMarginTop" VALUE="5">
+			<PARAM NAME="OuterMarginRight" VALUE="5">
+			<PARAM NAME="OuterMarginBottom" VALUE="5">
+			<PARAM NAME="PrintOrientation" VALUE="1">
+			<PARAM NAME="PrintMarginLeft" VALUE="1">
+			<PARAM NAME="PrintMarginTop" VALUE="1">
+			<PARAM NAME="PrintMarginRight" VALUE="1">
+			<PARAM NAME="PrintMarginBottom" VALUE="1">
+			<PARAM NAME="PrintShowDialog" VALUE="-1">
+			<PARAM NAME="UpdateFrameRate" VALUE="60">
+			<PARAM NAME="BackGroundColor" VALUE="0">
+			<PARAM NAME="BorderStyle" VALUE="2">
+			<PARAM NAME="AutoFrameRate" VALUE="-1">
+			<PARAM NAME="HintsShow" VALUE="-1">
+			<PARAM NAME="HintsPause" VALUE="500">
+			<PARAM NAME="HintsHidePause" VALUE="2500">
+			<PARAM NAME="TitleVisible" VALUE="-1">
+			<PARAM NAME="TitleText" VALUE="Untitled">
+			<PARAM NAME="TitleMargin" VALUE="0">
+			<PARAM NAME="TitleFont" VALUE="Arial">
+			<PARAM NAME="TitleFontColor" VALUE="16777215">
+			<PARAM NAME="UserCanEditObjects" VALUE="-1">
+			<PARAM NAME="LogFileName" VALUE="">
+			<PARAM NAME="LogBufferSize" VALUE="0">
+			<PARAM NAME="OptionSaveAllProperties" VALUE="0">
+			<PARAM NAME="HintsFont" VALUE="MS Sans Serif">
+			<PARAM NAME="HintsFontColor" VALUE="2147483656">
+			<PARAM NAME="AnnotationDefaultFont" VALUE="MS Sans Serif">
+			<PARAM NAME="AnnotationDefaultFontColor" VALUE="16777215">
+			<PARAM NAME="AnnotationDefaultBrushStlye" VALUE="0">
+			<PARAM NAME="AnnotationDefaultBrushColor" VALUE="16777215">
+			<PARAM NAME="AnnotationDefaultPenStlye" VALUE="0">
+			<PARAM NAME="AnnotationDefaultPenColor" VALUE="16777215">
+			<PARAM NAME="AnnotationDefaultPenWidth" VALUE="1">
+			<PARAM NAME="Width" VALUE="1254">
+			<PARAM NAME="Height" VALUE="319">
+			<PARAM NAME="UserCanAddRemoveChannels" VALUE="0">
+			<PARAM NAME="Visible" VALUE="-1">
+			<PARAM NAME="Enabled" VALUE="-1">
+			<PARAM NAME="EditorFormStyle" VALUE="0">
+			<PARAM NAME="CopyToClipBoardFormat" VALUE="0">
+			<PARAM NAME="PrintDocumentName" VALUE="Untitled">
+			<PARAM NAME="PrinterName" VALUE="">
+			<PARAM NAME="ClipAnnotationsToAxes" VALUE="-1">
+			<PARAM NAME="BackGroundGradientEnabled" VALUE="0">
+			<PARAM NAME="BackGroundGradientDirection" VALUE="0">
+			<PARAM NAME="BackGroundGradientStartColor" VALUE="16711680">
+			<PARAM NAME="BackGroundGradientStopColor" VALUE="0">
+			<PARAM NAME="DataFileColumnSeparator" VALUE="0">
+			<PARAM NAME="DataFileFormat" VALUE="0">
+			<PARAM NAME="AnnotationDefaultReference" VALUE="0">
+			<PARAM NAME="AnnotationDefaultReferencePositionX" VALUE="2">
+			<PARAM NAME="AnnotationDefaultReferencePositionY" VALUE="2">
+			<PARAM NAME="AnnotationDefaultReferenceSizeX" VALUE="2">
+			<PARAM NAME="AnnotationDefaultReferenceSizeY" VALUE="2">
+			<PARAM NAME="ChannelCount" VALUE="1">
+			<PARAM NAME="XAxisCount" VALUE="1">
+			<PARAM NAME="YAxisCount" VALUE="1">
+			<PARAM NAME="ToolBarCount" VALUE="1">
+			<PARAM NAME="LegendCount" VALUE="1">
+			<PARAM NAME="DataViewCount" VALUE="1">
+			<PARAM NAME="DataCursorCount" VALUE="1">
+			<PARAM NAME="LimitCount" VALUE="0">
+			<PARAM NAME="LabelCount" VALUE="1">
+			<PARAM NAME="TableCount" VALUE="0">
+			<PARAM NAME="TranslationCount" VALUE="0">
+			<PARAM NAME="ToolBar0.Name" VALUE="Toolbar 1">
+			<PARAM NAME="ToolBar0.Visible" VALUE="1">
+			<PARAM NAME="ToolBar0.Enabled" VALUE="1">
+			<PARAM NAME="ToolBar0.Layer" VALUE="100">
+			<PARAM NAME="ToolBar0.PopupEnabled" VALUE="1">
+			<PARAM NAME="ToolBar0.CanFocus" VALUE="1">
+			<PARAM NAME="ToolBar0.Horizontal" VALUE="1">
+			<PARAM NAME="ToolBar0.ZOrder" VALUE="3">
+			<PARAM NAME="ToolBar0.StartPercent" VALUE="0">
+			<PARAM NAME="ToolBar0.StopPercent" VALUE="100">
+			<PARAM NAME="ToolBar0.ShowResumeButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowPauseButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowAxesModeButtons" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowZoomInOutButtons" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowSelectButton" VALUE="0">
+			<PARAM NAME="ToolBar0.ShowZoomBoxButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowCursorButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowEditButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowCopyButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowSaveButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowPrintButton" VALUE="1">
+			<PARAM NAME="ToolBar0.ShowPreviewButton" VALUE="0">
+			<PARAM NAME="ToolBar0.ZoomInOutFactor" VALUE="2">
+			<PARAM NAME="ToolBar0.FlatBorder" VALUE="0">
+			<PARAM NAME="ToolBar0.FlatButtons" VALUE="0">
+			<PARAM NAME="ToolBar0.SmallButtons" VALUE="0">
+			<PARAM NAME="Legend0.Name" VALUE="Legend 1">
+			<PARAM NAME="Legend0.Visible" VALUE="1">
+			<PARAM NAME="Legend0.Enabled" VALUE="1">
+			<PARAM NAME="Legend0.Layer" VALUE="100">
+			<PARAM NAME="Legend0.PopupEnabled" VALUE="1">
+			<PARAM NAME="Legend0.CanFocus" VALUE="1">
+			<PARAM NAME="Legend0.Horizontal" VALUE="0">
+			<PARAM NAME="Legend0.ZOrder" VALUE="2">
+			<PARAM NAME="Legend0.StartPercent" VALUE="0">
+			<PARAM NAME="Legend0.StopPercent" VALUE="100">
+			<PARAM NAME="Legend0.MarginLeft" VALUE="1">
+			<PARAM NAME="Legend0.MarginTop" VALUE="1">
+			<PARAM NAME="Legend0.MarginRight" VALUE="1">
+			<PARAM NAME="Legend0.MarginBottom" VALUE="1">
+			<PARAM NAME="Legend0.BackGroundColor" VALUE="8421504">
+			<PARAM NAME="Legend0.BackGroundTransparent" VALUE="1">
+			<PARAM NAME="Legend0.SelectedItemBackGroundColor" VALUE="65535">
+			<PARAM NAME="Legend0.SelectedItemFont.Charset" VALUE="1">
+			<PARAM NAME="Legend0.SelectedItemFont.Color" VALUE="0">
+			<PARAM NAME="Legend0.SelectedItemFont.Height" VALUE="-11">
+			<PARAM NAME="Legend0.SelectedItemFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Legend0.SelectedItemFont.Pitch" VALUE="0">
+			<PARAM NAME="Legend0.SelectedItemFont.Style" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnLine" VALUE="1">
+			<PARAM NAME="Legend0.ShowColumnMarker" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnXAxisTitle" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYAxisTitle" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnXValue" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYValue" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYMax" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYMin" VALUE="0">
+			<PARAM NAME="Legend0.ShowColumnYMean" VALUE="0">
+			<PARAM NAME="Legend0.CaptionColumnTitle" VALUE="Title">
+			<PARAM NAME="Legend0.CaptionColumnXAxisTitle" VALUE="X-Axis">
+			<PARAM NAME="Legend0.CaptionColumnYAxisTitle" VALUE="Y-Axis">
+			<PARAM NAME="Legend0.CaptionColumnXValue" VALUE="X">
+			<PARAM NAME="Legend0.CaptionColumnYValue" VALUE="Y">
+			<PARAM NAME="Legend0.CaptionColumnYMax" VALUE="Y-Max">
+			<PARAM NAME="Legend0.CaptionColumnYMin" VALUE="Y-Min">
+			<PARAM NAME="Legend0.CaptionColumnYMean" VALUE="Y-Mean">
+			<PARAM NAME="Legend0.Font.Charset" VALUE="1">
+			<PARAM NAME="Legend0.Font.Color" VALUE="16777215">
+			<PARAM NAME="Legend0.Font.Height" VALUE="-11">
+			<PARAM NAME="Legend0.Font.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Legend0.Font.Pitch" VALUE="0">
+			<PARAM NAME="Legend0.Font.Style" VALUE="0">
+			<PARAM NAME="Legend0.ColumnSpacing" VALUE="0.5">
+			<PARAM NAME="Legend0.RowSpacing" VALUE="0.25">
+			<PARAM NAME="Legend0.WrapColDesiredCount" VALUE="1">
+			<PARAM NAME="Legend0.WrapColAutoCountEnabled" VALUE="0">
+			<PARAM NAME="Legend0.WrapColAutoCountMax" VALUE="100">
+			<PARAM NAME="Legend0.WrapColSpacingMin" VALUE="2">
+			<PARAM NAME="Legend0.WrapColSpacingAuto" VALUE="1">
+			<PARAM NAME="Legend0.WrapRowDesiredCount" VALUE="5">
+			<PARAM NAME="Legend0.WrapRowAutoCountEnabled" VALUE="1">
+			<PARAM NAME="Legend0.WrapRowAutoCountMax" VALUE="100">
+			<PARAM NAME="Legend0.WrapRowSpacingMin" VALUE="0.25">
+			<PARAM NAME="Legend0.WrapRowSpacingAuto" VALUE="0">
+			<PARAM NAME="Legend0.ColumnTitlesVisible" VALUE="0">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Charset" VALUE="1">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Color" VALUE="16776960">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Height" VALUE="-11">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Pitch" VALUE="0">
+			<PARAM NAME="Legend0.ColumnTitlesFont.Style" VALUE="1">
+			<PARAM NAME="Legend0.ChannelNameMaxWidth" VALUE="0">
+			<PARAM NAME="Legend0.ChannelNameColorStyle" VALUE="0">
+			<PARAM NAME="Legend0.LineColumnWidth" VALUE="13">
+			<PARAM NAME="Legend0.LineColumnHeight" VALUE="3">
+			<PARAM NAME="XAxis0.Name" VALUE="X-Axis 1">
+			<PARAM NAME="XAxis0.Visible" VALUE="1">
+			<PARAM NAME="XAxis0.Enabled" VALUE="1">
+			<PARAM NAME="XAxis0.Layer" VALUE="100">
+			<PARAM NAME="XAxis0.PopupEnabled" VALUE="1">
+			<PARAM NAME="XAxis0.CanFocus" VALUE="1">
+			<PARAM NAME="XAxis0.Horizontal" VALUE="1">
+			<PARAM NAME="XAxis0.ZOrder" VALUE="0">
+			<PARAM NAME="XAxis0.StartPercent" VALUE="0">
+			<PARAM NAME="XAxis0.StopPercent" VALUE="100">
+			<PARAM NAME="XAxis0.Min" VALUE="0">
+			<PARAM NAME="XAxis0.Span" VALUE="100">
+			<PARAM NAME="XAxis0.DesiredStart" VALUE="0">
+			<PARAM NAME="XAxis0.DesiredIncrement" VALUE="0">
+			<PARAM NAME="XAxis0.ReverseScale" VALUE="0">
+			<PARAM NAME="XAxis0.InnerMargin" VALUE="5">
+			<PARAM NAME="XAxis0.OuterMargin" VALUE="5">
+			<PARAM NAME="XAxis0.Title" VALUE="X-Axis 1">
+			<PARAM NAME="XAxis0.TitleMargin" VALUE="0.25">
+			<PARAM NAME="XAxis0.TitleFont.Charset" VALUE="1">
+			<PARAM NAME="XAxis0.TitleFont.Color" VALUE="16777215">
+			<PARAM NAME="XAxis0.TitleFont.Height" VALUE="-13">
+			<PARAM NAME="XAxis0.TitleFont.Name" VALUE="Arial">
+			<PARAM NAME="XAxis0.TitleFont.Pitch" VALUE="0">
+			<PARAM NAME="XAxis0.TitleFont.Style" VALUE="1">
+			<PARAM NAME="XAxis0.TitleShow" VALUE="0">
+			<PARAM NAME="XAxis0.TitleRotated" VALUE="0">
+			<PARAM NAME="XAxis0.MajorLength" VALUE="7">
+			<PARAM NAME="XAxis0.MinorLength" VALUE="3">
+			<PARAM NAME="XAxis0.MinorCount" VALUE="1">
+			<PARAM NAME="XAxis0.LabelsVisible" VALUE="1">
+			<PARAM NAME="XAxis0.LabelsMargin" VALUE="0.25">
+			<PARAM NAME="XAxis0.LabelsFont.Charset" VALUE="1">
+			<PARAM NAME="XAxis0.LabelsFont.Color" VALUE="16777215">
+			<PARAM NAME="XAxis0.LabelsFont.Height" VALUE="-11">
+			<PARAM NAME="XAxis0.LabelsFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="XAxis0.LabelsFont.Pitch" VALUE="0">
+			<PARAM NAME="XAxis0.LabelsFont.Style" VALUE="0">
+			<PARAM NAME="XAxis0.LabelSeparation" VALUE="2">
+			<PARAM NAME="XAxis0.LabelsRotation" VALUE="0">
+			<PARAM NAME="XAxis0.LabelsPrecision" VALUE="3">
+			<PARAM NAME="XAxis0.LabelsPrecisionStyle" VALUE="0">
+			<PARAM NAME="XAxis0.LabelsFormatStyle" VALUE="0">
+			<PARAM NAME="XAxis0.DateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="XAxis0.LabelsMinLength" VALUE="5">
+			<PARAM NAME="XAxis0.LabelsMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="XAxis0.ScaleLineShow" VALUE="1">
+			<PARAM NAME="XAxis0.ScaleLinesShow" VALUE="1">
+			<PARAM NAME="XAxis0.ScaleLinesColor" VALUE="16777215">
+			<PARAM NAME="XAxis0.StackingEndsMargin" VALUE="0.5">
+			<PARAM NAME="XAxis0.ScaleType" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingEnabled" VALUE="1">
+			<PARAM NAME="XAxis0.TrackingStyle" VALUE="3">
+			<PARAM NAME="XAxis0.TrackingIncrementStyle" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingAlignFirstStyle" VALUE="2">
+			<PARAM NAME="XAxis0.TrackingScrollCompressMax" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingSpanMinimum" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingMaxMargin" VALUE="0">
+			<PARAM NAME="XAxis0.TrackingMinMargin" VALUE="0">
+			<PARAM NAME="XAxis0.CursorUseDefaultFormat" VALUE="1">
+			<PARAM NAME="XAxis0.CursorFormatStyle" VALUE="0">
+			<PARAM NAME="XAxis0.CursorDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="XAxis0.CursorPrecisionStyle" VALUE="0">
+			<PARAM NAME="XAxis0.CursorPrecision" VALUE="3">
+			<PARAM NAME="XAxis0.CursorMinLength" VALUE="5">
+			<PARAM NAME="XAxis0.CursorMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="XAxis0.LegendUseDefaultFormat" VALUE="1">
+			<PARAM NAME="XAxis0.LegendFormatStyle" VALUE="0">
+			<PARAM NAME="XAxis0.LegendDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="XAxis0.LegendPrecisionStyle" VALUE="0">
+			<PARAM NAME="XAxis0.LegendPrecision" VALUE="3">
+			<PARAM NAME="XAxis0.LegendMinLength" VALUE="5">
+			<PARAM NAME="XAxis0.LegendMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="XAxis0.CursorScaler" VALUE="1">
+			<PARAM NAME="XAxis0.ScrollMinMaxEnabled" VALUE="0">
+			<PARAM NAME="XAxis0.ScrollMax" VALUE="100">
+			<PARAM NAME="XAxis0.ScrollMin" VALUE="0">
+			<PARAM NAME="XAxis0.RestoreValuesOnResume" VALUE="1">
+			<PARAM NAME="XAxis0.MasterUIInput" VALUE="0">
+			<PARAM NAME="XAxis0.CartesianStyle" VALUE="0">
+			<PARAM NAME="XAxis0.CartesianChildRefAxisName" VALUE="<None>">
+			<PARAM NAME="XAxis0.CartesianChildRefValue" VALUE="0">
+			<PARAM NAME="XAxis0.AlignRefAxisName" VALUE="<None>">
+			<PARAM NAME="XAxis0.GridLinesVisible" VALUE="1">
+			<PARAM NAME="XAxis0.ForceStacking" VALUE="0">
+			<PARAM NAME="YAxis0.Name" VALUE="Y-Axis 1">
+			<PARAM NAME="YAxis0.Visible" VALUE="1">
+			<PARAM NAME="YAxis0.Enabled" VALUE="1">
+			<PARAM NAME="YAxis0.Layer" VALUE="100">
+			<PARAM NAME="YAxis0.PopupEnabled" VALUE="1">
+			<PARAM NAME="YAxis0.CanFocus" VALUE="1">
+			<PARAM NAME="YAxis0.Horizontal" VALUE="0">
+			<PARAM NAME="YAxis0.ZOrder" VALUE="0">
+			<PARAM NAME="YAxis0.StartPercent" VALUE="0">
+			<PARAM NAME="YAxis0.StopPercent" VALUE="100">
+			<PARAM NAME="YAxis0.Min" VALUE="0">
+			<PARAM NAME="YAxis0.Span" VALUE="100">
+			<PARAM NAME="YAxis0.DesiredStart" VALUE="0">
+			<PARAM NAME="YAxis0.DesiredIncrement" VALUE="0">
+			<PARAM NAME="YAxis0.ReverseScale" VALUE="0">
+			<PARAM NAME="YAxis0.InnerMargin" VALUE="5">
+			<PARAM NAME="YAxis0.OuterMargin" VALUE="5">
+			<PARAM NAME="YAxis0.Title" VALUE="Y-Axis 1">
+			<PARAM NAME="YAxis0.TitleMargin" VALUE="0.25">
+			<PARAM NAME="YAxis0.TitleFont.Charset" VALUE="1">
+			<PARAM NAME="YAxis0.TitleFont.Color" VALUE="16777215">
+			<PARAM NAME="YAxis0.TitleFont.Height" VALUE="-13">
+			<PARAM NAME="YAxis0.TitleFont.Name" VALUE="Arial">
+			<PARAM NAME="YAxis0.TitleFont.Pitch" VALUE="0">
+			<PARAM NAME="YAxis0.TitleFont.Style" VALUE="1">
+			<PARAM NAME="YAxis0.TitleShow" VALUE="0">
+			<PARAM NAME="YAxis0.TitleRotated" VALUE="0">
+			<PARAM NAME="YAxis0.MajorLength" VALUE="7">
+			<PARAM NAME="YAxis0.MinorLength" VALUE="3">
+			<PARAM NAME="YAxis0.MinorCount" VALUE="1">
+			<PARAM NAME="YAxis0.LabelsVisible" VALUE="1">
+			<PARAM NAME="YAxis0.LabelsMargin" VALUE="0.25">
+			<PARAM NAME="YAxis0.LabelsFont.Charset" VALUE="1">
+			<PARAM NAME="YAxis0.LabelsFont.Color" VALUE="16777215">
+			<PARAM NAME="YAxis0.LabelsFont.Height" VALUE="-11">
+			<PARAM NAME="YAxis0.LabelsFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="YAxis0.LabelsFont.Pitch" VALUE="0">
+			<PARAM NAME="YAxis0.LabelsFont.Style" VALUE="0">
+			<PARAM NAME="YAxis0.LabelSeparation" VALUE="2">
+			<PARAM NAME="YAxis0.LabelsRotation" VALUE="0">
+			<PARAM NAME="YAxis0.LabelsPrecision" VALUE="3">
+			<PARAM NAME="YAxis0.LabelsPrecisionStyle" VALUE="0">
+			<PARAM NAME="YAxis0.LabelsFormatStyle" VALUE="0">
+			<PARAM NAME="YAxis0.DateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="YAxis0.LabelsMinLength" VALUE="5">
+			<PARAM NAME="YAxis0.LabelsMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="YAxis0.ScaleLineShow" VALUE="1">
+			<PARAM NAME="YAxis0.ScaleLinesShow" VALUE="1">
+			<PARAM NAME="YAxis0.ScaleLinesColor" VALUE="16777215">
+			<PARAM NAME="YAxis0.StackingEndsMargin" VALUE="0.5">
+			<PARAM NAME="YAxis0.ScaleType" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingEnabled" VALUE="1">
+			<PARAM NAME="YAxis0.TrackingStyle" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingIncrementStyle" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingAlignFirstStyle" VALUE="3">
+			<PARAM NAME="YAxis0.TrackingScrollCompressMax" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingSpanMinimum" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingMaxMargin" VALUE="0">
+			<PARAM NAME="YAxis0.TrackingMinMargin" VALUE="0">
+			<PARAM NAME="YAxis0.CursorUseDefaultFormat" VALUE="1">
+			<PARAM NAME="YAxis0.CursorFormatStyle" VALUE="0">
+			<PARAM NAME="YAxis0.CursorDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="YAxis0.CursorPrecisionStyle" VALUE="0">
+			<PARAM NAME="YAxis0.CursorPrecision" VALUE="3">
+			<PARAM NAME="YAxis0.CursorMinLength" VALUE="5">
+			<PARAM NAME="YAxis0.CursorMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="YAxis0.LegendUseDefaultFormat" VALUE="1">
+			<PARAM NAME="YAxis0.LegendFormatStyle" VALUE="0">
+			<PARAM NAME="YAxis0.LegendDateTimeFormat" VALUE="hh:nn:ss">
+			<PARAM NAME="YAxis0.LegendPrecisionStyle" VALUE="0">
+			<PARAM NAME="YAxis0.LegendPrecision" VALUE="3">
+			<PARAM NAME="YAxis0.LegendMinLength" VALUE="5">
+			<PARAM NAME="YAxis0.LegendMinLengthAutoAdjust" VALUE="0">
+			<PARAM NAME="YAxis0.CursorScaler" VALUE="1">
+			<PARAM NAME="YAxis0.ScrollMinMaxEnabled" VALUE="0">
+			<PARAM NAME="YAxis0.ScrollMax" VALUE="100">
+			<PARAM NAME="YAxis0.ScrollMin" VALUE="0">
+			<PARAM NAME="YAxis0.RestoreValuesOnResume" VALUE="1">
+			<PARAM NAME="YAxis0.MasterUIInput" VALUE="0">
+			<PARAM NAME="YAxis0.CartesianStyle" VALUE="0">
+			<PARAM NAME="YAxis0.CartesianChildRefAxisName" VALUE="<None>">
+			<PARAM NAME="YAxis0.CartesianChildRefValue" VALUE="0">
+			<PARAM NAME="YAxis0.AlignRefAxisName" VALUE="<None>">
+			<PARAM NAME="YAxis0.GridLinesVisible" VALUE="1">
+			<PARAM NAME="YAxis0.ForceStacking" VALUE="0">
+			<PARAM NAME="DataView0.Name" VALUE="Data View 1">
+			<PARAM NAME="DataView0.Visible" VALUE="1">
+			<PARAM NAME="DataView0.Enabled" VALUE="1">
+			<PARAM NAME="DataView0.Layer" VALUE="100">
+			<PARAM NAME="DataView0.PopupEnabled" VALUE="1">
+			<PARAM NAME="DataView0.CanFocus" VALUE="1">
+			<PARAM NAME="DataView0.Horizontal" VALUE="0">
+			<PARAM NAME="DataView0.ZOrder" VALUE="0">
+			<PARAM NAME="DataView0.StartPercent" VALUE="0">
+			<PARAM NAME="DataView0.StopPercent" VALUE="100">
+			<PARAM NAME="DataView0.Title" VALUE="">
+			<PARAM NAME="DataView0.BackgroundTransparent" VALUE="1">
+			<PARAM NAME="DataView0.BackgroundColor" VALUE="8421376">
+			<PARAM NAME="DataView0.GridXAxisName" VALUE="X-Axis 1">
+			<PARAM NAME="DataView0.GridYAxisName" VALUE="Y-Axis 1">
+			<PARAM NAME="DataView0.GridShow" VALUE="1">
+			<PARAM NAME="DataView0.GridLineColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineShowLeft" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowRight" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowTop" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowBottom" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowXMajors" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowXMinors" VALUE="0">
+			<PARAM NAME="DataView0.GridLineShowYMajors" VALUE="1">
+			<PARAM NAME="DataView0.GridLineShowYMinors" VALUE="0">
+			<PARAM NAME="DataView0.GridLineMajorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineMinorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMajorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMajorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineXMajorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMajorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMinorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMinorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineXMinorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineXMinorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMajorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMajorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineYMajorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMajorStyle" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMinorCustom" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMinorColor" VALUE="32768">
+			<PARAM NAME="DataView0.GridLineYMinorWidth" VALUE="0">
+			<PARAM NAME="DataView0.GridLineYMinorStyle" VALUE="0">
+			<PARAM NAME="DataView0.AxesControlEnabled" VALUE="0">
+			<PARAM NAME="DataView0.AxesControlMouseStyle" VALUE="2">
+			<PARAM NAME="DataView0.AxesControlWheelStyle" VALUE="0">
+			<PARAM NAME="Channel0.Name" VALUE="Channel 1">
+			<PARAM NAME="Channel0.Visible" VALUE="1">
+			<PARAM NAME="Channel0.Enabled" VALUE="1">
+			<PARAM NAME="Channel0.Layer" VALUE="100">
+			<PARAM NAME="Channel0.PopupEnabled" VALUE="1">
+			<PARAM NAME="Channel0.CanFocus" VALUE="1">
+			<PARAM NAME="Channel0.TitleText" VALUE="Channel 1">
+			<PARAM NAME="Channel0.VisibleInLegend" VALUE="1">
+			<PARAM NAME="Channel0.ClipToAxes" VALUE="0">
+			<PARAM NAME="Channel0.ShowDataPointHints" VALUE="0">
+			<PARAM NAME="Channel0.UserCanMoveDataPoints" VALUE="0">
+			<PARAM NAME="Channel0.UserCanMoveDataPointsStyle" VALUE="0">
+			<PARAM NAME="Channel0.RingBufferSize" VALUE="0">
+			<PARAM NAME="Channel0.TraceVisible" VALUE="1">
+			<PARAM NAME="Channel0.Color" VALUE="255">
+			<PARAM NAME="Channel0.TraceLineStyle" VALUE="0">
+			<PARAM NAME="Channel0.TraceLineWidth" VALUE="1">
+			<PARAM NAME="Channel0.MarkersAllowIndividual" VALUE="0">
+			<PARAM NAME="Channel0.MarkersPenUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.MarkersBrushUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.MarkersTurnOffLimit" VALUE="0">
+			<PARAM NAME="Channel0.MarkersVisible" VALUE="0">
+			<PARAM NAME="Channel0.MarkersSize" VALUE="3">
+			<PARAM NAME="Channel0.MarkersStyle" VALUE="0">
+			<PARAM NAME="Channel0.MarkersPenColor" VALUE="255">
+			<PARAM NAME="Channel0.MarkersPenStyle" VALUE="0">
+			<PARAM NAME="Channel0.MarkersPenWidth" VALUE="0">
+			<PARAM NAME="Channel0.MarkersBrushColor" VALUE="255">
+			<PARAM NAME="Channel0.MarkersBrushStyle" VALUE="0">
+			<PARAM NAME="Channel0.MarkersFont.Charset" VALUE="1">
+			<PARAM NAME="Channel0.MarkersFont.Color" VALUE="16777215">
+			<PARAM NAME="Channel0.MarkersFont.Height" VALUE="-11">
+			<PARAM NAME="Channel0.MarkersFont.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="Channel0.MarkersFont.Pitch" VALUE="0">
+			<PARAM NAME="Channel0.MarkersFont.Style" VALUE="1">
+			<PARAM NAME="Channel0.XAxisName" VALUE="X-Axis 1">
+			<PARAM NAME="Channel0.YAxisName" VALUE="Y-Axis 1">
+			<PARAM NAME="Channel0.XAxisTrackingEnabled" VALUE="1">
+			<PARAM NAME="Channel0.YAxisTrackingEnabled" VALUE="1">
+			<PARAM NAME="Channel0.LogFileName" VALUE="">
+			<PARAM NAME="Channel0.LogBufferSize" VALUE="0">
+			<PARAM NAME="Channel0.DataStyle" VALUE="0">
+			<PARAM NAME="Channel0.Tag" VALUE="0">
+			<PARAM NAME="Channel0.FastDrawEnabled" VALUE="1">
+			<PARAM NAME="Channel0.AllowOutOfOrderXValues" VALUE="1">
+			<PARAM NAME="Channel0.DrawOutOfOrderXValues" VALUE="0">
+			<PARAM NAME="Channel0.ResetStartTimeOnFirstDataPoint" VALUE="0">
+			<PARAM NAME="Channel0.InterpolationStyle" VALUE="0">
+			<PARAM NAME="Channel0.FillEnabled" VALUE="0">
+			<PARAM NAME="Channel0.FillReference" VALUE="0">
+			<PARAM NAME="Channel0.FillStyle" VALUE="0">
+			<PARAM NAME="Channel0.FillColor" VALUE="0">
+			<PARAM NAME="Channel0.FillUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.DigitalEnabled" VALUE="0">
+			<PARAM NAME="Channel0.DigitalReferenceStyle" VALUE="0">
+			<PARAM NAME="Channel0.DigitalReferenceLow" VALUE="10">
+			<PARAM NAME="Channel0.DigitalReferenceHigh" VALUE="90">
+			<PARAM NAME="Channel0.HighLowStyle" VALUE="0">
+			<PARAM NAME="Channel0.HighLowEnabled" VALUE="0">
+			<PARAM NAME="Channel0.HighLowBarColor" VALUE="16776960">
+			<PARAM NAME="Channel0.HighLowBarWidth" VALUE="0.5">
+			<PARAM NAME="Channel0.HighLowOpenShow" VALUE="1">
+			<PARAM NAME="Channel0.HighLowOpenColor" VALUE="65280">
+			<PARAM NAME="Channel0.HighLowOpenWidth" VALUE="1">
+			<PARAM NAME="Channel0.HighLowOpenHeight" VALUE="1">
+			<PARAM NAME="Channel0.HighLowCloseShow" VALUE="1">
+			<PARAM NAME="Channel0.HighLowCloseColor" VALUE="255">
+			<PARAM NAME="Channel0.HighLowCloseWidth" VALUE="1">
+			<PARAM NAME="Channel0.HighLowCloseHeight" VALUE="1">
+			<PARAM NAME="Channel0.HighLowShadowColor" VALUE="8421504">
+			<PARAM NAME="Channel0.HighLowBullishColor" VALUE="16777215">
+			<PARAM NAME="Channel0.HighLowBearishColor" VALUE="8421504">
+			<PARAM NAME="Channel0.BarEnabled" VALUE="0">
+			<PARAM NAME="Channel0.BarPenUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.BarBrushUseChannelColor" VALUE="1">
+			<PARAM NAME="Channel0.BarReference" VALUE="0">
+			<PARAM NAME="Channel0.BarWidth" VALUE="5">
+			<PARAM NAME="Channel0.BarPenColor" VALUE="255">
+			<PARAM NAME="Channel0.BarPenWidth" VALUE="0">
+			<PARAM NAME="Channel0.BarPenStyle" VALUE="0">
+			<PARAM NAME="Channel0.BarBrushColor" VALUE="255">
+			<PARAM NAME="Channel0.BarBrushStyle" VALUE="0">
+			<PARAM NAME="Channel0.OPCGroupName" VALUE="">
+			<PARAM NAME="Channel0.OPCComputerName" VALUE="Local">
+			<PARAM NAME="Channel0.OPCServerName" VALUE="">
+			<PARAM NAME="Channel0.OPCItemName" VALUE="">
+			<PARAM NAME="Channel0.OPCUpdateRate" VALUE="500">
+			<PARAM NAME="Channel0.OPCScalar" VALUE="0">
+			<PARAM NAME="Channel0.OPCOffset" VALUE="0">
+			<PARAM NAME="Channel0.OPCAutoConnect" VALUE="1">
+			<PARAM NAME="Channel0.OPCXValueSource" VALUE="0">
+			<PARAM NAME="DataCursor0.Name" VALUE="Cursor 1">
+			<PARAM NAME="DataCursor0.Visible" VALUE="0">
+			<PARAM NAME="DataCursor0.Enabled" VALUE="1">
+			<PARAM NAME="DataCursor0.Layer" VALUE="100">
+			<PARAM NAME="DataCursor0.PopupEnabled" VALUE="1">
+			<PARAM NAME="DataCursor0.CanFocus" VALUE="1">
+			<PARAM NAME="DataCursor0.ChannelName" VALUE="Channel 1">
+			<PARAM NAME="DataCursor0.ChannelAllowAll" VALUE="1">
+			<PARAM NAME="DataCursor0.ChannelShowAllInLegend" VALUE="1">
+			<PARAM NAME="DataCursor0.Style" VALUE="0">
+			<PARAM NAME="DataCursor0.Font.Charset" VALUE="1">
+			<PARAM NAME="DataCursor0.Font.Color" VALUE="-2147483640">
+			<PARAM NAME="DataCursor0.Font.Height" VALUE="-11">
+			<PARAM NAME="DataCursor0.Font.Name" VALUE="MS Sans Serif">
+			<PARAM NAME="DataCursor0.Font.Pitch" VALUE="0">
+			<PARAM NAME="DataCursor0.Font.Style" VALUE="0">
+			<PARAM NAME="DataCursor0.Color" VALUE="65535">
+			<PARAM NAME="DataCursor0.UseChannelColor" VALUE="1">
+			<PARAM NAME="DataCursor0.HintShow" VALUE="1">
+			<PARAM NAME="DataCursor0.HintHideOnRelease" VALUE="0">
+			<PARAM NAME="DataCursor0.HintOrientationSide" VALUE="0">
+			<PARAM NAME="DataCursor0.HintPosition" VALUE="50">
+			<PARAM NAME="DataCursor0.Pointer1Position" VALUE="50">
+			<PARAM NAME="DataCursor0.Pointer2Position" VALUE="60">
+			<PARAM NAME="DataCursor0.PointerPenWidth" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuUserCanChangeOptions" VALUE="1">
+			<PARAM NAME="DataCursor0.SnapToDataPoint" VALUE="0">
+			<PARAM NAME="DataCursor0.UseCachedInerpolatedData" VALUE="0">
+			<PARAM NAME="DataCursor0.MenuItemVisibleValueXY" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleValueX" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleValueY" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleDeltaX" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleDeltaY" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemVisibleInverseDeltaX" VALUE="1">
+			<PARAM NAME="DataCursor0.MenuItemCaptionValueXY" VALUE="Value X-Y">
+			<PARAM NAME="DataCursor0.MenuItemCaptionValueX" VALUE="Value X">
+			<PARAM NAME="DataCursor0.MenuItemCaptionValueY" VALUE="Value Y">
+			<PARAM NAME="DataCursor0.MenuItemCaptionDeltaX" VALUE="Period">
+			<PARAM NAME="DataCursor0.MenuItemCaptionDeltaY" VALUE="Peak-Peak">
+			<PARAM NAME="DataCursor0.MenuItemCaptionInverseDeltaX" VALUE="Frequency">
+			<PARAM NAME="Label0.Name" VALUE="Title">
+			<PARAM NAME="Label0.Visible" VALUE="1">
+			<PARAM NAME="Label0.Enabled" VALUE="1">
+			<PARAM NAME="Label0.Layer" VALUE="100">
+			<PARAM NAME="Label0.PopupEnabled" VALUE="1">
+			<PARAM NAME="Label0.CanFocus" VALUE="1">
+			<PARAM NAME="Label0.Horizontal" VALUE="1">
+			<PARAM NAME="Label0.ZOrder" VALUE="2">
+			<PARAM NAME="Label0.StartPercent" VALUE="0">
+			<PARAM NAME="Label0.StopPercent" VALUE="100">
+			<PARAM NAME="Label0.MarginLeft" VALUE="0">
+			<PARAM NAME="Label0.MarginTop" VALUE="0">
+			<PARAM NAME="Label0.MarginRight" VALUE="0">
+			<PARAM NAME="Label0.MarginBottom" VALUE="0">
+			<PARAM NAME="Label0.Caption" VALUE="Untitled">
+			<PARAM NAME="Label0.Alignment" VALUE="0">
+			<PARAM NAME="Label0.Font.Charset" VALUE="1">
+			<PARAM NAME="Label0.Font.Color" VALUE="16777215">
+			<PARAM NAME="Label0.Font.Height" VALUE="-19">
+			<PARAM NAME="Label0.Font.Name" VALUE="Arial">
+			<PARAM NAME="Label0.Font.Pitch" VALUE="0">
+			<PARAM NAME="Label0.Font.Style" VALUE="1">
+		</OBJECT>
+		<div id="EventTableHeader"></div>
+		<div id="EventTable"></div>
+		<embed src="beep.wav" autostart="false" width="0" height="0" id="sound1" enablejavascript="true">
+			<script type="text/jscript">
+
+var firstOnloadHappend = false ; 
+var localIsSync = 0 ; 
+
+function UnRegisterSpecificPerView() {}
+
+ //////////////////////////////////////////////////////
+
+function RegisterSpecificViewItems() {
+
+  ClientObject.ClearConfig();
+	RegisterToAllCMMBItems();
+    Register_QTV_AV_Quality_Items();
+      ClientObject.CommitConfig();
+   
+    graph_list[0] = audio_video_graph;
+    graph_list[1] = LDPC_Error_Rate_graph;
+    selectedTechnology = "CMMB" ; 
+ 
+   desired_fps = CMMB_CHINA_FPS ; 
+   
+} // close function RegisterSpecificViewItems
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function ProcessEvents(Item) {
+  
+  if (GetItemID(Item) == EVENT_QTV_CLIP_STARTED) 
+  {
+	Process_EVENT_QTV_CLIP_STARTED() ;
+	return ; 
+  }
+   if ( GetItemID(Item) == EVENT_QTV_CLIP_ENDED) 
+  {
+   Process_EVENT_QTV_CLIP_ENDED() ;
+    return ; 
+  }
+  
+   if (GetItemID(Item) == EVENT_DTV_CMMB_API_NOTIFICATION_SIGNAL_PARAMETERS)
+   {
+     getRawDataFromCmmbEventSignalParams(Item);
+     
+     if (localIsSync != IsSync)
+     {
+		 addAnnotation(Item.GetItemSpecificTimestamp2(), LDPC_Error_Rate_graph, RED, localIsSync + "-->" + IsSync);	
+         beep(sound1);
+     }
+     localIsSync = IsSync ; 
+     
+   }else{
+      HandleCommonPerFrameEvent(Item);
+}
+} ///
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function ProcessLogs(Item) 
+{
+ 
+    switch(GetItemID(Item))   
+    {
+        case LOG_DTV_CMMB_MEDIA_BUFFERING_STATUS : 
+        {
+			getRawDataFromCmmbLogBufferingStatus( Item  ) ; 
+			PopulateGraph(Item);
+			break ;  
+        }
+       
+       case LOG_QTV_Frame_Decode_Information : 
+        {
+		//debugger; 
+			getRawDataFromQTV_Frame_decode_info( Item  ) ; 
+			break ;  
+        }
+        
+        case LOG_QTV_Frame_Render_Information : 
+        {
+			
+			 if (!EVENT_QTV_CLIP_STARTED_received) 
+	        {
+	        Process_EVENT_QTV_CLIP_STARTED(); 
+	        return ; 
+	        }
+			
+			getRawDataFromQTV_Frame_render_info( Item  ) ; 
+		
+			break ;  
+        }
+        
+        case LOG_QTV_Audio_Video_Sync : 
+        {
+			if ((avs_cnt++ % 110) == 0 )
+             {
+			getRawDataFromQTV_AV_Sync( Item  ) ; 
+			PopulateQTV_AV_Sync(QTV_AV_Sync);
+			}
+			break ;  
+        }
+       
+    }// close case
+}// close function 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function PopulateGraph(Item)
+{
+ 
+audio_video_graph.Channel(0).AddXY( ItemTs, VideoBufferSize);
+audio_video_graph.Channel(1).AddXY(ItemTs , AudioBufferSize);
+LDPC_Error_Rate_graph.Channel(0).AddXY(ItemTs ,LDPCErrorRate );
+LDPC_Error_Rate_graph.Channel(1).AddXY(ItemTs ,SignalStrengthInDbm );
+
+
+	if (   VideoOverflowCount >  front_VideoOverflowCount.value )
+	{
+		HandleCommonPerFrameEvent(Item , VIDEO_OVERFLOW); 
+		 if (cb_VIDEO_OVERFLOW.checked)
+		 {
+		  beep(sound1);
+		 }
+		
+		front_VideoOverflowCount.style.backgroundColor = 'red';
+	}else{
+		front_VideoOverflowCount.style.backgroundColor = 'white';
+	}
+
+	if (  VideoUnderflowCount >  front_VideoUnderflowCount.value )
+	{
+		HandleCommonPerFrameEvent(Item , VIDEO_UNDERFLOW);
+		if (cb_VIDEO_UNDERFLOW.checked)
+		 {
+		  beep(sound1);
+		 }
+		front_VideoUnderflowCount.style.backgroundColor = 'red';
+	}else{
+		front_VideoUnderflowCount.style.backgroundColor = 'white';
+	}
+	 
+	
+	if ( AudioOverflowCount > front_AudioOverflowCount.value)
+	{
+		HandleCommonPerFrameEvent(Item , AUDIO_OVERFLOW);
+				
+		if (cb_AUDIO_OVERFLOW.checked)
+		 {
+		  beep(sound1);
+		 }
+		front_AudioOverflowCount.style.backgroundColor = 'red';
+	}else{
+		front_AudioOverflowCount.style.backgroundColor = 'white';
+	}
+	
+	
+	if (AudioUnderflowCount > front_AudioUnderflowCount.value   )
+	{
+		HandleCommonPerFrameEvent(Item , AUDIO_UNDERFLOW);
+		if (cb_AUDIO_UNDERFLOW.checked)
+		 {
+		  beep(sound1);
+		 }
+		front_AudioUnderflowCount.style.backgroundColor = 'red';
+		
+	}else{
+		front_AudioUnderflowCount.style.backgroundColor = 'white';
+	}  
+
+front_VideoOverflowCount.value =  VideoOverflowCount;
+front_VideoUnderflowCount.value  = VideoUnderflowCount ; 
+front_AudioOverflowCount.value   = AudioOverflowCount
+front_AudioUnderflowCount.value  = AudioUnderflowCount ;  
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function ProcessMessages(Item) {}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function ProcessStrings(Item) {}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function ProcessSubsystemResponses(Item) {} ////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function ProcessSubsystemRequests(Item) {} 
+
+/////////////////////////////////////////////////////////////////
+
+function InitDisplay() {
+    
+    if ( firstOnloadHappend ) 
+    {
+	  return  ; 
+    }else{
+	  firstOnloadHappend = true; 
+    }
+    EventTableHeader.innerHTML = eventTableHeader;
+    EventTable.innerHTML = CMMBEventTable;
+     onclickMarkAllEvent();
+    
+    
+    audio_video_graph.Labels(0).Caption = "Audio and Video Buffer Size";
+    audio_video_graph.RemoveAllChannels();
+    audio_video_graph.RemoveAllAnnotations();
+    CreateGraphChannels(audio_video_graph);
+    
+    audio_video_graph.Channel(0).TitleText = "Video Buffer Size";
+    audio_video_graph.Channel(0).RingBufferSize = 5000;
+    audio_video_graph.Channel(0).MarkersVisible = true;
+    audio_video_graph.Channel(0).color = BLUE;
+    audio_video_graph.Channel(0).TraceLineStyle = DOTS;
+    audio_video_graph.Channel(0).VisibleInLegend = true; 
+    audio_video_graph.Legend(0).Visible = true;  
+    
+    audio_video_graph.Channel(1).TitleText = "Audio Buffer Size";
+    audio_video_graph.Channel(1).RingBufferSize = 5000;
+    audio_video_graph.Channel(1).MarkersVisible = true;
+    audio_video_graph.Channel(1).color = RED;
+    audio_video_graph.Channel(1).TraceLineStyle = DOTS;
+    audio_video_graph.Channel(1).VisibleInLegend = true; // Setup X-axis
+   
+    audio_video_graph.XAxis(0).Title = "Time";
+    audio_video_graph.XAxis(0).TitleShow = true;
+    audio_video_graph.Xaxis(0).LabelsFormatStyle = iptfDateTime;
+    audio_video_graph.Xaxis(0).DateTimeFormat = "hh:nn:ss.zzz";
+    audio_video_graph.Xaxis(0).Span = 0.000394444444444444; 
+    //this is good for the "per frame" logs.  There is a different number for the periodic log ("per symbol")
+    // Setup X-axis
+    audio_video_graph.XAxis(0).Title = "Time";
+    audio_video_graph.XAxis(0).TitleShow = true;
+    audio_video_graph.Xaxis(0).Min = 0;
+    audio_video_graph.Legend(0).ShowColumnYValue = true; 
+    
+    // Setup Y-axis
+    audio_video_graph.YAxis(0).Title = "Buffer Size [ B]";
+    audio_video_graph.YAxis(0).TitleShow = true  ; 
+    audio_video_graph.Yaxis(0).Min = 0;
+    audio_video_graph.Yaxis(0).Span = 10000; // Hide toolbar
+    audio_video_graph.ToolBar(0).Visible = true; 
+    audio_video_graph.ToolBar(0).SmallButtons = true;
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    LDPC_Error_Rate_graph.Labels(0).Caption = "LDPC Error Rate And RSSI";
+    LDPC_Error_Rate_graph.RemoveAllChannels();
+    LDPC_Error_Rate_graph.RemoveAllAnnotations();
+    CreateGraphChannels(LDPC_Error_Rate_graph);
+   
+   
+   
+    LDPC_Error_Rate_graph.Channel(0).TitleText = "LDPC Error Rate";
+    LDPC_Error_Rate_graph.Channel(0).RingBufferSize = 5000;
+    LDPC_Error_Rate_graph.Channel(0).MarkersVisible = true;
+    LDPC_Error_Rate_graph.Channel(0).color = ROSE;
+    LDPC_Error_Rate_graph.Channel(0).TraceLineStyle = DOTS;
+    LDPC_Error_Rate_graph.Channel(0).VisibleInLegend = true;
+   
+   
+    LDPC_Error_Rate_graph.Channel(1).TitleText = "RSSI[dBm]";
+    LDPC_Error_Rate_graph.Channel(1).RingBufferSize = 5000;
+    LDPC_Error_Rate_graph.Channel(1).MarkersVisible = true;
+    LDPC_Error_Rate_graph.Channel(1).color = BLUE;
+    LDPC_Error_Rate_graph.Channel(1).TraceLineStyle = DOTS;
+    LDPC_Error_Rate_graph.Channel(1).VisibleInLegend = true;
+   
+    LDPC_Error_Rate_graph.Xaxis(0).LabelsFormatStyle = iptfDateTime;
+    LDPC_Error_Rate_graph.Xaxis(0).DateTimeFormat = "hh:nn:ss.zzz";
+    LDPC_Error_Rate_graph.Xaxis(0).Span = 0.000394444444444444; //this is good for the "per frame" logs.  There is a different number for the periodic log ("per symbol")
+    // Setup X-axis
+    LDPC_Error_Rate_graph.XAxis(0).Title = "Time";
+    LDPC_Error_Rate_graph.XAxis(0).TitleShow = true;
+    LDPC_Error_Rate_graph.Xaxis(0).Min = 0; 
+    
+    // Setup Y-axis 
+   
+    LDPC_Error_Rate_graph.Yaxis(0).ScaleType = LINEAR;
+    LDPC_Error_Rate_graph.YAxis(0).Title = "Error Rate";
+    LDPC_Error_Rate_graph.YAxis(0).TitleShow = true;
+    LDPC_Error_Rate_graph.Yaxis(0).Min = 0;
+    LDPC_Error_Rate_graph.Yaxis(0).Span = 100;
+    
+    //LDPC_Error_Rate_graph.DeleteYAxis(1);
+    LDPC_Error_Rate_graph.AddYAxis();
+    LDPC_Error_Rate_graph.Yaxis(1).ScaleType = LINEAR;
+    LDPC_Error_Rate_graph.YAxis(1).Title = "RSSI";
+    LDPC_Error_Rate_graph.YAxis(1).TitleShow = true;
+    LDPC_Error_Rate_graph.Yaxis(1).Min = -110;
+    LDPC_Error_Rate_graph.Yaxis(1).Span = 100;
+    
+    LDPC_Error_Rate_graph.Channel(1).YAxisName = "Y-Axis 2" ;  // to connect channel 1 with the y axis 1
+    
+    
+    LDPC_Error_Rate_graph.ToolBar(0).Visible = true;
+    LDPC_Error_Rate_graph.ToolBar(0).SmallButtons = true;
+    LDPC_Error_Rate_graph.Legend(0).ShowColumnYValue = true;
+   
+    
+} // close function IntializeDisplay
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+	function CheckFrameRenderRate()
+{
+QTV_fps.innerText = cnt_fps/2;
+
+	
+	if (Math.abs(cnt_fps - desired_fps*2)  > 0.1 * desired_fps*2 ) 
+	{
+		QTV_fps.style.backgroundColor = 'red';
+		 beep(sound1);
+
+	}else{
+		QTV_fps.style.backgroundColor = 'white';
+	}
+cnt_fps= 0 ; 
+}	 
+//<!--<applet code="Beep.class" width=100 height=100 NAME="musicApp" MAYSCRIPT ID="musicApp" VIEWASTEXT> --!>		
+			</script>
+	</body>
+</html>

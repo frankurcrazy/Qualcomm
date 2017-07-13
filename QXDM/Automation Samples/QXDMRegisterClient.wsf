@@ -1,0 +1,126 @@
+<job id="QXDM RegisterClient Example">
+<script language="JScript" src="HelperFunctions.js" />
+<script language="JScript">
+
+// NOTE: This script must be run from CScript in a command box,
+// i.e.  CScript QXDMRegisterClient.wsf
+
+// This example demonstrates the usage of the QXDM2 automation
+// interface method RegisterClient
+
+// Global Variables
+var QXDM;
+var QXDM2;
+
+// Initialize application
+function Initialize()
+{
+   // Assume failure
+   var RC = false;
+   var Txt = "";
+
+   // Create QXDM object
+   QXDM = new ActiveXObject( "QXDM.Application" );
+   if (QXDM == null)
+   {
+      Txt = "Error launching QXDM";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   // Create QXDM2 interface
+   QXDM2 = QXDM.GetIQXDM2();
+   if (QXDM2 == null)
+   {
+      Txt = "QXDM does not support required interface";
+      WScript.StdOut.WriteLine( Txt );
+
+      return RC;
+   }
+
+   SetQXDM( QXDM );
+   SetQXDM2( QXDM2 );
+
+   // Success
+   RC = true;
+   return RC;
+}
+
+// Register for a QXDM client
+function RegisterClient()
+{
+   var Txt = "";
+
+   // Get a QXDM client
+   var ViewName = "Client View";
+   var ViewVisible = true;
+   var ReqHandle = QXDM2.RegisterClient( ViewName, ViewVisible );
+   if (ReqHandle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to register " + ViewName;
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "\'" + ViewName + "\' registered successfully\n"
+       + "\'" + ViewName + "\' visible to the user";
+   WScript.StdOut.WriteLine( Txt );
+
+   // Display registered client to user
+   var WaitCount = 0;
+   while (WaitCount < 10)
+   {
+      WScript.sleep( 1000 );
+      WaitCount++;
+   }
+
+   QXDM2.UnregisterClient( ReqHandle );
+
+   Txt = "\'" + ViewName + "\' unregistered";
+   WScript.StdOut.WriteLine( Txt );
+
+   ViewVisible = false;
+   ReqHandle = QXDM2.RegisterClient( "", ViewVisible );
+   if (ReqHandle == 0xFFFFFFFF)
+   {
+      Txt = "Unable to register QXDM client";
+      WScript.StdOut.WriteLine( Txt );
+
+      return;
+   }
+
+   Txt = "QXDM client registered successfully\n"
+       + "QXDM client not visible to the user";
+   WScript.StdOut.WriteLine( Txt );
+
+   QXDM2.UnregisterClient( ReqHandle );
+
+   Txt = "QXDM client unregistered";
+   WScript.StdOut.WriteLine( Txt );
+}
+
+// Main body of script
+function Execute()
+{
+   // Launch QXDM
+   var RC = Initialize();
+   if (RC == false)
+   {
+      return;
+   }
+
+   // Get QXDM version
+   var Version = QXDM.AppVersion;
+   var Txt = "QXDM Version: " + Version;
+   WScript.StdOut.WriteLine( Txt );
+
+   // Register for a QXDM client
+   RegisterClient();
+}
+
+Execute();
+
+</script>
+</job>

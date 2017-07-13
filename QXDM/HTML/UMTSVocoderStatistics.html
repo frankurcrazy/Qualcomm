@@ -1,0 +1,973 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="UMTS Vocoder Statistics" />
+   <meta name="DMViewWidth" content="320" />
+   <meta name="DMViewHeight" content="800" />
+   <title>UMTS Vocoder Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table width="100%" id="VocoderTable" style="display : none">
+   <colgroup span="3">
+      <col width="60%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Frame Type/Rate</th>
+      <th>Rx</th>
+      <th>Tx</th>
+   </tr>
+   <tr>
+      <th>GSM/WCDMA Full Rate SID</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>GSM/WCDMA Speech Good</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>GSM/WCDMA BFI</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR Speech Good</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR Speech Pro Degraded</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR Spare</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR Speech Bad</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR SID First</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR SID Update</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR SID Bad</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR No Data</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 4.75 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 5.15 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 5.90 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 6.70 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 7.40 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 7.95 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 10.20 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 12.20 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 13.00 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>TAF</th>
+      <td>0</td>
+   </tr>
+</table>
+
+<table width="100%" id="VocoderTableV1">
+   <colgroup span="3">
+      <col width="60%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Frame Type/Rate</th>
+      <th>Rx</th>
+      <th>Tx</th>
+   </tr>
+   <tr>
+      <th>AMR Speech Good</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR Speech Degraded</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR Onset</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR Speech Bad</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR SID First</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR SID Update</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR SID Bad</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR No Data</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 4.75 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 5.15 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 5.90 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 6.70 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 7.40 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 7.95 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 10.20 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR 12.20 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>EFR BFI</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>EFR TAF</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>EFR DTX/SID</th>
+      <td>-</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>EFR Speech Good</th>
+      <td>-</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>FR BFI</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>FR TAF</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>FR DTX/SID</th>
+      <td>-</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>FR Speech Good</th>
+      <td>-</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>HR UFI</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>HR BFI</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>HR TAF</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>HR Speech Good</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>HR Invalid SID</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>HR Good SID</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB Speech Good</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB Speech Degraded</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR-WB Speech Lost</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR-WB Speech Bad</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR-WB SID First</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB SID Update</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB SID Bad</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR-WB No Data</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB Onset</th>
+      <td>0</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 6.60 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 8.85 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 12.65 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 14.25 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 15.85 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 18.25 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 19.85 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 23.05 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <th>AMR-WB 23.85 Kbps</th>
+      <td>0</td>
+      <td>0</td>
+   </tr>
+</table>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var UPDATE_MS         = 100;
+
+var gMainTickID       = 0;
+var PrevIndex         = -1;
+var gVocoderDisplay   = false;
+
+var gRxFrameRates     = new Array();
+var gTxFrameRates     = new Array();
+var gRxFrameTypes     = new Array();
+var gTxFrameTypes     = new Array();
+
+var gRxFrameRatesV1   = new Array();
+var gTxFrameRatesV1   = new Array();
+var gRxFrameTypesV1   = new Array();
+var gTxFrameTypesV1   = new Array();
+
+// Construct frame type/rate descriptor
+function FrameEntry( Row, Col )
+{
+   this.Row     = Row;
+   this.Col     = Col;
+   this.Counter = 0;
+}
+
+// Initialize the internal variables
+function InitializeTableEntries()
+{
+   // RX frame types
+   gRxFrameTypes[0x0000] = new FrameEntry( 1, 1 );
+   gRxFrameTypes[0x0001] = new FrameEntry( 2, 1 );
+   gRxFrameTypes[0x0002] = new FrameEntry( 3, 1 );
+   gRxFrameTypes[0x00FF] = new FrameEntry( 4, 1 );
+   gRxFrameTypes[0x01FF] = new FrameEntry( 5, 1 );
+   gRxFrameTypes[0x02FF] = new FrameEntry( 6, 1 );
+   gRxFrameTypes[0x03FF] = new FrameEntry( 7, 1 );
+   gRxFrameTypes[0x04FF] = new FrameEntry( 8, 1 );
+   gRxFrameTypes[0x05FF] = new FrameEntry( 9, 1 );
+   gRxFrameTypes[0x06FF] = new FrameEntry( 10, 1 );
+   gRxFrameTypes[0x07FF] = new FrameEntry( 11, 1 );
+
+   // RX frame rates
+   gRxFrameRates[0x0000] = new FrameEntry( 12, 1 );
+   gRxFrameRates[0x0001] = new FrameEntry( 13, 1 );
+   gRxFrameRates[0x0002] = new FrameEntry( 14, 1 );
+   gRxFrameRates[0x0003] = new FrameEntry( 15, 1 );
+   gRxFrameRates[0x0004] = new FrameEntry( 16, 1 );
+   gRxFrameRates[0x0005] = new FrameEntry( 17, 1 );
+   gRxFrameRates[0x0006] = new FrameEntry( 18, 1 );
+   gRxFrameRates[0x0007] = new FrameEntry( 19, 1 );
+   gRxFrameRates[0x0100] = new FrameEntry( 20, 1 );
+
+   // TX frame types
+   gTxFrameTypes[0x0000] = new FrameEntry( 1, 2 );
+   gTxFrameTypes[0x0001] = new FrameEntry( 2, 2 );
+   gTxFrameTypes[0x0002] = new FrameEntry( 3, 2 );
+   gTxFrameTypes[0x00FF] = new FrameEntry( 4, 2 );
+   gTxFrameTypes[0x01FF] = new FrameEntry( 5, 2 );
+   gTxFrameTypes[0x02FF] = new FrameEntry( 6, 2 );
+   gTxFrameTypes[0x03FF] = new FrameEntry( 7, 2 );
+   gTxFrameTypes[0x04FF] = new FrameEntry( 8, 2 );
+   gTxFrameTypes[0x05FF] = new FrameEntry( 9, 2 );
+   gTxFrameTypes[0x06FF] = new FrameEntry( 10, 2 );
+   gTxFrameTypes[0x07FF] = new FrameEntry( 11, 2 );
+
+   // TX frame rates
+   gTxFrameRates[0x0000] = new FrameEntry( 12, 2 );
+   gTxFrameRates[0x0001] = new FrameEntry( 13, 2 );
+   gTxFrameRates[0x0002] = new FrameEntry( 14, 2 );
+   gTxFrameRates[0x0003] = new FrameEntry( 15, 2 );
+   gTxFrameRates[0x0004] = new FrameEntry( 16, 2 );
+   gTxFrameRates[0x0005] = new FrameEntry( 17, 2 );
+   gTxFrameRates[0x0006] = new FrameEntry( 18, 2 );
+   gTxFrameRates[0x0007] = new FrameEntry( 19, 2 );
+   gTxFrameRates[0x0100] = new FrameEntry( 20, 2 );
+
+   // RX version 1 frame types
+   gRxFrameTypesV1[0x0000] = new FrameEntry( 1, 1 );
+   gRxFrameTypesV1[0x0001] = new FrameEntry( 2, 1 );
+   gRxFrameTypesV1[0x0002] = new FrameEntry( 3, 1 );
+   gRxFrameTypesV1[0x0003] = new FrameEntry( 4, 1 );
+   gRxFrameTypesV1[0x0004] = new FrameEntry( 5, 1 );
+   gRxFrameTypesV1[0x0005] = new FrameEntry( 6, 1 );
+   gRxFrameTypesV1[0x0006] = new FrameEntry( 7, 1 );
+   gRxFrameTypesV1[0x0007] = new FrameEntry( 8, 1 );
+
+   // RX version 1 other frame types
+   gRxFrameTypesV1[0x0008] = new FrameEntry( 17, 1 );
+   gRxFrameTypesV1[0x0009] = new FrameEntry( 18, 1 );
+   gRxFrameTypesV1[0x000A] = new FrameEntry( 21, 1 );
+   gRxFrameTypesV1[0x000B] = new FrameEntry( 22, 1 );
+   gRxFrameTypesV1[0x000C] = new FrameEntry( 25, 1 );
+   gRxFrameTypesV1[0x000D] = new FrameEntry( 26, 1 );
+   gRxFrameTypesV1[0x000E] = new FrameEntry( 27, 1 );
+   gRxFrameTypesV1[0x000F] = new FrameEntry( 28, 1 );
+   gRxFrameTypesV1[0x0010] = new FrameEntry( 29, 1 );
+   gRxFrameTypesV1[0x0011] = new FrameEntry( 30, 1 );
+   gRxFrameTypesV1[0x0012] = new FrameEntry( 31, 1 );
+   gRxFrameTypesV1[0x0013] = new FrameEntry( 32, 1 );
+   gRxFrameTypesV1[0x0014] = new FrameEntry( 33, 1 );
+   gRxFrameTypesV1[0x0015] = new FrameEntry( 34, 1 );
+   gRxFrameTypesV1[0x0016] = new FrameEntry( 35, 1 );
+   gRxFrameTypesV1[0x0017] = new FrameEntry( 36, 1 );
+   gRxFrameTypesV1[0x0018] = new FrameEntry( 37, 1 );
+   gRxFrameTypesV1[0x0019] = new FrameEntry( 38, 1 );
+   gRxFrameTypesV1[0x001A] = new FrameEntry( 39, 1 );
+
+   // RX version 1 frame rates
+   gRxFrameRatesV1[0x0000] = new FrameEntry( 9, 1 );
+   gRxFrameRatesV1[0x0001] = new FrameEntry( 10, 1 );
+   gRxFrameRatesV1[0x0002] = new FrameEntry( 11, 1 );
+   gRxFrameRatesV1[0x0003] = new FrameEntry( 12, 1 );
+   gRxFrameRatesV1[0x0004] = new FrameEntry( 13, 1 );
+   gRxFrameRatesV1[0x0005] = new FrameEntry( 14, 1 );
+   gRxFrameRatesV1[0x0006] = new FrameEntry( 15, 1 );
+   gRxFrameRatesV1[0x0007] = new FrameEntry( 16, 1 );
+   gRxFrameRatesV1[0x0008] = new FrameEntry( 40, 1 );
+   gRxFrameRatesV1[0x0009] = new FrameEntry( 41, 1 );
+   gRxFrameRatesV1[0x000A] = new FrameEntry( 42, 1 );
+   gRxFrameRatesV1[0x000B] = new FrameEntry( 43, 1 );
+   gRxFrameRatesV1[0x000C] = new FrameEntry( 44, 1 );
+   gRxFrameRatesV1[0x000D] = new FrameEntry( 45, 1 );
+   gRxFrameRatesV1[0x000E] = new FrameEntry( 46, 1 );
+   gRxFrameRatesV1[0x000F] = new FrameEntry( 47, 1 );
+   gRxFrameRatesV1[0x0010] = new FrameEntry( 48, 1 );
+
+   // TX version 1 frame types
+   gTxFrameTypesV1[0x0000] = new FrameEntry( 1, 2 );
+   gTxFrameTypesV1[0x0001] = new FrameEntry( 5, 2 );
+   gTxFrameTypesV1[0x0002] = new FrameEntry( 6, 2 );
+   gTxFrameTypesV1[0x0003] = new FrameEntry( 8, 2 );
+
+   // TX version 1 other frame types
+   gTxFrameTypesV1[0x0004] = new FrameEntry( 19, 2 );
+   gTxFrameTypesV1[0x0005] = new FrameEntry( 20, 2 );
+   gTxFrameTypesV1[0x0006] = new FrameEntry( 23, 2 );
+   gTxFrameTypesV1[0x0007] = new FrameEntry( 24, 2 );
+   gTxFrameTypesV1[0x0008] = new FrameEntry( 28, 2 );
+   gTxFrameTypesV1[0x0009] = new FrameEntry( 30, 2 );
+   gTxFrameTypesV1[0x000A] = new FrameEntry( 29, 2 );
+   gTxFrameTypesV1[0x000B] = new FrameEntry( 31, 2 );
+   gTxFrameTypesV1[0x000C] = new FrameEntry( 35, 2 );
+   gTxFrameTypesV1[0x000D] = new FrameEntry( 36, 2 );
+   gTxFrameTypesV1[0x000E] = new FrameEntry( 38, 2 );
+
+   // TX version 1 frame rates
+   gTxFrameRatesV1[0x0000] = new FrameEntry( 9, 2 );
+   gTxFrameRatesV1[0x0001] = new FrameEntry( 10, 2 );
+   gTxFrameRatesV1[0x0002] = new FrameEntry( 11, 2 );
+   gTxFrameRatesV1[0x0003] = new FrameEntry( 12, 2 );
+   gTxFrameRatesV1[0x0004] = new FrameEntry( 13, 2 );
+   gTxFrameRatesV1[0x0005] = new FrameEntry( 14, 2 );
+   gTxFrameRatesV1[0x0006] = new FrameEntry( 15, 2 );
+   gTxFrameRatesV1[0x0007] = new FrameEntry( 16, 2 );
+   gTxFrameRatesV1[0x0008] = new FrameEntry( 40, 2 );
+   gTxFrameRatesV1[0x0009] = new FrameEntry( 41, 2 );
+   gTxFrameRatesV1[0x000A] = new FrameEntry( 42, 2 );
+   gTxFrameRatesV1[0x000B] = new FrameEntry( 43, 2 );
+   gTxFrameRatesV1[0x000C] = new FrameEntry( 44, 2 );
+   gTxFrameRatesV1[0x000D] = new FrameEntry( 45, 2 );
+   gTxFrameRatesV1[0x000E] = new FrameEntry( 46, 2 );
+   gTxFrameRatesV1[0x000F] = new FrameEntry( 47, 2 );
+   gTxFrameRatesV1[0x0010] = new FrameEntry( 48, 2 );
+}
+
+// Initialize the HTML page
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure items
+   clientObject.AddLog( 0x713F );
+   clientObject.AddLog( 0x7140 );
+   clientObject.AddLog( 0x7143 );
+   clientObject.AddLog( 0x7144 );
+
+   clientObject.CommitConfig();
+
+   // Initialize internal arrays
+   InitializeTableEntries();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+var TxLogCode     = "[0x713F]";
+var RxLogCode     = "[0x7140]";
+var TxLogCodeVer1 = "[0x7143]";
+var RxLogCodeVer1 = "[0x7144]";
+
+// Process our client
+function ProcessItems()
+{
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }
+
+   // We have to process all new items since we are accumulating
+   // counter based values
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }
+
+      var FieldCount = ItemFields.GetFieldCount();
+      if (FieldCount == 0)
+      {
+         continue;
+      }
+
+      var ItemKey = Item.GetItemKeyText();
+      if (ItemKey == TxLogCode || ItemKey == RxLogCode)
+      {
+         if (gVocoderDisplay == false)
+         {
+            // Hide the vocoder version 1 table
+            VocoderTableV1.style.display = "none";
+
+            // Show the old vocoder table
+            gVocoderDisplay = true;
+            VocoderTable.style.display = "";
+         }
+
+         switch (ItemKey)
+         {
+            case TxLogCode:
+            {
+               PopulateTable( ItemFields, false );
+            }
+            break;
+
+            case RxLogCode:
+            {
+               PopulateTable( ItemFields, true );
+            }
+            break;
+         }
+      }
+      else
+      {
+         if (gVocoderDisplay == true)
+         {
+            // Hide the old vocoder table
+            gVocoderDisplay = false;
+            VocoderTable.style.display = "none";
+
+            // Show the vocoder version 1 table
+            VocoderTableV1.style.display = "";
+         }
+
+         switch (ItemKey)
+         {
+            case TxLogCodeVer1:
+            {
+               PopulateTableV1( ItemFields, false );
+            }
+            break;
+
+            case RxLogCodeVer1:
+            {
+               PopulateTableV1( ItemFields, true );
+            }
+            break;
+         }
+      }
+   }
+
+   PrevIndex = CurrIndex;
+}
+
+function PopulateTable( Fields, bRx )
+{
+   var DataIndex = 17;
+
+   var FieldCount = Fields.GetFieldCount();
+   if (bRx == true)
+   {
+      if (FieldCount < 20)
+      {
+         return;
+      }
+
+      var TAF = Fields.GetFieldValue( DataIndex++ );
+      VocoderTable.rows[21].cells[1].innerText = TAF;
+   }
+   else
+   {
+      if (FieldCount < 19)
+      {
+         return;
+      }
+   }
+
+   var FrameType = Fields.GetFieldValue( DataIndex++ );
+   var FrameRate = Fields.GetFieldValue( DataIndex );
+
+   if (bRx == true)
+   {
+      UpdateTable( FrameType, gRxFrameTypes, VocoderTable );
+      UpdateTable( FrameRate, gRxFrameRates, VocoderTable );
+   }
+   else
+   {
+      UpdateTable( FrameType, gTxFrameTypes, VocoderTable );
+      UpdateTable( FrameRate, gTxFrameRates, VocoderTable );
+   }
+}
+
+function PopulateTableV1( Fields, bRx )
+{
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 20)
+   {
+      return;
+   }
+
+   if (bRx == true)
+   {
+      var DataIndex = 0;
+
+      var Mode = Fields.GetFieldValue( DataIndex++ );
+      switch (Mode)
+      {
+         // AMR
+         case 3:
+         {
+            var FrameRate = Fields.GetFieldValue( DataIndex++ );
+            var FrameType = Fields.GetFieldValue( DataIndex );
+
+            UpdateTable( FrameType, gRxFrameTypesV1, VocoderTableV1 );
+            UpdateTable( FrameRate, gRxFrameRatesV1, VocoderTableV1 );
+         }
+         break;
+
+         // EFR
+         case 4:
+         {
+            var BFI = Fields.GetFieldValue( DataIndex++ );
+            if (BFI)
+            {
+               UpdateTable( 0x0008, gRxFrameTypesV1, VocoderTableV1 );
+            }
+
+            var TAF = Fields.GetFieldValue( DataIndex );
+            if (TAF)
+            {
+               UpdateTable( 0x0009, gRxFrameTypesV1, VocoderTableV1 );
+            }
+         }
+         break;
+
+         // FR
+         case 5:
+         {
+            var BFI = Fields.GetFieldValue( DataIndex++ );
+            if (BFI)
+            {
+               UpdateTable( 0x000A, gRxFrameTypesV1, VocoderTableV1 );
+            }
+
+            var TAF = Fields.GetFieldValue( DataIndex );
+            if (TAF)
+            {
+               UpdateTable( 0x000B, gRxFrameTypesV1, VocoderTableV1 );
+            }
+         }
+         break;
+
+         // HR
+         case 7:
+         {
+            var UFI = Fields.GetFieldValue( DataIndex++ );
+            if (UFI)
+            {
+               UpdateTable( 0x000C, gRxFrameTypesV1, VocoderTableV1 );
+            }
+
+            var BFI = Fields.GetFieldValue( DataIndex++ );
+            if (BFI)
+            {
+               UpdateTable( 0x000D, gRxFrameTypesV1, VocoderTableV1 );
+            }
+
+            var TAF = Fields.GetFieldValue( DataIndex++ );
+            if (TAF)
+            {
+               UpdateTable( 0x000E, gRxFrameTypesV1, VocoderTableV1 );
+            }
+
+            var FrameType = Fields.GetFieldValue( DataIndex );
+            switch (FrameType)
+            {
+               // HR speech good
+               case 0:
+               {
+                  UpdateTable( 0x000F, gRxFrameTypesV1, VocoderTableV1 );
+               }
+               break
+
+               // HR invalid sid
+               case 1:
+               {
+                  UpdateTable( 0x0010, gRxFrameTypesV1, VocoderTableV1 );
+               }
+               break
+
+               // HR good sid
+               case 2:
+               {
+                  UpdateTable( 0x0011, gRxFrameTypesV1, VocoderTableV1 );
+               }
+               break;
+            }
+         }
+         break;
+
+         // AMR-WB
+         case 11:
+         {
+            var FrameRate = Fields.GetFieldValue( DataIndex++ );
+            var FrameType = Fields.GetFieldValue( DataIndex );
+
+            UpdateTable( FrameType + 0x12, gRxFrameTypesV1, VocoderTableV1 );
+            UpdateTable( FrameRate + 0x8, gRxFrameRatesV1, VocoderTableV1 );
+         }
+         break;
+      }
+   }
+   else
+   {
+      var DataIndex = 0;
+
+      var Mode = Fields.GetFieldValue( DataIndex++ );
+      switch (Mode)
+      {
+         // AMR
+         case 3:
+         {
+            var FrameRate = Fields.GetFieldValue( DataIndex++ );
+            var FrameType = Fields.GetFieldValue( DataIndex );
+
+            UpdateTable( FrameType, gTxFrameTypesV1, VocoderTableV1 );
+            UpdateTable( FrameRate, gTxFrameRatesV1, VocoderTableV1 );
+         }
+         break;
+
+         // EFR
+         case 4:
+         {
+            var FrameType = Fields.GetFieldValue( DataIndex );
+            if (FrameType == 0)
+            {
+               UpdateTable( 0x0004, gTxFrameTypesV1, VocoderTableV1 );
+            }
+            else if (FrameType == 1)
+            {
+               UpdateTable( 0x0005, gTxFrameTypesV1, VocoderTableV1 );
+            }
+         }
+         break;
+
+         // FR
+         case 5:
+         {
+            var FrameType = Fields.GetFieldValue( DataIndex );
+            if (FrameType == 0)
+            {
+               UpdateTable( 0x0006, gTxFrameTypesV1, VocoderTableV1 );
+            }
+            else if (FrameType == 1)
+            {
+               UpdateTable( 0x0007, gTxFrameTypesV1, VocoderTableV1 );
+            }
+         }
+         break;
+
+         // HR
+         case 7:
+         {
+            var Error1 = Fields.GetFieldValue( DataIndex++ );
+            if (Error1)
+            {
+               UpdateTable( 0x000A, gTxFrameTypesV1, VocoderTableV1 );
+            }
+            var Error2 = Fields.GetFieldValue( DataIndex++ );
+            if (Error2)
+            {
+               UpdateTable( 0x000A, gTxFrameTypesV1, VocoderTableV1 );
+            }
+
+            var FrameType = Fields.GetFieldValue( DataIndex );
+            if (FrameType == 0)
+            {
+               UpdateTable( 0x0008, gTxFrameTypesV1, VocoderTableV1 );
+            }
+            else if (FrameType == 1)
+            {
+               UpdateTable( 0x0009, gTxFrameTypesV1, VocoderTableV1 );
+            }
+         }
+         break;
+
+         // AMR-WB
+         case 11:
+         {
+            var FrameRate = Fields.GetFieldValue( DataIndex++ );
+            var FrameType = Fields.GetFieldValue( DataIndex );
+
+            UpdateTable( FrameType + 0xB, gTxFrameTypesV1, VocoderTableV1 );
+            UpdateTable( FrameRate + 0x8, gTxFrameRatesV1, VocoderTableV1 );
+         }
+         break;
+      }
+   }
+}
+
+function UpdateTable( Val, LookupTable, Table )
+{
+   if (Val in LookupTable)
+   {
+      var Row = LookupTable[Val].Row;
+      var Col = LookupTable[Val].Col;
+
+      LookupTable[Val].Counter++;
+      Table.rows[Row].cells[Col].innerText = LookupTable[Val].Counter;
+   }
+}
+
+</script>
+</body>
+</html>

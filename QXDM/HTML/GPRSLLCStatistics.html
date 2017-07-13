@@ -1,0 +1,665 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="GPRS LLC Statistics" />
+   <meta name="DMViewWidth" content="600" />
+   <meta name="DMViewHeight" content="600" />
+
+   <title>GPRS LLC Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<div class="label">GPRS LLC LL Management Entity (LLME) Status</div>
+<table width="100%">
+   <colgroup span="2">
+      <col width="50%" />
+      <col width="50%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>LLME Status</th>
+   </tr>
+   <tbody id="LLMEStatusTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+
+<br />
+<div class="label">SAPI State Information</div>
+<table width="100%" id="SAPIStateTable">
+   <colgroup span="7">
+      <col width="16%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+      <col width="14%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>SAPI 1</th>
+      <th>SAPI 3</th>
+      <th>SAPI 5</th>
+      <th>SAPI 7</th>
+      <th>SAPI 9</th>
+      <th>SAPI 11</th>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   <tr>
+      <td>Sub-state</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>   
+</table>
+
+<br />
+<div class="label">GPRS LLC SAPI Display Selection</div>
+<table width="100%">
+   <tr>
+      <th>Parameter</th>
+      <th>SAPI A</th>
+      <th>SAPI B</th>
+      <th>SAPI C</th>
+   </tr>
+   <tr>
+      <td>LLC SAPI Selection</td>
+      <td>
+         <select onchange="SetSAPI(0, this.value);">
+            <option value='1'>SAPI 1 (GMM)</option>
+            <option value='3'>SAPI 3</option>
+            <option value='5'>SAPI 5</option>
+            <option value='7'>SAPI 7 (GSMS)</option>
+            <option value='9'>SAPI 9</option>
+            <option value='11'>SAPI 11</option>
+            <option value='2048' selected>None</option>
+         </select>
+      </td>
+      <td>
+         <select onchange="SetSAPI(1, this.value);">
+            <option value='1'>SAPI 1 (GMM)</option>
+            <option value='3'>SAPI 3</option>
+            <option value='5'>SAPI 5</option>
+            <option value='7'>SAPI 7 (GSMS)</option>
+            <option value='9'>SAPI 9</option>
+            <option value='11'>SAPI 11</option>
+            <option value='2048' selected>None</option>
+         </select>
+      </td>
+      <td>
+         <select onchange="SetSAPI(2, this.value);">
+            <option value='1'>SAPI 1 (GMM)</option>
+            <option value='3'>SAPI 3</option>
+            <option value='5'>SAPI 5</option>
+            <option value='7'>SAPI 7 (GSMS)</option>
+            <option value='9'>SAPI 9</option>
+            <option value='11'>SAPI 11</option>
+            <option value='2048' selected>None</option>
+         </select>
+      </td>
+   </tr>
+   <tr>
+      <td>LLC Statistics Update Rate</td>
+      <td>
+         <select onchange="SetSAPIUpdateTime(this.value);">
+            <option value='1'>1 second</option>
+            <option value='10' >10 seconds</option>
+            <option value='30' >30 seconds</option>
+            <option value='60'>1 minute</option>
+            <option value='600'>10 minutes</option>
+            <option value='3600'>1 hour</option>
+            <option value='0'selected>Disabled</option>
+         </select>
+      </td>
+   </tr>
+</table>
+
+<br />
+<div class="label">GPRS LLC PDU Statistics</div>
+<table width="100%">
+   <colgroup span="4">
+      <col width="40%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>SAPI A</th>
+      <th>SAPI B</th>
+      <th>SAPI C</th>
+   </tr>
+   <tr>
+      <td>Statistics Resets</td>
+      <td><input type="button" value="Reset" onclick="ResetSAPIPDUStats(0);"></td>
+      <td><input type="button" value="Reset" onclick="ResetSAPIPDUStats(1);"></td>
+      <td><input type="button" value="Reset" onclick="ResetSAPIPDUStats(2);"></td>
+   </tr>
+   <tbody id="PDUStatsTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+      
+<br />
+<div class="label">GPRS LLC Periodically Reported Statistics</div>
+<table width="100%">
+   <colgroup span="4">
+      <col width="40%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>SAPI A</th>
+      <th>SAPI B</th>
+      <th>SAPI C</th>
+   </tr>
+   <tr>
+      <td>Statistics Resets</td>
+      <td><input type="button" value="Reset" onclick="ResetSAPIPeriodicStats(0);"></td>
+      <td><input type="button" value="Reset" onclick="ResetSAPIPeriodicStats(1);"></td>
+      <td><input type="button" value="Reset" onclick="ResetSAPIPeriodicStats(2);"></td>
+   </tr>
+   <tbody id="PeriodicStatsTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+      
+<br />
+<div class="label">GPRS LLC XID Information</div>
+<table width="100%">
+   <colgroup span="4">
+      <col width="40%" />
+      <col width="20%" />
+      <col width="20%" />
+      <col width="20%" />
+   </colgroup>
+   <tr>
+      <th>Parameter</th>
+      <th>SAPI A</th>
+      <th>SAPI B</th>
+      <th>SAPI C</th>
+   </tr>
+   <tbody id="XIDInfoTable">
+      <tr>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+         <td>-</td>
+      </tr>
+   </tbody>
+</table>
+      
+<script type="text/jscript" src="HelperFunctions.js"></script>      
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle            = 0xFFFFFFFF;
+var TIMEOUT_MS        = 500;
+var UPDATE_MS         = 1000;
+var GPRS_LOG_REQ      = "GSM/GPRS Log Packet Request";
+var LOG_ON_DEMAND_REQ = "Log On Demand Request";
+
+// Invalid SAPI
+var gNoSAPI           = 2048;
+
+// User selected SAPIs
+var gSAPIs            = new Array;
+
+// Maximum number of user selected/total ((i * 2) + 1) SAPIs
+var gMaxSAPIs         = 3;
+var gAllSAPIs         = 6;
+
+var gTimerInSecs      = 0;
+var gMainTickID       = 0;
+var gStatTickID       = 0;
+var gRequestIDs       = new Array;
+
+var PrevIndex         = -1;
+        
+// Initialize the HTML page       
+function Register()
+{      
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs     
+   clientObject.AddLog( 0x5212 );
+   clientObject.AddLog( 0x5213 );
+   clientObject.AddLog( 0x5214 );
+   clientObject.AddLog( 0x5215 );
+   clientObject.AddLog( 0x5216 );
+   
+   clientObject.CommitConfig();
+   
+   // Initially there are no SAPIs selected
+   for (var s = 0; s < gMaxSAPIs; ++s)
+   {
+      gSAPIs[s] = gNoSAPI;
+   }   
+   
+   // Set up an infinite request to obtain the LLME (every second)
+   var ReqID = IQXDM2.RequestItem( LOG_ON_DEMAND_REQ,
+                                   "0x5212",
+                                   1,
+                                   TIMEOUT_MS,
+                                   0xFFFFFFFF,
+                                   UPDATE_MS );
+
+   if (ReqID != 0)
+   {
+      gRequestIDs[gRequestIDs.length] = ReqID;
+   }   
+   else
+   {
+      window.document.write( "<br /> Error scheduling LLME request" );
+      return;
+   }       
+   
+   // Set up an infinite request to obtain the SAPI stats (every second)
+   var SAPI = 0;
+   for (var i = 0; i < gAllSAPIs; i++)
+   {   
+      SAPI = (i * 2) + 1;
+      var OK = RequestSAPIState( SAPI );
+      if (OK == false)
+      {
+         window.document.write( "<br /> Error scheduling SAPI stats request" );
+         return;         
+      }      
+   }
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (gStatTickID != 0)
+   {
+      window.clearInterval( gStatTickID );
+      gStatTickID = 0;
+   }
+   
+   // Remove all outstanding periodic requests
+   for (var s = 0; s < gRequestIDs.length; ++s)
+   {
+      IQXDM2.RemoveRequest( gRequestIDs[s] );
+   }      
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Set up a periodic request for SAPI state info for the given SAPI
+function RequestSAPIState( SAPI )
+{
+   var OK = false;   
+
+   var RequestString = "0x5213 0 " + SAPI;
+   var ReqID = IQXDM2.RequestItem( GPRS_LOG_REQ,
+                                   RequestString,
+                                   1,
+                                   TIMEOUT_MS,
+                                   0xFFFFFFFF,
+                                   UPDATE_MS );
+
+   if (ReqID != 0)
+   {
+      gRequestIDs[gRequestIDs.length] = ReqID;
+      OK = true;   
+   }
+ 
+   return OK;
+}   
+  
+
+// Request GSM/GPRS log for a specific SAPI (or request a reset of the
+// statistics managed by that log)
+function RequestLogForSAPI( LogCode, SAPI, Reset )
+{
+   if (SAPI != gNoSAPI)
+   {
+      var RequestString = LogCode + " " + Reset + " " + SAPI;
+      var ReqID = IQXDM2.RequestItem( GPRS_LOG_REQ,
+                                      RequestString,
+                                      1,
+                                      TIMEOUT_MS,
+                                      1,
+                                      1 );
+
+      if (ReqID == 0)
+      {
+         window.document.write( "<br /> Error scheduling request" );
+         return;
+      } 
+   }
+}     
+ 
+// Request all SAPI stats for user selected SAPIs
+function RequestStats()
+{
+   for (var s = 0; s < gMaxSAPIs; ++s)
+   {
+      RequestLogForSAPI( "0x5214", gSAPIs[s], 0 );
+      RequestLogForSAPI( "0x5215", gSAPIs[s], 0 );
+      RequestLogForSAPI( "0x5216", gSAPIs[s], 0 );
+   }   
+}
+
+// Clear out the column given by the SAPI index for the given table
+function ClearTableForSAPI( TableName, SAPIIndex )
+{
+   if (SAPIIndex < gMaxSAPIs)
+   {
+      var r;
+      var c = 1 + SAPIIndex;      
+      
+      var CurRows = TableName.rows.length;  
+      for (r = 0; r < CurRows; r++)
+      {
+         TableName.rows[r].cells[c].innerText = "-";
+      }
+   }       
+}
+
+function ResetSAPIPDUStats( SAPIIndex )
+{
+   if (SAPIIndex < gMaxSAPIs)
+   {
+      var SAPI = gSAPIs[SAPIIndex];
+      if (SAPI != gNoSAPI)
+      {
+         RequestLogForSAPI( "0x5215", SAPI, 1 );
+         ClearTableForSAPI( PDUStatsTable, SAPIIndex );
+      }
+   }
+}
+
+function ResetSAPIPeriodicStats( SAPIIndex )
+{
+   if (SAPIIndex < gMaxSAPIs)
+   {
+      var SAPI = gSAPIs[SAPIIndex];
+      if (SAPI != gNoSAPI)
+      {
+         RequestLogForSAPI( "0x5216", SAPI, 1 );
+         ClearTableForSAPI( PeriodicStatsTable, SAPIIndex );
+      }
+   }
+}
+
+// Set one of the three user selected SAPIs
+function SetSAPI( SAPIIndex, SAPI )
+{
+   if (SAPIIndex < gMaxSAPIs)
+   {
+      gSAPIs[SAPIIndex] = parseInt( SAPI, 10 );
+
+      ClearTableForSAPI( XIDInfoTable, SAPIIndex );
+      ClearTableForSAPI( PDUStatsTable, SAPIIndex );
+      ClearTableForSAPI( PeriodicStatsTable, SAPIIndex );
+   }
+}
+
+// Set the user selected SAPIs update interval
+function SetSAPIUpdateTime( seconds )
+{
+   if (gStatTickID != 0)
+   {
+      window.clearInterval( gStatTickID );
+      gStatTickID = 0;
+   }
+
+   var inSecs = parseInt( seconds, 10 );
+   gTimerInSecs = inSecs;   
+   if (gTimerInSecs > 0)
+   {
+      // Convert to milliseconds and set
+      var inMS = gTimerInSecs * 1000;       
+      gStatTickID = window.setInterval( "RequestStats()", inMS );
+      
+      // Go ahead and ask for them immediately
+      RequestStats();      
+   }
+   else
+   {  
+      // Clear out tables at the all indices
+      for (var s = 0; s < gMaxSAPIs; ++s)
+      {
+         ClearTableForSAPI( XIDInfoTable, s );
+         ClearTableForSAPI( PDUStatsTable, s );
+         ClearTableForSAPI( PeriodicStatsTable, s );
+      }
+   }
+}
+
+// Process new logs in our client view
+function ProcessLogs()
+{
+   var LogCode5212 = "[0x5212]";
+   var LogCode5213 = "[0x5213]";
+   var LogCode5214 = "[0x5214]";
+   var LogCode5215 = "[0x5215]";
+   var LogCode5216 = "[0x5216]";
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case LogCode5212:         
+            PopulateSimpleFieldTable( ItemFields, LLMEStatusTable );
+            break;
+         
+         case LogCode5213:        
+            ProcessLogSAPIStates( ItemFields );         
+            break;
+   
+         case LogCode5214:    
+            ProcessLogSAPI( ItemFields, XIDInfoTable );
+            break; 
+                      
+         case LogCode5215:
+            ProcessLogSAPI( ItemFields, PDUStatsTable );
+            break;  
+          
+         case LogCode5216:
+            ProcessLogSAPI( ItemFields, PeriodicStatsTable );
+            break;
+      }     
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Process a SAPI states log by filling in the SAPI stats table
+function ProcessLogSAPIStates( Fields )
+{                                
+   if (Fields == null)
+   {
+      return;
+   }
+        
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 3)
+   {
+      return;
+   }        
+        
+   // Grab SAPI from packet, convert to table index   
+   var SAPI = Fields.GetFieldValue( 0 );
+   switch (SAPI)
+   {
+      case 1:
+         SAPI = 1;
+         break;
+         
+      case 3:
+         SAPI = 2;
+         break;
+         
+      case 5:
+         SAPI = 3;
+         break;
+         
+      case 7:
+         SAPI = 4;
+         break;
+         
+      case 9:
+         SAPI = 5;
+         break;
+         
+      case 11:
+         SAPI = 6;
+         break;  
+         
+      default:
+         return;
+   }
+
+   var FieldVal = Fields.GetFieldValueText( 1 );
+   SAPIStateTable.rows[1].cells[SAPI].innerText = FieldVal;
+
+   FieldVal = Fields.GetFieldValueText( 2 );
+   SAPIStateTable.rows[2].cells[SAPI].innerText = FieldVal;
+}
+
+// Process a SAPI stats/info log by filling in the associated table
+function ProcessLogSAPI( Fields, TableName )
+{
+   if (Fields == null || gTimerInSecs == 0)
+   {
+      return;
+   }    
+      
+   // Grab SAPI from packet
+   var SAPI = Fields.GetFieldValue( 0 );
+      
+   // Is this a user selected SAPI?
+   var SAPIIndex = gMaxSAPIs;
+   for (var s = 0; s < gMaxSAPIs; ++s)
+   {
+      if (gSAPIs[s] == SAPI)
+      {
+         SAPIIndex = s;
+         break;
+      }
+   }      
+   
+   // Not a user selected SAPI?
+   if (SAPIIndex == gMaxSAPIs)
+   {
+      return;
+   }
+   
+   // Convert to a column index
+   SAPIIndex++; 
+               
+   // Convert the fields to table rows
+   var FieldCount = Fields.GetFieldCount(); 
+   var CurRows = TableName.rows.length;  
+   ManageRows( TableName, 0, CurRows, FieldCount - 1, 4, true );     
+
+   var FieldName;
+   var FieldVal;
+   
+   for (var f = 1; f < FieldCount; f++)
+   {    
+      FieldName = Fields.GetFieldName( f, true );
+      TableName.rows[f - 1].cells[0].innerText = FieldName;
+         
+      FieldVal = Fields.GetFieldValueText( f );
+      TableName.rows[f - 1].cells[SAPIIndex].innerText = FieldVal;  
+   }
+}
+
+</script>
+
+</body>
+</html>

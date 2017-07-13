@@ -1,0 +1,720 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+<head>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+   <meta name="DMViewName" content="HDR Rev. A Multi-User Packet Forward Statistics" />
+   <meta name="DMViewWidth" content="700" />
+   <meta name="DMViewHeight" content="320" />
+   <title>HDR Rev. A Multi-User Packet Forward Statistics</title>
+   <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+<table width="100%" id="DataTable">
+   <tr>
+      <th colspan="3">Info</th>
+      <th colspan="3">CRC Count</th>
+      <th colspan="5">Termination Slot Count</th>
+   </tr>
+   <tr>
+      <th width="5%">Idx</th>
+      <th width="9%">Kbps</th>
+      <th width="14%">Format</th>
+      <th width="11%">Passed</th>
+      <th width="11%">Failed</th>
+      <th width="11%">Total</th>
+      <th width="3%">Avg</th>
+      <th width="9%">1</th>
+      <th width="9%">2</th>
+      <th width="9%">3</th>
+      <th width="9%">4</th>
+   </tr>
+   
+   <tr>
+      <td colspan="3" class="shaded" style="cursor : pointer" 
+         onclick="ToggleIndividuals( 2, 3 );">Preamble MAC Idx 66 Total</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <td>66</td>
+      <td>19.2</td>
+      <td>128, 4, 256</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <td>66</td>
+      <td>38.4</td>
+      <td>256, 4, 256</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+
+   <tr>
+      <td>66</td>
+      <td>76.8</td>
+      <td>512, 4, 256</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <td>66</td>
+      <td>153.6</td>
+      <td><b>1024, 4, 256</b></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <td>67</td>
+      <td>307.2</td>
+      <td><b>2048, 4, 128</b></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+   </tr>
+   
+   <tr>
+      <td>68</td>
+      <td>921.6</td>
+      <td><b>3072, 2, 64</b></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td colspan="2"> &nbsp; </td>
+   </tr>
+   
+   <tr>
+      <td>69</td>
+      <td>1228.8</td>
+      <td><b>4096, 2, 64</b></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td colspan="2"> &nbsp; </td>
+   </tr>
+   
+   <tr>
+      <td>70</td>
+      <td>1536.0</td>
+      <td><b>5120, 2, 64</b></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td colspan="2"> &nbsp; </td>
+   </tr>
+   
+   <tr>
+      <td colspan="3" class="shaded">Total</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td colspan="5"> &nbsp; </td>
+   </tr>
+   <tr>
+      <td colspan="3" class="shaded">Packet Error Rate</td>
+      <td colspan="2">-</td>
+      <td colspan="6"> &nbsp; </td>
+   </tr>
+   <tr>
+      <td colspan="3" class="shaded">Throughput When Served</td>
+      <td colspan="2">-</td>
+      <td colspan="6"> &nbsp; </td>
+   </tr>
+   <tr>
+      <td colspan="3" class="shaded">Instantaneous Throughput</td>
+      <td colspan="2">-</td>
+      <td colspan="6"> &nbsp; </td>
+   </tr>
+   <tr>
+      <td colspan="3" class="shaded">Instantaneous Throughput (1s)</td>
+      <td colspan="2">-</td>
+      <td colspan="6"> &nbsp; </td>
+   </tr>
+   <tr>
+      <td colspan="3" class="shaded">Sequence (Elapsed Time)</td>
+      <td colspan="7">-</td>
+      <td><input type="button" value="Reset" onclick="ResetStats();"></td>
+   </tr>   
+</table>
+
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle              = 0xFFFFFFFF;
+var gMainTickID         = 0;
+
+var MAX_SLOTS           = 4;
+var TIMEOUT_MS          = 500;
+var UPDATE_MS           = 1000;
+var RESET_STAT_REQ      = "CDMA 1xEV/Reset Forward Stats Request";
+
+var PrevIndex           = -1;
+var gEntries            = new Array();
+var gPrevSequenceNumber = -1;
+var gPrevDataNum        = 0;
+
+// Construct a transport format
+function TransportFormat( PacketLen, Slots, PreambleLen )
+{
+   // Fill out [a, b, c] of transport format, where
+   //    a = Length of packet in bits
+   //    b = Nominal transmit duration in slots
+   //    c = Length of preamble in bits
+   this.PacketLen   = PacketLen;
+   this.Slots       = Slots;
+   this.PreambleLen = PreambleLen;
+   
+   // Initialize CRC success counts
+   this.CRCSuccesses = 0;
+   
+   // Initialize early decode (by slot) counts
+   this.EarlyDecodes = new Array();
+   for (var s = 0; s < Slots; s++)
+   {
+      this.EarlyDecodes[s] = 0;
+   }
+}
+
+// Construct a table entry
+function TableEntry( TableRow, CRCIdx, EarlyDecodeIdx, Formats )
+{
+   // Row ID for entry in table (one, the summary, plus the number 
+   // of transport format entries for a DRC entry, or simply the
+   // later for the one and only control entry)
+   this.TableRow = TableRow;
+   
+   // Field index for start of CRC info
+   this.CRCIdx = CRCIdx;
+   
+   // Field index for start of early decode info
+   this.EarlyDecodeIdx = EarlyDecodeIdx;
+   
+   // Transport format info (see above)
+   this.Formats = Formats; 
+   
+   // Initialize CRC failure count
+   this.CRCFailures  = 0;
+}
+
+// Initialize the internal variables
+function InitializeTableEntries()
+{   
+   // DRC 3
+   var DRC3Formats = new Array();
+   DRC3Formats[0] = new TransportFormat( 128, 4, 256 );
+   DRC3Formats[1] = new TransportFormat( 256, 4, 256 );
+   DRC3Formats[2] = new TransportFormat( 512, 4, 256 );
+   DRC3Formats[3] = new TransportFormat( 1024, 4, 256 );
+   gEntries[0] = new TableEntry( 2, 1, 14, DRC3Formats );
+   
+   // DRC 5
+   var DRC5Formats = new Array();
+   DRC5Formats[0] = new TransportFormat( 2048, 4, 128 );
+   gEntries[1] = new TableEntry( 7, 6, 30, DRC5Formats );
+   
+   // DRC 8
+   var DRC8Formats = new Array();
+   DRC8Formats[0] = new TransportFormat( 3072, 2, 64 );
+   gEntries[2] = new TableEntry( 8, 8, 34, DRC8Formats );
+   
+   // DRC 10
+   var DRC10Formats = new Array();
+   DRC10Formats[0] = new TransportFormat( 4096, 2, 64 );
+   gEntries[3] = new TableEntry( 9, 10, 36, DRC10Formats );
+   
+   // DRC 13
+   var DRC13Formats = new Array();
+   DRC13Formats[0] = new TransportFormat( 5120, 2, 64 );
+   gEntries[4] = new TableEntry( 10, 12, 38, DRC13Formats );
+}
+
+// Initialize the HTML page   
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterQueueClient( 256 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+
+   // Configure logs
+   clientObject.AddLog( 0x1193 );
+   clientObject.CommitConfig();
+      
+   // Initialize internal arrays
+   InitializeTableEntries();
+      
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessLogs()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Show or hide constituent rows under the given base row
+function ToggleIndividuals( BaseIdx, RowCount )
+{
+   var CurRows = DataTable.rows.length;
+   for (var r = BaseIdx + RowCount; r > BaseIdx; r--)
+   {
+      if (r < CurRows)
+      {
+         if (DataTable.rows[r].style.display == "none")
+         {
+            DataTable.rows[r].style.display = "";
+         }
+         else
+         {
+            DataTable.rows[r].style.display = "none";
+         }   
+      }
+   }
+   
+   DataTable.refresh();
+}
+
+// Process the last received log
+function ProcessLogs()
+{   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0 || CurrIndex == PrevIndex)
+   {
+      return;
+   }  
+
+   PrevIndex = CurrIndex;
+   var Item = IQXDM2.GetClientItem( Handle, CurrIndex );
+   if (Item == null)
+   {
+      return;
+   }
+  
+   var Fields = Item.GetConfiguredItemFields( "", false, false );
+   if (Fields != null)
+   {
+      UpdateForwardStats( Fields );
+   }           
+}
+
+// Ask the target to reset the statistics and then reset variables/table
+function ResetStats()
+{
+   IQXDM2.RequestItem( RESET_STAT_REQ, "", 1, TIMEOUT_MS, 1, 1 );
+   
+   // Reset internal variables/table
+   var Entries = gEntries.length;
+   for (var e = 0; e < Entries; e++)
+   {  
+      var Formats = gEntries[e].Formats.length;
+   
+      var ro = 0;
+      if (Formats > 1)
+      {
+         ro = 1;
+      }
+      
+      var r = gEntries[e].TableRow;   
+      gEntries[e].CRCFailures = 0;   
+            
+      for (var tf = 0; tf < Formats; tf++)
+      {
+         gEntries[e].Formats[tf].CRCSuccesses = 0;
+         DataTable.rows[r + tf + ro].cells[3].innerText = "-";
+         
+         gEntries[e].Formats[tf].CRCFailures = 0;
+         DataTable.rows[r + tf + ro].cells[4].innerText = "-";
+         DataTable.rows[r + tf + ro].cells[5].innerText = "-";
+         DataTable.rows[r + tf + ro].cells[6].innerText = "-";
+                  
+         // Early decodes
+         var Decodes = gEntries[e].Formats[tf].EarlyDecodes.length;
+         for (var d = 0; d < Decodes; d++)
+         {
+            gEntries[e].Formats[tf].EarlyDecodes[d] = 0;
+            DataTable.rows[r + tf + ro].cells[7 + d].innerText = "-";
+         }
+      }
+      
+      if (ro == 1)
+      {
+         DataTable.rows[r].cells[1].innerText = "-";
+         DataTable.rows[r].cells[2].innerText = "-";
+         DataTable.rows[r].cells[3].innerText = "-";
+         DataTable.rows[r].cells[4].innerText = "-";
+         
+         var Decodes = gEntries[e].Formats[0].EarlyDecodes.length;        
+         for (var d = 0; d < Decodes; d++)
+         {
+            DataTable.rows[r].cells[5 + d].innerText = "-";
+         }
+      }      
+   }
+   
+   DataTable.rows[11].cells[1].innerText = "-";
+   DataTable.rows[11].cells[2].innerText = "-";
+   DataTable.rows[11].cells[3].innerText = "-";
+   
+   DataTable.rows[12].cells[1].innerText = "-";
+   DataTable.rows[13].cells[1].innerText = "-";
+   DataTable.rows[14].cells[1].innerText = "-";
+   DataTable.rows[15].cells[1].innerText = "-";
+   DataTable.rows[16].cells[1].innerText = "-";
+   
+   gPrevSequenceNumber = -1;
+   gPrevDataNum = 0;   
+}
+
+// Update forward statistics variables/table cells from parsed fields
+function UpdateForwardStats( Fields )
+{  
+   if (Fields == null || Fields.GetFieldCount() < 40)
+   {
+      return;
+   }
+
+   // Get log sequence number
+   var SequenceNumber = Fields.GetFieldValue( 0 );
+      
+   // Fill in info for each transport format   
+   var Entries = gEntries.length;
+   for (var e = 0; e < Entries; e++)
+   {  
+      var CRCSuccesses = 0;
+      var Formats = gEntries[e].Formats.length;
+   
+      var co = 1;
+      var ro = 0;
+      if (Formats > 1)
+      {
+         ro = 1;
+      }
+      else
+      {
+         co = 3;
+      }
+       
+      var fi1 = gEntries[e].CRCIdx;
+      var fi2 = gEntries[e].EarlyDecodeIdx;
+      var r = gEntries[e].TableRow;      
+                        
+      var Value = 0;
+      for (var tf = 0; tf < Formats; tf++)
+      {
+         // Successes
+         Value = Fields.GetFieldValue( fi1++ );
+         gEntries[e].Formats[tf].CRCSuccesses = Value;
+         DataTable.rows[r + tf + ro].cells[3].innerText = Value;
+                  
+         // Increment total         
+         CRCSuccesses += Value;
+         
+         var DecodeNum = 0;
+         var DecodeDen = 0;
+
+         // Early decodes
+         Decodes = gEntries[e].Formats[tf].EarlyDecodes.length;
+         for (d = 0; d < Decodes; d++)
+         {
+            Value = Fields.GetFieldValue( fi2++ );
+            gEntries[e].Formats[tf].EarlyDecodes[d] = Value;
+            DataTable.rows[r + tf + ro].cells[7 + d].innerText = Value;
+
+            DecodeNum += ((d + 1) * Value);
+            DecodeDen += Value;
+         }
+
+         if (DecodeDen > 0)
+         {
+            Value = DecodeNum / DecodeDen;         
+            DataTable.rows[r + tf + ro].cells[6].innerText = Value.toFixed( 1 );
+         }
+         else
+         {
+            DataTable.rows[r + tf + ro].cells[6].innerText = "-";
+         }
+      }
+      
+      // Successes (total)
+      DataTable.rows[r].cells[co].innerText = CRCSuccesses;
+      
+      // Failures (always a total)
+      Value = Fields.GetFieldValue( fi1 );
+      gEntries[e].CRCFailures = Value;
+      DataTable.rows[r].cells[co + 1].innerText = Value;
+      
+      // Total
+      DataTable.rows[r].cells[co + 2].innerText = CRCSuccesses + Value;
+   }
+   
+   // Update totals
+   UpdateTotals();
+   
+   // Update throughputs
+   UpdateThroughputs( SequenceNumber );
+   
+   // Update elapsed time
+   UpdateElapsedTime( SequenceNumber );
+}
+
+// Working form internal variables, update the totals (and PER)
+function UpdateTotals()
+{
+   var CRCSuccessesAll = 0;
+   var CRCFailuresAll  = 0;
+   
+   var Entries = gEntries.length;
+   for (var e = 0; e < Entries; e++)
+   {      
+      // Early decode totals?
+      var Formats = gEntries[e].Formats.length;
+      if (Formats > 1)
+      {
+         var EarlyDecodesTF = new Array();
+         for (s = 0; s < MAX_SLOTS; s++)
+         {
+            EarlyDecodesTF[s] = 0;
+         }
+         
+         var d = 0;
+         for (var tf = 0; tf < Formats; tf++)
+         {
+            var Decodes = gEntries[e].Formats[tf].EarlyDecodes.length;        
+            for (d = 0; d < Decodes; d++)
+            {
+               EarlyDecodesTF[d] += gEntries[e].Formats[tf].EarlyDecodes[d];
+            }
+         }
+         
+         var DecodeNum = 0;
+         var DecodeDen = 0;
+
+         var r = gEntries[e].TableRow;
+         for (d = 0; d < Decodes; d++)
+         {
+            var Value = EarlyDecodesTF[d];
+            DataTable.rows[r].cells[5 + d].innerText = Value;
+
+            DecodeNum += ((d + 1) * Value);
+            DecodeDen += Value;
+         }
+
+         if (DecodeDen > 0)
+         {
+            Value = DecodeNum / DecodeDen;         
+            DataTable.rows[r].cells[4].innerText = Value.toFixed( 1 );
+         }
+         else
+         {
+            DataTable.rows[r].cells[4].innerText = "-";
+         }
+      }
+      
+      for (var tf = 0; tf < Formats; tf++)
+      {
+         CRCSuccessesAll += gEntries[e].Formats[tf].CRCSuccesses;         
+      }
+      
+      CRCFailuresAll += gEntries[e].CRCFailures;
+   }
+   
+   // Write out DRC totals
+   DataTable.rows[11].cells[1].innerText = CRCSuccessesAll;
+   DataTable.rows[11].cells[2].innerText = CRCFailuresAll;
+   DataTable.rows[11].cells[3].innerText = CRCSuccessesAll + CRCFailuresAll;
+   
+   // We can also do the DRC PER here
+   if (CRCSuccessesAll > 0 || CRCFailuresAll > 0)
+   {
+      var PER = CRCFailuresAll / (CRCSuccessesAll + CRCFailuresAll);
+      PER = Precision( PER, 2, true );
+   
+      DataTable.rows[12].cells[1].innerText = PER;
+   }
+   else
+   {
+      DataTable.rows[12].cells[1].innerText = "0 %";
+   }   
+}
+
+// Working form internal variables, update throughput rates
+function UpdateThroughputs( SequenceNumber )
+{
+   var Num = 0;
+   var Den = 0;
+   var Value1;
+   var Value2;
+   var Rate;
+
+   var Entries = gEntries.length;
+   for (var e = 0; e < Entries; e++)
+   {
+      var Formats = gEntries[e].Formats.length;
+      for (var tf = 0; tf < Formats; tf++)
+      {
+         Value1 = gEntries[e].Formats[tf].CRCSuccesses;
+         Value1 *= gEntries[e].Formats[tf].PacketLen;         
+         Num += Value1;
+          
+         Value1 = 0;
+         var Decodes = gEntries[e].Formats[tf].EarlyDecodes.length;        
+         for (var d = 0; d < Decodes; d++)
+         {
+            Value2 = gEntries[e].Formats[tf].EarlyDecodes[d];
+            Value2 *= (d + 1);
+            
+            Value1 += Value2;
+         }
+         
+         Den += Value1;
+      }
+      
+      Value2 = gEntries[e].CRCFailures;
+      Value2 *= gEntries[e].Formats[0].Slots;
+      Den += Value2;      
+   }
+   
+   // Throughput (served)
+   if (Den > 0)
+   {
+      Rate = ((600 * Num) / Den) / 1000;
+      Rate = Precision( Rate, 2, false );
+      DataTable.rows[13].cells[1].innerText = Rate + " Kbps";
+   }
+   else
+   {
+      DataTable.rows[13].cells[1].innerText = "0 Kbps";
+   }
+   
+   // Throughput (average)
+   if (SequenceNumber > 0)
+   {
+      Rate = (Num / SequenceNumber) / 1000;
+      Rate = Precision( Rate, 2, false );         
+      DataTable.rows[14].cells[1].innerText = Rate + " Kbps";
+   }
+   else
+   {
+      DataTable.rows[14].cells[1].innerText = "0 Kbps";
+   }
+   
+   // Throughput (instantaneous)
+   if (gPrevSequenceNumber >= 0 && SequenceNumber > gPrevSequenceNumber)
+   {
+      Value1 = Num - gPrevDataNum;
+      Value2 = SequenceNumber - gPrevSequenceNumber;
+      Rate = (Value1 / Value2) / 1000;
+      Rate = Precision( Rate, 2, false );         
+      DataTable.rows[15].cells[1].innerText = Rate + " Kbps";
+   }
+   else
+   {
+      DataTable.rows[15].cells[1].innerText = "0 Kbps";
+   }
+   
+   gPrevDataNum = Num;
+   gPrevSequenceNumber = SequenceNumber;
+}
+
+// Update the elapsed time from the given sequence number
+function UpdateElapsedTime( SequenceNumber )
+{
+   // NOTE: A sequence number of '1' equals 1 second as
+   // the logging second is given as 1 per second
+   var Txt = SequenceNumber + " (";
+   Txt += ElapsedSecondsToString( SequenceNumber );
+   Txt += ")";
+         
+   DataTable.rows[16].cells[1].innerText = Txt;
+}
+
+</script>
+</body>
+</html>

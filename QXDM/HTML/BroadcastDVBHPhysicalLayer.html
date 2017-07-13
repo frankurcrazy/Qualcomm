@@ -1,0 +1,2616 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en"
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+  <title>Broadcast DVB-H Physical Layer</title>
+  <meta name="DMViewName" content="Broadcast DVB-H Physical Layer" />
+  <meta name="DMViewWidth" content="900" />
+  <meta name="DMViewHeight" content="500" />
+  <link rel="stylesheet" href="QXDMStyle.css" />
+</head>
+
+<body onload="Register()" onunload="Unregister()">
+
+  <table>
+    <tr>
+      <td width="200" height="500" id="TestSetup" valign="top"></td>
+
+      <div id="TestStartControls">
+        <td width="400" valign="top" id="TestRun"></td>
+      </div>
+
+      <div id="TestResultsDiv">
+        <td width="250" valign="top" id="ResultsTable"></td>
+      </div>
+    </tr>
+
+    <tr><td colspan="3" id="TestStatus"></td></tr>
+  </table>  <!-- End of main table -->
+
+  <div id="DebugTable">
+  </div>
+
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 200;
+
+// Any outstanding requests
+var gRequestIDs  = new Array;
+
+// Client Handle
+var Handle;
+
+// Previous item index
+var lastItemProcessed = -1;
+
+// Timeout values
+var TIMEOUT_MS              = 500;
+
+// Server states
+var SVR_STATE_CONNECTED     = 2;
+var SVR_STATE_REPLAY        = 4;
+var STATE                   = "[4]";
+
+var DTV_L1_CMD = "DTV/L1 Command Request";
+var DTV_L3_CMD = "DTV/L3 Command Request";
+
+// Commands
+var UBM_L1_ACQ_CMD                      = 0;
+var UBM_L1_CFG_DATA_PID_CMD             = 2;
+var UBM_L1_CFG_ITEM                     = 5;
+var UBM_L1_POWERUP_CMD                  = 10;
+var UBM_L1_POWERDOWN_CMD                = 11;
+var UBM_L1_RESET_COUNTERS_CMD           = 45;
+
+// L1 events
+var EVENT_DTV_L1_ACQ_DONE               = 1417;
+var EVENT_DTV_L1_SCAN                   = 1418;
+var EVENT_DTV_L1_ONLINE                 = 1419;
+var EVENT_DTV_L1_SNOOZE                 = 1420;
+var EVENT_DTV_L1_SLEEP                  = 1421;
+var EVENT_DTV_L1_HANDOFF                = 1422;
+var EVENT_DTV_L1_SIGNAL_LOST            = 1423;
+
+var EVENT_DTV_TABLE_ACQ_SUCCESS         = 1270;
+var EVENT_DTV_TABLE_ACQ_FAIL            = 1271;
+var EVENT_DTV_DVBH_SEL_PLTFM_REQ_RCVD   = 1272;
+var EVENT_DTV_DVBH_PLTFM_ACQ_SUCCESS    = 1273;
+var EVENT_DTV_DVBH_PLTFM_ACQ_FAIL       = 1274;
+var EVENT_DTV_DVBH_INIT_REQ_RCVD        = 1279;
+var EVENT_DTV_DVBH_INIT_SUCCESS         = 1284;
+var EVENT_DTV_DVBH_INIT_FAILURE         = 1285;
+var EVENT_DTV_DVBH_DEINIT_SUCCESS       = 1317;
+var EVENT_DTV_DVBH_DEINIT_FAILURE       = 1318;
+
+// L3 commands
+var DTVDIAG_API_DVBH_INIT                     = 8;
+var DTVDIAG_API_DVBH_SEL_PLATFORM             = 9;
+var DTVDIAG_API_DVBH_DEINIT                   = 10;
+var DTVDIAG_API_DVBH_GET_PLATFORM_LIST        = 15;
+var DTVDIAG_API_DVBH_OVERRIDE_NV_FREQ_CONFIG  = 19;
+var DTVDIAG_API_DVBH_GET_MPE_SERVICE_INFO     = 20;
+var DTVDIAG_API_DVBH_GET_PLATFORM_LIST_INFO   = 21;
+
+function l1_sub_packet_id_func ( ProcessFunction )
+{
+   this.ProcessFunction = ProcessFunction;
+}
+
+var l1_sub_packets = new Array();
+
+function Service
+(
+   platform_id,
+   platform_name,
+   service_id,
+   service_name,
+   pid,
+   frame_size,
+   burst_length,
+   data_rate,
+   mpe_fec
+)
+{
+   this.platform_id   = platform_id;
+   this.platform_name = platform_name;
+   this.service_id    = service_id;
+   this.service_name  = service_name;
+   this.pid           = pid;
+   this.frame_size    = frame_size;
+   this.burst_length  = burst_length;
+   this.data_rate     = data_rate;
+   this.mpe_fec       = mpe_fec;
+}
+
+function Platform
+(
+   platform_id,
+   platform_name
+)
+{
+   this.platform_id = platform_id;
+   this.platform_name = platform_name;
+}
+
+var SelectedPlatformId;
+var PlatformName;
+var AvailableServices = new Array();
+var AvailablePlatforms = new Array();
+
+var CurrentPhoneState = "NOT CONNECTED";
+
+// L1 state machine variables
+var l1_state_powerdown    = 0;  // L1 is powered down
+var l1_state_powering_up  = 1;  // L1 is powered up
+var l1_state_powered_up   = 2;  // L1 is powered up
+var l1_state_acquiring    = 3;  // We are acquiring
+var l1_state_acquired     = 4;  // L1 has aquired
+var l1_state_adding_pid   = 5; // We are adding a data pid.
+var l1_state_decoding     = 6; // PID is being demodulated
+var l1_state_powering_down= 7;  // L1 is powered up
+
+// Current state of L1
+var l1_state = l1_state_powerdown;
+var l1_state_timeout = 10;
+var l1_restart_flag = false;
+var remaining_l1_ticks = l1_state_timeout;
+var l1_active = false;
+
+var current_l3_state = "Idle";
+var l3_restart_flag = false; /* Flag to tell state machine to restart when Idle state is reached */
+var l3_active = true;
+
+var l3_state_timeout = 100;
+var remaining_l3_ticks = l3_state_timeout;
+
+var CurrentFreq = 0;
+var CurrentPID = 0;
+var CurrentPlatformIdx = 0;
+var CurrentServiceIdx = 0;
+
+var CurrentFrequency = 474;
+var CurrentBandwidth = 8;
+
+var StartNumBursts = 0;
+var CurrentNumBursts = 0;
+var StartNumRs2Decodes = 0;
+var CurrentNumRs2Decodes = 0;
+var StartNumFrameErrors = 0;
+var CurrentNumFrameErrors = 0;
+
+var acquiredStatus;
+var decodingPidStatus;
+
+var TestStartTime;
+var CurrentTimestamp;
+var TestRunning = false;
+
+var CurrentStopTestFunction;
+
+var measurement_type_rs1 = 0;
+var measurement_type_rs2 = 1;
+var current_measurement_type = measurement_type_rs1;
+
+var pid_setup_manual = 0;
+var pid_setup_automatic = 1;
+var pid_setup_platform_only = 2;
+var pid_setup_frequency_only = 3;
+var pid_setup_error = 4;
+
+// Set this to true to debug the Appplication
+var debug = false;
+
+// Register the Client, Configure the Client, Initialize display Objects
+function Register()
+{
+   IQXDM2 = window.external;
+
+   var ServerState = IQXDM2.GetServerState();
+
+   if( ServerState == 2 )
+   {
+      CurrentPhoneState = "CONNECTED"
+   }
+   else
+   {
+      CurrentPhoneState = "NOT CONNECTED"
+   }
+
+   if( debug )
+   {
+      PopulateDebugTable();
+   }
+
+   PopulateTestSetup();
+   PopulateResultsTable();
+   ClearResults();
+
+   var ClientObject;
+
+   if (IQXDM2 == null)
+   {
+    window.document.write( "<br />QXDM does not support required interface" );
+    return;
+   }
+
+   RegisterL1LogHandlers();
+
+   Handle   = IQXDM2.RegisterQueueClient( 256 );
+   ClientObject = IQXDM2.ConfigureClientByKeys( Handle );
+
+   // Strings 
+   ClientObject.AddString( 4 );
+
+   // F3 Messages - DTV Low thru Fatal
+   ClientObject.AddMessage( 31, 0 );
+   ClientObject.AddMessage( 31, 1 );
+   ClientObject.AddMessage( 31, 2 );
+   ClientObject.AddMessage( 31, 3 );
+   ClientObject.AddMessage( 31, 4 );
+
+   // Events
+   ClientObject.AddEvent( EVENT_DTV_L1_ACQ_DONE );
+   ClientObject.AddEvent( EVENT_DTV_L1_SCAN );
+   ClientObject.AddEvent( EVENT_DTV_L1_ONLINE );
+   ClientObject.AddEvent( EVENT_DTV_L1_SNOOZE );
+   ClientObject.AddEvent( EVENT_DTV_L1_SLEEP );
+   ClientObject.AddEvent( EVENT_DTV_L1_HANDOFF );
+   ClientObject.AddEvent( EVENT_DTV_L1_SIGNAL_LOST );
+
+   ClientObject.AddEvent( EVENT_DTV_TABLE_ACQ_SUCCESS );
+   ClientObject.AddEvent( EVENT_DTV_TABLE_ACQ_FAIL );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_SEL_PLTFM_REQ_RCVD );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_PLTFM_ACQ_SUCCESS );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_PLTFM_ACQ_FAIL );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_INIT_REQ_RCVD );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_INIT_SUCCESS );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_INIT_FAILURE );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_DEINIT_SUCCESS );
+   ClientObject.AddEvent( EVENT_DTV_DVBH_DEINIT_FAILURE );
+
+   // Logs
+   ClientObject.AddLog( 0xA305 );
+   ClientObject.AddLog( 0xA306 );
+   ClientObject.AddLog( 0xA121 ); // MPE Service Info
+   ClientObject.AddLog( 0xA122 ); // Platform List
+
+    // Subsystem Requests
+   ClientObject.AddSubsysRequest( 44, 240 );   // DTV L1
+
+   // Subsystem Responses
+   ClientObject.AddSubsysResponse( 44, 240 );
+
+   // Commit the configuration
+   ClientObject.CommitConfig();
+
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+
+   // Make sure that L1 is powered down
+   L1_powerdown();
+
+   L3_deinit();
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   // Clear the windown update timer
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   // Remove all outstanding periodic requests
+   for (var s = 0; s < gRequestIDs.length; ++s)
+   {
+      IQXDM2.RemoveRequest( gRequestIDs[s] );
+   }
+
+   // Deregister the client handle
+   if ( Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+
+   // Powerdown L1
+   L1_powerdown();
+
+   L3_deinit();
+}
+
+function RegisterL1LogHandlers()
+{
+   /* Setup the log packet handlers */
+   for( var i=0; i < 27; i++ )
+   {
+      l1_sub_packets[i] = new l1_sub_packet_id_func( ProcessUnsupportedSubpacket );
+   }
+
+   l1_sub_packets[7]  = new l1_sub_packet_id_func( ProcessMpeFecMeas );
+   l1_sub_packets[8]  = new l1_sub_packet_id_func( ProcessSignalQuality );
+   l1_sub_packets[9]  = new l1_sub_packet_id_func( ProcessTrackingLoop );
+   l1_sub_packets[10] = new l1_sub_packet_id_func( ProcessStatus );
+   l1_sub_packets[11] = new l1_sub_packet_id_func( ProcessMeasInfo );
+   l1_sub_packets[26] = new l1_sub_packet_id_func( ProcessPhyParams );
+}
+
+function GetConnectedState()
+{
+  // Get the connection state
+  var ServerState = IQXDM2.GetServerState();
+
+  if( ServerState == 2 )
+  {
+    // Check if the phone state has changed
+    if( CurrentPhoneState != "CONNECTED")
+    {
+      TestResultsDiv.disabled = false;
+      TestRun.disabled = false;
+      TestSetup.disabled = false;
+      TestTypeControl.disabled = false;
+      FrequencyControls.disabled = false;
+
+      phone_state.innerText = "CONNECTED";
+      phone_state.style.backgroundColor = 'green';
+      CurrentPhoneState = "CONNECTED";
+    }
+  }
+  else
+  {
+      // See if the state has changed
+      if( CurrentPhoneState != "NOT_CONNECTED" )
+      {
+         //StopTest();
+
+         //l1_state = l1_state_powerdown;
+         //current_l3_state = "Idle";
+
+         CurrentPhoneState = "NOT_CONNECTED";
+
+         TestStartControls.disabled = true;
+         //TestResultsDiv.disabled = true;
+         TestRun.disabled = true;
+         //TestSetup.disabled = true;
+         //TestTypeControl.disabled = true;
+         FrequencyControls.disabled = true;
+
+         phone_state.innerText = "NOT CONNECTED";
+         phone_state.style.backgroundColor = 'red';
+      }
+  }
+}
+
+// Send request
+function SendRequest( Request, ReqString, ReqCount, Frequency )
+{
+   var ServerState = IQXDM2.GetServerState();
+   if (ServerState == SVR_STATE_CONNECTED || ReqCount > 1)
+   {
+      var ReqID = IQXDM2.RequestItem( Request,
+                                    ReqString,
+                                    true,
+                                    TIMEOUT_MS,
+                                    ReqCount,
+                                    Frequency );
+      if (ReqCount > 1)
+      {
+         gRequestIDs[gRequestIDs.length] = ReqID;
+      }
+
+      if (ReqID == 0)
+      {
+         DebugMessageCmd( Txt = "Error scheduling " + Request + " " + ReqString );
+         return;
+      }
+      else
+      {
+         DebugMessageCmd(  Request + " scheduled" );
+      }
+   }
+   else
+   {
+      DebugMessageCmd( "Error scheduling " + Request + " - Invalid State" );
+   }
+}
+
+function GetMeasurementType()
+{
+   return current_measurement_type;
+}
+
+function GetPIDSetupType()
+{
+   if (GetMeasurementType() == measurement_type_rs1) 
+   {
+      return pid_setup_error;
+   }
+
+   if(PidSetupType[0].checked == true )
+   {
+      return pid_setup_manual;
+   }
+   if(PidSetupType[1].checked == true )
+   {
+      return pid_setup_automatic;
+   }
+   if(PidSetupType[2].checked == true )
+   {
+      return pid_setup_platform_only;
+   }
+   if(PidSetupType[3].checked == true )
+   {
+      return pid_setup_frequency_only;
+   }
+}
+
+function GetServiceIdx()
+{
+   if (GetMeasurementType() != measurement_type_rs2 ||
+       GetPIDSetupType() != pid_setup_automatic ||
+       AvailableServices.length < 1 )
+   {
+      return 999;
+   }
+
+   return CurrentServiceIdx;
+}
+
+function GetManualFrameSize()
+{
+   if( FrameSize.value == "0" )
+   {
+      return 0;
+   }
+   if( FrameSize.value == "1" )
+   {
+      return 1;
+   }
+   if( FrameSize.value == "2" )
+   {
+      return 2;
+   }
+   if( FrameSize.value == "3" )
+   {
+      return 3;
+   }
+
+   return 4;
+}
+
+function SetCurrentFrequency()
+{
+   CurrentFrequency = RFFreq.value;
+}
+
+function SelectTestType( measurement_type )
+{
+   TestStatus.innerText = "";
+
+   L1_powerdown();
+   L3_deinit();
+
+   /* Save the current freq and bandwidth */
+   CurrentFrequency = RFFreq.value;
+   CurrentBandwidth = RFBandwidth.value;
+
+   current_measurement_type = measurement_type;
+
+   PopulateResultsTable();
+
+   ClearResults();
+
+   PopulateTestSetup();
+}
+
+function SelectPidSetupType()
+{
+   TestStatus.innerText = "";
+
+   L3_deinit();
+   L1_powerdown();
+   ClearResults();
+
+   var setup_type = GetPIDSetupType();
+   switch( setup_type )
+   {
+      case 0:
+       SelectManualPidSetup();
+       break;
+      case 1:
+       SelectAutomaticPidSetup();
+       break;
+      case 2:
+       SelectMediaPlayerSetup();
+       break;
+      case 3:
+       SelectESGSetup();
+       break;
+   }
+
+   FrequencyControls.disabled = false;
+}
+
+function SelectManualPidSetup()
+{
+   L3_deinit();
+   PopulateManualTable();
+}
+
+function SelectAutomaticPidSetup()
+{
+   L3_deinit();
+   var htmlstr = "";
+   htmlstr += "<input type=\"button\" value=\"Start platform and service discovery\" onclick=\"StartAutomaticPidSetup();\" />";
+   TestRun.innerHTML =  htmlstr;
+}
+
+function SelectMediaPlayerSetup()
+{
+   var htmlstr = "";
+   L3_deinit();
+   htmlstr += "<input type=\"button\" value=\"Start platform discovery\" onclick=\"StartAutomaticPidSetup();\" />";
+   TestRun.innerHTML =  htmlstr;
+}
+
+function SelectESGSetup()
+{
+   var htmlstr = "";
+   L3_deinit();
+   htmlstr += "<input type=\"button\" id=\"StartESGButton\" value=\"Setup phone for ESG operation\" onclick=\"StartESGTest();\" />";
+   TestRun.innerHTML =  htmlstr;
+}
+
+function ResetCounters()
+{
+   TimerStart();
+
+   if( CurrentNumBursts > 0 )
+   {
+      StartNumBursts = CurrentNumBursts;
+      StartNumRs2Decodes = CurrentNumRs2Decodes;
+      StartNumFrameErrors = CurrentNumFrameErrors;
+   }
+   else
+   {
+      StartNumBursts = 0;
+      StartNumRs2Decodes = 0;
+      StartNumFrameErrors = 0;
+   }
+
+   if( GetMeasurementType() == measurement_type_rs2 )
+   {
+      status_mfer_frame_errors.innerText = 0;
+      status_mfer_frame_count.innerText = 0;
+      status_mfer_frame_errors_before_rs2.innerText = 0;
+
+      status_mfer_frame_erasure_rate.innerText = "0.000e+0";
+      status_mfer_result.innerText = "0.000e+0";
+   }
+
+   L1_reset_counters();
+}
+
+function PlatformListTimeout()
+{
+   var htmlstr = "";
+   htmlstr += "Timed out waiting for platform list";
+   htmlstr += "<br><input type=\"button\" value=\"Scan for Platforms\" onclick=\"StartPlatformDiscovery();\" />";
+
+   TestRun.innerHTML  = htmlstr;
+
+   PidSetup.disabled               = false;
+   TestTypeControl.disabled        = false;
+   FrequencyControls.disabled      = false;
+
+   return;
+}
+
+function PlatformAcquisitionTimeout()
+{
+   var htmlstr = "";
+   htmlstr += "Timed out waiting for platform acquisition";
+   htmlstr += "<br><input type=\"button\" value=\"Scan for Platforms\" onclick=\"StartPlatformDiscovery();\" />";
+
+   TestRun.innerHTML = htmlstr;
+
+   PidSetup.disabled               = false;
+   TestTypeControl.disabled        = false;
+   FrequencyControls.disabled      = false;
+
+   return;
+}
+
+function ServiceListTimeout()
+{
+   var htmlstr = "";
+   htmlstr += "Timed out waiting for service list";
+   htmlstr += "<br><input type=\"button\" value=\"Scan for Platforms\" onclick=\"StartPlatformDiscovery();\" />";
+
+   TestRun.innerHTML = htmlstr;
+
+   PidSetup.disabled               = false;
+   TestTypeControl.disabled        = false;
+   FrequencyControls.disabled      = false;
+
+   return;
+}
+
+function StartPlatformDiscovery()
+{
+   TestRun.innerText = "Starting platform discovery";
+   TestStatus.innerText = "";
+
+   /* Make sure the L1 state machine doesn't interfere */
+   l1_active = false;
+
+   AvailablePlatforms = new Array();
+
+   L1_powerdown();
+   L3_restart();
+
+   PidSetup.disabled          = true;
+   TestTypeControl.disabled   = true;
+   FrequencyControls.disabled = true;
+}
+
+function StartServiceDiscovery( platform_idx )
+{
+   var platform_id = AvailablePlatforms[platform_idx].platform_id;
+
+   CurrentPlatformIdx = platform_idx;
+   TestRun.innerText = "Starting service discovery";
+
+   /* Clear any existing services */
+   AvailableServices = new Array();
+
+   L3_SelectPlatform( platform_id );
+
+   current_l3_state = "Waiting for platform acquisition";
+}
+
+function SelectMediaplayerPlatform( platform_idx )
+{
+   CurrentStopTestFunction = StopMediaPlayer;
+
+   var platform_id = AvailablePlatforms[platform_idx].platform_id;
+
+   CurrentPlatformIdx = platform_idx;
+   L3_SelectPlatform( platform_id );
+}
+
+function PopulateDebugTable()
+{
+   var htmlstr = "";
+
+   htmlstr += "<table width=\"800\">";
+   htmlstr += "  <colgroup>";
+   htmlstr += "    <col width=\"100\"><col>";
+   htmlstr += "  </colgroup>";
+   htmlstr += "  <tr><th>Command dispatch</th><td id=\"cmd_txt\">-</td></tr>";
+   htmlstr += "  <tr><th>debug_txt</th><td id=\"debug_txt\">-</td></tr>";
+   htmlstr += "  <tr><th>ProcessItems debug</th><td id=\"ProcessItemsDbg\">-</td></tr>";
+   htmlstr += "  <tr><th>subsys_response_dbg</th><td id=\"subsys_response_dbg\"></td></tr>";
+   htmlstr += "  <tr><th>subsys_request_dbg</th><td id=\"subsys_request_dbg\"></td></tr>";
+   htmlstr += "  <tr><th>event_dbg</th><td id=\"event_dbg\"></td></tr>";
+   htmlstr += "  <tr><th>log_dbg</th><td id=\"log_dbg\"></td></tr>";
+   htmlstr += "  <tr><th>L1 state machine</th><td id=\"l1_state_txt\"></td></tr>";
+   htmlstr += "  <tr><th>L3 state machine</th><td id=\"l3_state_txt\"></td></tr>";
+   htmlstr += "  <tr><th>Error Messages</th><td id=\"error_txt\"></td></tr>";
+   htmlstr += "</table>";
+
+   DebugTable.innerHTML = htmlstr;
+}
+
+function PopulateTestSetup()
+{
+   var htmlstr = "";
+
+   htmlstr += "<table>";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td>";
+
+   htmlstr += "      <table width=\"300\" height=\"30\"border=\"0\" cellpadding=\"2\">";
+   htmlstr += "        <tr>";
+   htmlstr += "          <th width=\"50%\">Phone Status</th><td id=\"phone_state\" width=\"50%\">"+CurrentPhoneState+"</td>";
+   htmlstr += "        </tr>";
+   htmlstr += "      </table>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td>";
+   htmlstr += "      <div id=\"TestTypeControl\">";
+   htmlstr += "      <table width=\"300\">";
+   htmlstr += "        <tr>";
+   htmlstr += "          <th colspan=\"2\">Test Type</th>";
+   htmlstr += "        </tr>";
+   htmlstr += "        <tr>";
+   htmlstr += "          <th>VBER</td>";
+   htmlstr += "          <td><input type=\"radio\" name=\"MeasurementTypeInput\" onclick=\"SelectTestType(measurement_type_rs1);\" /></td>";
+   htmlstr += "        </tr>";
+   htmlstr += "        <tr>";
+   htmlstr += "          <th>MFER</td>";
+   htmlstr += "          <td><input type=\"radio\" name=\"MeasurementTypeInput\" onclick=\"SelectTestType(measurement_type_rs2);\" /></td>";
+   htmlstr += "        </tr>";
+   htmlstr += "      </table>";
+   htmlstr += "      </div>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td>";
+   htmlstr += "      <div id=\"FrequencyControls\">";
+   htmlstr += "        <table width=\"300\">";
+   htmlstr += "          <tr>";
+   htmlstr += "            <th colspan=\"2\">Frequency Setup</th>";
+   htmlstr += "          </tr>";
+   htmlstr += "          <tr>";
+   htmlstr += "            <th>Bandwidth</th>";
+   htmlstr += "            <td>";
+   htmlstr += "              <div id=\"BandwidthControl\">";
+   htmlstr += "                <select id=\"RFBandwidth\">";
+   htmlstr += "                  <option value='8'>8 Mhz</option>";
+   htmlstr += "                  <option value='7'>7 Mhz</option>";
+   htmlstr += "                  <option value='6'>6 Mhz</option>";
+   htmlstr += "                  <option value='5'>5 Mhz</option>";
+   htmlstr += "                </select>";
+   htmlstr += "              </div>";
+   htmlstr += "            </td>";
+   htmlstr += "          </tr>";
+   htmlstr += "          <tr>";
+   htmlstr += "            <th>Frequency (MHz)</th>";
+   htmlstr += "            <td>";
+   htmlstr += "              <input type=\"text\" size=\"8\" id=\"RFFreq\" onclick=\"SetCurrentFrequency();\" />";
+   htmlstr += "            </td>";
+   htmlstr += "          </tr>";
+   htmlstr += "        </table>";
+   htmlstr += "      </div>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   if( GetMeasurementType() == measurement_type_rs2 )
+   {
+    htmlstr += "  <tr>";
+    htmlstr += "    <td>";
+
+    htmlstr += "      <div id=\"PidSetup\">";
+    htmlstr += "      <table width=\"300\">"
+    htmlstr += "        <tr>";
+    htmlstr += "          <th colspan=\"2\">MPE-FEC configuration method</th>";
+    htmlstr += "        </tr>";
+    htmlstr += "        <tr>";
+    htmlstr += "          <th>Manual</th>";    
+    htmlstr += "          <td><input type=\"radio\" name=\"PidSetupType\" onclick=\"SelectPidSetupType();\"/></td>";
+    htmlstr += "        </tr>";
+
+    htmlstr += "        <tr>";
+    htmlstr += "          <th>Select platform and service</th>";    
+    htmlstr += "          <td><input type=\"radio\" name=\"PidSetupType\" onclick=\"SelectPidSetupType();\"/></td>";
+    htmlstr += "        </tr>";
+
+    htmlstr += "        <tr>";
+    htmlstr += "          <th>Select platform and then play SDP in phone</th>";    
+    htmlstr += "          <td><input type=\"radio\" name=\"PidSetupType\" onclick=\"SelectPidSetupType();\"/></td>";
+    htmlstr += "        </tr>";
+
+    htmlstr += "        <tr>";
+    htmlstr += "          <th>Select service in phone</th>";    
+    htmlstr += "          <td><input type=\"radio\" name=\"PidSetupType\" onclick=\"SelectPidSetupType();\"/></td>";
+    htmlstr += "        </tr>";
+
+    htmlstr += "      </table>";
+    htmlstr += "      </div>";
+    htmlstr += "    </td>";
+    htmlstr += "  </tr>";
+   }
+
+   htmlstr += "</table>";
+
+   TestSetup.innerHTML = htmlstr;
+
+   MeasurementTypeInput[current_measurement_type].checked = true;
+
+   /* Set the bandwidth to the current value */
+   RFFreq.value = CurrentFrequency;
+   RFBandwidth.value = CurrentBandwidth;
+
+   /* Set the connected state background */
+   if( CurrentPhoneState == "CONNECTED" )
+   {
+      phone_state.style.backgroundColor = 'green';
+   }
+   else
+   {
+      phone_state.style.backgroundColor = 'red';
+   }
+
+   if( GetMeasurementType() == measurement_type_rs2 )
+   {
+      PidSetupType[0].checked = true;
+      SelectPidSetupType();
+   }
+   else
+   {
+      PopulateVberTest();
+   }
+}
+
+function PopulateResultsTable()
+{
+   var htmlstr = "";
+
+   htmlstr += "<table id=\"TestResults\" width=\"100%\">";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td valign=\"top\">";
+   htmlstr += "      <table width=\"100%\">";
+   htmlstr += "        <tr><td id=\"TestRunningStatus\">Test Stopped</td></tr>";
+   htmlstr += "      </table>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td valign=\"top\">";
+   htmlstr += "      <table width=\"100%\">";
+   htmlstr += "        <tr><th width=\"50%\">Elapsed Time</th><td width=\"50%\" id=\"ElapsedTestTime\" /></tr>";
+   htmlstr += "      </table>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td valign=\"top\">";
+   htmlstr += "      <table id=\"PhyTable\" width=\"100%\">";
+   htmlstr += "        <colgroup>";
+   htmlstr += "          <col width=\"50%\"/><col width=\"50%\"/>";
+   htmlstr += "        </colgroup>";
+   htmlstr += "        <th colspan=\"2\">Physical Layer Parameters</th>";
+   htmlstr += "        <tr><th>FFT</th><td id=\"status_fft_mode\"></td></tr>";
+   htmlstr += "        <tr><th>Guard</th><td id=\"status_guard\"></td></tr>";
+   htmlstr += "        <tr><th>Modulation</th><td id=\"status_modulation\"></td></tr>";
+   htmlstr += "        <tr><th>Code Rate</th><td id=\"status_code_rate\"></td></tr>";
+
+   if( GetMeasurementType() == measurement_type_rs2 )
+   {
+      htmlstr += "          <tr><th>PID</th><td id=\"status_mfer_pid\"></td></tr>";
+      htmlstr += "          <tr><th>Frame size</th><td id=\"status_mfer_frame_size\"></td></tr>";
+      htmlstr += "          <tr><th>Max burst<br>duration (ms)</th><td id=\"status_mfer_max_burst_dur\"></td></tr>";
+   }
+
+   htmlstr += "      </table>   <!-- End of Physical Layer table -->";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   htmlstr += "  <tr>";
+   htmlstr += "    <td valign=\"top\">";
+   htmlstr += "      <table width=\"100%\" border=\"0\" cellpadding=\"0\">";
+   htmlstr += "        <colgroup>";
+   htmlstr += "          <col width=\"50%\"/><col width=\"50%\"/>";
+   htmlstr += "        </colgroup>";
+   htmlstr += "        <th colspan=\"2\">Signal Quality</th>";
+   htmlstr += "        <tr><th>RSSI</th><td id=\"status_rssi\"></td></tr>";
+   htmlstr += "        <tr><th>LNA State</th><td id=\"status_gain_state\"></td></tr>";
+   htmlstr += "      </table>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+
+   if( GetMeasurementType() != measurement_type_rs2 )
+   {
+      htmlstr += "  <tr>";
+      htmlstr += "    <td valign=\"top\">";
+      htmlstr += "      <table width=\"100%\" border=\"0\" cellpadding=\"0\">";
+      htmlstr += "        <colgroup>";
+      htmlstr += "          <col width=\"50%\"/><col width=\"50%\"/>";
+      htmlstr += "        </colgroup>";
+      htmlstr += "        <th colspan=\"2\">Viterbi Decoder Statistics</th>";
+      htmlstr += "        <tr><th>Average VBER</th><td id=\"status_avg_vber\"></td></tr>";
+      htmlstr += "        <tr><th>Instantaneous<br>VBER</th><td id=\"status_inst_vber\"></td></tr>";
+      htmlstr += "      </table>";
+      htmlstr += "    </td>";
+      htmlstr += "  </tr>";
+   }
+
+   if( GetMeasurementType() != measurement_type_rs2 )
+   {
+      htmlstr += "  <tr>";
+      htmlstr += "    <td valign=\"top\">";
+      htmlstr += "      <table width=\"100%\" border=\"0\" cellpadding=\"0\">";
+      htmlstr += "        <colgroup>";
+      htmlstr += "          <col width=\"50%\"/><col width=\"50%\"/>";
+      htmlstr += "        </colgroup>";
+      htmlstr += "        <th colspan=\"2\">RS Statistics</th>";
+      htmlstr += "        <tr><th>RS packets</th><td id=\"status_rs1_pkt_cnt\"></td></tr>";
+      htmlstr += "        <tr><th>RS erroneous<br>packets</th><td id=\"status_rs1_pkt_errors\"></td></tr>";
+      htmlstr += "        <tr><th>RS PER</th><td id=\"status_rs1_per\"></td></tr>";
+      htmlstr += "      </table>";
+      htmlstr += "    </td>";
+      htmlstr += "  </tr>";
+   }
+
+   if( GetMeasurementType() == measurement_type_rs2 )
+   {
+      htmlstr += "  <tr>";
+      htmlstr += "    <td valign=\"top\">";
+      htmlstr += "      <table id=\"MferResults\" width=\"100%\" border=\"0\" cellpadding=\"0\">";
+      htmlstr += "        <colgroup>";
+      htmlstr += "          <col width=\"50%\"/><col width=\"50%\"/>";
+      htmlstr += "        </colgroup>";
+      htmlstr += "        <th colspan=\"2\">MPE-FEC Statistics</th>";
+      htmlstr += "        <tr><th>MPE Frames</th><td id=\"status_mfer_frame_count\"></td></tr>";
+      htmlstr += "        <tr><th>Erroneous Frames<br>before FEC</th><td id=\"status_mfer_frame_errors_before_rs2\"></td></tr>";
+      htmlstr += "        <tr><th>Erroneous Frames<br>after FEC</th><td id=\"status_mfer_frame_errors\"></td></tr>";
+      htmlstr += "        <tr><th>FER</th><td id=\"status_mfer_frame_erasure_rate\"></td></tr>";
+      htmlstr += "        <tr><th>MFER</th><td id=\"status_mfer_result\"></td></tr>";
+      htmlstr += "      </table>";
+      htmlstr += "    </td>";
+      htmlstr += "  </tr>";
+   }
+
+   htmlstr += "</table>";
+
+   ResultsTable.innerHTML = htmlstr;
+}
+
+function PopulateVberTest()
+{
+   var htmlstr = "";
+
+   htmlstr += "<input type=\"button\" id=\"StartVberTestButton\" value=\"Start VBER Test\" onclick=\"StartVberTest();\"/>";
+   htmlstr += "<input id=\"ResetCountersButton\" type=\"button\" value=\"Reset Counters\" onclick=\"ResetCounters();\" />";
+
+   TestRun.innerHTML = htmlstr;
+
+   ResetCountersButton.disabled = true;
+}
+
+function GetFrameSizeText( frame_size )
+{
+   switch( frame_size )
+   {
+      case 0:
+       return "256 rows";
+      case 1:
+       return "512 rows";
+      case 2:
+       return "768 rows";
+      case 3:
+       return "1024 rows";
+      case 4:
+       return "None";
+   }
+}
+
+function PopulateMferServiceSelectTest( SelectedServiceIdx )
+{
+   var Service = AvailableServices[SelectedServiceIdx];
+   var htmlstr = "";
+
+   htmlstr += "<table width=\"100%\">";
+   htmlstr += "  <tr><th>Service Name</th><td>"+Service.service_name+"</td></tr>";
+   htmlstr += "  <tr><th>PID</th><td>"+Service.pid+"</td></tr>";
+   htmlstr += "  <tr><th>Frame Size</th><td>"+GetFrameSizeText( Service.frame_size )+"</td></tr>";
+   htmlstr += "  <tr><th>Max Burst Duration (ms)</th><td>"+Service.burst_length+"</td></tr>";
+   htmlstr += "  <tr><th>Data Rate (kbits/s)</th><td>"+Service.data_rate+"</td></tr>";
+   htmlstr += "</table>";
+
+   htmlstr += "<input type=\"button\" id=\"StartAutoTestButton\" value=\"Start Test\" onclick=\"StartAutomaticTest();\"/>";
+   htmlstr += "<input type=\"button\" id=\"ResetCountersButton\" value=\"Reset Counters\" onclick=\"ResetCounters();\" />";
+   htmlstr += "<input type=\"button\" id=\"SelectAnotherServiceButton\" value=\"Select Another Service\" onclick=\"PopulateServiceTable();\"/>";
+   htmlstr += "<input type=\"button\" id=\"PlatformReselectButton\" value=\"Restart platform and service discovery\" onclick=\"StartAutomaticPidSetup();\" />";
+
+   TestRun.innerHTML = htmlstr;
+
+   ResetCountersButton.disabled = true;
+   StartAutoTestButton.width = 200;
+
+   CurrentServiceIdx = SelectedServiceIdx;
+}
+
+function PopulatePlatformTable()
+{
+   var htmlstr;
+
+   ClearResults();
+
+   if( AvailablePlatforms.length < 1 )
+   {
+      htmlstr  = "No platforms found at "+RFFreq.value+"MHz. Check frequency and bandwidth";
+      htmlstr += "<br><input type=\"button\" value=\"Scan for Platforms\" onclick=\"StartPlatformDiscovery();\" />";
+
+      TestRun.innerHTML = htmlstr;
+
+      PidSetup.disabled               = false;
+      TestTypeControl.disabled        = false;
+      FrequencyControls.disabled      = false;
+
+      return;
+   }
+
+   htmlstr =  "<table width=\"100%\" id=\"PlatformTable\" style=\"border:0\">"
+   htmlstr += "  <tr>"
+   htmlstr += "    <th colspan=\"3\">Platforms</th>";
+   htmlstr += "  </tr>";
+   htmlstr += "  <tr>";
+   htmlstr += "    <th>Platform Name</th>";
+   htmlstr += "    <th>Platform ID</th>";
+   htmlstr += "    <th>Select</th>";
+   htmlstr += "  </tr>";
+
+   for( var i=0; i<AvailablePlatforms.length; i++ )
+   {
+      var PlatformName = AvailablePlatforms[i].platform_name;
+      var PlatformID   = AvailablePlatforms[i].platform_id;
+      var PlatfromID_hex = AvailablePlatforms[i].platform_id.toString(16).toUpperCase();
+
+      htmlstr += "  <tr>";
+      htmlstr += "    <td>"+PlatformName+"</td>";
+      htmlstr += "    <td>"+PlatformID+" / 0x"+PlatfromID_hex+"</td>";
+      htmlstr += "    <td><input type=\"radio\" name=\"platformSelected\" value='"+i+"'";
+
+      if( GetPIDSetupType() == pid_setup_automatic )
+      {
+         htmlstr += "          onclick=\"StartServiceDiscovery(this.value)\" />";
+      }
+      else
+      {
+         htmlstr += "          onclick=\"SelectMediaplayerPlatform( this.value )\" />";
+      }
+
+      htmlstr += "    </td>";
+      htmlstr += "  </tr>";
+   }
+
+   htmlstr += "</table>";
+
+   htmlstr += "<input type=\"button\" value=\"Restart Platform Discovery\" onclick=\"StartPlatformDiscovery();\" />";
+
+   TestRun.innerHTML = htmlstr;
+
+   PidSetup.disabled               = false;
+   TestTypeControl.disabled        = false;
+   FrequencyControls.disabled      = false;
+}
+
+function PopulateServiceTable()
+{
+   var ServiceTableRow;
+   var cell;
+
+   ClearResults();
+
+   if( AvailableServices.length < 1 )
+   {
+      TestRun.innerHtml = "No Services";
+      return;
+   }
+
+   /* Create the table */
+   var htmlstr = "";
+
+   htmlstr += "<div id=\"ServiceTable\">";
+   htmlstr += "<table width=\"100%\" style=\"border:0\">";
+   htmlstr += "  <tr>"
+   htmlstr += "    <th colspan=\"6\">Services ("+AvailablePlatforms[CurrentPlatformIdx].platform_name+")</th>";
+   htmlstr += "  </tr>";
+   htmlstr += "  <tr>";
+   htmlstr += "    <th>Service Name</th>";
+   htmlstr += "    <th>PID</th>";
+   htmlstr += "    <th>Frame Size</th>";
+   htmlstr += "    <th>Max Burst<br>Duration (ms)</th>";
+   htmlstr += "    <th>Data Rate<br>(kbits/s)</th>";
+   htmlstr += "    <th>Select</th>";
+   htmlstr += "  </tr>";
+
+   for( var i=0; i<AvailableServices.length; i++ )
+   {
+      htmlstr += "  <tr>";
+
+      var Service = AvailableServices[i];
+
+      var htmlStr;
+      var selectedStr;
+
+      htmlstr += "<td>"+Service.service_name+"</td>";
+      htmlstr += "<td>"+Service.pid+"</td>";
+      htmlstr += "<td>"+GetFrameSizeText( Service.frame_size )+"</td>";
+      htmlstr += "<td>"+Service.burst_length+"</td>";
+      htmlstr += "<td>"+Service.data_rate+"</td>";
+      htmlstr += "<td><input type=\"radio\" name=\"serviceSelected\" ";
+      htmlstr += "                onclick=\"PopulateMferServiceSelectTest("+i+");\" /></td>";
+
+      htmlstr += "  </tr>";
+   }
+
+   htmlstr += "</table>";
+   htmlstr += "</div>";
+
+   htmlstr += "<input type=\"button\" value=\"Restart platform and service discovery\" onclick=\"StartAutomaticPidSetup();\" />";
+
+   TestRun.innerHTML =  htmlstr;
+
+   ServiceTable.disabled           = false;
+   PidSetup.disabled               = false;
+   TestTypeControl.disabled        = false;
+   FrequencyControls.disabled      = true;
+}
+
+function PopulateManualTable()
+{
+   var htmlstr = "";
+
+   htmlstr += "<div id=\"ManualPidSetup\">";
+   htmlstr += "<table width=\"100%\" style=\"border:0\">";
+   htmlstr += "  <tr>";
+   htmlstr += "    <th colspan=\"2\">Manual PID setup</th>";
+   htmlstr += "  </tr>";
+   htmlstr += "  <tr>";
+   htmlstr += "    <th>PID</th>";
+   htmlstr += "    <td>";
+   htmlstr += "      <input type=\"text\" size=\"8\" id=\"PID\" value=\"2001\"/>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+   htmlstr += "  <tr>";
+   htmlstr += "    <th>MPE-FEC frame size</th>";
+   htmlstr += "    <td>";
+   htmlstr += "      <select id=\"FrameSize\">";
+   htmlstr += "        <option value='0'>256 rows</option>";
+   htmlstr += "        <option value='1' SELECTED>512 rows</option>";
+   htmlstr += "        <option value='2'>768 rows</option>";
+   htmlstr += "        <option value='3'>1024 rows</option>";
+   htmlstr += "        <option value='4'>No MPE-FEC</option>";
+   htmlstr += "      </select>";
+   htmlstr += "    </td>";
+   htmlstr += "  </tr>";
+   htmlstr += "  <tr>";
+   htmlstr += "    <th>Burst Length (ms)</th>";
+   htmlstr += "    <td><input type=\"text\" size=\"8\" id=\"MaxBurstLength\" value=\"500\" /></td>";
+   htmlstr += "  </tr>";
+   htmlstr += "</table>";
+   htmlstr += "</div>";
+   htmlstr += "<br>";
+   htmlstr += "<input type=\"button\" id=\"StartManualTestButton\" value=\"Start Test\" onclick=\"StartManualTest();\" />";
+   htmlstr += "<input id=\"ResetCountersButton\" type=\"button\" value=\"Reset Counters\" onclick=\"ResetCounters();\" />";
+
+   TestRun.innerHTML =  htmlstr;
+}
+
+function ClearServiceTable( )
+{
+   TestRun.innerHtml = "";
+}
+
+function ClearResults()
+{
+   status_rssi.style.backgroundColor = '';
+   status_fft_mode.innerText = "---";
+   status_guard.innerText = "---";
+   status_modulation.innerText = "---";
+   status_code_rate.innerText = "---";
+
+   status_rssi.innerText = "---";
+   status_gain_state.innerText = "---";
+
+   if( GetMeasurementType() == measurement_type_rs1 ) 
+   {
+      status_avg_vber.innerText = "---";
+      status_inst_vber.innerText = "---";
+      status_rs1_pkt_cnt.innerText = "---";
+      status_rs1_pkt_errors.innerText = "---";
+      status_rs1_per.innerText = "---";
+   }
+   else
+   {
+      status_mfer_pid.innerText = "---";
+      status_mfer_frame_size.innerText = "---";
+      status_mfer_max_burst_dur.innerText = "---";
+    
+      status_mfer_frame_count.innerText = "---";
+      status_mfer_frame_errors_before_rs2.innerText = "---";
+      status_mfer_frame_errors.innerText = "---";
+      status_mfer_frame_erasure_rate.innerText = "---";
+      status_mfer_result.innerText = "---";
+   }
+}
+
+function TimerStart()
+{
+   var d = new Date();
+   TestStartTime = d.getTime();
+   TestRunning = true;
+   TestRunningStatus.innerText = "Test Running";
+}
+
+function TimerStop()
+{
+   TestRunning = false;
+   TestRunningStatus.innerText = "Test Stopped";
+}
+
+function TimerGetElapsedTime()
+{
+   if( TestRunning )
+   {
+      var d = new Date();
+      var now = d.getTime();
+      var elapsed_time = now - TestStartTime;
+      var date = new Date(elapsed_time);
+      var timestr = date.toUTCString();
+
+      var split = timestr.split(" ",5);
+      ElapsedTestTime.innerText = split[4];
+   }
+   else
+   {
+      ElapsedTestTime.innerText = "00:00:00";
+   }
+}
+
+function StartManualTest()
+{
+   TestStatus.innerText = "";
+
+   CurrentStopTestFunction = StopManualTest;
+
+   FrequencyControls.disabled = true;
+   TestTypeControl.disabled = true;
+   PidSetup.disabled = true;
+   ResetCountersButton.disabled = false;
+   ManualPidSetup.disabled = true;
+
+   StartManualTestButton.value = "Stop Test";
+   StartManualTestButton.onclick = StopManualTest;
+
+   TestStatus.innerText = "Test started";
+
+   l1_active = true;
+
+   TimerStart();
+   L1_restart();
+}
+
+function StopManualTest()
+{
+   FrequencyControls.disabled = false; 
+   TestTypeControl.disabled = false;
+   PidSetup.disabled = false;
+   ManualPidSetup.disabled = false;
+   ResetCountersButton.disabled = true;
+
+   StartManualTestButton.value = "Start Test";
+   StartManualTestButton.onclick = StartManualTest;
+
+   //TestStatus.innerText = "Test stopped";
+
+   l1_active = false;
+
+   TimerStop();
+   L1_powerdown();
+}
+
+function StartAutomaticPidSetup()
+{
+   FrequencyControls.disabled = true;
+   PidSetup.disabled          = true;
+   TestTypeControl.disabled   = true;
+
+   TestRun.innerText =  "Waiting for platform discovery";
+
+   L3_restart();
+}
+
+function StartAutomaticTest()
+{
+   TestStatus.innerText = "";
+
+   CurrentStopTestFunction = StopAutomaticTest;
+
+   l1_active = true;
+
+   ClearResults();
+   L1_restart();
+   TimerStart();
+
+   PidSetup.disabled = true;
+   TestTypeControl.disabled = true;
+   FrequencyControls.disabled = true;
+
+   ResetCountersButton.disabled = false;
+   SelectAnotherServiceButton.disabled = true;
+   PlatformReselectButton.disabled     = true;
+
+   StartAutoTestButton.value = "Stop Test";
+   StartAutoTestButton.onclick = StopAutomaticTest;
+
+   TestStatus.innerText = "Decoding Service "+AvailableServices[GetServiceIdx()].service_name;
+}
+
+function StopAutomaticTest()
+{
+   l1_active = false;
+
+   PidSetup.disabled                   = false;
+   TestTypeControl.disabled            = false;
+   FrequencyControls.disabled          = false;
+
+   SelectAnotherServiceButton.disabled = false;
+   ResetCountersButton.disabled        = true;
+   PlatformReselectButton.disabled     = false;
+
+   StartAutoTestButton.value = "Start Test";
+   StartAutoTestButton.onclick = StartAutomaticTest;
+
+
+   TestStatus.innerText += ", test stopped";
+
+   L1_powerdown();
+   TimerStop();
+}
+
+function StopMediaPlayer()
+{
+   var htmlstr = "";
+
+   htmlstr += "L3 stopped. Please stop mediaplayer on the phone";
+
+   TestRun.innerHTML =  htmlstr;
+
+   L3_deinit();
+
+   PidSetup.disabled = false;
+   FrequencyControls.disabled = false;
+   TestTypeControl.disabled = false;
+
+   l1_active = false;
+}
+
+function StartVberTest()
+{
+   TestStatus.innerText = "";
+
+   CurrentStopTestFunction = StopVberTest;
+
+   StartVberTestButton.value = "Stop VBER Test";
+   StartVberTestButton.onclick = StopVberTest;
+
+   l1_active = true;
+
+   TimerStart();
+   L1_restart();
+
+   TestTypeControl.disabled     = true;
+   FrequencyControls.disabled   = true;
+   ResetCountersButton.disabled = false;
+
+   TestStatus.innerText = "Test started";
+}
+
+
+function StopVberTest()
+{
+   FrequencyControls.disabled   = false;
+   TestTypeControl.disabled     = false;
+   ResetCountersButton.disabled = true;
+
+   StartVberTestButton.value = "Start VBER Test";
+   StartVberTestButton.onclick = StartVberTest;
+
+   TimerStop();
+   L1_powerdown();
+
+   TestStatus.innerText += ". Test Stopped";
+}
+
+function StartESGTest()
+{
+   var htmlstr = "";
+
+   TestStatus.innerText = "";
+
+   CurrentStopTestFunction = StopESGTest;
+
+   htmlstr += "Phone is setup for ESG. Please start ESG on the phone";
+
+   htmlstr += "<br><input type=\"button\" id=\"ResetCountersButton\" value=\"Reset Counters\" onclick=\"ResetCounters();\" />";
+   htmlstr += "<br><input type=\"button\" id=\"StartESGButton\" value=\"Stop Test\" onclick=\"StopESGTest();\" />";
+
+   TestRun.innerHTML =  htmlstr;
+
+   TestTypeControl.disabled     = true;
+   FrequencyControls.disabled   = true;
+   PidSetup.disabled            = true;
+
+   l1_active = false;
+
+   L3_restart();
+}
+
+function StopESGTest()
+{
+   TestTypeControl.disabled     = false;
+   FrequencyControls.disabled   = false;
+   PidSetup.disabled            = false;
+
+   l3_active = true;
+   l1_active = true;
+
+   SelectESGSetup();
+}
+
+function StopTest()
+{
+   if( CurrentStopTestFunction )
+   {
+      CurrentStopTestFunction();
+   }
+}
+
+function L1_StateMachine( )
+{
+   if( !l1_active )
+   {
+      DebugMessageL1State( "L1 state machine inactive" );
+      return;
+   }
+
+   switch( l1_state )
+   {
+      case l1_state_powerdown :
+       DebugMessageL1State( "Power down" );
+
+       remaining_l1_ticks = l1_state_timeout;
+
+       if( l1_restart_flag )
+       {
+         l1_restart_flag = false;
+         L1_powerup();
+       }
+       break;
+
+      case l1_state_powering_up :
+       DebugMessageL1State( "Powering up" );
+       remaining_l1_ticks--;
+       break;
+
+      case l1_state_powered_up :
+       DebugMessageL1State( "Powered up" );
+
+       /* Clear the stored MPE-FEC counters */
+       StartNumBursts        = 0;
+       StartNumRs2Decodes    = 0;
+       StartNumFrameErrors   = 0;
+
+       L1_acquire();
+       l1_state = l1_state_acquiring;
+       remaining_l1_ticks = l1_state_timeout;
+
+       break;
+
+      case l1_state_acquiring :
+       DebugMessageL1State( "Acquiring" );
+       remaining_l1_ticks--;
+
+       acquiredStatus = false;
+
+       if( !remaining_l1_ticks )
+       {
+         TestStatus.innerText += " - Could not acquire on " + RFFreq.value + "MHz";
+         // Call the generic stop test function
+         StopTest();
+       }
+       break;
+
+      case l1_state_acquired :
+       DebugMessageL1State( "Acquired" );
+       remaining_l1_ticks = l1_state_timeout;
+
+       if( !acquiredStatus )
+       {
+         L1_reset_counters();
+         TestStatus.innerText += ", acquired on " + RFFreq.value + "MHz";
+         acquiredStatus = true;
+       }
+
+       if( GetPIDSetupType() == pid_setup_manual ||
+           ( GetPIDSetupType() == pid_setup_automatic &&
+             GetServiceIdx() != 999 ) )
+       {
+         L1_add_pid();
+       }
+       break;
+
+      case l1_state_adding_pid :
+       DebugMessageL1State( "Waiting for PID decode" );
+       remaining_l1_ticks--;
+       decodingPidStatus = false;
+
+       if( !remaining_l1_ticks )
+       {
+         TestStatus.innerText += ", could not decode PID " + CurrentPID;
+
+         if( GetPIDSetupType() == pid_setup_automatic )
+         {
+           StopAutomaticTest();
+         }
+         else if ( GetPIDSetupType() == pid_setup_manual ) 
+         {
+           StopManualTest();
+         }
+       }
+       break;
+
+      case l1_state_decoding :
+       DebugMessageL1State( "Decoding PID" );
+       remaining_l1_ticks = l1_state_timeout;
+
+       if( !decodingPidStatus )
+       {
+         TestStatus.innerText += ", decoding PID " + CurrentPID;
+         decodingPidStatus = true;
+       }
+       break;
+
+      case l1_state_powering_down:
+       DebugMessageL1State( "Powering down" );
+       remaining_l1_ticks--;
+       break;
+   }
+}
+
+function L1_restart()
+{
+   l1_restart_flag = true;
+   L1_powerdown();
+}
+
+function L1_diag_cmd( cmd_id, params )
+{
+   var cmd_str = cmd_id + " " + params;
+   DebugMessageDebug( cmd_str );
+   SendRequest( DTV_L1_CMD, cmd_str, 1, 1 );
+}
+
+function L1_powerup()
+{
+   // Set the L1/L3 state
+   L1_set_cfg_item( 7, 1 );
+
+   L1_diag_cmd( UBM_L1_POWERUP_CMD, "" );
+   l1_state = l1_state_powering_up;
+}
+
+function L1_powerdown()
+{
+   // Set the L1/L3 state
+   L1_set_cfg_item( 7, 0 );
+
+   L1_diag_cmd( UBM_L1_POWERDOWN_CMD, "" );
+   l1_state = l1_state_powerdown;
+}
+
+function L1_acquire( )
+{
+   if( isNaN(RFFreq.value) )
+   {
+      DebugMessageError( "Bad RF frequency" );
+      return;
+   }
+
+   var Freq = RFFreq.value * 1e5;
+   CurrentFrequency = RFFreq.value;
+
+   var acq_str = "255 255 " + Freq + " " + RFBandwidth.value + " 1";
+   L1_diag_cmd( UBM_L1_ACQ_CMD, acq_str );
+}
+
+function L1_set_cfg_item( CfgItem, Val )
+{
+   var cmd_str = "0 " + CfgItem + " " + Val;
+   L1_diag_cmd( UBM_L1_CFG_ITEM, cmd_str);
+}
+
+function L1_reset_counters()
+{
+   L1_diag_cmd( UBM_L1_RESET_COUNTERS_CMD, "" );
+}
+
+function L1_add_pid()
+{
+   if( GetPIDSetupType() == pid_setup_manual )
+   {
+      // Manual mode
+      CurrentPID = PID.value;
+      var frame_size = GetManualFrameSize();
+      var max_burst_dur = MaxBurstLength.value;
+   }
+   else
+   {
+      var ServiceIdx = GetServiceIdx();
+      if( ServiceIdx == 999 )
+      {
+      return;
+      }
+
+      var Service = AvailableServices[ServiceIdx];
+
+      CurrentPID = Service.pid;
+      var frame_size = Service.frame_size;
+      var max_burst_dur = Service.burst_length;
+   }
+
+   // Send the decode PID command
+   var cmd_str = CurrentPID + " 0 " + frame_size + " 1 " + max_burst_dur;
+   L1_diag_cmd( UBM_L1_CFG_DATA_PID_CMD, cmd_str );
+
+   l1_state = l1_state_adding_pid;
+}
+
+function L3_diag_cmd( cmd_id, params )
+{
+   var cmd_str = cmd_id + " " + params;
+
+   DebugMessageDebug( cmd_str );
+   SendRequest( DTV_L3_CMD, cmd_str, 1, 1 );
+}
+
+function L3_restart()
+{
+   l3_restart_flag = true;
+   L3_deinit();
+}
+
+function L3_init()
+{
+   var str = "2";
+
+   // Make sure L3/L1 interface is OK
+   L1_set_cfg_item( 7, 0 );
+
+   current_l3_state = "Init sent";
+
+   L3_diag_cmd( DTVDIAG_API_DVBH_INIT, str );
+
+   // Make sure the L1 state machine is inactive
+   l1_active = false;
+}
+
+function L3_deinit( )
+{
+   current_l3_state = "Deinit";
+
+   if( current_l3_state != "Idle" )
+   {
+      L3_diag_cmd( DTVDIAG_API_DVBH_DEINIT, "" );
+   }
+}
+
+function L3_frequency_override( )
+{
+   var Freq = RFFreq.value * 1e5;
+   CurrentFrequency = RFFreq.value;
+
+   var str = Freq + " " + (RFBandwidth.value - 5);
+   L3_diag_cmd( DTVDIAG_API_DVBH_OVERRIDE_NV_FREQ_CONFIG, str );
+}
+
+function L3_SelectPlatform( platform_id )
+{
+   var str = " " + platform_id;
+   L3_diag_cmd( DTVDIAG_API_DVBH_SEL_PLATFORM, str ); 
+}
+
+function L3_get_platform_list( )
+{
+   current_l3_state = "Waiting for platform list";
+   L3_diag_cmd( DTVDIAG_API_DVBH_GET_PLATFORM_LIST_INFO, "" );
+}
+
+function L3_get_service_list( )
+{
+   L3_diag_cmd( DTVDIAG_API_DVBH_GET_MPE_SERVICE_INFO, "" );
+}
+
+function L3_StateMachine()
+{
+   if( !l3_active )
+   {
+    DebugMessageL3State( "L3 state machine inactive");
+    return;
+   }
+
+   DebugMessageL3State( current_l3_state );
+
+   switch( current_l3_state )
+   {
+      case "Idle":
+       remaining_l3_ticks = l3_state_timeout;
+       if( l3_restart_flag )
+       {
+         l3_restart_flag = false;
+         L3_init();
+       }
+       break;
+
+      case "Init sent":
+       remaining_l3_ticks--;
+       break;
+
+      case "Inited":
+       /* Send the frequency override command */
+       L3_frequency_override();
+       current_l3_state = "Frequency override sent";
+       remaining_l3_ticks = l3_state_timeout;
+       break;
+
+      case "Frequency override sent":
+       remaining_l3_ticks = l3_state_timeout;
+
+       if( GetPIDSetupType() == pid_setup_automatic ||
+           GetPIDSetupType() == pid_setup_platform_only )
+       {
+         L3_get_platform_list();
+       }
+       else if( GetPIDSetupType() == pid_setup_frequency_only )
+       {
+         L3_deinit();
+         l3_active = false;
+       }
+       break;
+
+      case "Waiting for platform list":
+       remaining_l3_ticks--;
+       break;
+
+      case "Platform List received":
+       remaining_l3_ticks = l3_state_timeout;
+       /* Wait here for user to select platform */
+       break;
+
+      case "Waiting for platform acquisition":
+       remaining_l3_ticks--;
+       break;
+
+      case "Platform Acquired":
+       remaining_l3_ticks = l3_state_timeout;
+
+       if( GetPIDSetupType() == pid_setup_automatic )
+       {
+         L3_get_service_list();
+         current_l3_state = "Waiting for service list";
+       }
+       break;
+
+      case "Waiting for service list":
+       remaining_l3_ticks--;
+       break;
+
+      case "Service List Received":
+       remaining_l3_ticks = l3_state_timeout;
+       L3_deinit();
+       break;
+
+      case "Deinit":
+       remaining_l3_ticks--;
+       /* Should go back to idle */
+       break;
+      }
+
+      if( !remaining_l3_ticks )
+      {
+         if( current_l3_state == "Waiting for platform list" )
+         {
+            PlatformListTimeout();
+         }
+         if( current_l3_state == "Waiting for platform acquisition" )
+         {
+            PlatformAcquisitionTimeout();
+         }
+         if( current_l3_state == "Waiting for service list" )
+         {
+            ServiceListTimeout();
+         }
+
+         L3_deinit();
+         remaining_l3_ticks = l3_state_timeout;
+      }
+}
+
+function ProcessItems( )
+{
+   var latestItem = IQXDM2.GetClientItemCount( Handle );
+
+   // Check that if the item store has been reset
+   if( latestItem < lastItemProcessed )
+   {
+      lastItemProcessed = -1;
+   }
+
+   // Update the connection state
+   GetConnectedState();
+
+   // Retrieve all the items into the local array
+   for (var i = lastItemProcessed+1; i < latestItem; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+
+      if( Item == null )
+        continue;
+
+      TimerGetElapsedTime();
+
+      switch( Item.GetItemType() )
+      {
+         case 4:
+            ProcessEvents( Item );
+            break;
+         case 5:
+            ProcessLogs( Item );
+            break;
+         case 6:
+            ProcessMessages( Item );
+            break;
+         case 7:
+            ProcessStrings( Item );
+            break;
+         case 8:
+            //OTA logs are ignored
+            break;
+         case 9:
+            ProcessSubsystemResponses( Item );
+            break;
+         case 10:
+            ProcessSubsystemRequests( Item );
+            break;
+         default:
+            DebugMessageProcessItems( "Cannot handle type " + Item.GetItemType() );
+            break;
+      }
+
+      lastItemProcessed++;
+   }
+
+   // Run the L1 state machine
+   L1_StateMachine();
+
+   // Run the L3 state machine
+   L3_StateMachine();
+}
+
+function ProcessEvents( Item )
+{
+   DebugMessageEvent( "Processing event " + Item.GetItemName() );
+
+   Fields = Item.GetItemFields();
+
+   switch( Item.GetItemName() )
+   {
+      case "EVENT_DTV_L1_ACQ_DONE":
+       if( Fields.GetFieldValue(1) == 1 && l1_active )
+       {
+         l1_state = l1_state_acquired;
+         DebugMessageEvent( "Acquired" );
+       }
+       break;
+      case "EVENT_DTV_L1_SCAN":
+       break;
+      case "EVENT_DTV_L1_ONLINE":
+       break;
+      case "EVENT_DTV_L1_SNOOZE":
+       break;
+      case "EVENT_DTV_L1_SLEEP":
+       break;
+      case "EVENT_DTV_L1_HANDOFF":
+       break;
+
+      case "EVENT_DTV_DVBH_INIT_SUCCESS":
+       current_l3_state = "Inited";
+       break;
+
+      case "EVENT_DTV_DVBH_INIT_FAILURE":
+       DebugMessageError( "Init failure" );
+       if( l3_active )
+       {
+         L3_deinit();
+       }
+       break;
+
+      case "EVENT_DTV_DVBH_DEINIT_SUCCESS":
+       current_l3_state = "Idle";
+       break;
+
+      case "EVENT_DTV_DVBH_DEINIT_FAILURE":
+       DebugMessageError( "De-init failure" );
+       if( l3_active )
+       {
+         L3_deinit();
+       }
+       break;
+
+      case "EVENT_DTV_DVBH_PLTFM_ACQ_SUCCESS":
+       current_l3_state = "Platform Acquired";
+       if( l3_active )
+       {
+         PlatformAcquiredSuccess();
+       }
+       break;
+
+      case "EVENT_DTV_TABLE_ACQ_SUCCESS":
+       break;
+
+      case "EVENT_DTV_TABLE_ACQ_FAIL":
+       DebugMessageError( "Table acquisition failed" );
+       
+       if( GetMeasurementType() == measurement_type_rs2 &&
+           GetPIDSetupType() == pid_setup_automatic &&
+           l3_active )
+       {
+         var htmlstr = "";
+
+         htmlstr += "Table acquisition failed";
+         htmlstr += "<input type=\"button\" value=\"Restart platform and service discovery\" onclick=\"StartAutomaticPidSetup();\" />";
+
+         TestRun.innerHTML = htmlstr;
+       }
+       if( l3_active )
+       {
+         L3_deinit();
+       }
+       break;
+   }
+}
+
+function PlatformAcquiredSuccess()
+{
+   if( GetPIDSetupType() == pid_setup_platform_only )
+   {
+      var htmlstr = "";
+      var platform_name = AvailablePlatforms[CurrentPlatformIdx].platform_name;
+
+      htmlstr += "Platform "+platform_name+" acquired";
+      htmlstr += "<br>Please start MediaPlayer on the phone and choose .sdp file";
+      htmlstr += "<br><input type=\"button\" id=\"ResetCountersButton\" value=\"Reset Counters\" onclick=\"ResetCounters();\" />";
+      htmlstr += "<br><input type=\"button\" value=\"Stop Test\" onclick=\"StopMediaPlayer();\" />";
+
+      TestRun.innerHTML = htmlstr;
+   }
+}
+
+// Process outgoing commands
+function ProcessSubsystemRequests( Item )
+{
+   var Fields = Item.GetItemFields();
+   DebugMessageSubsysRequest( "Processing subsystem request" );
+}
+
+// Process response/state string client
+function ProcessSubsystemResponses( ClientIdx )
+{
+   DebugMessageSubsysResponse( "Processing subsystem Response" );  
+}
+
+// Process response/state string client
+function ProcessStrings( Item )
+{
+   // Check for a state notification
+   var ItemKey = Item.GetItemKeyText();
+
+   if (ItemKey == STATE)
+   {
+    GetConnectedState();
+   }
+
+   DebugMessageDebug( "Processing string " + Item.GetItemType() );
+}
+
+function ProcessMessages( Item )
+{
+   DebugMessageDebug( "Processing message " + Item.GetItemType() );
+
+   if( Item.GetItemType() != 6 )
+   {
+    return;
+   }
+
+   var Fields = Item.GetItemFields();
+   var str = Fields.GetFieldValue(8);
+
+   if( str == "POWERUP DONE" )
+   {
+      l1_state = l1_state_powered_up;
+   }
+   if( str == "POWERDOWN DONE" )
+   {
+      l1_state = l1_state_powerdown;
+   }
+
+   var test_str = "Removing Data PID " + CurrentPID;
+   if( str == test_str )
+   {
+      l1_state = l1_state_pid_removed;
+   }
+}
+
+function ProcessLogs( Item )
+{
+   DebugMessageLog( "Processing log " + Item.GetItemName() );
+
+   if( Item == null || Item.GetItemType() != 5 )
+   {
+      // Not a log item
+      return;
+   }
+
+   var Fields = Item.GetItemFields();
+
+   if( Fields == null )
+   {
+      // Error
+      return;
+   }
+
+   var ItemKey = Item.GetItemKeyText();
+
+   if( ItemKey == "[0xA305]" ||
+      ItemKey == "[0xA306]" )
+   {
+      ProcessL1LogItem( Item );
+   }
+   else
+   {
+      ProcessL3LogItem( Item );
+   }
+}
+
+function ProcessL3LogItem( Item )
+{
+   var ItemKey = Item.GetItemKeyText();
+
+   if( ItemKey == "[0xA121]" )
+   {
+      ProcessServicesLog( Item );
+   }
+   else if( ItemKey == "[0xA122]" )
+   {
+      ProcessPlatformList( Item );
+   }
+}
+
+function ProcessServicesLog( Item )
+{
+   var Fields = Item.GetItemFields();
+
+   var numServices = Fields.GetFieldValue(1);
+
+   current_l3_state = "Service List Received";
+
+   var currentField = 2;
+
+   for( var i=0; i<numServices; i++ )
+   {
+      var serviceId     = Fields.GetFieldValue(currentField++);
+      var compTag       = Fields.GetFieldValue(currentField++);
+      var dataPID       = Fields.GetFieldValue(currentField++);
+      var timeSliceInfo = Fields.GetFieldValue(currentField++);
+      var maxBurstDur   = Fields.GetFieldValue(currentField++);
+      var AvgBitRate    = Fields.GetFieldValue(currentField++);
+      var SvcNameLen    = Fields.GetFieldValue(currentField++);
+      var SvcName       = "";
+      var timeSliceUsed = false;
+      var MpeFecUsed    = 0;
+      var frameSize;
+
+      for( var j=0; j<SvcNameLen; j++ )
+      {
+      SvcName += Fields.GetFieldValue(currentField++);
+      }
+
+      if( SvcName.length < 1 )
+      { 
+      SvcName = "Svc " + (i + 1);
+      }
+
+      if( timeSliceInfo & 0x1 )
+      {
+      timeSliceUsed = true; 
+      }
+      if( timeSliceInfo & 0x2 )
+      {
+      MpeFecUsed = 1;
+      }
+      if( MpeFecUsed )
+      {
+      frameSize = (timeSliceInfo & 0xC) >> 2;
+      }
+      else
+      {
+      frameSize = 4;
+      }
+
+  /* timeSliceInfo represents the following three fields
+   * BIT  - 0   represents timeSliceUsed (1 if time slicing is used)
+   * BIT  - 1   represents mpeFecUsed (1 if MPE FEC is used)
+   * BITS - 2,3 represents the frameSize (0 corresponds to 256 rows,
+                                          1 corresponds to 512 rows,
+                                          2 corresponds to 768 rows,
+                                          3 corresponds to 1024 rows) */
+
+      AvailableServices[i] = new Service( PlatformID,
+                                        PlatformName,
+                                        serviceId,
+                                        SvcName,
+                                        dataPID,
+                                        frameSize,
+                                        maxBurstDur,
+                                        AvgBitRate,
+                                        MpeFecUsed );
+   }
+
+   PopulateServiceTable();
+}
+
+function ProcessPlatformList( Item )
+{
+   var Fields = Item.GetItemFields();
+   var idx = 1;
+   var new_platform;
+
+   var numPlatforms = Fields.GetFieldValue(idx++);
+
+   AvailablePlatforms = new Array();
+
+   for ( var plat_idx = 0; plat_idx < numPlatforms; plat_idx++)
+   {
+      PlatformID =  Fields.GetFieldValue(idx++);
+      var DataLength = Fields.GetFieldValue(idx++);
+
+      var Lang = "";
+      var PlatformName = "";
+
+      for( var i=0;i<3;i++)
+      {
+         Lang += Fields.GetFieldValue(idx++);
+      }
+
+      /* Next byte is the platform name length */
+      var NameLength = Fields.GetFieldValue(idx++);
+
+      for( var i=0; i<NameLength; i++ )
+      {
+         PlatformName += Fields.GetFieldValue(idx++);
+      }
+
+      /* Check that this platform is not already in the available platforms list */
+      new_platform = true;
+
+      for( var i=0; i < AvailablePlatforms.length; i++)
+      {
+         if( AvailablePlatforms[i].platform_id == PlatformID )
+         {
+            new_platform = false;
+         }
+      }
+
+      if( new_platform )
+      {
+         AvailablePlatforms[AvailablePlatforms.length] = new Platform( PlatformID, PlatformName );  
+      }
+   }
+
+   if( AvailablePlatforms.length > 0 )
+   {
+      current_l3_state = "Platform List received";
+   }
+   else
+   {
+      L3_deinit();
+   }
+
+   PopulatePlatformTable();
+}
+
+function ProcessL1LogItem( Item )
+{
+   var Fields = Item.GetItemFields();
+
+   var num_pkts_supported      = l1_sub_packets.length;
+
+   var offset = 0;
+
+   // Put the offset at the beginning of the first subpacket
+   var ver             = Fields.GetFieldValue( offset++ );
+   var num_subpackets  = Fields.GetFieldValue( offset++ );
+   var reserved        = Fields.GetFieldValue( offset++ );
+   
+   for( var num_pkts_found=0; num_pkts_found < num_subpackets; num_pkts_found++ )
+   {
+      var current_sub_pkt_id = Fields.GetFieldValue(offset); 
+
+      for( var sub_pkt_id=0; sub_pkt_id < num_pkts_supported; sub_pkt_id++ )
+      {
+         if( current_sub_pkt_id == sub_pkt_id &&
+             sub_pkt_id < l1_sub_packets.length )
+         {
+            // We have found a match
+            sub_packet_length = l1_sub_packets[sub_pkt_id].ProcessFunction( Item, offset );
+
+            if( sub_packet_length > 0 )
+            {
+             // Put the offset to the beginning of the next sub packet
+             offset += sub_packet_length;
+            }
+         }
+      }
+   }
+}
+
+function ProcessUnsupportedSubpacket( Item, Offset )
+{
+   // To Do ?
+}
+
+function ProcessMpeFecMeas( Item, Offset )
+{
+   var Fields = Item.GetItemFields();
+   var ElapsedTime = 0;
+   var offset_ptr = Offset;
+
+   var id                      = Fields.GetFieldValue( offset_ptr++ );
+   var ver                     = Fields.GetFieldValue( offset_ptr++ );
+   var tech                    = Fields.GetFieldValue( offset_ptr++ );
+   var size                    = Fields.GetFieldValue( offset_ptr++ );
+   var pid                     = Fields.GetFieldValue( offset_ptr++ );
+
+   if( ver == 2 )
+   {
+      var max_burst_dur_ms      = Fields.GetFieldValue( offset_ptr++ );
+      var frame_size            = Fields.GetFieldValue( offset_ptr++ );
+      var reserved              = Fields.GetFieldValue( offset_ptr++ );
+      var reserved1             = Fields.GetFieldValue( offset_ptr++ );
+   }
+   else
+   {
+      var reserved             = Fields.GetFieldValue( offset_ptr++ );
+   }
+
+   var data_size               = Fields.GetFieldValue( offset_ptr++ );
+   var num_bursts              = Fields.GetFieldValue( offset_ptr++ );
+   var num_rs2_decodes         = Fields.GetFieldValue( offset_ptr++ );
+   var num_frame_errors        = Fields.GetFieldValue( offset_ptr++ );
+   var num_rs2_rows            = Fields.GetFieldValue( offset_ptr++ );
+   var num_timeouts            = Fields.GetFieldValue( offset_ptr++ );
+   var num_early_term          = Fields.GetFieldValue( offset_ptr++ );
+   var num_twr_frame_overwrite = Fields.GetFieldValue( offset_ptr++ );
+   var deltat_avg              = Fields.GetFieldValue( offset_ptr++ );
+   var deltat_total_cnt        = Fields.GetFieldValue( offset_ptr++ );
+   var deltat_cnt              = Fields.GetFieldValue( offset_ptr++ );
+   var burst_start_cx1         = Fields.GetFieldValue( offset_ptr++ );
+   var burst_end_cx1           = Fields.GetFieldValue( offset_ptr++ );
+   var rs2_start_cx1           = Fields.GetFieldValue( offset_ptr++ );
+   var rs2_end_cx1             = Fields.GetFieldValue( offset_ptr++ );
+   var burst_next_cx1          = Fields.GetFieldValue( offset_ptr++ );
+   var ptr_latency_sclk        = Fields.GetFieldValue( offset_ptr++ );
+   var ptr_read_dur_sclk       = Fields.GetFieldValue( offset_ptr++ );
+   var data_latency_sclk       = Fields.GetFieldValue( offset_ptr++ );
+   var data_read_dur_sclk      = Fields.GetFieldValue( offset_ptr++ );
+
+   if( GetMeasurementType() != measurement_type_rs2 )
+   {
+      return( offset_ptr - Offset );
+   }
+
+   if( ver == 2 )
+   {
+      status_mfer_frame_size.innerText    = GetFrameSizeText( frame_size ); 
+      status_mfer_max_burst_dur.innerText = max_burst_dur_ms;
+   }
+
+   CurrentNumBursts = num_bursts;
+   CurrentNumRs2Decodes = num_rs2_decodes;
+   CurrentNumFrameErrors = num_frame_errors;
+
+   num_bursts -= StartNumBursts;
+   num_rs2_decodes -= StartNumRs2Decodes;
+   num_frame_errors -= StartNumFrameErrors;
+
+   l1_state = l1_state_decoding;
+
+   status_mfer_pid.innerText = pid;
+   status_mfer_frame_errors.innerText = num_frame_errors;
+   status_mfer_frame_count.innerText = num_bursts;
+   status_mfer_frame_errors_before_rs2.innerText = num_rs2_decodes;
+
+   var frame_erasure_rate = num_rs2_decodes / num_bursts;
+   var mfer = num_frame_errors / num_bursts;
+
+   status_mfer_frame_erasure_rate.innerText = frame_erasure_rate.toExponential(3);
+   status_mfer_result.innerText = mfer.toExponential(3);
+
+   // Make sure the l1 ticks are reset to avoid timeout
+   remaining_l1_ticks = l1_state_timeout;
+
+   return( offset_ptr - Offset );
+}
+
+function ProcessSignalQuality( Item, Offset )
+{
+   var Fields = Item.GetItemFields();
+
+   var offset_ptr = Offset;
+
+   var id                      = Fields.GetFieldValue( offset_ptr++ );
+   var ver                     = Fields.GetFieldValue( offset_ptr++ );
+   var tech                    = Fields.GetFieldValue( offset_ptr++ );
+   var size                    = Fields.GetFieldValue( offset_ptr++ );
+
+   var corr_snr_db             = Fields.GetFieldValue( offset_ptr++ ) / 64;
+   var min_req_input_pwr_db    = Fields.GetFieldValue( offset_ptr++ ) / 256;
+   var avg_input_pwr_db        = Fields.GetFieldValue( offset_ptr++ ) / 64;
+   var lna_state               = Fields.GetFieldValue( offset_ptr++ );
+   var reserved                = Fields.GetFieldValue( offset_ptr++ );
+
+   status_rssi.innerText       = avg_input_pwr_db.toFixed(3);
+   status_gain_state.innerText = lna_state;
+
+   if( avg_input_pwr_db > -90 )
+   {
+      status_rssi.style.backgroundColor = '';
+   }
+   else if ( avg_input_pwr_db < -95 ) 
+   {
+      status_rssi.style.backgroundColor = 'red';
+   }
+   else
+   {
+      status_rssi.style.backgroundColor = 'yellow';
+   }
+
+   return( offset_ptr - Offset );
+}
+
+function ProcessTrackingLoop( Item, Offset )
+{
+   var Fields = Item.GetItemFields();
+
+   var offset_ptr = Offset;
+
+   var id               = Fields.GetFieldValue( offset_ptr++ );
+   var ver              = Fields.GetFieldValue( offset_ptr++ );
+   var tech             = Fields.GetFieldValue( offset_ptr++ );
+   var size             = Fields.GetFieldValue( offset_ptr++ );
+
+   var freq_track_mode  = Fields.GetFieldValueText( offset_ptr++ );
+   var reserved         = Fields.GetFieldValue( offset_ptr++ );
+   var freq_offset      = Fields.GetFieldValue( offset_ptr++ );
+   var pdm_val          = Fields.GetFieldValue( offset_ptr++ );
+   var fap              = Fields.GetFieldValue( offset_ptr++ );
+   var lap              = Fields.GetFieldValue( offset_ptr++ );
+   var adv_ret_acc      = Fields.GetFieldValue( offset_ptr++ );
+   var adv_ret_acc_cont = Fields.GetFieldValue( offset_ptr++ );
+   var dc_off_coarse_i  = Fields.GetFieldValueText( offset_ptr++ );
+   var dc_off_coarse_q  = Fields.GetFieldValueText( offset_ptr++ );
+   var dc_off_fine_i    = Fields.GetFieldValueText( offset_ptr++ );
+   var dc_off_fine_q    = Fields.GetFieldValueText( offset_ptr++ );
+
+   if( freq_track_mode == "NO TRACKING" )
+   {
+      pdm_val = "-";
+   }
+
+   DebugMessageLog( "Processing Tracking Loop ");
+   return( offset_ptr - Offset );
+}
+
+function ProcessStatus( Item, Offset )
+{
+   var Fields = Item.GetItemFields();
+
+   var offset_ptr = Offset;
+
+   var id               = Fields.GetFieldValue( offset_ptr++ );
+   var ver              = Fields.GetFieldValue( offset_ptr++ );
+   var tech             = Fields.GetFieldValue( offset_ptr++ );
+   var size             = Fields.GetFieldValue( offset_ptr++ );
+
+   var ref_cnt          = Fields.GetFieldValue( offset_ptr++ );
+   var rvser            = Fields.GetFieldValue( offset_ptr++ );
+   var cr_rvpkt_cnt     = Fields.GetFieldValue( offset_ptr++ );
+   var pkt_cnt          = Fields.GetFieldValue( offset_ptr++ );
+   var trash_cnt        = Fields.GetFieldValue( offset_ptr++ );
+
+   if( ver == 2 )
+   {
+      var avg_vber       = Fields.GetFieldValue( offset_ptr++ );
+      var inst_vber      = Fields.GetFieldValue( offset_ptr++ );
+   }
+
+   if( GetMeasurementType() == measurement_type_rs2 )
+   {
+      /* Skip processing this log packet in MFER test */
+      return( offset_ptr - Offset );
+   }
+
+   status_rs1_pkt_cnt.innerText = pkt_cnt;
+   status_rs1_pkt_errors.innerText = trash_cnt;
+
+   var rs1_per = trash_cnt / pkt_cnt;
+
+   if( !isNaN(rs1_per ) )
+   {
+      status_rs1_per.innerText = rs1_per.toExponential(3);
+   }
+
+   if( ver == 2 )
+   {
+      avg_vber /= 4294967296;
+      if( avg_vber < 1e-7 )
+      {
+        status_avg_vber.innerText = "< 1e-7 ";
+      }
+      else
+      {
+        status_avg_vber.innerText = avg_vber.toExponential(4);
+      }
+
+      inst_vber /= 4294967296;
+      if( inst_vber < 1e-7 )
+      {
+         status_inst_vber.innerText = "< 1e-7 ";
+      }
+      else
+      {
+         status_inst_vber.innerText = inst_vber.toExponential(4);
+      }
+   }
+
+   return( offset_ptr - Offset );
+}
+
+function ProcessMeasInfo( Item, Offset )
+{
+   var Fields = Item.GetItemFields();
+
+   var offset_ptr = Offset;
+
+   var id               = Fields.GetFieldValue( offset_ptr++ );
+   var ver              = Fields.GetFieldValue( offset_ptr++ );
+   var tech             = Fields.GetFieldValue( offset_ptr++ );
+   var size             = Fields.GetFieldValue( offset_ptr++ );
+
+   var uts_id           = Fields.GetFieldValue( offset_ptr++ );
+   var frequency        = Fields.GetFieldValue( offset_ptr++ ) / 1e6;
+   var current_cell_id  = Fields.GetFieldValue( offset_ptr++ );
+   var reserved         = Fields.GetFieldValue( offset_ptr++ );
+   var priority         = Fields.GetFieldValue( offset_ptr++ );
+   var uts_id_present   = Fields.GetFieldValue( offset_ptr++);
+   var meas_type        = Fields.GetFieldValueText( offset_ptr++ );
+   var reserved1        = Fields.GetFieldValue( offset_ptr++ );
+
+   DebugMessageLog( "Processing MeasInfo" );
+
+   if( !uts_id_present )
+   {
+      uts_id = "UTS ID not present";
+   }
+
+   return( offset_ptr - Offset );
+}
+
+function ProcessPhyParams( Item, Offset )
+{
+   var Fields = Item.GetItemFields();
+
+   var offset_ptr = Offset;
+
+   var id               = Fields.GetFieldValue( offset_ptr++ );
+   var ver              = Fields.GetFieldValue( offset_ptr++ );
+   var tech             = Fields.GetFieldValue( offset_ptr++ );
+   var size             = Fields.GetFieldValue( offset_ptr++ );
+
+   var bw               = Fields.GetFieldValueText( offset_ptr++ );
+   var mode             = Fields.GetFieldValueText( offset_ptr++ );
+   var guard            = Fields.GetFieldValueText( offset_ptr++ );
+   var constellation    = Fields.GetFieldValueText( offset_ptr++ );
+   var interleaver      = Fields.GetFieldValueText( offset_ptr++ );
+   var hierarchy        = Fields.GetFieldValueText( offset_ptr++ );
+   var hierarchy_prio   = Fields.GetFieldValueText( offset_ptr++ );
+   var code_rate        = Fields.GetFieldValueText( offset_ptr++ );
+   var time_slicing     = Fields.GetFieldValueText( offset_ptr++ );
+   var mpe_fec          = Fields.GetFieldValueText( offset_ptr++ );
+
+   status_fft_mode.innerText   = mode;
+   status_guard.innerText      = guard;
+   status_modulation.innerText = constellation;
+   status_code_rate.innerText  = code_rate;
+
+   return( offset_ptr - Offset );
+}
+
+function DebugMessageEvent( str )
+{
+   if(debug)
+   {
+      event_dbg.innerText = str;
+   }
+}
+
+function DebugMessageCmd( str )
+{
+   if( debug )
+   {
+      cmd_txt.innerText = str;
+   }
+}
+
+function DebugMessageL1State( str )
+{
+   if( debug )
+   {
+      l1_state_txt.innerText = str;
+   }
+}
+
+function DebugMessageL3State( str )
+{
+   if( debug )
+   {
+      l3_state_txt.innerText = str;
+   }
+}
+
+function DebugMessageLog( str )
+{
+   if( debug )
+   {
+      log_dbg.innerText = str;
+   }
+}
+
+function DebugMessageSubsysRequest( str )
+{
+   if( debug )
+   {
+      subsys_request_dbg.innerText = str;
+   }
+}
+
+function DebugMessageSubsysResponse( str )
+{
+   if( debug )
+   {
+      subsys_response_dbg.innerText = str;
+   }
+}
+
+function DebugMessageProcessItems( str )
+{
+   if( debug )
+   {
+      ProcessItemsDbg.innerText = str;
+   }
+}
+
+function DebugMessageError( str )
+{
+   if( debug )
+   {
+    error_txt.innerText = str;
+   }
+}
+
+function DebugMessageDebug( str )
+{
+   if( debug )
+   {
+      debug_txt.innerText = str;
+   }
+}
+
+</script>
+</body>
+</html>

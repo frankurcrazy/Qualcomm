@@ -1,0 +1,571 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+
+<head>
+   <title>WCDMA HSDPA Physical Channels</title>
+   <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+   <meta name="DMViewName" content="WCDMA HSDPA Physical Channels">
+   <meta name="DMViewWidth" content="725">
+   <meta name="DMViewHeight" content="425">
+   <link rel="stylesheet" href="QXDMStyle.css">
+</head>
+
+<body onunload="Unregister()" onload="Register()">
+
+<table border="0" width="100%" cellpadding="2">
+   <tr>
+      <td width="40%" valign="top" class="noborder">
+         <div class="label">HS-DSCH Configuration</div>
+         <table width="100%" id="DSCHConfigTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>HS Serving Cell PSC</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>HS Serving Cell SSC</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>H-RNTI UE ID</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>DPCH to SCCH Offset</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>HARQ Processes</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Diversity Mode</th>
+               <td>-</td>
+            </tr>
+         </table>
+         <br />
+         <div class="label">Uplink HS-DPCCH Configuration</div>
+         <table width="100%" id="DPCCHConfigTable">
+            <colgroup span="2">
+               <col width="70%" />
+               <col width="30%" />
+            </colgroup>
+            <tr>
+               <th>CQI Feedback Cycle (k)</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>CQI Repitition Factor</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Delta CQI</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Ack/Nack Repitition Factor</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Delta Ack</th>
+               <td>-</td>
+            </tr>
+            <tr>
+               <th>Delta Nack</th>
+               <td>-</td>
+            </tr>
+         </table>
+      </td>
+      <td width="60%" valign="top" class="noborder">            
+         <div class="label">HS-SCCH Configuration</div>
+         <table width="100%" id="SCCHConfigTable">
+            <colgroup span="2">
+               <col width="50% /">
+               <col width="50%" />
+            </colgroup>
+            <tr>
+               <th>SCCH</th>
+               <th>OVSF</th>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+            <tr>
+               <td>-</td>
+               <td>-</td>
+            </tr>
+         </table>
+         <br />
+         <div class="label">MAC-d Flow Mapping List</div>
+         <table width="100%>
+            <colgroup span="3">
+               <col width="34%" />
+               <col width="33%" />
+               <col width="33%" />
+            </colgroup>
+            <tr>
+               <th>MAC-d Flow ID</th>
+               <th>CCTrCH ID</th>
+               <th>Queue ID List</th>
+            </tr>
+            <tbody id="MACdFlowTable">
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table> 
+         <br />      
+         <div class="label">Reordering Queue Parameters</div>
+         <table width="100%">
+            <colgroup span="4">
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+               <col width="25%" />
+            </colgroup>
+            <tr>
+               <th>Queue ID</th>
+               <th>Receive Window Size</th>
+               <th>Reordering Release Timer</th>
+               <th>MAC-d PDU Sizes</th>
+            </tr>
+            <tbody id="ReorderingQueueTable">            
+               <tr>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+</table>
+   
+<script type="text/jscript" src="HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 1000;
+var PrevIndex      = -1;
+
+// Register with IQXDM2 interface
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+         
+   // Configure items
+   clientObject.AddLog( 0x4200 );
+   clientObject.AddLog( 0x4201 );
+   clientObject.AddLog( 0x4210 );
+
+   clientObject.CommitConfig();
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+}
+
+// Process new items in our client view
+function ProcessItems()
+{
+   var HSDPAConfig = "[0x4200]";
+   var BetaGainTable = "[0x4201]";
+   var MACConfig = "[0x4210]";
+
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = PrevIndex + 1; i <= CurrIndex; i++)
+   {
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item == null)
+      {
+         continue;
+      }
+      
+      var ItemFields = Item.GetItemFields();
+      if (ItemFields == null)
+      {
+         continue;
+      }            
+
+      var ItemKey = Item.GetItemKeyText();
+      switch (ItemKey)
+      {              
+         case HSDPAConfig:
+            PopulateHSDPAConfigTables( ItemFields );
+            break;
+         
+         case BetaGainTable:
+            PopulateBetaGainTableFields( ItemFields );
+            break;
+         
+         case MACConfig:        
+            PopulateMACConfigTable( ItemFields );
+            break;
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+// Populate the tables that use the HSDPA Configuration log (0x4200)
+function PopulateHSDPAConfigTables( Fields )
+{
+   var HSDPAInfoTable = 1;
+   var DLChannelConfigDB = 2;
+   var FingerConfigCommandSentTime = 3;
+   var DPCCHChannelConfigDB = 4;
+   
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 6)
+   {
+      return;
+   }
+
+   // Initialize DSCH Configuration table fields
+   var ServingCellPSC = "-";
+   var ServingCellSSC = "-";
+   var HRNTI = "-";
+   var DPCHtoSCCHOffset = "-";
+   var HARQProcessesCount = "-";
+   var DiversityMode = "-";
+
+   // Initialize DPCCH Configuration table fields
+   var CQIFeedbackCycle = "-";
+   var CQIRepititionFactor = "-";
+   var AckNackRepititionFactor = "-";
+
+   // Process up to 16 Entry array structures (Entry[n].Info Type)
+   for (var f = 0; f < 16; f++)
+   {
+      // Identify the configuration type
+      var InfoTypeName = "Entry[" + f + "].Info Type";
+      var FieldIndex = Fields.GetFieldIndex( InfoTypeName, 1 );
+      if (FieldIndex == 0xFFFFFFFF)
+      {
+         // All finished with this log
+         return;
+      }
+      
+      var InfoType = Fields.GetFieldValue( FieldIndex );
+
+      // Get DL HS Channel Config fields
+      if (InfoType == DLChannelConfigDB)
+      {
+         var Action = Fields.GetFieldValue( FieldIndex + 1 );         
+         if (Action == 1)
+         {
+            ServingCellPSC = Fields.GetFieldValue( FieldIndex + 8 );
+            DPCHtoSCCHOffset = Fields.GetFieldValue( FieldIndex + 10 );
+         }
+      }
+
+      // Get the HSDPA Info table fields
+      if (InfoType == HSDPAInfoTable)
+      {
+         // Count the number of enabled HARQ processes (total of 8)
+         HARQProcessesCount = 0;         
+         for (var i = 4; i < 12; i++)
+         {
+            HARQProcessesCount += Fields.GetFieldValue( FieldIndex + i );
+         }
+         
+         HRNTI = Fields.GetFieldValueText( FieldIndex + 19 );
+         
+         // Get the SCCH Enabled states and channelization codes
+         var id = 0;;
+         var txt = "";
+         for (id = 0; id < 4; id++)
+         {
+            txt = id + 1;
+            txt += ":Disabled";
+
+            SCCHConfigTable.rows[id + 1].cells[0].innerText = txt;
+            SCCHConfigTable.rows[id + 1].cells[1].innerText = "-";
+         }
+         
+         var FieldVal;
+         var Enabled = Fields.GetFieldValue( FieldIndex + 14 );
+         if (Enabled == 1)
+         {
+            SCCHConfigTable.rows[1].cells[0].innerText = "0:Enabled";
+            
+            FieldVal = Fields.GetFieldValue( FieldIndex + 20 );
+            SCCHConfigTable.rows[1].cells[1].innerText = FieldVal;
+         }
+         
+         Enabled = Fields.GetFieldValue( FieldIndex + 15 );
+         if (Enabled == 1)
+         {
+            SCCHConfigTable.rows[2].cells[0].innerText = "1:Enabled";
+            
+            FieldVal = Fields.GetFieldValue( FieldIndex + 22 );
+            SCCHConfigTable.rows[2].cells[1].innerText = FieldVal;
+         }
+         Enabled = Fields.GetFieldValue( FieldIndex + 16 );
+         if (Enabled == 1)
+         {
+            SCCHConfigTable.rows[3].cells[0].innerText = "2:Enabled";
+            
+            FieldVal = Fields.GetFieldValue( FieldIndex + 24 );
+            SCCHConfigTable.rows[3].cells[1].innerText = FieldVal;
+         }
+         Enabled = Fields.GetFieldValue( FieldIndex + 17 );
+         if (Enabled == 1)
+         {
+            SCCHConfigTable.rows[4].cells[0].innerText = "3:Enabled";
+            
+            FieldVal = Fields.GetFieldValue( FieldIndex + 26 );
+            SCCHConfigTable.rows[4].cells[1].innerText = FieldVal;
+         }
+      }
+
+      // Get the DPCCH configuration database fields
+      if (InfoType == DPCCHChannelConfigDB)
+      {
+         var Action = Fields.GetFieldValue( FieldIndex + 1 );         
+         if (Action == 1)
+         {
+            CQIFeedbackCycle = Fields.GetFieldValue( FieldIndex + 7 );
+            CQIRepititionFactor = Fields.GetFieldValue( FieldIndex + 8 );
+            AckNackRepititionFactor = Fields.GetFieldValue( FieldIndex + 9 );
+         }
+      }
+
+      // Update the DSCH table
+      DSCHConfigTable.rows[0].cells[1].innerText = ServingCellPSC;
+      DSCHConfigTable.rows[1].cells[1].innerText = ServingCellSSC;
+      DSCHConfigTable.rows[2].cells[1].innerText = HRNTI;
+      DSCHConfigTable.rows[3].cells[1].innerText = DPCHtoSCCHOffset;
+      DSCHConfigTable.rows[4].cells[1].innerText = HARQProcessesCount;
+      DSCHConfigTable.rows[5].cells[1].innerText = DiversityMode;
+      
+      // Update the DPCCH table
+      DPCCHConfigTable.rows[0].cells[1].innerText = CQIFeedbackCycle;
+      DPCCHConfigTable.rows[1].cells[1].innerText = CQIRepititionFactor;
+      DPCCHConfigTable.rows[3].cells[1].innerText = AckNackRepititionFactor;
+   }
+}
+
+// Pick the closest matching Rhs table value
+function LookupRhs( delta )
+{
+   var RhsTable = new Array(  0.33333333,
+                              0.40000000,
+                              0.53333333,
+                              0.60000000,
+                              0.80000000,
+                              1.00000000,
+                              1.26666667,
+                              1.60000000,
+                              2.00000000 );
+                              
+   var dMax = RhsTable.length - 1;
+   for (var i = 0; i < dMax; i++)
+   {
+      var mid = RhsTable[i] + (RhsTable[i+1] - RhsTable[i]) / 2;
+      if (delta < mid)
+      {
+         return i;
+      }
+      next = RhsTable[i+1];
+   }
+   
+   // No need to compare last (if we got here it is Rhs 8).
+   return dMax;
+}
+
+// Populate the table fields that use the WCDMA HSDPA Beta Gain Table log (0x4201)
+function PopulateBetaGainTableFields( Fields )
+{
+   // Only process field types Ack, Nack, and CQI
+   var BGTType = Fields.GetFieldValue( 0 );
+   var Bc = Fields.GetFieldValue( 1 );
+   var Bh = Fields.GetFieldValue( 3 );
+   
+   if (Bc != 0)
+   {
+      var delta = Bh / Bc;
+   
+      if (BGTType == 1)
+      {
+         // ACK
+         var DeltaACK = LookupRhs( delta );
+         DPCCHConfigTable.rows[4].cells[1].innerText = DeltaACK;
+      }
+      else if (BGTType == 2)
+      {
+         // NACK
+         var DeltaNACK = LookupRhs( delta );
+         DPCCHConfigTable.rows[5].cells[1].innerText = DeltaNACK;
+      }
+      else if (BGTType == 3)
+      {
+         // CQI
+         var DeltaCQI = LookupRhs( delta );
+         DPCCHConfigTable.rows[2].cells[1].innerText = DeltaCQI;
+      }
+   }
+}
+
+// Populate the tables that use the WCDMA MAC HS Configuration log (0x4210)
+function PopulateMACConfigTable( Fields )
+{   
+   var FieldCount = Fields.GetFieldCount();
+   if (FieldCount < 3)
+   {
+      return;
+   }
+
+   // Identify the configuration
+   var MACdFlowCount = Fields.GetFieldValue( 2 );
+   var TotalQueues = 0;
+
+   var FieldVal;
+   var FieldIndex = 3;
+
+   var TableRow;
+   var TableCell;
+   
+   // Store the number of rows currently in the queue table
+   var CurQueueRows = ReorderingQueueTable.rows.length;
+   
+   // Remove flow rows we no longer need
+   var CurMACRows = MACdFlowTable.rows.length;
+   ManageRows( MACdFlowTable, 0, CurMACRows, MACdFlowCount, 3, true );
+
+   // Add in each flow
+   for (var i = 0; i < MACdFlowCount; i++)
+   {
+      // CCTrCh
+      FieldVal = Fields.GetFieldValue( FieldIndex++ );
+      MACdFlowTable.rows[i].cells[1].innerText = FieldVal;
+      
+      // Flow ID
+      FieldVal = Fields.GetFieldValue( FieldIndex++ );
+      MACdFlowTable.rows[i].cells[0].innerText = FieldVal;
+      
+      // Queues count for this flow (adjust running total)
+      var QueueCount = Fields.GetFieldValue( FieldIndex++ );
+     
+      // Logical channel count
+      LogicalChannelCount = Fields.GetFieldValue( FieldIndex++ );
+      var QueueIDList = "";
+
+      // Add in queues for this flow
+      for (var j = 0; j < QueueCount; j++)
+      {
+         // New row?
+         if (j >= CurQueueRows)
+         {
+            TableRow = ReorderingQueueTable.insertRow();
+            
+            TableCell = TableRow.insertCell();
+            TableCell = TableRow.insertCell();
+            TableCell = TableRow.insertCell();
+            TableCell = TableRow.insertCell();
+         }
+
+         // Grab queue ID and add to queue list for flow
+         QueueID = Fields.GetFieldValue( FieldIndex++ );
+         QueueIDList += QueueID + " ";
+         
+         var ReleaseTimer = Fields.GetFieldValue( FieldIndex++ );
+         var WindowSize = Fields.GetFieldValue( FieldIndex++ );
+         
+         // Populate reordering queue table fields
+         ReorderingQueueTable.rows[TotalQueues + j].cells[0].innerText = QueueID;
+         ReorderingQueueTable.rows[TotalQueues + j].cells[1].innerText = WindowSize;
+         ReorderingQueueTable.rows[TotalQueues + j].cells[2].innerText = ReleaseTimer;
+
+         var PDUSizeCount = Fields.GetFieldValue( FieldIndex++ );
+         var PDUSizes = "";
+         
+         for (var k = 0; k < PDUSizeCount; k++)
+         {
+            PDUSizes += Fields.GetFieldValue( FieldIndex ) + " ";
+            
+            // Skip to next PDU stuct
+            FieldIndex += 2;
+         }
+         
+         ReorderingQueueTable.rows[TotalQueues + j].cells[3].innerText = PDUSizes;         
+      }
+      
+      // Update the running total of queues processed
+      TotalQueues += QueueCount;
+
+      MACdFlowTable.rows[i].cells[2].innerText = QueueIDList;
+   }
+   
+   // Remove queue rows we no longer need
+   DeleteExcessRows( ReorderingQueueTable, 0, CurQueueRows, TotalQueues, true );
+}
+
+</script>
+
+</body>
+</html>

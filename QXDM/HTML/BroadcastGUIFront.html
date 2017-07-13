@@ -1,0 +1,578 @@
+<head>
+	<title></title>
+	<meta content="True" name="vs_showGrid">
+	<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+	<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+	<style type="text/css"> .isdb-label { font-size: 10pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-label { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; background-color: #ffcc99; text-align: left; }
+	.isdb-table-input-label { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; background-color: #ffffcc; text-align: left; }
+	.isdb-matrix-label { font-size: 10pt; color: #000066; font-family: Arial; width: 25%; background-color: #ffcc99; text-align: left; padding-left: 5px; }
+	.isdb-table-value { font-size: 10pt; color: #000066; font-family: Arial; width: 50%; text-align: right; }
+	.isdb-matrix-value { font-size: 10pt; color: #000066; font-family: Arial; width: 25%; text-align: right; }
+	.isdb-title { font-weight: bolder; font-size: 12pt; color: #000066; font-family: Arial; text-align: left; }
+	.isdb-table-title { font-weight: bolder; font-size: 11pt; color: #000066; font-family: Arial; background-color: #ffffff; text-align: left; }
+	.isdb-button { font-weight: bolder; font-size: 10pt; color: white; font-family: Arial; background-color: navy; }
+	</style>
+</head>
+<body dir="ltr">
+	<p></p>
+	<TABLE id="Table1" style="Z-INDEX: 1000; LEFT: 1px; BACKGROUND-IMAGE: url(.\BroadcastQILogo.bmp); WIDTH: 280px; POSITION: absolute; HEIGHT: 48px"
+		cellSpacing="1" cellPadding="1" width="280" border="1">
+		<TR>
+			<TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+		</TR>
+	</TABLE>
+	<DIV language="javascript" id="phone_state" style="PADDING-LEFT: 50px; FONT-SIZE: 14pt; WIDTH: 1240px; COLOR: white; PADDING-TOP: 5px; FONT-FAMILY: Arial; HEIGHT: 48px; BACKGROUND-COLOR: #00c400; TEXT-ALIGN: center"
+		value="phone"></DIV>
+	<p></p>
+	<div style="WIDTH: 1324px; POSITION: relative; HEIGHT: 832px" ms_positioning="GridLayout">
+		<div language="javascript" id="DIV3" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; Z-INDEX: 100; LEFT: 232px; BORDER-LEFT: navy thin inset; WIDTH: 1064px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 0px; HEIGHT: 676px"
+			ms_positioning="GridLayout">&nbsp;
+			<table id="DataLayerTable" style="Z-INDEX: 101; LEFT: 736px; WIDTH: 236px; POSITION: absolute; TOP: 8px; HEIGHT: 89px"
+				cellSpacing="1" cellPadding="1" width="236" border="1">
+				<tr>
+					<td class="isdb-table-title" colSpan="2">Data Layer&nbsp;PER(%)</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 51.86%">TS</td>
+					<td class="isdb-table-value" id="ts_pkt_error_rate">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 51.86%">PES</td>
+					<td class="isdb-table-value" id="pes_pkt_error_rate">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 51.86%">Section</td>
+					<td class="isdb-table-value" id="section_pkt_error_rate">---</td>
+				</tr>
+			</table>
+			<table id="VideoParamsTable" style="Z-INDEX: 102; LEFT: 736px; WIDTH: 280px; POSITION: absolute; TOP: 104px; HEIGHT: 112px"
+				cellSpacing="1" cellPadding="1" width="280" border="1">
+				<tr>
+					<td class="isdb-table-title" colSpan="4">Video Decoder Frame Errors</td>
+				</tr>
+				<tr>
+					<td class="isdb-matrix-label" style="WIDTH: 20.81%; HEIGHT: 21px"></td>
+					<td class="isdb-matrix-label" style="WIDTH: 20.16%; HEIGHT: 21px">Overflow</td>
+					<td class="isdb-matrix-label" style="HEIGHT: 21px">Underflow</td>
+					<td class="isdb-matrix-label" style="HEIGHT: 21px">Discard</td>
+				</tr>
+				<tr>
+					<td class="isdb-matrix-label" style="WIDTH: 20.81%">Audio</td>
+					<td class="isdb-matrix-value" id="audio_overflow" style="WIDTH: 20.16%">---</td>
+					<td class="isdb-matrix-value" id="audio_underflow">---</td>
+					<td class="isdb-matrix-value" id="audio_discarded">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-matrix-label" style="WIDTH: 20.81%">Video</td>
+					<td class="isdb-matrix-value" id="video_overflow" style="WIDTH: 20.16%">---</td>
+					<td class="isdb-matrix-value" id="video_underflow">---</td>
+					<td class="isdb-matrix-value" id="video_discarded">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-matrix-label" style="WIDTH: 20.81%">Subtitles</td>
+					<td class="isdb-matrix-value" id="subtitles_overflow" style="WIDTH: 20.16%">---</td>
+					<td class="isdb-matrix-value" id="subtitles_underflow">---</td>
+					<td class="isdb-matrix-value" id="subtitles_discarded">---</td>
+				</tr>
+			</table>
+			<table id="PhyParamsTable" style="Z-INDEX: 103; LEFT: 496px; WIDTH: 232px; POSITION: absolute; TOP: 8px; HEIGHT: 328px"
+				cellSpacing="1" cellPadding="1" width="232" border="1">
+				<tr>
+					<td class="isdb-table-title" style="WIDTH: 185px" colSpan="2">Signal Quality
+					</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">RSSI [dBm]</td>
+					<td class="isdb-table-value" id="status_rssi">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">Gain State</td>
+					<td class="isdb-table-value" id="status_gain_state">---</td>
+				</tr>
+				<TR>
+					<TD class="isdb-table-label" id="ADCLevel_t" style="WIDTH: 133px">ADC Level [dBFS]</TD>
+					<TD class="isdb-table-value" id="AdcLevel">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 133px">SNR Estimation</TD>
+					<TD class="isdb-table-value" id="snr_estimation">---</TD>
+				</TR>
+				<tr>
+					<td class="isdb-table-title" style="WIDTH: 180px" colSpan="2">Viterbi Decoder</td>
+				</tr>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 133px; HEIGHT: 21px">Packets</TD>
+					<TD class="isdb-table-value" id="NumViterbiPkts" style="HEIGHT: 21px">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 133px">Pre Viterbi Bit Err</TD>
+					<TD class="isdb-table-value" id="NumPreViterbiBitErrs">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 133px">Pre Viterbi BER</TD>
+					<TD class="isdb-table-value" id="AveragePreViterbiBER">---</TD>
+				</TR>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">Viterbi BER</td>
+					<td class="isdb-table-value" id="status_avg_vber">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">Viterbi Inst. BER</td>
+					<td class="isdb-table-value" id="status_inst_vber">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-title" style="WIDTH: 180px" colSpan="2">Reed-Solomon Decoder</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">Packets</td>
+					<td class="isdb-table-value" id="status_rs1_pkt_cnt"></td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">Erroneous Pkts</td>
+					<td class="isdb-table-value" id="status_rs1_pkt_errors">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 133px">Packet Error Rate</td>
+					<td class="isdb-table-value" id="status_rs1_per">---</td>
+				</tr>
+			</table>
+			<table id="AcquisitionTable" style="Z-INDEX: 104; LEFT: 8px; WIDTH: 232px; POSITION: absolute; TOP: 312px; HEIGHT: 160px"
+				cellSpacing="1" cellPadding="1" width="232" border="1">
+				<tr>
+					<td class="isdb-table-title" colSpan="2" rowSpan="1">Transmission&nbsp;Parameters</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 49.53%">Frequency [MHz]</td>
+					<td class="isdb-table-value" id="status_frequency">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 111px; HEIGHT: 12pt">Mode</td>
+					<td class="isdb-table-value" id="status_fft_mode">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 111px">Guard</td>
+					<td class="isdb-table-value" id="status_guard">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 111px" height="15">Modulation</td>
+					<td class="isdb-table-value" id="status_modulation">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 111px" height="15">Code Rate</td>
+					<td class="isdb-table-value" id="status_code_rate">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 111px" height="15">Interleaver Length</td>
+					<td class="isdb-table-value" id="status_interleaver">---</td>
+				</tr>
+			</table>
+			<table id="ProgressTable" style="Z-INDEX: 105; LEFT: 8px; WIDTH: 232px; POSITION: absolute; TOP: 192px; HEIGHT: 120px"
+				cellSpacing="1" cellPadding="1" width="232" border="1">
+				<tr>
+					<td class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">Status</td>
+				</tr>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 45.78%; HEIGHT: 12pt">QTV State</TD>
+					<TD class="isdb-table-value" id="qtv_state">DE-ACTIVATED</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 45.78%; HEIGHT: 12pt">L3 state</TD>
+					<TD class="isdb-table-value" id="l3_state">---</TD>
+				</TR>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 45.78%; HEIGHT: 12pt">L1&nbsp;State
+					</td>
+					<td class="isdb-table-value" id="l1_state_txt_">---</td>
+				</tr>
+				<TR>
+					<TD class="isdb-table-label" id="no_signal_timer_t" style="WIDTH: 45.78%; HEIGHT: 12pt">Time 
+						to PD [Sec]</TD>
+					<TD class="isdb-table-value" id="no_signal_timer">---</TD>
+				</TR>
+			</table>
+			<table id="ESRTable" style="Z-INDEX: 106; LEFT: 496px; WIDTH: 232px; POSITION: absolute; TOP: 344px; HEIGHT: 88px"
+				cellSpacing="1" cellPadding="1" width="232" border="1">
+				<tr>
+					<td class="isdb-table-title" colSpan="2">Erroneous Second Ratio</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 60.14%">Total Seconds</td>
+					<td class="isdb-table-value" id="status_esr_total">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 60.14%; HEIGHT: 19px">Erroneous Seconds</td>
+					<td class="isdb-table-value" id="status_esr_error" style="HEIGHT: 19px">---</td>
+				</tr>
+				<tr>
+					<td class="isdb-table-label" style="WIDTH: 60.14%">ESR
+					</td>
+					<td class="isdb-table-value" id="status_esr_ratio">---</td>
+				</tr>
+			</table>
+			<TABLE language="javascript" id="DCTable" style="Z-INDEX: 107; LEFT: 248px; WIDTH: 232px; POSITION: absolute; TOP: 8px; HEIGHT: 91px"
+				cellSpacing="1" cellPadding="1" width="232" border="1">
+				<TR>
+					<TD class="isdb-table-title" style="HEIGHT: 23px" colSpan="3">DC Tracking [mV]
+					</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 28.69%; HEIGHT: 21px"></TD>
+					<TD class="isdb-matrix-label" style="WIDTH: 23.13%; HEIGHT: 21px" vAlign="middle" align="center">I</TD>
+					<TD class="isdb-matrix-label" style="HEIGHT: 21px">Q
+					</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 28.69%">Coarse DC</TD>
+					<TD class="isdb-matrix-value" id="CoarseDC_I" style="WIDTH: 23.13%">---</TD>
+					<TD class="isdb-matrix-value" id="CoarseDC_Q">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-matrix-label" style="WIDTH: 28.69%">Fine DC</TD>
+					<TD class="isdb-matrix-value" id="FineDC_I" style="WIDTH: 23.13%">---</TD>
+					<TD class="isdb-matrix-value" id="FineDC_Q">---</TD>
+				</TR>
+			</TABLE>
+			<TABLE language="javascript" id="FreqAndTimeTable" style="Z-INDEX: 109; LEFT: 496px; WIDTH: 232px; POSITION: absolute; TOP: 448px; HEIGHT: 168px"
+				cellSpacing="1" cellPadding="1" width="232" border="1">
+				<TR>
+					<TD class="isdb-table-title" colSpan="2" rowSpan="1">Frequency and Time Tracking</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 70.84%" vAlign="middle" align="center">Frequency 
+						Offset [Hz]</TD>
+					<TD class="isdb-table-value" id="freq_offset">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 159px; HEIGHT: 12pt" id="xo_freq_err_t">XO 
+						Frequency Error [ppm]</TD>
+					<TD class="isdb-table-value" id="xo_freq_err">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 159px; HEIGHT: 12pt">FAP [uSec]</TD>
+					<TD class="isdb-table-value" id="Fap">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 159px">LAP [uSec]</TD>
+					<TD class="isdb-table-value" id="Lap">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 159px" height="15">FFT Position Accum. 
+						Updates [uSec]</TD>
+					<TD class="isdb-table-value" id="adv_ret_acc">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 159px" height="15">Time Track Freeze Cnt</TD>
+					<TD class="isdb-table-value" id="time_track_freeze_cnt">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 159px" height="15">Doppler [Hz]</TD>
+					<TD class="isdb-table-value" id="doppler">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="channel_estimation_alg_" style="WIDTH: 159px" height="15">Channel 
+						Est Algorithm</TD>
+					<TD class="isdb-table-value" id="channel_estimation_alg">---</TD>
+				</TR>
+			</TABLE>
+			<TABLE id="chord_tabel" style="Z-INDEX: 111; LEFT: 248px; WIDTH: 240px; POSITION: absolute; TOP: 272px; HEIGHT: 353px"
+				cellSpacing="1" cellPadding="1" width="240" border="1">
+				<TR>
+					<TD class="isdb-table-title" colSpan="2" rowSpan="1">ChOrd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enable 
+						chord logs&nbsp; <INPUT id="chord_logs_en" onclick="gui_func.RegisterSpecificViewItems()" type="checkbox"
+							value="checked" name="ShowGainStateChanges">
+					</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 53.22%; HEIGHT: 20px" vAlign="middle" align="center"
+						colSpan="2"><STRONG><FONT color="#000099" size="3">ChOrd Status</FONT></STRONG></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 62.93%" vAlign="middle" align="center">Mixer 
+						Type</TD>
+					<TD class="isdb-table-value" id="mixer_type" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 151px; HEIGHT: 12pt">ChOrd 
+						Protection&nbsp;Active</TD>
+					<TD class="isdb-table-value" id="chord_protection_active" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 250px" colSpan="2" height="15"><STRONG><FONT color="#000099" size="3">ChOrd&nbsp;&nbsp;Protection 
+								Info</FONT></STRONG></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 151px" height="15">Concurrent Tx active</TD>
+					<TD class="isdb-table-value" id="concurrent_tx_active" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="concurrent_tx_pwr_t" style="WIDTH: 151px" height="15">Concurrent 
+						Tx Pwr
+					</TD>
+					<TD class="isdb-table-value" id="concurrent_tx_pwr" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="concurrent_tx_freq_t" style="WIDTH: 151px" height="15">Concurrent 
+						Tx&nbsp;Freq</TD>
+					<TD class="isdb-table-value" id="concurrent_tx_freq" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="ProtectionAction_t" style="WIDTH: 250px" colSpan="2"
+						height="15"><STRONG><FONT color="#000099" size="3">ChOrd Protection Action</FONT></STRONG></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="goto_jd_m2_t" style="WIDTH: 151px" height="15">go 
+						to JD mode 2
+					</TD>
+					<TD class="isdb-table-value" id="goto_jd_m2" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="enable_HRM_t" style="WIDTH: 151px" height="15">enable 
+						HRM</TD>
+					<TD class="isdb-table-value" id="enable_HRM" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 163px" colSpan="2" height="15"><STRONG><FONT color="#000099" size="3">Concurrent 
+								TX info</FONT></STRONG></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 151px" height="15">Concurrent Status</TD>
+					<TD class="isdb-table-value" id="tx_about_to_start" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="concurent_pwr_t" style="WIDTH: 151px" height="15">Concurrent 
+						Power</TD>
+					<TD class="isdb-table-value" id="concurent_pwr" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="concurent_freq_" style="WIDTH: 151px" height="15">Concurrent 
+						Freq [MHz]</TD>
+					<TD class="isdb-table-value" id="concurent_freq" align="left">NA</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="tech_mask_t" style="WIDTH: 151px" height="15">Concurrent 
+						Technology</TD>
+					<TD class="isdb-table-value" id="tech_mask" align="left">NA</TD>
+				</TR>
+			</TABLE>
+			<TABLE language="javascript" id="analog_jd_table" style="Z-INDEX: 112; LEFT: 248px; WIDTH: 244px; POSITION: absolute; TOP: 112px; HEIGHT: 153px"
+				cellSpacing="1" cellPadding="1" width="244" border="1">
+				<TR>
+					<TD class="isdb-table-title" colSpan="2" rowSpan="1">Analog JD</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 74.83%" vAlign="middle" align="center">Mode</TD>
+					<TD class="isdb-table-value" id="analog_JD_mode">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 178px; HEIGHT: 12pt">TMCC Frames In Mode</TD>
+					<TD class="isdb-table-value" id="num_ofdm_frames_in_mode">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" id="ajd_rel_cnt_t" style="WIDTH: 178px; HEIGHT: 12pt">TMCC 
+						Frames To Release</TD>
+					<TD class="isdb-table-value" id="ajd_rel_cnt">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 178px">RSSI Threshold Skip [dBm]</TD>
+					<TD class="isdb-table-value" id="Ajd_rssi_thresh_skip_detect">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 178px" height="15">RSSI Threshold Switch 
+						[dBm]</TD>
+					<TD class="isdb-table-value" id="Ajd_rssi_thresh_switch">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 178px" height="15">Acquisition Retries 
+						Left</TD>
+					<TD class="isdb-table-value" id="num_acq_retries_left">---</TD>
+				</TR>
+			</TABLE>
+			<TABLE id="Table3" style="Z-INDEX: 113; LEFT: 736px; WIDTH: 240px; POSITION: absolute; TOP: 224px; HEIGHT: 68px"
+				cellSpacing="1" cellPadding="1" border="1">
+				<TR>
+					<TD class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">QTV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enable 
+						qtv logs<INPUT id="qtv_logs_en" onclick="gui_func.RegisterSpecificViewItems()" type="checkbox"
+							value="checked" name="ShowGainStateChanges"></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 109px">Frames / Sec&nbsp;&nbsp;</TD>
+					<TD class="isdb-table-value" id="QTV_fps">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 109px">A/V Sync</TD>
+					<TD class="isdb-table-value" id="QTV_AV_Sync">---</TD>
+				</TR>
+			</TABLE>
+		</div>
+		<div language="javascript" id="DIV4" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; MARGIN-TOP: 0px; FONT-WEIGHT: bold; Z-INDEX: 102; LEFT: 0px; BORDER-LEFT: navy thin inset; WIDTH: 224px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 0px; HEIGHT: 674px"
+			ms_positioning="GridLayout">
+			<div language="javascript" class="isdb-title" id="DIV1" style="DISPLAY: inline; Z-INDEX: 100; LEFT: 8px; WIDTH: 152px; POSITION: absolute; TOP: 16px; HEIGHT: 19px"
+				ms_positioning="FlowLayout">Location:</div>
+			<input language="javascript" id="radio_select_japan" title="Japan" style="Z-INDEX: 101; LEFT: 8px; WIDTH: 32px; POSITION: absolute; TOP: 48px; HEIGHT: 20px"
+				onclick="gui_func.SelectRegion(gui_func.REGION_JAPAN)" type="radio" value="dfdsfds"
+				name="ChannelSelectRegion"> <input language="javascript" id="radio_select_brazil" title="Brazil" style="Z-INDEX: 102; LEFT: 8px; WIDTH: 32px; POSITION: absolute; TOP: 80px; HEIGHT: 20px"
+				onclick="gui_func.SelectRegion(gui_func.REGION_BRAZIL)" type="radio" value="Radio2" name="ChannelSelectRegion">
+			<div class="isdb-label" style="MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 103; LEFT: 40px; WIDTH: 70px; POSITION: absolute; TOP: 48px; HEIGHT: 20px"
+				ms_positioning="FlowLayout">Japan</div>
+			<div class="isdb-label" style="MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 104; LEFT: 40px; WIDTH: 70px; POSITION: absolute; TOP: 80px; HEIGHT: 20px"
+				ms_positioning="FlowLayout">Brazil</div>
+			<div language="javascript" class="isdb-title" id="FrequencyDIV" style="DISPLAY: inline; Z-INDEX: 105; LEFT: 8px; WIDTH: 152px; POSITION: absolute; TOP: 136px; HEIGHT: 19px"
+				ms_positioning="FlowLayout">Frequency:</div>
+			<select id="ChannelNumberSelect" style="Z-INDEX: 106; LEFT: 8px; WIDTH: 208px; POSITION: absolute; TOP: 232px"
+				name="Select1">
+				<option selected></option>
+			</select>
+			<input class="isdb-button" id="ScanButton" style="Z-INDEX: 114; LEFT: 168px; WIDTH: 48px; POSITION: absolute; TOP: 200px; HEIGHT: 24px"
+				onclick="gui_func.StartScanTest();" type="button" value="Scan" name="scan_button">
+			<input class="isdb-button" id="PowerUpButton" style="Z-INDEX: 111; LEFT: 8px; WIDTH: 96px; COLOR: white; POSITION: absolute; TOP: 488px; HEIGHT: 48px; BACKGROUND-COLOR: green"
+				onclick="gui_func.onclickPowerUpButton();" type="button" value="Power Up" name="PowerUpButton">
+			<input class="isdb-button" id="PowerDownButton" style="Z-INDEX: 108; LEFT: 8px; WIDTH: 96px; COLOR: white; POSITION: absolute; TOP: 552px; HEIGHT: 48px; BACKGROUND-COLOR: red"
+				onclick="gui_func.onclickPowerDownButton();" type="button" value="Power Down" name="PowerDownButton">
+			<input class="isdb-button" id="AcquireButton" style="Z-INDEX: 109; LEFT: 120px; WIDTH: 88px; COLOR: white; POSITION: absolute; TOP: 488px; HEIGHT: 48px; BACKGROUND-COLOR: green"
+				onclick="gui_func.onclickAcquireButton();" type="button" value="Acquire" name="AcquireButton">
+			<input class="isdb-button" id="StopDSPButton" style="Z-INDEX: 110; LEFT: 120px; WIDTH: 88px; COLOR: white; POSITION: absolute; TOP: 552px; HEIGHT: 48px; BACKGROUND-COLOR: red"
+				onclick="gui_func.onclickStopDSPButton();" type="button" value="Stop DSP" name="StopDSPButton">&nbsp;&nbsp;
+			<input class="isdb-button" id="StartTestButton" style="Z-INDEX: 107; LEFT: 8px; WIDTH: 96px; COLOR: white; POSITION: absolute; TOP: 416px; HEIGHT: 48px; BACKGROUND-COLOR: green"
+				onclick="gui_func.onclickStartTest();" type="button" value="Start" name="start_test_button">
+			<input class="isdb-button" id="StopTestButton" style="Z-INDEX: 113; LEFT: 120px; WIDTH: 88px; COLOR: white; POSITION: absolute; TOP: 416px; HEIGHT: 48px; BACKGROUND-COLOR: red"
+				onclick="gui_func.onclickStopTest();" type="button" value="Stop" name="stop_test_button">
+			<div language="javascript" class="isdb-title" id="RadiosSectionOfTestType">
+				<div language="javascript" class="isdb-title" style="DISPLAY: inline; Z-INDEX: 115; LEFT: 8px; WIDTH: 152px; POSITION: absolute; TOP: 264px; HEIGHT: 19px"
+					ms_positioning="FlowLayout">Test Type:</div>
+				<div class="isdb-label" style="MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 116; LEFT: 40px; WIDTH: 120px; POSITION: absolute; TOP: 296px; HEIGHT: 32px"
+					ms_positioning="FlowLayout">Physical Layer</div>
+				<div class="isdb-label" style="MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 117; LEFT: 40px; WIDTH: 120px; POSITION: absolute; TOP: 328px; HEIGHT: 32px"
+					ms_positioning="FlowLayout">Video Playback</div>
+				<input language="javascript" id="radio_select_phy" title="SelectPhy" style="Z-INDEX: 119; LEFT: 8px; WIDTH: 32px; POSITION: absolute; TOP: 296px; HEIGHT: 20px"
+					onclick="gui_func.SelectPhyOnly()" type="radio" CHECKED value="dfdsfds" name="TestSetupControl">
+				<input id="radio_select_video" style="Z-INDEX: 118; LEFT: 8px; WIDTH: 32px; POSITION: absolute; TOP: 328px; HEIGHT: 20px"
+					onclick="gui_func.SelectVideo()" type="radio" value="Radio2" name="TestSetupControl">
+			</div>
+			<input language="javascript" id="radio_select_all_channels" title="Japan" style="Z-INDEX: 120; LEFT: 0px; WIDTH: 32px; POSITION: absolute; TOP: 168px; HEIGHT: 20px"
+				onclick="gui_func.SelectFreqSetupType(0)" type="radio" value="dfdsfds" name="FreqSetupTypeControl">
+			<input id="radio_select_available_channels" style="Z-INDEX: 121; LEFT: 0px; WIDTH: 32px; POSITION: absolute; TOP: 200px; HEIGHT: 20px"
+				onclick="gui_func.SelectFreqSetupType(1)" type="radio" value="Radio2" name="FreqSetupTypeControl">
+			<div class="isdb-label" style="MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 122; LEFT: 32px; WIDTH: 104px; POSITION: absolute; TOP: 168px; HEIGHT: 24px"
+				ms_positioning="FlowLayout">All Channels</div>
+			<div language="javascript" class="isdb-label" id="DIV2" style="MARGIN-TOP: 2px; DISPLAY: inline; Z-INDEX: 123; LEFT: 32px; WIDTH: 128px; POSITION: absolute; TOP: 200px; HEIGHT: 24px"
+				ms_positioning="FlowLayout">Available Channels</div>
+			<INPUT class="isdb-button" id="PlayMovieButton" style="Z-INDEX: 124; LEFT: 8px; WIDTH: 96px; COLOR: white; POSITION: absolute; TOP: 416px; HEIGHT: 48px; BACKGROUND-COLOR: green"
+				onclick="gui_func.StartVideoPlayback();" type="button" value="Play Movie" name="PlayMovie">
+			<INPUT class="isdb-button" id="StopMovieButton" style="Z-INDEX: 125; LEFT: 120px; WIDTH: 88px; COLOR: white; POSITION: absolute; TOP: 416px; HEIGHT: 48px; BACKGROUND-COLOR: red"
+				onclick="gui_func.stopVideoPlayback();" type="button" value="Stop Movie" name="StopMovie">
+			<input class="isdb-button" id="ResetCountersButton" style="Z-INDEX: 113; LEFT: 32px; WIDTH: 170px; COLOR: white; POSITION: absolute; TOP: 368px; HEIGHT: 30px; BACKGROUND-COLOR: navy"
+				onclick="gui_func.onclickResetCounters();" type="button" value="Reset All Statistics"
+				name="ResetCountersButton">
+		</div>
+		<DIV language="javascript" id="UserTestsDIV" style="BORDER-RIGHT: navy thin inset; BORDER-TOP: navy thin inset; MARGIN-TOP: 0px; FONT-WEIGHT: bold; Z-INDEX: 105; LEFT: 0px; BORDER-LEFT: navy thin inset; WIDTH: 1292px; BORDER-BOTTOM: navy thin inset; POSITION: absolute; TOP: 680px; HEIGHT: 138px"
+			ms_positioning="GridLayout">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<DIV language="javascript" class="isdb-title" id="TestTypeDIV12"></DIV>
+			&nbsp; <INPUT class="isdb-button" id="StartZeroPayloadTestButton" style="Z-INDEX: 103; LEFT: 296px; WIDTH: 168px; COLOR: white; POSITION: absolute; TOP: 96px; HEIGHT: 28px; BACKGROUND-COLOR: navy"
+				onclick="gui_func.onclickStartZeroPayloadTest();" type="button" value="Start Zero Payload Test"
+				name="StartZeroPayloadTestButton">
+			<TABLE id="RecordTSIFPacketsTable" style="Z-INDEX: 102; LEFT: 8px; WIDTH: 264px; POSITION: absolute; TOP: 8px; HEIGHT: 66px"
+				cellSpacing="1" cellPadding="1" width="264" border="1">
+				<TR>
+					<TD class="isdb-table-title" colSpan="2">Record TSIF Packets</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-input-label" style="WIDTH: 56.58%; HEIGHT: 30px" bgColor="#ffffff"
+						text-align="left">Number Of Packets[KB]</TD>
+					<TD style="HEIGHT: 30px"><INPUT class="isdb-table-value" id="numOfTISFPackets" style="WIDTH: 93px; HEIGHT: 19px"
+							type="text" size="10" value="9600" name="Text1"></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-input-label" style="WIDTH: 56.58%; HEIGHT: 30px" bgColor="#ffffff">Already 
+						Recorded</TD>
+					<TD style="HEIGHT: 30px"></TD>
+				</TR>
+			</TABLE>
+			<INPUT class="isdb-button" id="StartRecordTSIFPacketsButton" style="Z-INDEX: 101; LEFT: 8px; WIDTH: 168px; COLOR: white; POSITION: absolute; TOP: 96px; HEIGHT: 28px; BACKGROUND-COLOR: navy"
+				onclick="gui_func.onclickStartRecordTSIFPackets();" type="button" value="Start Recording"
+				name="StartRecordTSIFPacketsButton">
+			<TABLE id="ZeroPayloadTestSetupTable" style="Z-INDEX: 104; LEFT: 296px; WIDTH: 228px; POSITION: absolute; TOP: 8px; HEIGHT: 80px"
+				cellSpacing="1" cellPadding="1" width="228" border="1">
+				<TR>
+					<TD class="isdb-table-title" colSpan="2">Zero Payload Test Setup</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-input-label" style="WIDTH: 56.58%; HEIGHT: 30px" bgColor="#ffffff"
+						text-align="left">Number Of Packets</TD>
+					<TD style="HEIGHT: 30px"><INPUT class="isdb-table-value" id="OneBitNumPkt" style="WIDTH: 93px; HEIGHT: 19px" type="text"
+							size="10" value="2000" name="Text1"></TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-input-label" style="WIDTH: 56.58%; HEIGHT: 19px">PID</TD>
+					<TD><INPUT class="isdb-table-value" id="OneBitPID" style="WIDTH: 93px; HEIGHT: 19px" type="text"
+							size="10" value="4096"></TD>
+				</TR>
+			</TABLE>
+			<TABLE id="ZeroPayloadTestResultTable" style="Z-INDEX: 105; LEFT: 536px; WIDTH: 216px; POSITION: absolute; TOP: 8px; HEIGHT: 89px"
+				cellSpacing="1" cellPadding="1" width="216" border="1">
+				<TR>
+					<TD class="isdb-table-title" style="HEIGHT: 21px" colSpan="2">Zero Payload Test 
+						Result</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 56.62%">Bit Errors</TD>
+					<TD class="isdb-table-value" id="ZeroPayloadOnesCount">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 56.62%; HEIGHT: 19px">Number of Packets</TD>
+					<TD class="isdb-table-value" id="ZeroPayloadGoodPacketsCount" style="HEIGHT: 19px">---</TD>
+				</TR>
+				<TR>
+					<TD class="isdb-table-label" style="WIDTH: 56.62%">VBER</TD>
+					<TD class="isdb-table-value" id="ZeroPayloadVber">---</TD>
+				</TR>
+			</TABLE>
+			<INPUT class="isdb-table-value" id="curr_num_tsif_pkt" style="Z-INDEX: 106; LEFT: 160px; WIDTH: 88px; POSITION: absolute; TOP: 72px; HEIGHT: 19px"
+				type="text" size="9" value="-" name="Text1" language="javascript">
+		</DIV>
+		<table id="VersionTable" style="Z-INDEX: 114; LEFT: 240px; WIDTH: 232px; POSITION: absolute; TOP: 8px; HEIGHT: 173px"
+			cellSpacing="1" cellPadding="1" width="232" border="1">
+			<tr>
+				<td class="isdb-table-title" colSpan="2" rowSpan="1">Versions</td>
+			</tr>
+			<TR>
+				<TD class="isdb-table-value" id="build_id" colSpan="2">------</TD>
+			</TR>
+			<tr>
+				<td class="isdb-table-label" style="WIDTH: 30.5%">Software</td>
+				<td class="isdb-table-value" id="sw_version">---</td>
+			</tr>
+			<tr>
+				<td class="isdb-table-label" style="WIDTH: 75px; HEIGHT: 12pt">Firmware</td>
+				<td class="isdb-table-value" id="fw_version">---</td>
+			</tr>
+			<tr>
+				<td class="isdb-table-label" style="WIDTH: 75px; HEIGHT: 12pt">Technology</td>
+				<td class="isdb-table-value" id="tech">---</td>
+			</tr>
+			<TR>
+				<TD class="isdb-table-label" style="WIDTH: 75px; HEIGHT: 12pt">RF Chip</TD>
+				<TD class="isdb-table-value" id="RFChipType">---</TD>
+			</TR>
+			<TR>
+				<TD class="isdb-table-label" style="WIDTH: 75px; HEIGHT: 12pt">BB Chip</TD>
+				<TD class="isdb-table-value" id="BBChipType">---</TD>
+			</TR>
+			<TR>
+				<TD class="isdb-table-label" style="WIDTH: 75px; HEIGHT: 12pt">BB Chip-sub</TD>
+				<TD class="isdb-table-value" id="GamlaChipType">---</TD>
+			</TR>
+		</table>
+	</div>
+	<embed id="sound1" src="beep.wav" width="0" height="0" enablejavascript="true" autostart="false">
+		<script type="text/jscript">
+	
+	var gui_func = 0 ; 
+	
+	function ExchangePointers(ptr2func)
+	{
+		gui_func = ptr2func ; 
+	}
+	
+		</script>
+</body>

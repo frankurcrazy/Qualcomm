@@ -1,0 +1,63 @@
+0^"OEM"^-1^1000
+1^"Zeus Runtime Executive"^-1^1000
+2^"System Determination"^-1^1000
+3^"Bluetooth"^-1^1000
+4^"WCDMA"^-1^1000
+5^"CDMA 1xEV"^-1^1000
+6^"DIABLO"^-1^1000
+7^"Test Runtime Executive"^-1^1000
+8^"GSM"^-1^1000
+9^"UMTS"^-1^1000
+10^"Hardware Test Code"^-1^1000
+11^"Factory Test Mode"^-1^1000
+12^"OS"^-1^1000
+13^"GPS"^-1^1000
+14^"Wireless Messaging Service"^-1^1000
+15^"Call Manager"^-1^1000
+16^"Handset"^-1^1000
+17^"Audio Settings"^-1^1000
+18^"Diagnostic Services"^-1^1000
+19^"File System - EFS2"^-1^1000
+20^"Port Map Settings"^-1^1000
+21^"Media Player"^-1^1000
+22^"QC Camera"^-1^1000
+23^"Mobimon Test Application"^-1^1000
+24^"Gunimon Test Application"^-1^1000
+25^"LSM"^-1^1000
+26^"QC Camcorder"^-1^1000
+27^"CDMA 1x MUX"^-1^1000
+28^"CDMA 1x Data Services"^-1^1000
+29^"CDMA 1x Searcher"^-1^1000
+30^"CDMA 1x Call Processing"^-1^1000
+31^"Applications"^-1^1000
+32^"Settings"^-1^1000
+33^"Generic SIM"^-1^1000
+34^"TMC"^-1^1000
+35^"USB"^-1^1000
+36^"Power Management"^-1^1000
+37^"Debug"^-1^1000
+38^"QTV"^-1^1000
+39^"Clock Regime"^-1^1000
+40^"Devices"^-1^1000
+41^"WLAN"^-1^1000
+42^"Data"^-1^1000
+43^"MFLO"^-1^1000
+44^"DTV"^-1^1000
+45^"WCDMA RRC"^-1^1000
+46^"Profiling"^-1^1000
+47^"TCXO Manager"^-1^1000
+48^"NV"^-1^1000
+49^"Autoconfig"^-1^1000
+50^"Subsystem Parameters"^-1^1000
+51^"MDDI"^-1^1000
+52^"DS AT Cop"^-1^1000
+53^"L4 Linux"^-1^1000
+54^"Multimedia Voice Services"^-1^1000
+55^"Compact NV"^-1^1000
+56^"API One"^-1^1000
+57^"Hardware Integration Test"^-1^1000
+58^"Digital Rights Management"^-1^1000
+59^"L1"^-1^44
+60^"L3"^-1^44
+75^"BUSES"^-1^1000
+1000^"Known Subsystem Responses"^-1^-1

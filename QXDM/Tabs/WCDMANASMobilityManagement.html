@@ -1,0 +1,793 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 strict//en" 
+"http://www.w3.org/tr/xhtml1/dtd/xhtml1-strict.dtd">
+<html>
+
+<head>
+	<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+	<meta name="DMViewName" content="WCDMA NAS Mobility Management" />
+	<meta name="DMViewWidth" content="700" />
+	<meta name="DMViewHeight" content="420" />
+	<title>WCDMA NAS Mobility Management</title>
+	<link rel="stylesheet" href="../HTML/QXDMStyle.css" />
+</head>
+	
+<body onunload="Unregister()" onload="Register()">
+<table border="0" width="100%" cellpadding="2">
+	<tr>
+	
+		<td width="50%" valign="top" class="noborder">
+	
+			<div class="label">MM State</div>
+			<table width="100%" id="MMStateTable">
+				<colgroup span="2">
+					<col width="60%" />
+					<col width="40%" />
+				</colgroup>
+				<tr>
+					<th>MM State</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>MM Ideal Substate</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>MM Update Status</th>
+					<td>-</td>
+				</tr>
+			</table>
+			
+			<br />
+			
+			<div class="label">Reg State</div>
+			<table width="100%" id="RegStateTable">
+				<colgroup span="2">
+					<col width="60%" />
+					<col width="40%" />
+				</colgroup>
+				<tr>
+					<th>Reg State</th>
+					<td>-</td>
+				</tr>
+			</table>
+			
+			<br />
+			
+			<div class="label">UE</div>
+			<table width="100%" id="UETable">
+				<colgroup span="2">
+					<col width="60%" />
+					<col width="40%" />
+				</colgroup>
+				<tr>
+					<th>NAS REG State</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>PLMN Selection Mode</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>UE Operation Mode</th>
+					<td>-</td>
+				</tr>
+			</table>
+			
+			<br />
+			
+			<div class="label">UE Dynamic ID</div>
+			<table width="100%" id="UEDynamicTable">
+				<colgroup span="2">
+					<col width="60%" />
+					<col width="40%" />
+				</colgroup>
+				<tr>
+					<th>Identity Type</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Identity</th>
+					<td>-</td>
+				</tr>
+			</table>
+			
+			<br />
+			
+			<div class="label">UE Static ID</div>
+			<table width="100%" id="UEStaticTable">
+				<colgroup span="2">
+					<col width="60%" />
+					<col width="40%" />
+				</colgroup>				
+				<tr>
+					<th>IMSI</th>
+					<td>-</td>
+				</tr>				
+				<tr>
+					<th>IMEI</th>
+					<td>-</td>
+				</tr>				
+				<tr>
+					<th>IMEI Software Version</th>
+					<td>-</td>
+				</tr>
+			</table>
+			
+		</td>
+		
+		<td width="50%" valign="top" class="noborder">
+			<div class="label">Network</div>
+			<table width="100%" id="NetworkTable">
+				<colgroup span="2">
+					<col width="65%" />
+					<col width="35%" />
+				</colgroup>
+				<tr>
+					<th>Network Operation Mode</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Service Type</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Selected MCC</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Selected MNC</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Location Area Specification</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Routing Area Identification</th>
+					<td>-</td>
+				</tr>				
+			</table>
+			<div align="right">
+				   <input type="checkbox" id="BinaryFormat" name="BinaryFormat" onclick="FormatOutput()" />Binary Format<br />
+			</div>
+			<br />
+			
+			<div class="label">Available PLMN's</div>
+			<table width="100%" id="PLMNTable">
+				<colgroup span="2">
+					<col width="50%" />
+					<col width="50%" />
+				</colgroup>
+				<tr>
+					<th>MCC</th>
+					<th>MNC</th>
+				</tr>
+				<tr>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>			
+		</td>
+		
+	</tr>	
+</table>
+	
+<script type="text/jscript" src="../HTML/HelperFunctions.js"></script>
+<script type="text/jscript">
+
+var IQXDM2;
+var Handle         = 0xFFFFFFFF;
+var gMainTickID    = 0;
+var UPDATE_MS      = 250;
+var PrevIndex      = -1;
+var gStackID = -1;
+var gbDefault = false;
+
+var gLAI           = "-";
+var gRAI           = "-";
+
+function Register()
+{
+   IQXDM2 = window.external;
+   if (IQXDM2 == null)
+   {
+      window.document.write( "<br />QXDM does not support required interface" );
+      return;
+   }
+
+   // Get query string values
+   gStackID = GetQueryStringValue( "ID" );
+   gbDefault = (GetQueryStringValue( "Default" ) == 1); //??? First tab is default for now
+   Handle = GetQueryStringValue( "Handle" ) * 1;
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }
+
+/*
+   // We start by registering as a client
+   Handle = IQXDM2.RegisterClient( "", 0 );
+   if (Handle == 0xFFFFFFFF)
+   {
+      window.document.write( "<br />Unable to register as client" );
+   }   
+   
+   // Get a configuration object
+   var clientObject = IQXDM2.ConfigureClientByKeys( Handle );
+   if (clientObject == null)
+   {
+      window.document.write("<br />Failed to get client interface pointer");
+      return;
+   }
+         
+   // Configure items   
+   clientObject.AddLog( 0x7131 );
+   clientObject.AddLog( 0x7132 );
+   clientObject.AddLog( 0x7135 );
+   clientObject.AddLog( 0x7138 );
+   clientObject.AddLog( 0x7139 );
+
+   clientObject.CommitConfig();
+*/
+   
+   // Setup the main update timer
+   gMainTickID = setInterval( 'ProcessItems()', UPDATE_MS );
+}
+
+// Clean up on unloading the page
+function Unregister()
+{
+   if (gMainTickID != 0)
+   {
+      window.clearInterval( gMainTickID );
+      gMainTickID = 0;
+   }
+
+/*
+   if (Handle != 0xFFFFFFFF)
+   {
+      IQXDM2.UnregisterClient( Handle );
+   }
+*/   
+}
+
+var Log7131 = "[0x7131]";
+var Log7132 = "[0x7132]";
+var Log7135 = "[0x7135]";
+var Log7138 = "[0x7138]";
+var Log7139 = "[0x7139]";  
+var Log7B31 = "[0x7B31]";
+var Log7B32 = "[0x7B32]";
+var Log7B35 = "[0x7B35]";
+var Log7B38 = "[0x7B38]";
+var Log7B39 = "[0x7B39]";  
+   
+// Process our client - we only update each type of log based on 
+// the last item since the user cannot discern anything faster than 
+// our update interval
+function ProcessItems()
+{    
+   var log7131 = false;
+   var log7132 = false;
+   var log7135 = false;
+   var log7138 = false;
+   var log7139 = false;   
+   
+   var CurrIndex = IQXDM2.GetClientItemCount( Handle ) - 1;
+   if (PrevIndex > CurrIndex)
+   {
+      // Reset index if it is greater than item count
+      PrevIndex = -1;
+   }
+
+   // Make sure there is an item
+   if (CurrIndex < 0)
+   {
+      return;
+   }  
+
+   for (var i = CurrIndex; i > PrevIndex; i--)
+   {   
+      var Item = IQXDM2.GetClientItem( Handle, i );
+      if (Item != null)
+      {
+         var Fields = Item.GetItemFields();
+         if (Fields != null)
+         {
+            var bOK = false;
+            var bTabs = false;
+            var ItemKey = Item.GetItemKeyText();
+            switch (ItemKey)
+            {
+               case Log7131:
+               case Log7B31:
+               {
+                  if (log7131 == false)
+                  {
+                     if (ItemKey == Log7B31)
+                     {
+                        bTabs = true;
+                     }
+                     
+                     bOK = PopulateMMStateTable( Fields, bTabs );
+                     if (bOK == true)
+                     {
+                        log7131 = true;
+                     }
+                  }
+               }
+               break; 
+               
+               case Log7132:
+               case Log7B32:
+               {
+                  if (log7132 == false)
+                  {
+                     if (ItemKey == Log7B32)
+                     {
+                        bTabs = true;
+                     }
+                  
+                     bOK = PopulateRegStateTable( Fields, bTabs );
+                     if (bOK == true)
+                     {
+                        log7132 = true;
+                     }
+                  }
+               }
+               break;
+               
+               case Log7135:
+               case Log7B35:
+               {
+                  if (log7135 == false)
+                  {
+                     if (ItemKey == Log7B35)
+                     {
+                        bTabs = true;
+                     }
+                  
+                     bOK = PopulateNetworkTable( Fields, bTabs );
+                     if (bOK == true)
+                     {
+                        log7135 = true;
+                     }
+                  }
+               }
+               break;
+               
+               case Log7138:
+               case Log7B38:
+               {
+                  if (log7138 == false)
+                  {
+                     if (ItemKey == Log7B38)
+                     {
+                        bTabs = true;
+                     }
+                  
+                     bOK = PopulateUEDynamicTable( Fields, bTabs );
+                     if (bOK == true)
+                     {
+                        log7138 = true;
+                     }
+                  }
+               }
+               break; 
+               
+               case Log7139:
+               case Log7B39:
+               {
+                  if (log7139 == false)
+                  {
+                     if (ItemKey == Log7B39)
+                     {
+                        bTabs = true;
+                     }
+                  
+                     bOK = PopulateUEStaticTable( Fields, bTabs );
+                     if (bOK == true)
+                     {
+                        log7139 = true;
+                     }
+                  }
+               }
+               break;
+            }
+         }
+      }
+   }
+   
+   PrevIndex = CurrIndex;
+}
+
+function PopulateMMStateTable( Fields, bTabs )
+{     
+   var bOK = false; 
+        
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+   
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return bOK;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return bOK;
+      }
+   }
+      
+   var MMState = Fields.GetFieldValueText( 0 + t );
+   MMStateTable.rows[0].cells[1].innerText = MMState;
+   
+   var MMSubState = Fields.GetFieldValueText( 1 + t );
+   MMStateTable.rows[1].cells[1].innerText = MMSubState;
+
+   var MMUpdateStatus = Fields.GetFieldValueText( 2 + t );
+   MMStateTable.rows[2].cells[1].innerText = MMUpdateStatus;
+   
+   bOK = true;
+   return bOK;
+}
+
+function PopulateRegStateTable( Fields, bTabs )
+{          
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return bOK;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return bOK;
+      }
+   }
+      
+   var RegState = Fields.GetFieldValueText( 0 + t );
+   RegStateTable.rows[0].cells[1].innerText = RegState;  
+   
+   UETable.rows[0].cells[1].innerText = RegState;  
+   
+   var SelectionMode = Fields.GetFieldValueText( 1 + t );
+   UETable.rows[1].cells[1].innerText = SelectionMode;
+   
+   var OperationMode = Fields.GetFieldValueText( 2 + t );
+   UETable.rows[2].cells[1].innerText = OperationMode;
+
+   bOK = true;
+   return bOK;
+}
+
+function PopulateNetworkTable( Fields, bTabs )
+{    
+   var bOK = false;  
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return bOK;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return bOK;
+      }
+   }
+      
+   var NetworkOpMode = Fields.GetFieldValueText( 0 + t );
+   NetworkTable.rows[0].cells[1].innerText = NetworkOpMode;
+
+   var ServiceType = Fields.GetFieldValueText( 1 + t );
+   NetworkTable.rows[1].cells[1].innerText = ServiceType;
+   
+   var Digit;
+   var MCCString = "";
+   var MNCString = "";
+            
+   for (var f = 2; f <= 4; f++)
+   {
+      Digit = FormatBCDDigit( Fields.GetFieldValue( f + t ) );
+      MCCString += Digit;
+   }
+   NetworkTable.rows[2].cells[1].innerText = MCCString;
+   
+   for (var f = 5; f <= 7; f++)
+   {
+      Digit = FormatBCDDigit( Fields.GetFieldValue( f + t ) );      
+      MNCString += Digit;
+   }
+   NetworkTable.rows[3].cells[1].innerText = MNCString;
+   
+   var LAIString = "";
+   var RAIString = "";
+            
+   for (var f = 16; f < 24; f++)
+   {
+      LAIString = Fields.GetFieldValueText( f + t ) + LAIString;
+   }
+   
+   for (var f = 8; f < 16; f++)
+   {
+      LAIString = Fields.GetFieldValueText( f + t ) + LAIString;
+   }
+   gLAI = LAIString;
+   
+   for (var f = 24; f < 32; f++)
+   {
+      RAIString = Fields.GetFieldValueText( f + t ) + RAIString;
+   }
+   gRAI = RAIString;
+   
+   FormatOutput();
+
+   var RO = 1;
+   var AvailablePLMNCount = Fields.GetFieldValue( 32 + t );
+   var CurRows = PLMNTable.rows.length;   
+   var FieldCount = Fields.GetFieldCount();
+   var bIndex = 33;
+   
+   ManageRows( PLMNTable, RO, CurRows, AvailablePLMNCount, 2, true );
+   for (var f = 0; f < AvailablePLMNCount; f++)
+   {     
+		// MCC
+		MCCString = "";
+		for (var c = bIndex; c < (bIndex + 2); c++)
+		{
+			Digit = FormatBCDDigit( Fields.GetFieldValue( c + t ) );			
+			MCCString += Digit;
+	   }   			
+		PLMNTable.rows[f + RO].cells[0].innerText = MCCString;
+		
+		// MNC's index = MCC index + 1
+		MNCString = "";	
+		for (var c = (bIndex + 3); c <= (bIndex + 2); c++)
+		{
+			Digit = FormatBCDDigit( Fields.GetFieldValue( c + t ) );			
+			MNCString += Digit;
+		}   			
+		PLMNTable.rows[f + RO].cells[1].innerText = MNCString;
+		
+		// Next Available MCC, MNC
+		bIndex += 6; 
+   }
+
+   bOK = true;
+   return bOK;
+}
+
+function PopulateUEDynamicTable( Fields, bTabs )
+{        
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return bOK;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return bOK;
+      }
+   }
+      
+   var IdentityType = Fields.GetFieldValueText( 0 + t );
+   UEDynamicTable.rows[0].cells[1].innerText = IdentityType;
+   
+   var DigitVal;
+   var IdentityString = "";   
+   for (var DataIndex = 1; DataIndex <= 8; DataIndex++)
+   {
+      DigitVal = FormatBCDDigit( Fields.GetFieldValue( DataIndex + t ) );       
+      IdentityString += DigitVal;   
+   }
+   
+   UEDynamicTable.rows[1].cells[1].innerText = IdentityString;
+
+   bOK = true;
+   return bOK;
+}
+
+function PopulateUEStaticTable( Fields, bTabs )
+{
+   var bOK = false;
+   
+   if (bTabs == false && gbDefault == false)
+   {
+      // Not default tab
+      return bOK;
+   }
+
+   var t = 0;
+   if (bTabs == true)
+   {
+      t = 1;
+      
+      if (FieldCount < 1)
+      {
+         return bOK;
+      }
+   
+      var StackID = Fields.GetFieldValue( 0 );
+      if (StackID != gStackID)
+      {
+         // Wrong stack for this tab
+         return bOK;
+      }
+   }
+      
+	var f = 0;  
+   var Digit;
+    
+   var IMSILength = Fields.GetFieldValue( 0 + t );
+
+	var IMSIString = "";
+	if (IMSILength > 0)
+	{
+		for (f = 2; f <= 16; f++)
+		{
+			if (f == 2 + IMSILength)
+			{
+				// Break apart invalid digits from valid digits
+				IMSIString += " ";
+			}		
+		
+		   Digit = FormatBCDDigit( Fields.GetFieldValue( f + t ) );		   
+			IMSIString += Digit; 
+		}
+	}
+	else
+	{
+		IMSIString = "-";
+	}
+	
+   UEStaticTable.rows[0].cells[1].innerText = IMSIString;
+   
+   var IMEILength = Fields.GetFieldValue( 17 + t );   
+   
+   var IMEIString = ""; 
+   if (IMEILength > 0)
+	{	  
+		for (f = 19; f <= 33; f++)
+		{
+		   if (f == 19 + IMEILength)
+			{
+				// Break apart invalid digits from valid digits
+				IMEIString += " ";
+			}
+			
+			Digit = FormatBCDDigit( Fields.GetFieldValue( f + t ) );		   
+			IMEIString += Digit;
+		}
+	}
+	else
+	{
+		IMEIString = "-";
+	}
+   
+   UEStaticTable.rows[1].cells[1].innerText = IMEIString;
+   
+   var IMEISWLength = Fields.GetFieldValue( 34 + t );   
+   
+   var IMEISWString = ""; 
+   if (IMEISWLength > 0)
+	{       
+		for (var f = 36; f <= 52; f++)
+		{
+			if (f == 36 + IMEISWLength)
+			{
+				// Break apart invalid digits from valid digits
+				IMEISWString += " ";
+			}
+		
+		   Digit = FormatBCDDigit( Fields.GetFieldValue( f + t ) );		   
+			IMEISWString += Digit; 
+		}
+	}
+	else
+	{
+		IMEISWString = "-";
+	}
+   
+   UEStaticTable.rows[2].cells[1].innerText = IMEISWString;
+
+   bOK = true;
+   return bOK;
+}
+
+function FormatOutput()
+{
+   if (BinaryFormat.checked == true)
+   {
+      // Binary  
+      NetworkTable.rows[4].cells[1].innerText = gLAI;
+      NetworkTable.rows[5].cells[1].innerText = gRAI;
+   }
+   else
+   {
+      // Hexadecimal
+      NetworkTable.rows[4].cells[1].innerText = BinaryToHexadecimal( gLAI );
+      NetworkTable.rows[5].cells[1].innerText = BinaryToHexadecimal( gRAI );
+   }
+}
+
+function BinaryToHexadecimal( binaryStr )
+{
+   if (binaryStr == "-")
+   { 
+      return binaryStr;
+   }
+   
+   var len = binaryStr.length;
+
+   // Hexadecimal
+   var hexVal = 0;
+   var hexStr = "";
+   for (var f = 0; f < len; f++)
+   {
+      hexVal += binaryStr.charAt( len - f - 1 ) << (f % 4);
+      
+      if (f % 4 == 3 || f == len - 1)
+      {
+         hexStr = FormatBCDDigit( hexVal ) + hexStr;
+         hexVal = 0;
+      }
+   }
+   
+   hexStr = "0x" + hexStr;
+   return hexStr;
+}
+
+</script>
+</body>
+</html>
